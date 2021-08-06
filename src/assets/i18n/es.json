@@ -1,0 +1,16 @@
+{
+    "vendedores":{
+        "lista": "Lista de vendedores",
+        "tabla":{
+            "nombre":"Nombre",
+            "email":"correo",
+            "clave":"Clave",
+            "acciones": "Acciones",
+            "editar": "Editar",
+            "mostrar": "Mostrar",
+            "buscar": "buscar vendedor",
+            "entradas": "entradas",
+            "total": "total"
+        }
+    }
+}

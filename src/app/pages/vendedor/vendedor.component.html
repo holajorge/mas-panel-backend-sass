@@ -1,0 +1,250 @@
+<div class=" header bg-zeene pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{  'vendedores.lista' | translate}}
+            </h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addVendedor(modalAdd)"> Nuevo </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+        <div class=" card">
+            <div class=" card-header">
+            <!-- <h3 class=" mb-0">Lista de Vendedores</h3> -->
+            </div>
+            <div class="dataTables_wrapper py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="datatable_length">
+                    <label> {{ 'vendedores.tabla.mostrar' | translate}}
+                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                        <option value="10" [selected]="entries == 10">10</option>
+                        <option value="25" [selected]="entries == 25">25</option>
+                        <option value="50" [selected]="entries == 50">50</option>
+                        <option value="-1" [selected]="entries == -1">All</option>
+                    </select>
+                    {{ 'vendedores.tabla.entradas' | translate}}
+                    </label>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                <div id="datatable_filter" class="dataTables_filter">
+                    <label><input type="text" class="form-control form-control-sm" placeholder="{{ 'vendedores.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                </div>
+                </div>
+            </div>
+
+            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="temp" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)">
+                <ngx-datatable-column name="Nombre">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.tabla.nombre' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Email">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.tabla.email' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Clave">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.tabla.clave' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+            
+                <ngx-datatable-column name="Acción" >
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.tabla.acciones' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <span>
+                        <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row)'><span class="fat-add"></span> {{ 'vendedores.tabla.editar' | translate}}</button>
+                        <button class="btn btn-sm btn-default" (click)='logLogin(modalLog,row)'><span class="single-copy-04"></span> {{ 'vendedores.tabla.log' | translate}}</button>
+                        </span>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+  
+<ng-template #modalLog >
+    <div class=" modal-header">    
+        <h5 class="modal-title" >{{ 'vendedores.tablalog.lista'| translate }}</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        
+        <div class="dataTables_wrapper py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="datatable_length">
+                    <label> {{ 'vendedores.tabla.mostrar' | translate }}
+                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChangeLog($event)">
+                        <option value="10" [selected]="entries == 10">10</option>
+                        <option value="25" [selected]="entries == 25">25</option>
+                        <option value="50" [selected]="entries == 50">50</option>
+                        <option value="-1" [selected]="entries == -1">All</option>
+                    </select>
+                    {{ 'vendedores.tabla.entradas' | translate}}
+                    </label>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                <div id="datatable_filter" class="dataTables_filter">
+                    <label><input type="text" class="form-control form-control-sm" placeholder="" aria-controls="datatable" (keyup)="filterTableLog($event)"/></label>
+                </div>
+                </div>
+            </div>
+
+            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entriesLog != -1 ? entries : undefined" [rows]="logRow" (activate)="onActivateLog($event)">
+                <ngx-datatable-column name="fecha">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.tablalog.fecha' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        {{ row.fecha | date:'medium' }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="coords">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span> {{ 'vendedores.tablalog.coords' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <a target="_blank" href="https://www.google.com/maps/@{{row.coords}}">{{row.coords}}</a>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+            </div>
+
+    </div>
+    <div class=" modal-footer">
+      <!-- <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="onUpdate()">Actualizar</button>  -->
+      <!-- <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button> -->
+    </div>
+
+</ng-template>
+
+
+<ng-template #modalAdd >
+    <div class=" modal-header">    
+        <h5 class="modal-title" > {{ 'vendedores.newForm.titulo' | translate}} </h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        <form [formGroup]="newFormVendedor" novalidate >
+            
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="nombre">{{  'vendedores.newForm.nombre' | translate}}  </label>
+                    <input type="text" formControlName="nombre" placeholder="{{ 'vendedores.newForm.nombre' | translate}}" name="nombre" class="form-control" id="nombre">
+                    <div class="alert  alert-danger" *ngIf="newFormVendedor.get('nombre').hasError('required') && newFormVendedor.get('nombre').touched">  
+                        {{  'vendedores.newForm.nombre' | translate}}  é obrigatório
+                    </div>  
+                </div>        
+                <div class="form-group col">
+                    <label for="email">{{ 'vendedores.newForm.email' | translate}}</label>
+                    <input type="text" formControlName="email" placeholder="{{ 'vendedores.newForm.email' | translate}}" name="email" class="form-control" id="email">
+                    <div class="alert alert-danger" *ngIf="newFormVendedor.get('email').hasError('required') && newFormVendedor.get('email').touched">  
+                        {{  'vendedores.newForm.email' | translate}} é obrigatório
+                    </div>  
+                </div>                                
+            </div>
+            <div class="form-row">    
+                <div class="form-group col">
+                    <label for="usuario">{{  'vendedores.newForm.usuario' | translate}}</label>
+                    <input type="text" formControlName="usuario" placeholder="{{ 'vendedores.newForm.usuario' | translate}}" name="usuario" class="form-control" id="usuario">
+                    <div class="alert  alert-danger" *ngIf="newFormVendedor.get('usuario').hasError('required') && newFormVendedor.get('usuario').touched">  
+                        {{  'vendedores.newForm.usuario' | translate}} é obrigatório
+                    </div>  
+                </div>
+                <div class="form-group col">
+                    <label for="clave">{{  'vendedores.newForm.clave' | translate}}</label>
+                    <input type="text" formControlName="clave" placeholder="{{ 'vendedores.newForm.clave' | translate}}" name="clave" class="form-control" id="clave">
+                    <div class="alert alert-danger" *ngIf="newFormVendedor.get('clave').hasError('required') && newFormVendedor.get('clave').touched">  
+                        {{  'vendedores.newForm.clave' | translate}} é obrigatório
+                    </div>  
+                </div>
+                <div class="form-group col-2 mt-5 ml-5">
+                    <input class="custom-control-input" formControlName="gerencia" name="gerencia" id="gerencia" type="checkbox">
+                    <label class="custom-control-label" for="gerencia">{{ 'vendedores.newForm.agencia' | translate}}</label>
+                </div>
+            </div>           
+      </form>
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-success" [disabled]='newFormVendedor.invalid' (click)="onCreateVendedor()">{{ 'vendedores.newForm.guardar' | translate}}</button> 
+      <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{  'vendedores.newForm.cancelar' | translate}}</button>
+    </div>
+
+</ng-template>
+
+
+<ng-template #modalEditVendedor >
+    <div class=" modal-header">    
+        <h5 class="modal-title" > {{ 'vendedores.updateForm.titulo' | translate}}</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        <!-- <form #addForm="ngForm" novalidate> -->
+        <form [formGroup]="addForm" novalidate >
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="nombre">{{ 'vendedores.updateForm.nombre' | translate}}</label>
+                    <input type="text" formControlName="nombre" placeholder="{{ 'vendedores.updateForm.nombre' | translate}}" name="nombre" class="form-control" id="nombre">
+                    <div class="alert  alert-danger" *ngIf="addForm.get('nombre').hasError('required') && addForm.get('nombre').touched">  
+                        {{ 'vendedores.updateForm.nombre' | translate}} é obrigatório
+                    </div>  
+                </div>        
+                <div class="form-group col">
+                    <label for="clave">{{ 'vendedores.updateForm.clave' | translate}}</label>
+                    <input type="text" formControlName="clave" placeholder="{{ 'vendedores.updateForm.clave' | translate}}" name="clave" class="form-control" id="clave">
+                    <div class="alert alert-danger" *ngIf="addForm.get('clave').hasError('required') && addForm.get('clave').touched">  
+                        {{ 'vendedores.updateForm.clave' | translate}} é obrigatório
+                    </div>  
+                </div>
+            </div>
+            <div class="form-row">    
+                <div class="form-group col">
+                    <label for="email">{{ 'vendedores.updateForm.email' | translate}}</label>
+                    <input type="text" formControlName="email" placeholder="{{ 'vendedores.updateForm.email' | translate}}" name="email" class="form-control" id="email">
+                    <div class="alert alert-danger" *ngIf="addForm.get('email').hasError('required') && addForm.get('email').touched">  
+                        {{ 'vendedores.updateForm.email' | translate}} é obrigatório
+                    </div>  
+                </div>   
+                <div class="form-group col-2 mt-5 ml-5">
+                    <input class="custom-control-input" formControlName="archivo" name="archivo"  id="archivo" type="checkbox">
+                    <label class="custom-control-label" for="archivo">Baixar  {{ 'vendedores.updateForm.archivo' | translate}} </label>
+                </div>
+                <div class="form-group col-2 mt-5 ml-5">
+                    <input class="custom-control-input" formControlName="lista" name="lista" id="lista" type="checkbox">
+                    <label class="custom-control-label" for="lista">{{ 'vendedores.updateForm.lista' | translate}}</label>
+                </div>
+
+            </div>           
+      </form>
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="onUpdate()">{{ 'vendedores.updateForm.actaulizar' | translate}}</button> 
+      <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'vendedores.updateForm.cancelar' | translate}}</button>
+    </div>
+
+</ng-template>

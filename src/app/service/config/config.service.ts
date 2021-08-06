@@ -1,0 +1,26 @@
+import { Injectable } from '@angular/core';
+import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ConfigService {
+
+  constructor(private _http:HttpClient) { }
+
+  public static API_ENDPOINT() :string{
+  
+     return "http://localhost:8000/";
+    // return "http://mas-pedidos-backend.test/";
+  }
+
+  saveConfig(data){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveConfig",data).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+}

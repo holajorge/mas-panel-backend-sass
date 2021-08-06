@@ -1,0 +1,74 @@
+<div class="bg-zeene main-content">
+    <div class=" header bg-white py-7 py-lg-4 pt-lg-4">
+      <div class=" container">
+        <div class=" header-body text-center mb-7">
+          <div class=" row justify-content-center">
+            <div class=" col-xl-5 col-lg-6 col-md-8">
+              <img
+          src="https://maspedidos.s3-us-west-2.amazonaws.com/maspedidos/zeene/zeene-b.png"
+          class="navbar-brand-img"
+          alt="..."
+        />
+            </div>
+          </div>
+          <div class=" row justify-content-center">
+            <div class=" col-xl-5 col-lg-6 col-md-8 px-5">
+              <h1 class=" text-white">{{ 'login.bienvenido' | translate}}!</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+  
+    <div class=" container mt--8 pb-5">
+      <div class=" row justify-content-center">
+        <div class=" col-lg-5 col-md-7">
+
+          <div class=" card bg-secondary border-0 mb-0">            
+            <div class=" card-body px-lg-5 py-lg-5">
+              <div class=" text-center text-muted mb-4"><small> {{ 'login.titulo' | translate}} </small></div>
+  
+              <form role="form" #loginForm="ngForm"  (ngSubmit)="login(loginForm)">
+                <div class="form-group mb-3" [ngClass]="{ focused: focus === true }" >
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" id="usuario" name="usuario" placeholder="{{ 'login.user' | translate}}" type="text" (focus)="focus = true" (blur)="focus = false" ngModel/>
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ focused: focus1 === true }">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" id="password" name="password" placeholder="{{ 'login.pass' | translate}}" type="password" (focus)="focus1 = true" (blur)="focus1 = false" ngModel/>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="button"  type="submit" class="btn btn-primary my-4">{{ 'login.ingresar' | translate}}</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+  
+          <div class=" row mt-3">
+            <div class=" col-6">
+             
+            </div>
+            <div class=" col-6 text-right">
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  

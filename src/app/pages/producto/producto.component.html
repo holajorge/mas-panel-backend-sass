@@ -1,0 +1,276 @@
+<div class=" header bg-zeene pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{  'producto.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+        <div class=" card">
+            <div class=" card-header">
+            <!-- <h3 class=" mb-0">Lista de Vendedores</h3> -->
+            </div>
+            <div class="dataTables_wrapper py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="datatable_length">
+                    <label> {{ 'producto.tabla.mostrar' | translate}}
+                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                        <option value="10" [selected]="entries == 10">10</option>
+                        <option value="25" [selected]="entries == 25">25</option>
+                        <option value="50" [selected]="entries == 50">50</option>
+                        <option value="-1" [selected]="entries == -1">All</option>
+                    </select>
+                    {{ 'producto.tabla.entradas' | translate}}
+                    </label>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                <div id="datatable_filter" class="dataTables_filter">
+                    <label><input type="text" class="form-control form-control-sm" placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                </div>
+                </div>
+            </div>
+    
+            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="rows"  (activate)="onActivate($event)">
+                
+                <ngx-datatable-column name="titulo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.titulo' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="codigo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.codigo' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="caracteristica1">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.caracteristica' | translate}} 1</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="caracteristica2">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.caracteristica' | translate}} 2</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="caracteristica3">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.caracteristica' | translate}} 3</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="precio">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.precio' | translate}} </span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="activo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'cliente.tabla.activo' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <span *ngIf="value == 1" class="fas fa-eye"> </span>
+                        <span *ngIf="value == 0"  class="fas fa-eye-slash"> </span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Acción" >
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.acciones' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <span>
+                            <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditProducto,row)' title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
+                            <button class="btn btn-sm btn-success" *ngIf="row.activo == 0" (click)='onActiveClient(row)' title="{{ 'producto.tabla.habilitar' | translate}}"><span class="fas fa-check-square"></span> </button>
+                            <button class="btn btn-sm btn-danger" *ngIf="row.activo == 1" (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}"><span class="fas fa-times-circle"></span> </button>
+                            <button class="btn btn-sm btn-info" (click)='modalFoto(modalfoto,row)' title="{{ 'producto.tabla.foto' | translate}}"><span class="fas fa-file-image"></span> </button>
+                        </span>
+                      </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalEditProducto >
+    <div class=" modal-header">    
+        <h5 class="modal-title" >Editar Producto</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body pt-0">
+        <form [formGroup]="editForm" novalidate>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label for="titulo">titulo:</label>
+                        <input type="text" formControlName="titulo" placeholder="Titulo" name="titulo" class="form-control" id="titulo">
+                         
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="codigo_producto">Codigo:</label>
+                        <input type="text" formControlName="codigo_producto" placeholder="Codigo" name="codigo_producto" class="form-control" id="codigo_producto">
+                        
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="precio">Precio:</label>
+                        <input type="text" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="stock">Stock:</label>
+                        <input type="text" formControlName="stock" placeholder="stock" name="stock" class="form-control" id="stock">
+                         
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cantidad_minima">Cantidad minima:</label>
+                        <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
+                    </div>
+                </div> 
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="stock_minimo">Stock minimo:</label>
+                        <input type="text" formControlName="stock_minimo" placeholder="stock minimo" name="stock_minimo" class="form-control" id="stock_minimo">
+                    </div>
+                </div> 
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="precio_oferta">Precio oferta:</label>
+                        <input type="text" formControlName="precio_oferta" placeholder="precio oferta" name="precio_oferta" class="form-control" id="precio_oferta">
+                    </div>
+                </div> 
+            </div>
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="caracteristica1">Caracteristica 1:</label>
+                        <input type="text" formControlName="caracteristica1" placeholder="Caracteristica 1" name="caracteristica1" class="form-control" id="caracteristica1">
+                       
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="caracteristica2">Caracteristica 2:</label>
+                        <input type="text" formControlName="caracteristica2" placeholder="Caracteristica 2" name="caracteristica2" class="form-control" id="caracteristica2">
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="caracteristica3">Caracteristica 3:</label>
+                        <input type="text" formControlName="caracteristica3" placeholder="Caracteristica 3" name="caracteristica3" class="form-control" id="caracteristica3">
+                        
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="caracteristica4">Caracteristica 4:</label>
+                        <input type="text" formControlName="caracteristica4" placeholder="Caracteristica 4" name="caracteristica4" class="form-control" id="caracteristica4">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="solapa1">Solapa 1:</label>
+                        <input type="checkbox" formControlName="solapa1" placeholder="solapa1" name="solapa1" class="form-control" id="solapa1">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="solapa2">Solapa 2:</label>
+                        <input type="checkbox" formControlName="solapa2" placeholder="solapa2" name="solapa2" class="form-control" id="solapa2">
+                    </div>
+                </div>  
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="destacado">Destacado:</label>
+                        <input type="checkbox" formControlName="destacado" placeholder="destacado" name="destacado" class="form-control" id="destacado">
+                    </div>
+                </div>
+                <!-- <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="sync">Sync:</label>
+                        <input type="checkbox" formControlName="sync" placeholder="sync" name="sync" class="form-control" id="sync">
+                    </div>
+                </div>   
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="fecha_sync">Fecha sync:</label>
+                        <input class="form-control"  name="dp" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" formControlName="fecha_sync" placeholder="yyyy-mm-dd"  id="fecha_sync">
+                    </div>
+                </div> -->
+            </div>
+            <div class="row">
+                
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion:</label>
+                        <textarea formControlName="descripcion"  name="descripcion" id="" cols="50" rows="5" class="form-control"></textarea>
+                        <!-- <input type="text" formControlName="descripcion" placeholder="descripcion" name="descripcion" class="form-control" id="descripcion"> -->
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateProduct()" >Actualizar</button> 
+      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibilityIn" (click)="insertProduct()" >Guardar</button> 
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+
+</ng-template>
+
+<ng-template #modalfoto >
+    <div class=" modal-header">    
+        <h5 class="modal-title" >Grid de fotos</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        
+        <div class="card-group">
+            <div class="card">
+              <img class="card-img-top" src="..." alt="Card image cap">
+            </div>            
+        </div>
+    </div>
+        
+    <div class=" modal-footer">
+      <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+
+</ng-template>

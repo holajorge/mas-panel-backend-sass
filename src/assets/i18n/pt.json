@@ -1,0 +1,153 @@
+{
+    "config": {
+        "titulo" : "Configuración Generales"
+    },
+    "banners": {
+        "titulo": "configurações de banner",
+        "header": "seleção de arquivo cabeçalho",
+        "footer": "seleção de arquivo rodapé",
+        "swal": "seleção de arquivo swal"
+    },
+    "producto": {
+        "titulo":"Lista Producto",
+        "tabla":{
+            "codigo":"Codigo",
+            "titulo":"Titulo",
+            "caracteristica":"Característica",
+            "precio":"preço",
+            "activo": "ativo",
+            "acciones": "Ações",
+            "editar": "Editar",
+            "mostrar": "mostrar",
+            "buscar": "procurar producto",
+            "entradas": "ingressos",
+            "total": "total", 
+            "habilitar": "habilitar",
+            "deshabilitar": "deshabilitar",
+            "foto": "Foto"
+        },
+        "importar":{
+            "titulo":"importar arquivo",
+            "select": "Selecione o arquivo",
+            "labelselect": "Selecione"
+        }
+    },
+    "vendedores":{
+        "lista": "Lista de vendedores",
+        "tabla":{
+            "nombre":"Nome",
+            "email":"Email",
+            "clave":"Chave",
+            "acciones": "Ações",
+            "editar": "Editar",
+            "mostrar": "mostrar",
+            "buscar": "procurar vendedor",
+            "entradas": "ingressos",
+            "total": "total",
+            "log": "Log"
+        },
+        "tablalog":{
+            "lista": "Lista registros",
+            "fecha":  "data",
+            "coords": "coords"
+        },
+        "newForm":{
+            "titulo": "agregar vendedor",
+            "nombre": "Nome",
+            "email": "correspondência",
+            "usuario": "Nome do usuário",
+            "clave": "Código chave",
+            "agencia": "agência",
+            "guardar": "Salve",
+            "cancelar": "cancelar"
+        },
+        "updateForm":{
+            "titulo": "agregar vendedor",
+            "nombre": "Nome",
+            "email": "correspondência",
+            "usuario": "Nome do usuário",
+            "clave": "Código chave",
+            "lista": "lista produtos",
+            "archivo": "Arquivo",
+            "guardar": "Salve",
+            "actaulizar": "atualizar",
+            "cancelar": "cancelar"
+        },
+        "importar":{
+            "titulo":"importar Vendedor",
+            "select": "Selecione o arquivo",
+            "labelselect": "Selecione"
+        }
+        
+    },
+    "login":{
+        "bienvenido": "Bem-vindo",
+        "titulo": "Iniciar Sessão",
+        "user": "Nome do usuário",
+        "pass": "senha",
+        "ingresar":"Entrar",
+        "reset": "Esqueceu a senha?",
+        "nueva": "Criar nova conta"
+
+    },
+    "pedidos":{
+        "titulo": "Lista de Pedidos",
+        "tabla":{
+            "nombre":"Nome",
+            "email":"Email",
+            "clave":"Chave",
+            "acciones": "Ações",
+            "detalle": "detalhe",
+            "editar": "Editar",
+            "mostrar": "mostrar",
+            "buscar": "pesquisar pedido",
+            "entradas": "cadastros",
+            "total": "total",
+            "fecha": "data",
+            "cometario": "comentário",
+            "nocliente":"Nro Cliente",
+            "status": "Status",
+            "add": "Comente"
+        },
+        "tabladetalle":{
+            "titulo":"Titulo",
+            "codigo":"código",
+            "precio":"preço",
+            "precio_negociado":"preço negociado",
+            "acciones": "Ações",
+            "cantidad": "Quantidade",
+            "editar": "Editar",
+            "mostrar": "mostrar",
+            "buscar": "pesquisar pedido",
+            "entradas": "cadastros",
+            "status": "Status"
+        }
+    },
+    "cliente":{
+        "titulo": "Lista de Clientes",
+        "importar":{
+            "titulo":"importar arquivo",
+            "select": "Selecione o arquivo",
+            "labelselect": "Selecione"
+        },
+        "tabla":{
+            "nombre":"Nome",
+            "email":"Email",
+            "clave":"Chave",
+            "activo": "ativo",
+            "usuario": "Nome do usuário",
+            "acciones": "Ações",
+            "detalle": "detalhe",
+            "editar": "Editar",
+            "mostrar": "mostrar",
+            "buscar": "procurar cliente",
+            "entradas": "ingressos",
+            "total": "total",
+            "fecha": "data",
+            "cometario": "comentário",
+            "nocliente":"Nro Cliente",
+            "status": "status",
+            "add": "Comente"
+        }
+    }
+}

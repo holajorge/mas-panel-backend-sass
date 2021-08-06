@@ -1,0 +1,200 @@
+<div class=" header bg-zeene pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{  'pedidos.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)"> Nuevo </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+        <div class=" card">
+            <div class=" card-header">
+            <!-- <h3 class=" mb-0">Lista de Vendedores</h3> -->
+            </div>
+            <div class="dataTables_wrapper py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="datatable_length">
+                    <label> {{ 'pedidos.tabla.mostrar' | translate}}
+                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                        <option value="10" [selected]="entries == 10">10</option>
+                        <option value="25" [selected]="entries == 25">25</option>
+                        <option value="50" [selected]="entries == 50">50</option>
+                        <option value="-1" [selected]="entries == -1">All</option>
+                    </select>
+                    {{ 'pedidos.tabla.entradas' | translate}}
+                    </label>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                <div id="datatable_filter" class="dataTables_filter">
+                    <label><input type="text" class="form-control form-control-sm" placeholder="{{ 'pedidos.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                </div>
+                </div>
+            </div>
+    
+            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="temp" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)">
+                <ngx-datatable-column name="id">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>ID</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="fecha">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'pedidos.tabla.fecha' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="nro_cliente">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'pedidos.tabla.nocliente' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="nombre">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'pedidos.tabla.nombre' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="estado">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'pedidos.tabla.status' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        
+                          <!-- <span > orçamento</span> -->
+                          <span *ngIf="value == 0"> orçamento </span>
+                          <span *ngIf="value != 0"> {{ value }} </span>
+                        
+                      </ng-template>
+                </ngx-datatable-column>
+               
+                <ngx-datatable-column name="Acción" >
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'pedidos.tabla.acciones' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <span>
+                            <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
+                            <button class="btn btn-sm btn-success" (click)='onaddComente(modalComent,row)' title="comentar"><span class="fab fa-adn"></span> </button>
+                        </span>
+                      </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+    <ng-template #modalEditVendedor >
+        <div class=" modal-header">    
+            <h5 class="modal-title" >Detalle del Pedido</h5>
+            <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+                <span aria-hidden="true"> × </span>
+            </button>
+        </div>
+        <div class=" modal-body  pt-0">
+            
+            <div class="dataTables_wrapper py-4">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                        <label> {{ 'pedidos.tabla.mostrar' | translate}}
+                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChangeDet($event)">
+                            <option value="10" [selected]="entries == 10">10</option>
+                            <option value="25" [selected]="entries == 25">25</option>
+                            <option value="50" [selected]="entries == 50">50</option>
+                            <option value="-1" [selected]="entries == -1">All</option>
+                        </select>
+                        {{ 'pedidos.tabla.entradas' | translate}}
+                        </label>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                    <div id="datatable_filter" class="dataTables_filter">
+                        <label><input type="text" class="form-control form-control-sm" placeholder="{{ 'pedidos.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTableDet($event)"/></label>
+                    </div>
+                    </div>
+                </div>
+        
+                <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entriesDet != -1 ? entries : undefined" [rows]="detalleRow" (activate)="onActivateDet($event)">
+                    <ngx-datatable-column name="titulo">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.titulo' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="codigo">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.codigo' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column prop="precio_real">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.precio_negociado' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column prop="precio">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.precio' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="cantidad">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.cantidad' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                   
+                    <!-- <ngx-datatable-column name="Acción" >
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabla.acciones' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <span>
+                              <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row.detalle)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
+                            </span>
+                          </ng-template>
+                    </ngx-datatable-column> -->
+                </ngx-datatable>
+                </div>
+
+        </div>
+        <div class=" modal-footer">
+          <!-- <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="onUpdate()">Actualizar</button>  -->
+          <!-- <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button> -->
+        </div>
+    
+    </ng-template>
+
+
+    <ng-template #modalComent >
+        <div class=" modal-header">    
+            <h5 class="modal-title" >Agregar Comentario</h5>
+            <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+                <span aria-hidden="true"> × </span>
+            </button>
+        </div>
+        <div class=" modal-body  pt-0">
+            
+            <form [formGroup]="addForm" novalidate>
+                <textarea class="form-control" formControlName="comentario" id="comentario" rows="3" placeholder="Comentar aqui"></textarea>
+                <div class="alert  alert-danger" *ngIf="addForm.get('comentario').hasError('required') && addForm.get('comentario').touched">  
+                    comentario es requerido
+                  </div>
+            </form>
+
+        </div>
+        <div class=" modal-footer">
+          <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="guardarComentarioPedido()">Guardar</button> 
+          <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+        </div>
+    
+    </ng-template>

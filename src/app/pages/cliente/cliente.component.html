@@ -1,0 +1,298 @@
+<div class=" header bg-zeene pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{  'cliente.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+        <div class=" card">
+            <div class=" card-header">
+                
+            </div>
+            <div class="dataTables_wrapper py-4">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                        <label> {{ 'cliente.tabla.mostrar' | translate}}
+                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                            <option value="10" [selected]="entries == 10">10</option>
+                            <option value="25" [selected]="entries == 25">25</option>
+                            <option value="50" [selected]="entries == 50">50</option>
+                            <option value="-1" [selected]="entries == -1">All</option>
+                        </select>
+                        {{ 'cliente.tabla.entradas' | translate}}
+                        </label>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div id="datatable_filter" class="dataTables_filter">
+                            <label><input type="text" class="form-control form-control-sm" placeholder="{{ 'cliente.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                        </div>
+                    </div>
+                </div>
+    
+                <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="temp" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)">
+                    <ngx-datatable-column name="nrocliente">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Nro cliente</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="nombre">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.tabla.nombre' | translate}}</span>
+                        </ng-template>email
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="email">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.tabla.email' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="usuario">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.tabla.usuario' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="clave">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.tabla.clave' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="activo">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.tabla.activo' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <span *ngIf="value == 1" class="fas fa-user-tie"> </span>
+                            <span *ngIf="value == 0"  class="fas fa-user-slash"> </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Acción" >
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.tabla.acciones' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <span>
+                                <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEdit,row)' title="{{ 'cliente.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span>  </button>
+                                <button *ngIf="row.activo == 1" class="btn btn-sm btn-danger" (click)='onDisableActive(row)' title="Deshabilitar"><span class="fas fa-user-slash"></span> </button>
+                                <button *ngIf="row.activo == 0" class="btn btn-sm btn-success" (click)='onActiveClient(row)' title="Habilitar"><span class="fas fa-user-tie"></span> </button>
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalAdd >
+    <div class="modal-header">    
+        <h5 class="modal-title" >Nuevo Cliente</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    <div class="modal-body pt-0">
+        <form [formGroup]="addFormNew" novalidate>
+            <div class="row">
+                
+
+                <div class="col-md-4">
+                    
+                    <div class="form-group">
+                        <label for="nrocliente">N Cliente:</label>
+                        <input type="text" formControlName="nrocliente" placeholder="Nro cliente" name="nrocliente" class="form-control" id="nrocliente">
+                        <div class="alert  alert-danger" *ngIf="addFormNew.get('nrocliente').hasError('required') && addFormNew.get('nrocliente').touched">  
+                            Nro Cliente es requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" formControlName="nombre" placeholder="nombre" name="nombre" class="form-control" id="nombre">
+                        <div class="alert  alert-danger" *ngIf="addFormNew.get('nombre').hasError('required') && addFormNew.get('nombre').touched">  
+                            Nombre es requerido
+                        </div>  
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+                        <div class="alert  alert-danger" *ngIf="addFormNew.get('email').hasError('required') && addFormNew.get('email').touched">  
+                            Email Cliente es requerido
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usuario">usuario:</label>
+                        <input type="text" formControlName="usuario" placeholder="Usuario" name="usuario" class="form-control" id="usuario">
+                        <div class="alert  alert-danger" *ngIf="addFormNew.get('usuario').hasError('required') && addFormNew.get('usuario').touched">  
+                            Usuario es requerido
+                        </div>  
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="clave">Clave:</label>
+                        <input type="text" formControlName="clave" placeholder="Clave" name="clave" class="form-control" id="clave">
+                        <div class="alert  alert-danger" *ngIf="addFormNew.get('clave').hasError('required') && addFormNew.get('clave').touched">  
+                            clave es requerido
+                        </div>  
+                    </div>
+                </div>
+               
+            </div>
+           
+        </form>
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-success" [disabled]='addFormNew.invalid' *ngIf="!btnvisibilityAdd" (click)="insertNewClient()">Guardar</button> 
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+
+</ng-template>
+               
+
+<ng-template #modalEdit >
+    <div class=" modal-header">    
+        <h5 class="modal-title" >Editar Cliente</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body pt-0">
+        <form [formGroup]="addForm" novalidate>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" formControlName="nombre" placeholder="Nro cliente" name="nombre" class="form-control" id="nombre">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('nombre').hasError('required') && addForm.get('nombre').touched">  
+                            Nombre es requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usuario">usuario:</label>
+                        <input type="text" formControlName="usuario" placeholder="Usuario" name="usuario" class="form-control" id="usuario">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('usuario').hasError('required') && addForm.get('usuario').touched">  
+                            Usuarioes requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('email').hasError('required') && addForm.get('email').touched">  
+                            Email Cliente es requerido
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="descuento_general">Descuento General:</label>
+                        <input type="text" formControlName="descuento_general" placeholder="Descuento General" name="descuento_general" class="form-control" id="descuento_general">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('descuento_general').hasError('required') && addForm.get('descuento_general').touched">  
+                            Descuento General es requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="cuit">Cuit:</label>
+                        <input type="text" formControlName="cuit" placeholder="cuit" name="cuit" class="form-control" id="cuit">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('cuit').hasError('required') && addForm.get('cuit').touched">  
+                            Cuit es requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="telefono">Telefono:</label>
+                        <input type="text" formControlName="telefono" placeholder="telefono" name="telefono" class="form-control" id="telefono">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('telefono').hasError('required') && addForm.get('telefono').touched">  
+                            Telefono es requerido
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="encargado_compras">Encargado Compras:</label>
+                        <input type="text" formControlName="encargado_compras" placeholder="encargado_compras" name="encargado_compras" class="form-control" id="encargado_compras">
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="encargado_pagos">encargado Pagos:</label>
+                        <input type="text" formControlName="encargado_pagos" placeholder="encargado_pagos" name="encargado_pagos" class="form-control" id="encargado_pagos">
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="coeficiente">Coeficiente:</label>
+                        <input type="text" formControlName="coeficiente" placeholder="coeficiente" name="coeficiente" class="form-control" id="coeficiente">
+                        
+                    </div>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="provincia">Provincia:</label>
+                        <input type="text" formControlName="provincia" placeholder="provincia" name="provincia" class="form-control" id="provincia">
+                       
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="localidad">Localidad:</label>
+                        <input type="text" formControlName="localidad" placeholder="localidad" name="localidad" class="form-control" id="localidad">
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="direccion">Direccion:</label>
+                        <input type="text" formControlName="direccion" placeholder="direccion" name="direccion" class="form-control" id="direccion">
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="updateCliente()">Actualizar</button> 
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+
+</ng-template>

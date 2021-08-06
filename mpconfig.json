@@ -1,0 +1,5 @@
+{
+    "bucket": "s3://panel-zeene.maspedidos.com.ar",
+    "distribution": "E174DY73SX6ERQ",
+    "dist_folder": "dist"
+}
