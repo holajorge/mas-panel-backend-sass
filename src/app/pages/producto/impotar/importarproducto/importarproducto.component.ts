@@ -19,8 +19,8 @@ export class ImportarproductoComponent implements OnInit {
   constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService) { 
 
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 
   }
@@ -45,7 +45,7 @@ export class ImportarproductoComponent implements OnInit {
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});
       }else{
-        Swal.fire('Erro al importar o arquivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar al archivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
       }
     }
     

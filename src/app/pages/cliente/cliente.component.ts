@@ -39,8 +39,8 @@ export class ClienteComponent implements OnInit {
     private modalService: BsModalService,private formBuilder: FormBuilder) { 
 
       this.translate.addLangs(['en','es','pt']);
-      this.translate.setDefaultLang('pt');
-      this.translate.use('pt');
+      this.translate.setDefaultLang('es');
+      this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');
 
       this.getClientes();
@@ -153,9 +153,9 @@ export class ClienteComponent implements OnInit {
         this.loadingIndicator = true;
         this.addForm.reset();
         this.getClientes();
-        Swal.fire('Listo!','Cliente Editardo, com sucesso!', 'success')
+        Swal.fire('Listo!','Cliente Editardo, con existo!', 'success')
       }else{
-        Swal.fire('Editar Erro, tente novamente', 'error')
+        Swal.fire('error, intente nuevamente', 'error')
 
       }
 
@@ -176,7 +176,7 @@ export class ClienteComponent implements OnInit {
         Swal.fire('Listo!','Cliente creado com sucesso!', 'success')
       }else{
 
-        Swal.fire('Upps!','Erro ao crear el nuevo cliente,tente novamente!', 'error')
+        Swal.fire('Upps!','Erro al crear el nuevo cliente,intente de nuevo!', 'error')
       }
 
     }).catch(err=>{
@@ -187,12 +187,12 @@ export class ClienteComponent implements OnInit {
   onDisableActive(row){    
     Swal.fire({
       title: 'segurdo de deshabilitar?',
-      text: "Desabilitara ao cliente!",
+      text: "Desabilitar al cliente!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'sim, Deshabilitar!',
+      confirmButtonText: 'si, Deshabilitar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
@@ -209,7 +209,7 @@ export class ClienteComponent implements OnInit {
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'sim, Habilitar!',
+      confirmButtonText: 'si, Habilitar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
@@ -223,10 +223,10 @@ export class ClienteComponent implements OnInit {
 
     this.clienteService.postDeshabilitar(this.cliente_id).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Cliente deshabilitado com sucesso!', 'success')
+        Swal.fire('Listo!','Cliente deshabilitado con exito!', 'success')
         this.getClientes();
       }else{
-        Swal.fire('Upps!','Error ao deshabilitar al cliente, tente novamente!', 'error')
+        Swal.fire('Upps!','Error al deshabilitar al cliente, tente novamente!', 'error')
       }
 
     }).catch(err=>{
@@ -238,10 +238,10 @@ export class ClienteComponent implements OnInit {
     this.cliente_id.id = cliente.nrocliente;
     this.clienteService.postHabilitar(this.cliente_id).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Cliente habilitado com sucesso!', 'success')
+        Swal.fire('Listo!','Cliente habilitado con exito!', 'success')
         this.getClientes();
       }else{
-        Swal.fire('Upps!','Erro ao habilitar ao cliente, tente novamente!', 'error')
+        Swal.fire('Upps!','Error al habilitar al cliente, intente nuevamente!', 'error')
       }
     }).catch(err=>{
       console.log(err);

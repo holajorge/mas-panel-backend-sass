@@ -18,8 +18,8 @@ export class ImportarVendedorComponent implements OnInit {
 
   constructor(public translate: TranslateService,private formBuilder: FormBuilder, private vendedorService:VendedorService) { 
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
   }
 
@@ -43,7 +43,7 @@ export class ImportarVendedorComponent implements OnInit {
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});
       }else{
-        Swal.fire('Erro al importar o arquivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Erro al importar al archivo excede el limite de tamanho permitido, intente de nuevo!', 'error')
       }
     }
     
@@ -54,7 +54,7 @@ export class ImportarVendedorComponent implements OnInit {
       if(res.response == true){
         Swal.fire('Listo!','Archivo de vededores importado con exito!', 'success')
       }else{
-        Swal.fire('Erro al importar los datos de los vededores, intente de nuevo!', 'error')
+        Swal.fire('Error al importar los datos de los vededores, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       console.log(err);

@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   focus1;
   constructor(private loginService:LoginService, private router: Router, public translate: TranslateService) { 
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
   }
 
   ngOnInit() {

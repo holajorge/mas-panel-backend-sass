@@ -50,8 +50,8 @@ export class VendedorComponent implements OnInit {
   empresa:any = {id:''};
   constructor(private router: Router,private vendedorService: VendedorService,private modalService: BsModalService,private formBuilder: FormBuilder, public translate: TranslateService) {
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
     
     if(localStorage.getItem('usuario') === null ){          
       // redirect to login 

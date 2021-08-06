@@ -54,8 +54,8 @@ export class BannerComponent implements OnInit {
     public bannerService: BannerService
   ) { 
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 
     this.uploadFormSwal = this.fb.group({
@@ -102,7 +102,7 @@ export class BannerComponent implements OnInit {
         this.file_dataHeader=formData;
         this.uploadFormHeader.patchValue({filesource: files});
       }else{
-        Swal.fire('Erro al importar o arquivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar el arquivo excede el limite de tamanho permitido, intente de nuevo!', 'error')
       }
     }
 

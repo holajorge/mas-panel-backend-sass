@@ -42,8 +42,8 @@ export class ConfiguracionesComponent implements OnInit {
   color:string="";
   constructor(public translate: TranslateService,  public fb: FormBuilder, public configService: ConfigService) { 
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
   }
 
@@ -75,7 +75,7 @@ export class ConfiguracionesComponent implements OnInit {
         this.form_dataConfig = formData;
 
       }else{
-        Swal.fire('Erro al importar o arquivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Erro al importar o archivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
       }
     }
   
@@ -93,9 +93,9 @@ export class ConfiguracionesComponent implements OnInit {
 
     this.configService.saveConfig(formData).then( (res:any) =>{    
       if(res.response.body.flag == true){
-        Swal.fire('Listo!','configuracion guardad con exito!', 'success')
+        Swal.fire('Listo!','configuracion guardada con exito!', 'success')
       }else{
-        Swal.fire('Erro al guardar, intente de nuevo!', 'error')
+        Swal.fire('Error al guardar, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       console.log(err);

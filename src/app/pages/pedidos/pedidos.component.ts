@@ -33,8 +33,8 @@ export class PedidosComponent implements OnInit {
   constructor(private pedidosService: PedidosService,public translate: TranslateService,private modalService: BsModalService,private formBuilder: FormBuilder,) {
 
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
 
     this.getPedidos();
@@ -155,11 +155,11 @@ export class PedidosComponent implements OnInit {
     this.pedidosService.getGuardarComentario(this.addForm.value).then( (res:any) =>{    
       console.log(res);
       if(res.resultado == true){
-        Swal.fire('Listo!','Comentario agregado, com sucesso!', 'success')
+        Swal.fire('Listo!','Comentario agregado, con exito!', 'success')
         this.notificationModal.hide();
         this.getPedidos();
        }else{
-        Swal.fire('Erro!','Comentario não agregado, tente novamente', 'error')
+        Swal.fire('Error!','el comento no fue guardado, tente novamente', 'error')
        }
     }).catch(err=>{
       console.log(err);

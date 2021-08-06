@@ -56,8 +56,8 @@ export class ProductoComponent implements OnInit {
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
     this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 
   }
@@ -166,9 +166,9 @@ export class ProductoComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getProductos();
-        Swal.fire('Listo!','Producto Editardo, com sucesso!', 'success')
+        Swal.fire('Listo!','Producto Editardo, con sucesso!', 'success')
       }else{
-        Swal.fire('Editar Erro, tente novamente', 'error')
+        Swal.fire('Editar Error, intente nuevamente', 'error')
 
       }
 
@@ -185,9 +185,9 @@ export class ProductoComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getProductos();
-        Swal.fire('Listo!','Producto creado, com sucesso!', 'success')
+        Swal.fire('Listo!','Producto creado, con exito!', 'success')
       }else{
-        Swal.fire('Editar Erro, tente novamente', 'error')
+        Swal.fire('Editar Erro, intente novamente', 'error')
       }
       
     }).catch(err=>{
@@ -234,10 +234,10 @@ export class ProductoComponent implements OnInit {
 
     this.productoService.productoHabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Producto habilitado com sucesso!', 'success')
+        Swal.fire('Listo!','Producto habilitado con exito!', 'success')
         this.getProductos();
       }else{
-        Swal.fire('Upps!','Erro ao habilitar ao Producto, tente novamente!', 'error')
+        Swal.fire('Upps!','Erro al habilitar al Producto, intente nuevamente!', 'error')
       }
     }).catch(err=>{
       console.log(err);
@@ -248,7 +248,7 @@ export class ProductoComponent implements OnInit {
   onDisableActive(row){    
     Swal.fire({
       title: 'segurdo de deshabilitar?',
-      text: "Desabilitara ao producto!",
+      text: "Desabilitara al producto!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -266,10 +266,10 @@ export class ProductoComponent implements OnInit {
     this.producto.id = row.id;
     this.productoService.deshabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Producto deshabilitado com sucesso!', 'success')
+        Swal.fire('Listo!','Producto deshabilitado con exito!', 'success')
         this.getProductos();
       }else{
-        Swal.fire('Upps!','Erro ao deshabilitar ao producto, tente novamente!', 'error')
+        Swal.fire('Upps!','Error al deshabilitar al producto, intente nuevamente!', 'error')
       }
     }).catch(err=>{
       console.log(err);
