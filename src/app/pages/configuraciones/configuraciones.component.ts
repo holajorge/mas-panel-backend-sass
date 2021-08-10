@@ -55,7 +55,9 @@ export class ConfiguracionesComponent implements OnInit {
       color_botones: [''],
       aprobar_usuario: [''],
       permitir_registracion: [''],
-      empresa_id:  this.empresa 
+      empresa_id:  this.empresa,
+      send_whatspp: [''],
+
     });
   }
   showPreviewHeader(event) {
@@ -90,7 +92,7 @@ export class ConfiguracionesComponent implements OnInit {
     formData.append('aprobar_user',  this.formConfig.get('aprobar_usuario').value);
     formData.append('permitir_registracion',  this.formConfig.get('permitir_registracion').value);
     formData.append('dominio',  this.formConfig.get('dominio').value);
-
+    formData.append('send_whatspp',  this.formConfig.get('send_whatspp').value);
     this.configService.saveConfig(formData).then( (res:any) =>{    
       if(res.response.body.flag == true){
         Swal.fire('Listo!','configuracion guardada con exito!', 'success')
