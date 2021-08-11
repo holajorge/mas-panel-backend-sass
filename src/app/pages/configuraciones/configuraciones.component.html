@@ -77,6 +77,14 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mr-1">
+                                    <label for="color_botones">Descripción de la Empresa</label>
+                                    <angular-editor formControlName="descripcion_empresa" [config]="config"></angular-editor>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="pt-2">
                                     <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">

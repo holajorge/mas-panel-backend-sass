@@ -4,6 +4,7 @@ import { NgbDateStruct,NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import Swal from "sweetalert2";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConfigService } from 'src/app/service/config/config.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 const I18N_VALUES = {
   'pt': {
@@ -33,21 +34,49 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   templateUrl: './configuraciones.component.html',
   styleUrls: ['./configuraciones.component.scss']
 })
-export class ConfiguracionesComponent implements OnInit {
+export class ConfiguracionesComponent {
   
   formConfig:any = [];
   empresa:any = "";
   form_dataConfig:any=[];
   form_dataConfigValue:any=[];
   color:string="";
+
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
+ 
   constructor(public translate: TranslateService,  public fb: FormBuilder, public configService: ConfigService) { 
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
-  }
-
-  ngOnInit() {
+    
     this.formConfig = this.fb.group({
       dominio: [null],
       logoo: [null],
@@ -57,8 +86,9 @@ export class ConfiguracionesComponent implements OnInit {
       permitir_registracion: [''],
       empresa_id:  this.empresa,
       send_whatspp: [''],
-
+      descripcion_empresa: [''] 
     });
+   
   }
   showPreviewHeader(event) {
     // const file = (event.target as HTMLInputElement).files[0];    
@@ -97,6 +127,7 @@ export class ConfiguracionesComponent implements OnInit {
     formData.append('permitir_registracion',  this.formConfig.get('permitir_registracion').value);
     formData.append('dominio',  this.formConfig.get('dominio').value);
     formData.append('send_whatspp',  this.formConfig.get('send_whatspp').value);
+    formData.append('descripcion_empresa',  this.formConfig.get('descripcion_empresa').value);
     this.configService.saveConfig(formData).then( (res:any) =>{    
       if(res.response.body.flag == true){
         Swal.fire('Listo!','configuracion guardada con exito!', 'success')
