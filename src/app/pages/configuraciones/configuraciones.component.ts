@@ -73,20 +73,24 @@ export class ConfiguracionesComponent implements OnInit {
 
         let formData = new FormData();
         formData.append('logo', file, file.name);
-        formData.append('empresa_id',this.formConfig.get('empresa_id').value);        
+        formData.append('empresa_id',this.formConfig.get('empresa_id').value); 
         this.form_dataConfig = formData;
 
       }else{
-        Swal.fire('Erro al importar o archivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Erro al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
   
   }
   registrarConfig(){
-    
+    console.log(this.form_dataConfig);
     // this.formConfig.patchValue({color_botones: this.color});
     let formData = new FormData();
-    formData.append('logo', this.form_dataConfig.get('logo'));
+
+    if(this.form_dataConfig.length > 0){
+      formData.append('logo', this.form_dataConfig.get('logo'));
+    }
+
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
     formData.append('color_botones',  this.color);
     formData.append('aprobar_user',  this.formConfig.get('aprobar_usuario').value);

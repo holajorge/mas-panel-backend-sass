@@ -10,6 +10,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 
+
 import { AdminComponent } from '../layouts/admin/admin.component';
 import { VendedorComponent } from './vendedor/vendedor.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
@@ -24,6 +25,9 @@ import { ImportarVendedorComponent } from './vendedor/importar-vendedor/importar
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
+imports: [
+  ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+]
 
 @NgModule({
   declarations: [
