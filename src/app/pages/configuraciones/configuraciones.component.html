@@ -22,7 +22,46 @@
                                     
                     <form [formGroup]="formConfig" novalidate >
                         <p class="text-light font-weight-normal mb-2">Ingrese las configuraciones generales.</p>
+
+                        <div class="row">        
+                            <div class="col-md-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa">Nombre de la empresa</label>
+                                    <input type="text" placeholder="nombre_empresa" formControlName="nombre_empresa"  class="form-control"> 
+                                    <div class="alert  alert-danger" *ngIf="formConfig.get('nombre_empresa').hasError('required') && formConfig.get('nombre_empresa').touched">  
+                                        Nombre Empresa es obligatorio
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group ">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" placeholder="direccion" formControlName="direccion"  class="form-control"> 
+                                </div>
+                            </div>                            
+                        </div>
                         
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="telefono">Teléfono</label>
+                                    <input type="text" placeholder="telefono" formControlName="telefono"  class="form-control"> 
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <label for="correo">Email de contacto</label>
+                                    <input type="text" placeholder="Email" formControlName="correo"  class="form-control"> 
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mr-1">
+                                    <label for="color_botones">Color Botones</label>
+                                    <input [(colorPicker)]="color" [value]="color" [(ngModel)]="color" [style.background]="color" formControlName="color_botones" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">        
                             <div class="col-md-7">
                                 <div class="form-group mr-1">
@@ -43,12 +82,6 @@
                         <div class="row">        
                             <div class="col-md-3">
                                 <div class="form-group mr-1">
-                                    <label for="color_botones">Color Botones</label>
-                                    <input [(colorPicker)]="color" [value]="color" [(ngModel)]="color" [style.background]="color" formControlName="color_botones" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group mr-1">
                                     <div class="custom-control custom-checkbox mt-4"  > 
                                         <input id="aprobar_usuario" class="custom-control-input" type="checkbox" formControlName="aprobar_usuario">
                                         <label for="aprobar_usuario" class="custom-control-label" >Aprobar Usuario</label>
@@ -56,7 +89,7 @@
                                     <!-- <label for="aprobar_usuario">Aprobar Usuario</label>
                                     <input type="checkbox" placeholder="aprobar_usuario" formControlName="aprobar_usuario"  class="form-control">  -->
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="col-md-3">
                                 <div class="form-group mr-1">
                                     <div class="custom-control custom-checkbox mt-4"  > 
@@ -67,7 +100,7 @@
                                     <input type="checkbox" placeholder="permitir_registracion" formControlName="permitir_registracion"  class="form-control">  -->
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <div class="form-group mr-1">
                                     <div class="custom-control custom-checkbox mt-4"  > 
                                         <input id="send_whatspp" class="custom-control-input" type="checkbox" formControlName="send_whatspp">

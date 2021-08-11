@@ -41,7 +41,8 @@ export class ConfiguracionesComponent {
   form_dataConfig:any=[];
   form_dataConfigValue:any=[];
   color:string="";
-
+  empresaData:any = {id: ''};
+  configuraciones:any;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -78,6 +79,12 @@ export class ConfiguracionesComponent {
     this.empresa = localStorage.getItem('usuario');
     
     this.formConfig = this.fb.group({
+
+      nombre_empresa: [null],
+      direccion: [null],
+      telefono: [null],
+      correo: [null],
+
       dominio: [null],
       logoo: [null],
       logo: [null],
@@ -88,7 +95,32 @@ export class ConfiguracionesComponent {
       send_whatspp: [''],
       descripcion_empresa: [''] 
     });
-   
+    this.empresaData.id = this.empresa;
+    this.getConfig();
+  }
+  getConfig(){
+    this.configService.getConfigEmpresa(this.empresaData).then( (res:any) =>{    
+      console.log(res.response.body['configuraciones']);
+      if(res.response.body['configuraciones'] != ""){
+        this.configuraciones = JSON.parse(res.response.body['configuraciones']);
+        this.formConfig.patchValue({
+          dominio: this.configuraciones.dominio,
+          color_botones: this.configuraciones.color_botones,
+          aprobar_usuario: this.configuraciones.aprobar_automaticamente_usuario,
+          permitir_registracion: this.configuraciones.permitir_registracion,
+          send_whatspp: this.configuraciones.pedido_whatsapp,
+          descripcion_empresa: this.configuraciones.descripcion_empresa,
+
+          nombre_empresa: this.configuraciones.nombre_empresa,
+          direccion: this.configuraciones.direccion,
+          telefono: this.configuraciones.telefono,
+          correo: this.configuraciones.correo,
+        });
+      }
+      
+    }).catch(err=>{
+      console.log(err);
+    });
   }
   showPreviewHeader(event) {
     // const file = (event.target as HTMLInputElement).files[0];    
@@ -128,6 +160,11 @@ export class ConfiguracionesComponent {
     formData.append('dominio',  this.formConfig.get('dominio').value);
     formData.append('send_whatspp',  this.formConfig.get('send_whatspp').value);
     formData.append('descripcion_empresa',  this.formConfig.get('descripcion_empresa').value);
+
+    formData.append('nombre_empresa',  this.formConfig.get('nombre_empresa').value);
+    formData.append('direccion',  this.formConfig.get('direccion').value);
+    formData.append('telefono',  this.formConfig.get('telefono').value);
+    formData.append('correo',  this.formConfig.get('correo').value);
     this.configService.saveConfig(formData).then( (res:any) =>{    
       if(res.response.body.flag == true){
         Swal.fire('Listo!','configuracion guardada con exito!', 'success')
