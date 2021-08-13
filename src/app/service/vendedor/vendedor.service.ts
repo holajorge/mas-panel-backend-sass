@@ -15,7 +15,7 @@ export class VendedorService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/getVendedores",idEmpresa,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getVendedores",idEmpresa,options).toPromise().then((res) =>{      
       return { success: true, vendedores:res};
     })
     .catch( (err) =>{
@@ -26,19 +26,19 @@ export class VendedorService {
 
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     // let body = 'user_id='+vendedor.id+'&nombre='+user.nombre+'&correo='+user.correo+'&fecha_nacimiento='+user.fecha_naciemiento;
-    return this._http.post(ConfigService.API_ENDPOINT()+'/zeene/updatevendedor', vendedor, {headers: header});
+    return this._http.post(ConfigService.API_ENDPOINT()+'/Backend/updatevendedor', vendedor, {headers: header});
 
   }
   createVendedor(vendedor){
     const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.post(ConfigService.API_ENDPOINT()+'/zeene/createVendedor', vendedor, {headers: header});
+    return this._http.post(ConfigService.API_ENDPOINT()+'/Backend/createVendedor', vendedor, {headers: header});
   }
   getLog(vendedor){
     console.log(vendedor);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/getLogVendedor",vendedor,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getLogVendedor",vendedor,options).toPromise().then((res) =>{      
       return { success: true, logs:res};
     })
     .catch( (err) =>{

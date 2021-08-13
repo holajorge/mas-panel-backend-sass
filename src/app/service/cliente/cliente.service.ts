@@ -14,7 +14,7 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/getClientes",idEmpresa,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getClientes",idEmpresa,options).toPromise().then((res) =>{      
       return { success: true, pedidos:res};
     })
     .catch( (err) =>{
@@ -26,7 +26,7 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/updateCliente",cliente,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateCliente",cliente,options).toPromise().then((res) =>{      
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -38,7 +38,7 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/insertNewCliente",newCliente,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/insertNewCliente",newCliente,options).toPromise().then((res) =>{      
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -50,7 +50,7 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/deshabilitarCliente",cliente,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshabilitarCliente",cliente,options).toPromise().then((res) =>{      
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -62,7 +62,7 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/activarCliente",cliente,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/activarCliente",cliente,options).toPromise().then((res) =>{      
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -71,7 +71,7 @@ export class ClienteService {
   }
   importClient(formdata){
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/importCliente",formdata).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importCliente",formdata).toPromise().then((res) =>{      
       return { success: true, response:res};
     })
     .catch( (err) =>{

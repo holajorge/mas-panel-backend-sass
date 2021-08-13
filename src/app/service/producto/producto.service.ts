@@ -14,7 +14,7 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/getProductos",empresa,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getProductos",empresa,options).toPromise().then((res) =>{      
       return { success: true, productos:res};
     })
     .catch( (err) =>{
@@ -26,7 +26,7 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/updateProducto",producto,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateProducto",producto,options).toPromise().then((res) =>{      
       return { success: true, productos:res};
     })
     .catch( (err) =>{
@@ -39,7 +39,7 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/createProducto",producto,options).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/createProducto",producto,options).toPromise().then((res) =>{     
       return { success: true, productos:res};
     })
     .catch( (err) =>{
@@ -52,7 +52,7 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/dehabilitarProducto",producto,options).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/dehabilitarProducto",producto,options).toPromise().then((res) =>{     
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -65,7 +65,7 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/habilitarProducto",producto,options).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/habilitarProducto",producto,options).toPromise().then((res) =>{     
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -75,7 +75,7 @@ export class ProductoService {
   }
   importProducto(filedata){
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/importProducts",filedata).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importProducts",filedata).toPromise().then((res) =>{     
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -83,6 +83,14 @@ export class ProductoService {
     });
 
 
+  }
+  importPhoto(filedata){
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importPhotoProduct",filedata).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
   }
 
 

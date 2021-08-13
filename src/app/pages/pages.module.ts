@@ -21,6 +21,7 @@ import { ProductoComponent } from './producto/producto.component';
 import { ImportarproductoComponent } from './producto/impotar/importarproducto/importarproducto.component';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { ImportarVendedorComponent } from './vendedor/importar-vendedor/importar-vendedor.component';
+import { ImportarFotosComponent } from './producto/importar-fotos/importar-fotos.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -40,7 +41,8 @@ imports: [
     ProductoComponent,
     ImportarproductoComponent,
     ConfiguracionesComponent,
-    ImportarVendedorComponent
+    ImportarVendedorComponent,
+    ImportarFotosComponent
   ],
   imports: [
     FormsModule,ReactiveFormsModule,

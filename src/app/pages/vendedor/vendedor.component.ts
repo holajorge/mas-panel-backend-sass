@@ -136,12 +136,12 @@ export class VendedorComponent implements OnInit {
     
     this.vendedorService.updateVendedor(this.addForm.value).subscribe(data => {  
       if(data == true){
-        Swal.fire('Feito!','Vendedor salvo, com sucesso!', 'success')
+        Swal.fire('guardado el vendedor, con exito!', 'success')
         this.addForm.reset();
         this.getVendedor();
         this.notificationModal.hide();
        }else{
-        Swal.fire('salvar Erro, tente novamente', 'error')
+        Swal.fire('Error, intnente de nuevo', 'error')
        }
     },  
     error => {  
@@ -200,13 +200,13 @@ export class VendedorComponent implements OnInit {
 
     this.vendedorService.createVendedor(this.newFormVendedor.value).subscribe(data => {  
       if(data == true){
-        Swal.fire('Feito!','Vendedor salvo, com sucesso!', 'success')
+        Swal.fire('guardado el vendedor, con exito!', 'success')
         this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'',clave: '', usuario:'',gerencia:'' });        
         this.getVendedor();
 
         this.notificationModal.hide();
        }else{
-        Swal.fire('salvar erro, tente novamente', 'error')
+        Swal.fire('Error, intnente de nuevo', 'error')
        }
     },  
     error => {  

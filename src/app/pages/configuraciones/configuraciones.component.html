@@ -21,21 +21,21 @@
                 <div class="card-body">
                                     
                     <form [formGroup]="formConfig" novalidate >
-                        <p class="text-light font-weight-normal mb-2">Ingrese las configuraciones generales.</p>
+                        <p class="text-light font-weight-normal mb-2">{{ 'config.subtitulo' | translate }}</p>
 
                         <div class="row">        
                             <div class="col-md-4">
                                 <div class="form-group mr-1">
-                                    <label for="nombre_empresa">Nombre de la empresa</label>
+                                    <label for="nombre_empresa">{{ 'config.formConfig.nombre' | translate }}</label>
                                     <input type="text" placeholder="nombre_empresa" formControlName="nombre_empresa"  class="form-control"> 
                                     <div class="alert  alert-danger" *ngIf="formConfig.get('nombre_empresa').hasError('required') && formConfig.get('nombre_empresa').touched">  
-                                        Nombre Empresa es obligatorio
+                                        {{ 'config.formConfig.nombre' | translate }} es obligatorio
                                     </div>  
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group ">
-                                    <label for="direccion">Dirección</label>
+                                    <label for="direccion">{{ 'config.formConfig.direccion' | translate }}</label>
                                     <input type="text" placeholder="direccion" formControlName="direccion"  class="form-control"> 
                                 </div>
                             </div>                            
@@ -44,19 +44,19 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group ">
-                                    <label for="telefono">Teléfono</label>
+                                    <label for="telefono">{{ 'config.formConfig.telefono' | translate }}</label>
                                     <input type="text" placeholder="telefono" formControlName="telefono"  class="form-control"> 
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group ">
-                                    <label for="correo">Email de contacto</label>
+                                    <label for="correo">{{ 'config.formConfig.correo' | translate }}</label>
                                     <input type="text" placeholder="Email" formControlName="correo"  class="form-control"> 
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mr-1">
-                                    <label for="color_botones">Color Botones</label>
+                                    <label for="color_botones">{{ 'config.formConfig.colorButton' | translate }}</label>
                                     <input [(colorPicker)]="color" [value]="color" [(ngModel)]="color" [style.background]="color" formControlName="color_botones" class="form-control">
                                 </div>
                             </div>
@@ -65,16 +65,16 @@
                         <div class="row">        
                             <div class="col-md-7">
                                 <div class="form-group mr-1">
-                                    <label for="nombre">Dominio</label>
-                                    <input type="text" placeholder="Dominio" formControlName="dominio"  class="form-control"> 
+                                    <label for="nombre">{{ 'config.formConfig.dominio' | translate }}</label>
+                                    <input type="text" placeholder="{{ 'config.formConfig.dominio' | translate }}" formControlName="dominio"  class="form-control"> 
                                     <div class="alert  alert-danger" *ngIf="formConfig.get('dominio').hasError('required') && formConfig.get('dominio').touched">  
-                                        Dominio es obligatorio
+                                        {{ 'config.formConfig.dominio' | translate }} es obligatorio
                                     </div>  
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group ">
-                                    <label for="logo">logo</label>
+                                    <label for="logo">{{ 'config.formConfig.logo' | translate }}</label>
                                     <input type="file" accept="image/*" placeholder="logo" (change)="showPreviewHeader($event)" formControlName="logoo"  class="form-control">                                     
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                 <div class="form-group mr-1">
                                     <div class="custom-control custom-checkbox mt-4"  > 
                                         <input id="aprobar_usuario" class="custom-control-input" type="checkbox" formControlName="aprobar_usuario">
-                                        <label for="aprobar_usuario" class="custom-control-label" >Aprobar Usuario</label>
+                                        <label for="aprobar_usuario" class="custom-control-label" >{{ 'config.formConfig.aprobarUsuario' | translate }}</label>
                                     </div>
                                     <!-- <label for="aprobar_usuario">Aprobar Usuario</label>
                                     <input type="checkbox" placeholder="aprobar_usuario" formControlName="aprobar_usuario"  class="form-control">  -->
@@ -94,7 +94,7 @@
                                 <div class="form-group mr-1">
                                     <div class="custom-control custom-checkbox mt-4"  > 
                                         <input id="permitir_registracion" class="custom-control-input" type="checkbox" formControlName="permitir_registracion">
-                                        <label for="permitir_registracion" class="custom-control-label" >Permitir Registración </label>
+                                        <label for="permitir_registracion" class="custom-control-label" >{{ 'config.formConfig.permitirRegistro' | translate }} </label>
                                     </div>
                                     <!-- <label for="permitir_registracion">Permitir Registración</label>
                                     <input type="checkbox" placeholder="permitir_registracion" formControlName="permitir_registracion"  class="form-control">  -->
@@ -104,7 +104,7 @@
                                 <div class="form-group mr-1">
                                     <div class="custom-control custom-checkbox mt-4"  > 
                                         <input id="send_whatspp" class="custom-control-input" type="checkbox" formControlName="send_whatspp">
-                                        <label for="send_whatspp" class="custom-control-label" >Enviar pedido por whatsapp al vendedor</label>
+                                        <label for="send_whatspp" class="custom-control-label" >{{ 'config.formConfig.envioWhatssap' | translate }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mr-1">
-                                    <label for="color_botones">Descripción de la Empresa</label>
+                                    <label for="color_botones">{{ 'config.formConfig.descripcionEmpresa' | translate }}</label>
                                     <angular-editor formControlName="descripcion_empresa" [config]="config"></angular-editor>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                             <div class="col-md-4">
                                 <div class="pt-2">
                                     <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
-                                        Guardar <span class=""></span>
+                                        {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
                                     </button>
                                 </div>
                             </div>

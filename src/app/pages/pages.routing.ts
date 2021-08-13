@@ -12,6 +12,7 @@ import { ProductoComponent } from './producto/producto.component';
 import { ImportarproductoComponent } from './producto/impotar/importarproducto/importarproducto.component';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { ImportarVendedorComponent } from './vendedor/importar-vendedor/importar-vendedor.component';
+import { ImportarFotosComponent } from './producto/importar-fotos/importar-fotos.component';
 
 
 const routes:Routes = [
@@ -33,6 +34,7 @@ const routes:Routes = [
             //productos
             {path: 'producto/productos',  component: ProductoComponent},
             {path: 'producto/importarproducto',  component: ImportarproductoComponent},
+            {path: 'producto/importarfotos',  component: ImportarFotosComponent},
             
         ]
     },

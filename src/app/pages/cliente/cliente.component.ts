@@ -176,7 +176,7 @@ export class ClienteComponent implements OnInit {
         Swal.fire('Listo!','Cliente creado com sucesso!', 'success')
       }else{
 
-        Swal.fire('Upps!','Erro al crear el nuevo cliente,intente de nuevo!', 'error')
+        Swal.fire('Upps!','Error al crear el nuevo cliente,intente de nuevo!', 'error')
       }
 
     }).catch(err=>{

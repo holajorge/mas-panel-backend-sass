@@ -71,7 +71,7 @@
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                         
                           <!-- <span > orçamento</span> -->
-                          <span *ngIf="value == 0"> orçamento </span>
+                          <span *ngIf="value == 0"> {{ 'pedidos.tabla.orcamento' | translate}} </span>
                           <span *ngIf="value != 0"> {{ value }} </span>
                         
                       </ng-template>
@@ -97,7 +97,7 @@
 
     <ng-template #modalEditVendedor >
         <div class=" modal-header">    
-            <h5 class="modal-title" >Detalle del Pedido</h5>
+            <h5 class="modal-title" >{{ 'pedidos.tabladetalle.titulotabla' | translate}}</h5>
             <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
                 <span aria-hidden="true"> × </span>
             </button>
@@ -177,7 +177,7 @@
 
     <ng-template #modalComent >
         <div class=" modal-header">    
-            <h5 class="modal-title" >Agregar Comentario</h5>
+            <h5 class="modal-title" >{{ 'pedidos.modalComentario.add' | translate}}</h5>
             <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
                 <span aria-hidden="true"> × </span>
             </button>
@@ -185,16 +185,16 @@
         <div class=" modal-body  pt-0">
             
             <form [formGroup]="addForm" novalidate>
-                <textarea class="form-control" formControlName="comentario" id="comentario" rows="3" placeholder="Comentar aqui"></textarea>
+                <textarea class="form-control" formControlName="comentario" id="comentario" rows="3" placeholder="{{ 'pedidos.modalComentario.addText' | translate}}"></textarea>
                 <div class="alert  alert-danger" *ngIf="addForm.get('comentario').hasError('required') && addForm.get('comentario').touched">  
-                    comentario es requerido
+                    {{ 'pedidos.modalComentario.text' | translate}} es requerido
                   </div>
             </form>
 
         </div>
         <div class=" modal-footer">
-          <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="guardarComentarioPedido()">Guardar</button> 
-          <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+          <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="guardarComentarioPedido()"> {{ 'pedidos.modalComentario.guardar' | translate}}</button> 
+          <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'pedidos.modalComentario.cancelar' | translate}}</button>
         </div>
     
     </ng-template>

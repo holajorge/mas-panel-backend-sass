@@ -6,23 +6,25 @@ import {TranslateService} from '@ngx-translate/core';
 import { ProductoService } from 'src/app/service/producto/producto.service';
 
 @Component({
-  selector: 'app-importarproducto',
-  templateUrl: './importarproducto.component.html',
-  styleUrls: ['./importarproducto.component.scss']
+  selector: 'app-importar-fotos',
+  templateUrl: './importar-fotos.component.html',
+  styles: []
 })
-export class ImportarproductoComponent implements OnInit {
+export class ImportarFotosComponent implements OnInit {
   empresa:any = "";
   addForm: FormGroup;
   file_data:any = [];
-
   btnvisibilitybtn:boolean = false;
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService) { 
+
+  constructor(
+    public translate: TranslateService,
+    private formBuilder: FormBuilder, 
+    public productoService:ProductoService){
 
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
-
   }
 
   ngOnInit() {
@@ -45,23 +47,27 @@ export class ImportarproductoComponent implements OnInit {
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});
       }else{
-        Swal.fire('Error al importar al archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
+        Swal.fire('error','Error al importar al archivo excede o limite de tamaño permitido, intente de nuevo!')
       }
     }
     
   }
   sendfile(){
-
-    this.productoService.importProducto(this.file_data).then( (res:any) =>{    
-      if(res.response == true){
-        Swal.fire('Listo!','Archivo de Producto importado con exito!', 'success')
-      }else{
-        Swal.fire('Error al importar los datos de los Producto, intente de nuevo!', 'error')
+    this.btnvisibilitybtn = true;
+    this.productoService.importPhoto(this.file_data).then( (res:any) =>{  
+      console.log(res);  
+      if(typeof res.response['flag'] != 'undefined'){
+        if(res.response['flag'] == true){
+          this.btnvisibilitybtn = false;
+          Swal.fire('Listo!','Archivo de fotos importado con exito!', 'success')
+        }
+      }
+      if(res.success == false){
+        this.btnvisibilitybtn = false;
+        Swal.fire('error','Error al importar las fotos, intente de nuevo!')
       }
     }).catch(err=>{
       console.log(err);
     });
-    
-
   }
 }

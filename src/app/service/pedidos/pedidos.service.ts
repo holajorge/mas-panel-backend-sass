@@ -14,7 +14,7 @@ export class PedidosService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/getPedidos",idEmpresa,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidos",idEmpresa,options).toPromise().then((res) =>{      
       return { success: true, pedidos:res};
     })
     .catch( (err) =>{
@@ -26,7 +26,7 @@ export class PedidosService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/getDetallepedido",empresa,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getDetallepedido",empresa,options).toPromise().then((res) =>{      
       return { success: true, detalles:res};
     })
     .catch( (err) =>{
@@ -37,7 +37,7 @@ export class PedidosService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"zeene/guardarComentarioPedido",comentario,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/guardarComentarioPedido",comentario,options).toPromise().then((res) =>{      
       return { success: true, resultado:res};
     })
     .catch( (err) =>{

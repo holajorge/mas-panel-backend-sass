@@ -108,7 +108,7 @@
 
 <ng-template #modalEditProducto >
     <div class=" modal-header">    
-        <h5 class="modal-title" >Editar Producto</h5>
+        <h5 class="modal-title" >{{ 'producto.tituloEdit' | translate }}</h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
             <span aria-hidden="true"> × </span>
         </button>
@@ -118,21 +118,21 @@
             <div class="row">
                 <div class="col-md-7">
                     <div class="form-group">
-                        <label for="titulo">titulo:</label>
+                        <label for="titulo">{{ 'producto.formEdit.titulo' | translate }}:</label>
                         <input type="text" formControlName="titulo" placeholder="Titulo" name="titulo" class="form-control" id="titulo">
                          
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="codigo_producto">Codigo:</label>
+                        <label for="codigo_producto">{{ 'producto.formEdit.codigo' | translate }}:</label>
                         <input type="text" formControlName="codigo_producto" placeholder="Codigo" name="codigo_producto" class="form-control" id="codigo_producto">
                         
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="precio">Precio:</label>
+                        <label for="precio">{{ 'producto.formEdit.precio' | translate }}:</label>
                         <input type="text" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
                         
                     </div>
@@ -141,28 +141,28 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="stock">Stock:</label>
+                        <label for="stock">{{ 'producto.formEdit.stork' | translate }}:</label>
                         <input type="text" formControlName="stock" placeholder="stock" name="stock" class="form-control" id="stock">
                          
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="cantidad_minima">Cantidad minima:</label>
+                        <label for="cantidad_minima">{{ 'producto.formEdit.cantidadMin' | translate }}:</label>
                         <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
                     </div>
                 </div> 
 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="stock_minimo">Stock minimo:</label>
+                        <label for="stock_minimo">{{ 'producto.formEdit.stockMin' | translate }}:</label>
                         <input type="text" formControlName="stock_minimo" placeholder="stock minimo" name="stock_minimo" class="form-control" id="stock_minimo">
                     </div>
                 </div> 
 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="precio_oferta">Precio oferta:</label>
+                        <label for="precio_oferta">{{ 'producto.formEdit.precioOferta' | translate }}:</label>
                         <input type="text" formControlName="precio_oferta" placeholder="precio oferta" name="precio_oferta" class="form-control" id="precio_oferta">
                     </div>
                 </div> 
@@ -171,22 +171,22 @@
                 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="caracteristica1">Caracteristica 1:</label>
-                        <input type="text" formControlName="caracteristica1" placeholder="Caracteristica 1" name="caracteristica1" class="form-control" id="caracteristica1">
+                        <label for="caracteristica1">{{ 'producto.formEdit.caracteristica' | translate }} 1:</label>
+                        <input type="text" formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" name="caracteristica1" class="form-control" id="caracteristica1">
                        
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="caracteristica2">Caracteristica 2:</label>
-                        <input type="text" formControlName="caracteristica2" placeholder="Caracteristica 2" name="caracteristica2" class="form-control" id="caracteristica2">
+                        <label for="caracteristica2">{{ 'producto.formEdit.caracteristica' | translate }} 2:</label>
+                        <input type="text" formControlName="caracteristica2" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 2" name="caracteristica2" class="form-control" id="caracteristica2">
                         
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="caracteristica3">Caracteristica 3:</label>
-                        <input type="text" formControlName="caracteristica3" placeholder="Caracteristica 3" name="caracteristica3" class="form-control" id="caracteristica3">
+                        <label for="caracteristica3">{{ 'producto.formEdit.caracteristica' | translate }} 3:</label>
+                        <input type="text" formControlName="caracteristica3" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 3" name="caracteristica3" class="form-control" id="caracteristica3">
                         
                     </div>
                 </div>
@@ -196,27 +196,27 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="caracteristica4">Caracteristica 4:</label>
-                        <input type="text" formControlName="caracteristica4" placeholder="Caracteristica 4" name="caracteristica4" class="form-control" id="caracteristica4">
+                        <label for="caracteristica4">{{ 'producto.formEdit.caracteristica' | translate }} 4:</label>
+                        <input type="text" formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="solapa1">Solapa 1:</label>
-                        <input type="checkbox" formControlName="solapa1" placeholder="solapa1" name="solapa1" class="form-control" id="solapa1">
+                        <label for="solapa1">{{ 'producto.formEdit.solapa' | translate }} 1:</label>
+                        <input type="checkbox" formControlName="solapa1" placeholder="{{ 'producto.formEdit.solapa' | translate }}" name="solapa1" class="form-control" id="solapa1">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="solapa2">Solapa 2:</label>
-                        <input type="checkbox" formControlName="solapa2" placeholder="solapa2" name="solapa2" class="form-control" id="solapa2">
+                        <label for="solapa2">{{ 'producto.formEdit.solapa' | translate }} 2:</label>
+                        <input type="checkbox" formControlName="solapa2" placeholder="{{ 'producto.formEdit.solapa' | translate }}" name="solapa2" class="form-control" id="solapa2">
                     </div>
                 </div>  
 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="destacado">Destacado:</label>
-                        <input type="checkbox" formControlName="destacado" placeholder="destacado" name="destacado" class="form-control" id="destacado">
+                        <label for="destacado">{{ 'producto.formEdit.destacado' | translate }}:</label>
+                        <input type="checkbox" formControlName="destacado" placeholder="{{ 'producto.formEdit.destacado' | translate }}" name="destacado" class="form-control" id="destacado">
                     </div>
                 </div>
                 <!-- <div class="col-md-2">
@@ -236,7 +236,7 @@
                 
                 <div class="col-md-9">
                     <div class="form-group">
-                        <label for="descripcion">Descripcion:</label>
+                        <label for="descripcion">{{ 'producto.formEdit.descripcion' | translate }}:</label>
                         <textarea formControlName="descripcion"  name="descripcion" id="" cols="50" rows="5" class="form-control"></textarea>
                         <!-- <input type="text" formControlName="descripcion" placeholder="descripcion" name="descripcion" class="form-control" id="descripcion"> -->
                     </div>
@@ -246,16 +246,16 @@
         </form>
     </div>
     <div class=" modal-footer">
-      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateProduct()" >Actualizar</button> 
-      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibilityIn" (click)="insertProduct()" >Guardar</button> 
-      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateProduct()" >{{ 'producto.formEdit.actualizar' | translate }}</button> 
+      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibilityIn" (click)="insertProduct()" >{{ 'producto.formEdit.guardar' | translate }}</button> 
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'producto.formEdit.cancelar' | translate }}</button>
     </div>
 
 </ng-template>
 
 <ng-template #modalfoto >
     <div class=" modal-header">    
-        <h5 class="modal-title" >Grid de fotos</h5>
+        <h5 class="modal-title" >{{ 'producto.grid.titulo' | translate }}</h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
             <span aria-hidden="true"> × </span>
         </button>

@@ -92,6 +92,7 @@ export const ROUTES: RouteInfo[] = [
     children: [
       { path: "productos", title: "Lista Productos", type: "link" },
       { path: "importarproducto", title: "Importar Productos", type: "link" },
+      { path: "importarfotos", title: "Importar Fotos", type: "link" },
     ]
   },
   {

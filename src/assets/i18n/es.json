@@ -1,6 +1,42 @@
 {
     "config": {
-        "titulo" : "Configuración Generales"
+        "titulo" : "Configuración Generales",
+        "subtitulo": "Ingrese las configuraciones generales",
+        "formConfig" : {
+            "nombre": "Nombre de la empresa",
+            "direccion": "Dirección",
+            "telefono": "Telefono",
+            "correo": "Email de Contacto",
+            "colorButton": "Color Botones",
+            "dominio": "Dominio",
+            "logo": "Logo",
+            "aprobarUsuario": "Aprobar usuario" ,
+            "permitirRegistro": "Permitir Registración",
+            "envioWhatssap": "Enviar pedido por whatsapp al vendedor",
+            "descripcionEmpresa": "Descripción Empresa",
+            "guardar": "Guardar"
+        }
+    },
+    "banner": {
+        "header": {
+            "titulo": "Selecione banner para el Header",
+            "logo": " selecione archivo img",
+            "guardar": "Guardar",
+            "cancelar": "Cancelar"
+        },
+        "footer":{
+            "titulo": "Selecione banner para el Footer",
+            "logo": " selecione archivo img",
+            "guardar": "Guardar",
+            "cancelar": "Cancelar"
+        },
+        "swal":{
+            "titulo": "Selecione banner para el Swal",
+            "logo": " selecione archivo img",
+            "guardar": "Guardar",
+            "cancelar": "Cancelar"
+        }
+        
     },
     "banners": {
         "titulo": "Configuración de banner",
@@ -10,6 +46,11 @@
     },
     "producto": {
         "titulo":"Lista Productos",
+        "tituloEdit": "Editar Producto",
+        "foto": {
+            "titulo": "Importar Fotos",
+            "text": "Selectione un archivo ZIP con las fotos"
+        },
         "tabla":{
             "codigo":"Codigo",
             "titulo":"Titulo",
@@ -25,6 +66,25 @@
             "habilitar": "habilitar",
             "deshabilitar": "deshabilitar",
             "foto": "Foto"
+        },
+        "formEdit": {
+            "titulo": "Titulo",
+            "codigo": "Codigo",
+            "precio": "Precio",
+            "stock": "Stock",
+            "stockMin": "Stock minimo",
+            "cantidadMin": "Cantidad minima",
+            "precioOferta": "Precio oferta",
+            "caracteristica": "Caracteristica",
+            "solapa": "Solapa",
+            "destacado": "Destacado",
+            "descripcion": "Descripcion",
+            "actualizar": "Actualizar",
+            "guardar": "Guardar",
+            "cancelar": "Cancelar"
+        },
+        "grid":{
+            "titulo": "Grid de fotos"
         },
         "importar":{
             "titulo":"importar un archivo de productos",
@@ -108,9 +168,18 @@
             "cometario": "comentário",
             "nocliente":"Nro Cliente",
             "status": "Status",
-            "add": "Comente"
-        },
+            "add": "Comente",
+            "orcamento": "presupuesto"
+        }, 
+        "modalComentario": {
+            "add": "Agregar Comentario",
+            "text": "Comentario",
+            "addText": "Texto aqui",
+            "guardar": "Guardar",
+            "cancelar": "Cancelar"
+        },    
         "tabladetalle":{
+            "titulotabla": "Detalle del Pedido",
             "titulo":"calificación",
             "codigo":"código",
             "precio":"precio",
@@ -125,12 +194,14 @@
     },
     "cliente":{
         "titulo": "Lista de Clientes",
+        "nuevo": "Nuevo Cliente",
         "importar":{
             "titulo":"importar archivo de cliente",
             "select": "Selecione un archivo",
             "labelselect": "Selecione"
         },
         "tabla":{
+            "nrocliente": "Nro cliente",
             "nombre":"Nombre",
             "email":"Correo",
             "clave":"Clave",
@@ -147,7 +218,25 @@
             "cometario": "comentário",
             "nocliente":"Nro Cliente",
             "status": "status",
-            "add": "Comente"
+            "add": "Comente",
+            "decuento": "Descuento General",
+            "cuit": "Cuit",
+            "telefono": "Telefono",
+            "encargado": "Encargado Compras",
+            "pagos": "encargado Pagos",
+            "coeficiente": "Coeficiente",
+            "provincia": "Provincia",
+            "localidad": "Localidad",
+            "direccion": "Dirección",
+            "actualizar": "Actualizar",
+            "cancelar": "CAncelar"
+
+        },
+        "formClient": {
+            "new": "Nuevo cliente",
+            "guardar": "Guardar",
+            "cancelar": "Cancelar",
+            "edit": "Editar Cliente"
         }
     }
 }

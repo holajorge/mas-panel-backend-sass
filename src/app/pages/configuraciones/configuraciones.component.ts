@@ -48,7 +48,7 @@ export class ConfiguracionesComponent {
     spellcheck: true,
     height: '15rem',
     minHeight: '5rem',
-    placeholder: 'Enter text here...',
+    placeholder: 'Texto aqui',
     translate: 'no',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
@@ -139,7 +139,7 @@ export class ConfiguracionesComponent {
         this.form_dataConfig = formData;
 
       }else{
-        Swal.fire('Erro al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
   

@@ -42,7 +42,7 @@ export class ImportarComponent implements OnInit {
       if(res.response == true){
         Swal.fire('Listo!','Archivo de produtos importado con exito!', 'success')
       }else{
-        Swal.fire('Erro al importar los datos de los produtos, intente de nuevo!', 'error')
+        Swal.fire('Error al importar los datos de los productos, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       console.log(err);
@@ -69,7 +69,7 @@ export class ImportarComponent implements OnInit {
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});
       }else{
-        Swal.fire('Error al importar el archivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar el archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
     
