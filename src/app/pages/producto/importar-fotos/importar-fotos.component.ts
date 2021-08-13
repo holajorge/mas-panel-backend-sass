@@ -54,20 +54,21 @@ export class ImportarFotosComponent implements OnInit {
   }
   sendfile(){
     this.btnvisibilitybtn = true;
-    this.productoService.importPhoto(this.file_data).then( (res:any) =>{  
-      console.log(res);  
-      if(typeof res.response['flag'] != 'undefined'){
-        if(res.response['flag'] == true){
-          this.btnvisibilitybtn = false;
-          Swal.fire('Listo!','Archivo de fotos importado con exito!', 'success')
+      Swal.showLoading()
+      this.productoService.importPhoto(this.file_data).then( (res:any) =>{        
+        if(typeof res.response['flag'] != 'undefined'){
+          if(res.response['flag'] == true){
+            this.btnvisibilitybtn = false;
+            Swal.fire('Listo!','Archivo de fotos importado con exito!', 'success')
+          }
         }
-      }
-      if(res.success == false){
-        this.btnvisibilitybtn = false;
-        Swal.fire('error','Error al importar las fotos, intente de nuevo!')
-      }
-    }).catch(err=>{
-      console.log(err);
-    });
+        if(res.success == false){
+          this.btnvisibilitybtn = false;
+          Swal.fire('error','Error al importar las fotos, intente de nuevo!')
+        }
+
+      }).catch(err=>{
+        console.log(err);
+      });
   }
 }
