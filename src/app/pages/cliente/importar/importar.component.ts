@@ -37,14 +37,19 @@ export class ImportarComponent implements OnInit {
 
     // formData.append('file', this.addForm.get('filesource').value);
     // formData.append('empresa_id', this.addForm.get('empresa_id').value);
+    Swal.showLoading()
 
     this.clienteService.importClient(this.file_data).then( (res:any) =>{    
       if(res.response == true){
+      Swal.close();
+
         Swal.fire('Listo!','Archivo de produtos importado con exito!', 'success')
       }else{
+        Swal.close();
         Swal.fire('Error al importar los datos de los productos, intente de nuevo!', 'error')
       }
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
     

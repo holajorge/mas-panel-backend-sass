@@ -51,14 +51,18 @@ export class ImportarproductoComponent implements OnInit {
     
   }
   sendfile(){
+    Swal.showLoading()
 
     this.productoService.importProducto(this.file_data).then( (res:any) =>{    
       if(res.response == true){
+        Swal.close()
         Swal.fire('Listo!','Archivo de Producto importado con exito!', 'success')
       }else{
+        Swal.close()
         Swal.fire('Error al importar los datos de los Producto, intente de nuevo!', 'error')
       }
     }).catch(err=>{
+      Swal.close()
       console.log(err);
     });
     
