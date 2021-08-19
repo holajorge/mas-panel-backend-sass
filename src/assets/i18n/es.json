@@ -113,25 +113,25 @@
             "coords": "coordenadas"
         },
         "newForm":{
-            "titulo": "agregar vendedor",
+            "titulo": "Agregar vendedor",
             "nombre": "nombre",
             "email": "correo",
-            "usuario": "nombre de usuário",
+            "usuario": "nombre de usuario",
             "clave": "clave",
             "agencia": "agencia",
             "guardar": "Guardar",
             "cancelar": "cancelar"
         },
         "updateForm":{
-            "titulo": "agregar vendedor",
+            "titulo": "Agregar vendedor",
             "nombre": "Nombre",
             "email": "correo",
-            "usuario": "nombre de usuário",
+            "usuario": "nombre de usuario",
             "clave": "clave",
-            "lista": "lista de produtos",
+            "lista": "Ver lista de produtos",
             "archivo": "Archivo",
             "guardar": "Guardar",
-            "actaulizar": "atualizar",
+            "actaulizar": "actualizar",
             "cancelar": "cancelar"
         },
         "importar":{
@@ -197,8 +197,8 @@
         "nuevo": "Nuevo Cliente",
         "importar":{
             "titulo":"importar archivo de cliente",
-            "select": "Selecione un archivo",
-            "labelselect": "Selecione"
+            "select": "Seleccione un archivo",
+            "labelselect": "Seleccione"
         },
         "tabla":{
             "nrocliente": "Nro cliente",
@@ -215,21 +215,21 @@
             "entradas": "ingresos",
             "total": "total",
             "fecha": "Fecha",
-            "cometario": "comentário",
+            "cometario": "Comentario",
             "nocliente":"Nro Cliente",
-            "status": "status",
+            "status": "Status",
             "add": "Comente",
             "decuento": "Descuento General",
             "cuit": "Cuit",
             "telefono": "Telefono",
             "encargado": "Encargado Compras",
-            "pagos": "encargado Pagos",
+            "pagos": "Encargado Pagos",
             "coeficiente": "Coeficiente",
             "provincia": "Provincia",
             "localidad": "Localidad",
             "direccion": "Dirección",
             "actualizar": "Actualizar",
-            "cancelar": "CAncelar"
+            "cancelar": "Cancelar"
 
         },
         "formClient": {
