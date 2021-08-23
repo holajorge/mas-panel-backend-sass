@@ -34,6 +34,23 @@ export class ClienteComponent implements OnInit {
   activeRow: any;
   activeRowDet: any;
   cliente_id:any = {id:''};
+  modeloExcel: any = [
+    {
+      nrocliente: '',
+      nombre: '',
+      email: '',
+      descuento: '',
+      clave:'',
+      cuit: '',
+      telefono: '',
+      provincia: '',
+      localidad: '',
+      direccion: '',
+      activo: '',
+      vendedor: ''
+    }
+  ];
+  dataExcel: any = [];
   constructor(private clienteService: ClienteService,
     public translate: TranslateService,
     private modalService: BsModalService,private formBuilder: FormBuilder) { 
@@ -79,9 +96,14 @@ export class ClienteComponent implements OnInit {
   }
   getClientes(){ 
     this.clienteService.getcliente(this.empresa).then( (res:any) =>{    
-      this.temp = res.pedidos;
-      this.tempRow = res.pedidos;
+      console.log(res.pedidos['clientes']); 
+      this.temp = res.pedidos['clientes'];
+      this.tempRow = res.pedidos['clientes'];
+      this.dataExcel = res.pedidos['excel'];
+
       this.loadingIndicator = true;
+
+      // console.log(this.temp); 
     }).catch(err=>{
       console.log(err);
     });
@@ -253,5 +275,12 @@ export class ClienteComponent implements OnInit {
   onActivateDet(event) {
     this.activeRowDet = event.row;
   }
+  modelocliente(){
+    this.clienteService.exportAsExcelFile(this.modeloExcel, 'modelo_cliente');
+  }
+  dataExcelClientes(){
 
+
+    this.clienteService.exportAsExcelFile(this.dataExcel, 'clientes');
+  }
 }

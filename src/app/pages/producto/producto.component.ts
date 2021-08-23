@@ -53,6 +53,27 @@ export class ProductoComponent implements OnInit {
   btnvisibilityIn:boolean = true;
   fecha: '';
   producto:any = {id:''};
+  dataExcel: any = [];
+  modeloExcel: any = [ {
+      descripcion: '',
+      codigo: '',
+      precio: '',
+      stock:'',
+      caract_1: '',
+      caract_2: '',
+      caract_3: '',
+      precio_oferta: '',
+      cantidad_minima: '',
+      destacado: '',
+      activo: '',
+      stock_minimo: '',
+      descripcion_1: '',
+      caract_4: '',
+      foto: '',
+      unidad_bulto: ''
+
+    }
+  ];
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
     this.translate.addLangs(['en','es','pt']);
@@ -120,9 +141,9 @@ export class ProductoComponent implements OnInit {
   getProductos(){ 
     this.productoService.getProducto(this.empresa).then( (res:any) =>{    
       if(res.success){
-        this.rows = res.productos;
-        this.rowsTemp = res.productos;
-
+        this.rows = res.productos['productos'];
+        this.rowsTemp = res.productos['productos'];
+        this.dataExcel = res.productos['excel'];
       }else{
 
       }
@@ -284,4 +305,12 @@ export class ProductoComponent implements OnInit {
     );
   }
 
+  modeloProducto(){
+    this.productoService.exportAsExcelFile(this.modeloExcel, 'modelo_producto');
+
+  }
+  dataExcelProductos(){
+    this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
+
+  }
 }

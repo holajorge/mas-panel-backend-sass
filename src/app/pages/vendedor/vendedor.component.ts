@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import Swal from "sweetalert2";
 import { Router } from '@angular/router'; //para redireccionar las vistas
-
+import * as XLSX from 'xlsx'; 
 import {TranslateService} from '@ngx-translate/core';
 import { ValidationService } from '../../service/validation/validation.service';
 
@@ -48,17 +48,27 @@ export class VendedorComponent implements OnInit {
     class: "modal-dialog-centered modal-lg static", 
   };
   empresa:any = {id:''};
+  modeloExcel: any = [
+    {
+      nro_vendedor: '',
+      nombre: '',
+      apellido: '',
+      email: ''
+    }
+  ];
+  dataExcel: any = [];
   constructor(private router: Router,private vendedorService: VendedorService,private modalService: BsModalService,private formBuilder: FormBuilder, public translate: TranslateService) {
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
     
-    if(localStorage.getItem('usuario') === null ){          
+    if(localStorage.getItem('usuario') === null ){
       // redirect to login 
       this.router.navigate(['login']);
     }else{
       this.empresa.id = localStorage.getItem('usuario');
       this.getVendedor();
+      this.getDataVendedorExcel();
     }
     
 
@@ -89,6 +99,17 @@ export class VendedorComponent implements OnInit {
       this.temp = res.vendedores;
       this.tempRow = res.vendedores;
       this.loadingIndicator = false;
+      // console.log(this.temp);
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+  getDataVendedorExcel(){
+
+    this.vendedorService.getVendedoresData(this.empresa).then( (res:any) =>{
+      // console.log(res); 
+      this.dataExcel = res.vendedores;
+      console.log(this.dataExcel);
     }).catch(err=>{
       console.log(err);
     });
@@ -213,5 +234,13 @@ export class VendedorComponent implements OnInit {
         alert(error);  
     });  
 
+  }
+  modeloVendedor(){
+
+    this.vendedorService.exportAsExcelFile(this.modeloExcel, 'modelo_vendedores');
+
+  }
+  dataExcelVendedores(){
+    this.vendedorService.exportAsExcelFile(this.dataExcel, 'vendedores');
   }
 }
