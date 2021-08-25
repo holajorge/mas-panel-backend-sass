@@ -7,6 +7,8 @@
                 {{  'cliente.importar.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modelocliente()"> Descargar Modelo </a>
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelClientes()"> Exportar Excel</a>
             <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
           </div>
         </div>
@@ -19,31 +21,26 @@
     <div class=" row">
         <div class=" col">
             <div class=" card">
-                <div class=" card-header">
-                </div>
+                
                 <div class="dataTables_wrapper py-4">
                     
                     <div class=" card">
-                        <div class="card-header">
-                            <div class="col-12">
-                                <div class="col-lg-10 d-inline-block">
-                                    <h3 class=" mb-0">{{'cliente.importar.select'  | translate }}</h3>
-                                </div>
-                                <div class="col-lg-2 d-inline pull-right">
-                                    <button class="btn btn-success" [disabled]='addForm.invalid' (click)="sendfile()">Enviar</button> 
-                                </div>
-                            </div>
-                        </div>
                         <div class="card-body">
-                        <form [formGroup]="addForm" novalidate>
-                            <div class="custom-file">
-                                <input formControlName="file"  (change)="handleFile($event)"  class="custom-file-input" id="customFileLang" lang="pt" type="file"  />
-                                <label class="custom-file-label" for="customFileLang"> {{'cliente.importar.labelselect'  | translate }} </label>
-                                <div class="alert  alert-danger" *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">  
-                                    Archivo es requerido
-                                </div>  
+                            <h3 class=" mb-0">{{'cliente.importar.select'  | translate }}</h3>
+                            <form [formGroup]="addForm" novalidate>
+                                <div class="custom-file">
+                                    <input formControlName="file"  (change)="handleFile($event)"  class="custom-file-input" id="customFileLang" lang="pt" type="file"  />
+                                    <label class="custom-file-label" for="customFileLang"> {{'cliente.importar.labelselect'  | translate }} </label>
+                                    <div class="alert  alert-danger" *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">  
+                                        Archivo es requerido
+                                    </div>  
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="col-lg-2 d-inline pull-right">
+                                <button class="btn btn-success" [disabled]='addForm.invalid' (click)="sendfile()">Enviar</button> 
                             </div>
-                        </form>
                         </div>
                     </div>
                     

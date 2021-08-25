@@ -16,6 +16,27 @@ export class ImportarproductoComponent implements OnInit {
   file_data:any = [];
 
   btnvisibilitybtn:boolean = false;
+  dataExcel: any = [];
+  modeloExcel: any = [ {
+      descripcion: '',
+      codigo: '',
+      precio: '',
+      stock:'',
+      caract_1: '',
+      caract_2: '',
+      caract_3: '',
+      precio_oferta: '',
+      cantidad_minima: '',
+      destacado: '',
+      activo: '',
+      stock_minimo: '',
+      descripcion_1: '',
+      caract_4: '',
+      foto: '',
+      unidad_bulto: ''
+
+    }
+  ];
   constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService) { 
 
     this.translate.addLangs(['en','es','pt']);
@@ -31,6 +52,18 @@ export class ImportarproductoComponent implements OnInit {
       file: [''],
       filesource: ['',Validators.required]
       
+    });
+    this.getProductos();
+  }
+  getProductos(){ 
+    this.productoService.getProducto(this.empresa).then( (res:any) =>{    
+      if(res.success){
+        this.dataExcel = res.productos['excel'];
+      }else{
+
+      }
+    }).catch(err=>{
+      console.log(err);
     });
   }
   handleFile(event) {
@@ -66,6 +99,14 @@ export class ImportarproductoComponent implements OnInit {
       console.log(err);
     });
     
+
+  }
+  modeloProducto(){
+    this.productoService.exportAsExcelFile(this.modeloExcel, 'modelo_producto');
+
+  }
+  dataExcelProductos(){
+    this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
 
   }
 }

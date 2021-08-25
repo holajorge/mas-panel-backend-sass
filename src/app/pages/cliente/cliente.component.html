@@ -8,8 +8,6 @@
           </div>
           <div class=" col-lg-6 col-5 text-right">
             <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" >{{ 'cliente.nuevo' | translate }} </a>
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modelocliente()"> Descargar Modelo </a>
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelClientes()"> Exportar Excel</a>
           </div>
         </div>
       </div>
@@ -258,13 +256,6 @@
                         
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="coeficiente">{{ 'cliente.tabla.coeficiente' | translate}}:</label>
-                        <input type="text" formControlName="coeficiente" placeholder="{{ 'cliente.tabla.coeficiente' | translate}}" name="coeficiente" class="form-control" id="coeficiente">
-                        
-                    </div>
-                </div>                
             </div>
             <div class="row">
                 <div class="col-md-4">

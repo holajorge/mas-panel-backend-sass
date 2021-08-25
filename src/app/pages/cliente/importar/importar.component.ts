@@ -13,14 +13,35 @@ import 'sweetalert2/src/sweetalert2.scss'
 export class ImportarComponent implements OnInit {
 
   empresa:any = "";
+  empresaa:any = {id:'', pedido:''};
+
   addForm: FormGroup;
   btnvisibilitybtn:boolean = false;
   file_data:any = [];
+  modeloExcel: any = [
+    {
+      nrocliente: '',
+      nombre: '',
+      email: '',
+      descuento: '',
+      clave:'',
+      cuit: '',
+      telefono: '',
+      provincia: '',
+      localidad: '',
+      direccion: '',
+      activo: '',
+      vendedor: ''
+    }
+  ];
+  dataExcel: any = [];
   constructor( public translate: TranslateService,private formBuilder: FormBuilder, public clienteService:ClienteService) {
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
+    this.empresaa.id = localStorage.getItem('usuario');
+
   }
 
   ngOnInit() {
@@ -30,15 +51,18 @@ export class ImportarComponent implements OnInit {
       filesource: ['',Validators.required]
       
     });
+    this.getClientes();
+  }
+
+  getClientes(){ 
+    this.clienteService.getcliente(this.empresaa).then( (res:any) =>{    
+      this.dataExcel = res.pedidos['excel'];
+    }).catch(err=>{
+      console.log(err);
+    });
   }
   sendfile(){
-
-    // const formData = new FormData();
-
-    // formData.append('file', this.addForm.get('filesource').value);
-    // formData.append('empresa_id', this.addForm.get('empresa_id').value);
     Swal.showLoading()
-
     this.clienteService.importClient(this.file_data).then( (res:any) =>{    
       if(res.response == true){
       Swal.close();
@@ -79,5 +103,12 @@ export class ImportarComponent implements OnInit {
     }
     
   }
+  modelocliente(){
+    this.clienteService.exportAsExcelFile(this.modeloExcel, 'modelo_cliente');
+  }
+  dataExcelClientes(){
 
+
+    this.clienteService.exportAsExcelFile(this.dataExcel, 'clientes');
+  }
 }

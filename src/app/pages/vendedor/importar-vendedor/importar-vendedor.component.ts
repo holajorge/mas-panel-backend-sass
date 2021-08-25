@@ -13,14 +13,25 @@ import { VendedorService } from 'src/app/service/vendedor/vendedor.service';
 })
 export class ImportarVendedorComponent implements OnInit {
   empresa:any = "";
+  empresaa:any = {id:''}; 
+
   file_data:any = [];
   addForm: FormGroup;
-
+  modeloExcel: any = [
+    {
+      nro_vendedor: '',
+      nombre: '',
+      apellido: '',
+      email: ''
+    }
+  ];
+  dataExcel: any = [];
   constructor(public translate: TranslateService,private formBuilder: FormBuilder, private vendedorService:VendedorService) { 
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
+    this.empresaa.id = localStorage.getItem('usuario');
   }
 
   ngOnInit() {
@@ -30,6 +41,7 @@ export class ImportarVendedorComponent implements OnInit {
       filesource: ['',Validators.required]
       
     });
+    this.getDataVendedorExcel();
   }
   handleFile(event) {
 
@@ -63,7 +75,20 @@ export class ImportarVendedorComponent implements OnInit {
       Swal.close()
       console.log(err);
     });
-    
+  }
+  getDataVendedorExcel(){
+    this.vendedorService.getVendedoresData(this.empresaa).then( (res:any) =>{
+      this.dataExcel = res.vendedores;
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+  modeloVendedor(){
 
+    this.vendedorService.exportAsExcelFile(this.modeloExcel, 'modelo_vendedores');
+
+  }
+  dataExcelVendedores(){
+    this.vendedorService.exportAsExcelFile(this.dataExcel, 'vendedores');
   }
 }

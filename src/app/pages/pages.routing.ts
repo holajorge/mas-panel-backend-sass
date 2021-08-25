@@ -21,7 +21,7 @@ const routes:Routes = [
         component: AdminComponent,
         canActivate: [AuthGuard],
         children: [            
-            {path:'', component: VendedorComponent},
+            {path:'', component: PedidosComponent},
             {path: 'configuraciones', component: ConfiguracionesComponent},
             {path:'pedidos', component: PedidosComponent},
             {path:'banners', component: BannerComponent},

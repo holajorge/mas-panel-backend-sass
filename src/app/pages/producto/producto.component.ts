@@ -47,33 +47,15 @@ export class ProductoComponent implements OnInit {
   rows:any = [];
   rowsTemp:any = [];
   entries: number = 10;
+  entriesDestacados: number = 10;
   editForm: FormGroup;
   activeRow:any;
   btnvisibility:boolean = true;
   btnvisibilityIn:boolean = true;
   fecha: '';
-  producto:any = {id:''};
-  dataExcel: any = [];
-  modeloExcel: any = [ {
-      descripcion: '',
-      codigo: '',
-      precio: '',
-      stock:'',
-      caract_1: '',
-      caract_2: '',
-      caract_3: '',
-      precio_oferta: '',
-      cantidad_minima: '',
-      destacado: '',
-      activo: '',
-      stock_minimo: '',
-      descripcion_1: '',
-      caract_4: '',
-      foto: '',
-      unidad_bulto: ''
-
-    }
-  ];
+  producto:any = {id:'',empresa_id: ''};
+  destacados:any = [];
+  cambios:boolean = false;
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
     this.translate.addLangs(['en','es','pt']);
@@ -143,9 +125,7 @@ export class ProductoComponent implements OnInit {
       if(res.success){
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
-        this.dataExcel = res.productos['excel'];
       }else{
-
       }
     }).catch(err=>{
       console.log(err);
@@ -153,6 +133,10 @@ export class ProductoComponent implements OnInit {
   }
   entriesChange($event) {
     this.entries = $event.target.value;
+  }
+  entriesChangeDestacados($event){
+    this.entriesDestacados = $event.target.value;
+
   }
   filterTable(event) {
     const val = event.target.value.toLowerCase();
@@ -175,6 +159,29 @@ export class ProductoComponent implements OnInit {
       this.rows = temRow;
     }else{
       this.rows = this.rowsTemp;
+    }    
+  }
+  filterTableDestacado(event){
+    const val = event.target.value.toLowerCase();
+    
+    if(val !== ''){
+      // filter our data
+      const temRow = this.destacados.filter(function (d) {
+      
+        for (var key in d) {
+          if(!Array.isArray(d[key])){      
+            let hola = (d[key] != null) ? d[key].toLowerCase() : '';
+            if ( hola.indexOf(val) !== -1) {
+              return true;
+            }      
+
+          }  
+        }
+        return false;
+      });
+      this.destacados = temRow;
+    }else{
+      this.destacados = this.destacados;
     }    
   }
   onActivate(event) {
@@ -305,12 +312,91 @@ export class ProductoComponent implements OnInit {
     );
   }
 
-  modeloProducto(){
-    this.productoService.exportAsExcelFile(this.modeloExcel, 'modelo_producto');
-
+  destacadoProducts(modaDestacadoProducto){
+    console.log(this.rows);
+    this.destacados = this.rows.filter( function(p){
+      if(p.destacado == 1){
+        return p;
+      }
+    });
+    console.log(this.destacados);
+    this.notificationModal = this.modalService.show(modaDestacadoProducto,this.notification);
+    
   }
-  dataExcelProductos(){
-    this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
+  habilitarDestacado(row){
+    this.producto.id = row.id;
+    this.producto.empresa_id = this.empresa;
+    console.log(row);
+    Swal.fire({
+      title: 'segurdo de Habilitar producto como Destacado?',
+      text: "Destacar producto!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Habilitar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          
+          this.productoService.destacar(this.producto).then( (res:any) =>{    
+            if(res.response == true){
+              this.cambios = true;
+              Swal.fire('Listo!','Producto destacado con exito!', 'success')
+              this.getProductos();
+            }else{
+              Swal.fire('Upps!','Error al habilitar producto como destacado, intente nuevamente!', 'error')
+            }
+          }).catch(err=>{
+            console.log(err);
+          });
+        }
+    }) 
+  }
+  deshabilitarDestacado(row){
+    this.producto.id = row.id;
+    this.producto.empresa_id = this.empresa;
+    console.log(row);
+    Swal.fire({
+      title: 'segurdo de Deshabilitar producto como Destacado?',
+      text: "Deshabilitar destacado producto!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Deshabilitar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          
+          this.productoService.deshalitarDestacado(this.producto).then( (res:any) =>{    
+            if(res.response == true){
+              this.cambios = true;
+              Swal.fire('Listo!','Producto no destacado con exito!', 'success')
+              this.getProductos();
+            }else{
+              Swal.fire('Upps!','Error al deshabilitar producto como no destacado, intente nuevamente!', 'error')
+            }
+          }).catch(err=>{
+            console.log(err);
+          });
+        }
+    })
+    
+  }
+  gurdarcambios(){
+
+    Swal.showLoading();
+    this.productoService.guardarcambios(this.empresa).then( (res:any) =>{    
+      console.log(res);
+      if(res.success == true){
+        Swal.fire('Listo!','cambios ejecutados con exito!', 'success');
+      }else{
+        Swal.fire('Upps!','Error al guardar los cambios, intente nuevamente!', 'error');
+      }
+    }).catch(err=>{
+      console.log(err);
+    });
 
   }
 }

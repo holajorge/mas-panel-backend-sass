@@ -77,6 +77,42 @@ export class ProductoService {
     });
 
   }
+  destacar(producto){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/destacarProducto",producto,options).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  deshalitarDestacado(producto){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshablitarDestacadoProducto",producto,options).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  guardarcambios(empresaa){
+
+    let empresa = {id: empresaa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/gurdarconfiguracion",empresa,options).toPromise().then((res) =>{      
+      return { success: true, productos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+  }
   importProducto(filedata){
     
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importProducts",filedata).toPromise().then((res) =>{     
