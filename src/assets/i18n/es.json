@@ -65,7 +65,9 @@
             "total": "total", 
             "habilitar": "habilitar",
             "deshabilitar": "deshabilitar",
-            "foto": "Foto"
+            "foto": "Foto",
+            "destacadoA": "Habilitar Destacado",
+            "destacadoD": "deshabilitar Destacado"
         },
         "formEdit": {
             "titulo": "Titulo",
@@ -90,6 +92,9 @@
             "titulo":"importar un archivo de productos",
             "select": "Seleccione un archivo",
             "labelselect": "Selecione"
+        },
+        "destacado" : {
+            "titulo": "Productos destacados"
         }
     },
     "vendedores":{
@@ -180,7 +185,7 @@
         },    
         "tabladetalle":{
             "titulotabla": "Detalle del Pedido",
-            "titulo":"calificación",
+            "titulo":"Titulo",
             "codigo":"código",
             "precio":"precio",
             "acciones": "Acciones",
@@ -189,7 +194,8 @@
             "mostrar": "mostrar",
             "buscar": "buscar pedido",
             "entradas": "entradas",
-            "status": "Status"
+            "status": "Status",
+            "precion_real": "Precio real"
         }
     },
     "cliente":{

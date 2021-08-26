@@ -119,6 +119,10 @@ export class SidebarAdminComponent implements OnInit {
       this.isCollapsed = true;
     });
   }
+  onLogout(){
+    localStorage.removeItem('usuario');
+    this.router.navigateByUrl('/login');
+  }
   onMouseEnterSidenav() {
     if (!document.body.classList.contains("g-sidenav-pinned")) {
       document.body.classList.add("g-sidenav-show");

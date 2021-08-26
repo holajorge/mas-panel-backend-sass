@@ -64,18 +64,18 @@
                         <span>{{ 'pedidos.tabla.nombre' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="estado">
+                <!-- <ngx-datatable-column name="estado">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'pedidos.tabla.status' | translate}}</span>
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                         
-                          <!-- <span > orçamento</span> -->
+                          <span > orçamento</span>
                           <span *ngIf="value == 0"> {{ 'pedidos.tabla.orcamento' | translate}} </span>
-                          <span *ngIf="value != 0"> {{ value }} </span>
+                          <span *ngIf="value != 0"> {{ value }} </span> 
                         
                       </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> --> 
                
                 <ngx-datatable-column name="Acción" >
                     <ng-template let-column="column" ngx-datatable-header-template>
@@ -139,7 +139,7 @@
                     </ngx-datatable-column>
                     <ngx-datatable-column prop="precio_real">
                         <ng-template let-column="column" ngx-datatable-header-template>
-                            <span>{{ 'pedidos.tabladetalle.precio_negociado' | translate}}</span>
+                            <span>{{ 'pedidos.tabladetalle.precion_real' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column prop="precio">

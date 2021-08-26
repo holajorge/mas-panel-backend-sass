@@ -47,16 +47,7 @@ export class VendedorComponent implements OnInit {
     keyboard: true,
     class: "modal-dialog-centered modal-lg static", 
   };
-  empresa:any = {id:''};
-  modeloExcel: any = [
-    {
-      nro_vendedor: '',
-      nombre: '',
-      apellido: '',
-      email: ''
-    }
-  ];
-  dataExcel: any = [];
+  empresa:any = {id:''}; 
   constructor(private router: Router,private vendedorService: VendedorService,private modalService: BsModalService,private formBuilder: FormBuilder, public translate: TranslateService) {
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
@@ -68,7 +59,6 @@ export class VendedorComponent implements OnInit {
     }else{
       this.empresa.id = localStorage.getItem('usuario');
       this.getVendedor();
-      this.getDataVendedorExcel();
     }
     
 
@@ -104,16 +94,7 @@ export class VendedorComponent implements OnInit {
       console.log(err);
     });
   }
-  getDataVendedorExcel(){
-
-    this.vendedorService.getVendedoresData(this.empresa).then( (res:any) =>{
-      // console.log(res); 
-      this.dataExcel = res.vendedores;
-      console.log(this.dataExcel);
-    }).catch(err=>{
-      console.log(err);
-    });
-  }
+ 
   entriesChange($event) {
     this.entries = $event.target.value;
   }
@@ -235,12 +216,5 @@ export class VendedorComponent implements OnInit {
     });  
 
   }
-  modeloVendedor(){
-
-    this.vendedorService.exportAsExcelFile(this.modeloExcel, 'modelo_vendedores');
-
-  }
-  dataExcelVendedores(){
-    this.vendedorService.exportAsExcelFile(this.dataExcel, 'vendedores');
-  }
+  
 }

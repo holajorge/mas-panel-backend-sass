@@ -3,13 +3,13 @@
       <div class=" header-body">
         <div class=" row align-items-center py-4">
           <div class=" col-lg-6 col-7">
-            <h6 class=" h2 text-white d-inline-block mb-0">
-                {{  'producto.titulo' | translate}}</h6>
+            <h6 class=" h2 text-white d-inline-block mb-0 mr-1">{{  'producto.titulo' | translate}}</h6>
+            <a class=" btn btn-sm btn-primary" href="javascript:void(0)" (click)="destacadoProducts(modaDestacadoProducto)"> Destacados </a>
+            <a class=" btn btn-sm btn-success" href="javascript:void(0)" *ngIf="cambios" (click)="gurdarcambios()"> Guardar cambios </a>
+
           </div>
           <div class=" col-lg-6 col-5 text-right">
             <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo </a>
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modeloProducto()"> Descargar Modelo </a>
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelProductos()"> Exportar Excel</a>
           </div>
         </div>
       </div>
@@ -97,6 +97,9 @@
                             <button class="btn btn-sm btn-success" *ngIf="row.activo == 0" (click)='onActiveClient(row)' title="{{ 'producto.tabla.habilitar' | translate}}"><span class="fas fa-check-square"></span> </button>
                             <button class="btn btn-sm btn-danger" *ngIf="row.activo == 1" (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}"><span class="fas fa-times-circle"></span> </button>
                             <button class="btn btn-sm btn-info" (click)='modalFoto(modalfoto,row)' title="{{ 'producto.tabla.foto' | translate}}"><span class="fas fa-file-image"></span> </button>
+                           
+                            <button class="btn btn-sm btn-info" *ngIf="row.destacado == 0" (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-check-circle"></span> </button>
+                            <button class="btn btn-sm btn-neutral" *ngIf="row.destacado == 1" (click)='deshabilitarDestacado(row)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-exclamation-triangle"></span> </button>
                         </span>
                       </ng-template>
                 </ngx-datatable-column>
@@ -268,6 +271,88 @@
             <div class="card">
               <img class="card-img-top" src="..." alt="Card image cap">
             </div>            
+        </div>
+    </div>
+        
+    <div class=" modal-footer">
+      <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+
+</ng-template>
+
+<ng-template #modaDestacadoProducto >
+    <div class=" modal-header">    
+        <h5 class="modal-title" >{{ 'producto.destacado.titulo' | translate }}</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        
+        <div class="dataTables_wrapper py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="datatable_length">
+                    <label> {{ 'producto.tabla.mostrar' | translate}}
+                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChangeDestacados($event)">
+                        <option value="10" [selected]="entries == 10">10</option>
+                        <option value="25" [selected]="entries == 25">25</option>
+                        <option value="50" [selected]="entries == 50">50</option>
+                        <option value="-1" [selected]="entries == -1">All</option>
+                    </select>
+                    {{ 'producto.tabla.entradas' | translate}}
+                    </label>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div id="datatable_filter" class="dataTables_filter">
+                        <label><input type="text" class="form-control form-control-sm" placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTableDestacado($event)"/></label>
+                    </div>
+                </div>
+            </div>
+    
+            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="destacados"  (activate)="onActivate($event)">                
+                <ngx-datatable-column name="titulo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.titulo' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="codigo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.codigo' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="caracteristica1">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.caracteristica' | translate}} 1</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="caracteristica2">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.caracteristica' | translate}} 2</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="caracteristica3">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.caracteristica' | translate}} 3</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="precio">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'producto.tabla.precio' | translate}} </span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="activo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'cliente.tabla.activo' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <span *ngIf="value == 1" class="fas fa-eye"> </span>
+                        <span *ngIf="value == 0"  class="fas fa-eye-slash"> </span>
+                    </ng-template>
+                </ngx-datatable-column>
+               
+            </ngx-datatable>
         </div>
     </div>
         
