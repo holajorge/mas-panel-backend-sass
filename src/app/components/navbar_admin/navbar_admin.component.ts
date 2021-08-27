@@ -2,6 +2,8 @@ import { Component, OnInit,ElementRef } from '@angular/core';
 import { ROUTES } from "../sidebar_admin/sidebar_admin.component";
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from "@angular/common";
+import { ConfigService } from 'src/app/service/config/config.service';
+
 
 @Component({
   selector: 'app-navbar-admin',
@@ -13,8 +15,13 @@ export class NavbarAdminComponent implements OnInit {
   public listTitles: any[];
   public location: Location;
   sidenavOpen: boolean = true;
+  empresa: any = {id:''};
+  nombre_empresa:string = "";
+  configuraciones:any;
 
-  constructor(location: Location,private element: ElementRef,private router: Router) { 
+  constructor(
+   public configService: ConfigService,
+    location: Location,private element: ElementRef,private router: Router) { 
     this.location = location;
     this.router.events.subscribe((event: Event) => {
        if (event instanceof NavigationStart) {
@@ -42,10 +49,27 @@ export class NavbarAdminComponent implements OnInit {
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.empresa.id = localStorage.getItem('usuario');
+    console.log(this.empresa);
+
+    this.configService.getConfigEmpresa(this.empresa).then( (res:any) =>{    
+      
+      if(res.response.body['configuraciones'] != ""){
+        this.configuraciones = JSON.parse(res.response.body['configuraciones']);
+        this.nombre_empresa = this.configuraciones.nombre_empresa
+      }
+      
+    }).catch(err=>{
+      console.log(err);
+    });
   }
-  logout(){
+  // logout(){
+  //   localStorage.removeItem('usuario');
+  //   this.router.navigate(['/login']);
+  // }
+  onLogout(){
     localStorage.removeItem('usuario');
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('/login');
   }
   getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());

@@ -46,7 +46,14 @@
                 </div>
             </div>
     
-            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="rows"  (activate)="onActivate($event)">
+            <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                class="bootstrap selection-cell" 
+                [columnMode]="'force'" 
+                [headerHeight]="50" 
+                [footerHeight]="50" 
+                [rowHeight]="'auto'" 
+                [limit]="entries != -1 ? entries : undefined" [rows]="rows"  
+                (activate)="onActivate($event)">
                 
                 <ngx-datatable-column name="titulo">
                     <ng-template let-column="column" ngx-datatable-header-template>
@@ -311,7 +318,13 @@
                 </div>
             </div>
     
-            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="destacados"  (activate)="onActivate($event)">                
+            <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                class="bootstrap selection-cell" 
+                [columnMode]="'force'" 
+                [headerHeight]="50" [footerHeight]="50" 
+                [rowHeight]="'auto'" 
+                [limit]="entries != -1 ? entries : undefined" [rows]="destacados"  
+                (activate)="onActivate($event)">                
                 <ngx-datatable-column name="titulo">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.titulo' | translate}}</span>
@@ -351,7 +364,7 @@
                         <span *ngIf="value == 0"  class="fas fa-eye-slash"> </span>
                     </ng-template>
                 </ngx-datatable-column>
-               
+                
             </ngx-datatable>
         </div>
     </div>

@@ -106,7 +106,13 @@ export class ImportarproductoComponent implements OnInit {
 
   }
   dataExcelProductos(){
-    this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
+    this.dataExcel = [];
+    if(this.dataExcel.length > 0){
+      this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
+    }else{
+      Swal.fire('No hay productos para exportar, intente de nuevo!', 'error')
+
+    }
 
   }
 }

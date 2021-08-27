@@ -9,7 +9,7 @@
     <div class="sidenav-header d-flex align-items-center">
       <a class="navbar-brand" [routerLink]="['/dashboards/dashboard']">
         <img
-          src="assets/icons/faviconmaspedidos_1_1x.png"
+          src="assets/img/brand/logo.png"
           class="navbar-brand-img"
           alt="..."
         />
@@ -36,7 +36,7 @@
               <span class="nav-link-text">{{ menuitem.title }}</span>
             </a>
             <!--If it have a submenu-->
-            <a class="nav-link" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub'"
+            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub'"
               (click)="menuitem.isCollapsed = !menuitem.isCollapsed" [attr.aria-expanded]="!menuitem.isCollapsed" 
               [attr.aria-controls]="menuitem.collapse" >
               <i class="ni {{ menuitem.icontype }}"></i>
@@ -85,7 +85,7 @@
 
           </li>
           <li class="nav-item text-center">  
-            <button class="btn btn-sm btn-neutral" (click)="onLogout()">Logout</button>  
+            <button class="btn btn-sm btn-neutral" (click)="onLogout()"><i class="ni ni-user-run"></i> Logout</button>  
           </li>  
         </ul>
         <!-- Divider -->

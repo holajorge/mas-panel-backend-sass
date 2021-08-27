@@ -44,7 +44,13 @@
                 </div>
             </div>
 
-            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="temp" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)">
+            <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                class="bootstrap selection-cell" 
+                [columnMode]="'force'" [headerHeight]="50" 
+                [footerHeight]="50" [rowHeight]="'auto'" 
+                [limit]="entries != -1 ? entries : undefined" 
+                [rows]="temp" [loadingIndicator]="loadingIndicator" 
+                (activate)="onActivate($event)">
                 <ngx-datatable-column name="Nombre">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'vendedores.tabla.nombre' | translate}}</span>
@@ -110,7 +116,11 @@
                 </div>
             </div>
 
-            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="entriesLog != -1 ? entries : undefined" [rows]="logRow" (activate)="onActivateLog($event)">
+            <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                class="bootstrap selection-cell" [columnMode]="'force'" 
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" 
+                [limit]="entriesLog != -1 ? entries : undefined" [rows]="logRow" 
+                (activate)="onActivateLog($event)">
                 <ngx-datatable-column name="fecha">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'vendedores.tablalog.fecha' | translate}}</span>

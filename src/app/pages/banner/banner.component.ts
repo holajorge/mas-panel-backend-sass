@@ -125,6 +125,10 @@ export class BannerComponent implements OnInit {
     });
     
   }
+  deleteImage(url: any){
+    this.imageURLHeader = "";
+  }
+
   showPreviewFooter(event) {
 
     const file = (event.target as HTMLInputElement).files[0];
@@ -167,6 +171,11 @@ export class BannerComponent implements OnInit {
       console.log(err);
     });
   }
+  deleteImageFooter(url:any){
+
+    this.imageURLFooter = "";
+
+  }
   showPreviewSwal(event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.uploadFormSwal.patchValue({
@@ -206,5 +215,10 @@ export class BannerComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+  }
+  deleteImageSwal(url:any){
+
+    this.imageURLSwal = "";
+
   }
 }

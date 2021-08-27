@@ -313,14 +313,18 @@ export class ProductoComponent implements OnInit {
   }
 
   destacadoProducts(modaDestacadoProducto){
-    console.log(this.rows);
-    this.destacados = this.rows.filter( function(p){
-      if(p.destacado == 1){
-        return p;
-      }
-    });
-    console.log(this.destacados);
-    this.notificationModal = this.modalService.show(modaDestacadoProducto,this.notification);
+    
+    if(this.rows.length > 0){
+
+      this.destacados = this.rows.filter( function(p){
+        if(p.destacado == 1){
+          return p;
+        }
+      });
+      this.notificationModal = this.modalService.show(modaDestacadoProducto,this.notification);
+    }else{
+      Swal.fire('upss!','Primero debe cargar al menos un producto!', 'success')
+    }
     
   }
   habilitarDestacado(row){

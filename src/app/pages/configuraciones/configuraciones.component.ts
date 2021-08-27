@@ -71,6 +71,7 @@ export class ConfiguracionesComponent {
       },
     ]
   };
+  imageURLogo: string;
  
   constructor(public translate: TranslateService,  public fb: FormBuilder, public configService: ConfigService) { 
     this.translate.addLangs(['en','es','pt']);
@@ -100,7 +101,7 @@ export class ConfiguracionesComponent {
   }
   getConfig(){
     this.configService.getConfigEmpresa(this.empresaData).then( (res:any) =>{    
-      console.log(res.response.body['configuraciones']);
+      
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
         this.formConfig.patchValue({
@@ -137,12 +138,23 @@ export class ConfiguracionesComponent {
         formData.append('logo', file, file.name);
         formData.append('empresa_id',this.formConfig.get('empresa_id').value); 
         this.form_dataConfig = formData;
-
+        
+        // File Preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageURLogo = reader.result as string;
+        }
+        reader.readAsDataURL(file)
       }else{
         Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
   
+  }
+  deleteImage(){
+    this.imageURLogo = "";
+    this.form_dataConfig.delete('logo');
+    console.log(this.form_dataConfig);
   }
   registrarConfig(){
     console.log(this.form_dataConfig);

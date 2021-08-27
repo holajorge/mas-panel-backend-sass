@@ -55,16 +55,16 @@
             "codigo":"Codigo",
             "titulo":"Titulo",
             "caracteristica":"Característica",
-            "precio":"precio",
-            "activo": "activo",
+            "precio":"Precio",
+            "activo": "Activo",
             "acciones": "Acciones",
             "editar": "Editar",
-            "mostrar": "mostrar",
-            "buscar": "buscar producto",
-            "entradas": "ingresos",
-            "total": "total", 
-            "habilitar": "habilitar",
-            "deshabilitar": "deshabilitar",
+            "mostrar": "Mostrar",
+            "buscar": "Buscar producto",
+            "entradas": "resultados",
+            "total": "Total", 
+            "habilitar": "Habilitar",
+            "deshabilitar": "Deshabilitar",
             "foto": "Foto",
             "destacadoA": "Habilitar Destacado",
             "destacadoD": "deshabilitar Destacado"
@@ -91,7 +91,7 @@
         "importar":{
             "titulo":"importar un archivo de productos",
             "select": "Seleccione un archivo",
-            "labelselect": "Selecione"
+            "labelselect": "Seleccione"
         },
         "destacado" : {
             "titulo": "Productos destacados"
@@ -107,7 +107,7 @@
             "editar": "Editar",
             "mostrar": "mostrar",
             "buscar": "buscar vendedor",
-            "entradas": "ingresos",
+            "entradas": "resultados",
             "total": "total",
             "log": "registro"
         },
@@ -148,9 +148,9 @@
     },
     "login":{
         "bienvenido": "Bienvenido",
-        "titulo": "Inicial Session",
+        "titulo": "Iniciar Sesion",
         "user": "Nombre de usuário",
-        "pass": "clave",
+        "pass": "Clave",
         "ingresar":"Ingresar",
         "reset": "¿olvidaste tu contraseña?",
         "nueva": "crear cuenta"
@@ -167,7 +167,7 @@
             "editar": "Editar",
             "mostrar": "mostrar",
             "buscar": "buscar pedido",
-            "entradas": "entradas",
+            "entradas": "resultados",
             "total": "total",
             "fecha": "fecha",
             "cometario": "comentário",
@@ -193,7 +193,7 @@
             "editar": "Editar",
             "mostrar": "mostrar",
             "buscar": "buscar pedido",
-            "entradas": "entradas",
+            "entradas": "resultados",
             "status": "Status",
             "precion_real": "Precio real"
         }
@@ -212,13 +212,13 @@
             "email":"Correo",
             "clave":"Clave",
             "activo": "Activo",
-            "usuario": "nombre de usuário",
+            "usuario": "Nombre de usuário",
             "acciones": "Acciones",
             "detalle": "Detalle",
             "editar": "Editar",
-            "mostrar": "mostrar",
+            "mostrar": "Mostrar",
             "buscar": "buscar cliente",
-            "entradas": "ingresos",
+            "entradas": "resultados",
             "total": "total",
             "fecha": "Fecha",
             "cometario": "Comentario",
