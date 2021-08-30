@@ -39,7 +39,8 @@
               <span class="avatar avatar-sm rounded-circle">
                 <img
                   alt="Image placeholder"
-                  src="assets/img/theme/team-4.jpg"
+                  *ngIf="truelogo"
+                  [src]="logo"
                 />
               </span>
               <div class="media-body ml-2 d-none d-lg-block">

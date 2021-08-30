@@ -85,13 +85,10 @@ export class BannerComponent implements OnInit {
 
   showPreviewHeader(event) {
     const file = (event.target as HTMLInputElement).files[0];
+    const files:FileList = event.target.files;  
 
-    this.uploadFormHeader.patchValue({
-      banner: file
-    });
+    this.uploadFormHeader.patchValue({banner: file});
     this.uploadFormHeader.get('banner').updateValueAndValidity();
-
-    const files:FileList = event.target.files;    
 
     if(files.length > 0){
       const file = files[0];

@@ -18,7 +18,8 @@ export class NavbarAdminComponent implements OnInit {
   empresa: any = {id:''};
   nombre_empresa:string = "";
   configuraciones:any;
-
+  logo:string = "";
+  truelogo:boolean = false;
   constructor(
    public configService: ConfigService,
     location: Location,private element: ElementRef,private router: Router) { 
@@ -56,7 +57,16 @@ export class NavbarAdminComponent implements OnInit {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        this.nombre_empresa = this.configuraciones.nombre_empresa
+        this.nombre_empresa = this.configuraciones.nombre_empresa;
+        console.log(this.configuraciones.logo);
+        if(this.configuraciones.logo == '' || this.configuraciones.logo == undefined){ 
+          this.truelogo = false;
+          this.logo = "";
+        }else{          
+          this.truelogo = true;       
+          this.logo = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo;
+        }    
+        console.log(this.logo);
       }
       
     }).catch(err=>{

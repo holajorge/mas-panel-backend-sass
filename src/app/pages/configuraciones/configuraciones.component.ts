@@ -124,31 +124,36 @@ export class ConfiguracionesComponent {
     });
   }
   showPreviewHeader(event) {
-    // const file = (event.target as HTMLInputElement).files[0];    
+    const file = (event.target as HTMLInputElement).files[0];    
     const files:FileList = event.target.files;    
-    console.log(files);
+    this.formConfig.patchValue({logo: file});
+    this.formConfig.get('logo').updateValueAndValidity();
 
     if(files.length > 0){
       const file = files[0];
-      if((file.size/1048576)<=4){
-
-        this.formConfig.patchValue({logo: file});
+      if((file.size/1048576)<=4){        
 
         let formData = new FormData();
-        formData.append('logo', file, file.name);
-        formData.append('empresa_id',this.formConfig.get('empresa_id').value); 
+        // console.log(file);
+        // console.log(file.name);
+        formData.append('logo', (event.target as HTMLInputElement).files[0], file.name);
+        // formData.append('empresa_id',this.formConfig.get('empresa_id').value); 
+        // console.log(formData);
         this.form_dataConfig = formData;
-        
-        // File Preview
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.imageURLogo = reader.result as string;
-        }
-        reader.readAsDataURL(file)
+        // console.log(this.form_dataConfig);
+        // this.formConfig.patchValue({filesource: files});
+        // console.log(this.form_dataConfig.get('logo'));
+        // File Preview        
       }else{
         Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURLogo = reader.result as string;
+    }
+    reader.readAsDataURL(file)
   
   }
   deleteImage(){
@@ -157,14 +162,16 @@ export class ConfiguracionesComponent {
     console.log(this.form_dataConfig);
   }
   registrarConfig(){
-    console.log(this.form_dataConfig);
+    // console.log(this.form_dataConfig);
     // this.formConfig.patchValue({color_botones: this.color});
     let formData = new FormData();
-
-    if(this.form_dataConfig.length > 0){
+    // let hola = this.form_dataConfig.get('logo');
+    // console.log(hola);
+    if( this.form_dataConfig.get('logo') != null){
       formData.append('logo', this.form_dataConfig.get('logo'));
     }
-
+    // console.log(formData.get('logo'));
+    // return false;
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
     formData.append('color_botones',  this.color);
     formData.append('aprobar_user',  this.formConfig.get('aprobar_usuario').value);
