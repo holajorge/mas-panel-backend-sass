@@ -85,8 +85,8 @@ export class ConfiguracionesComponent {
       direccion: [null],
       telefono: [null],
       correo: [null],
-
-      dominio: [null],
+      invitado: [null],
+      dominio: [null,Validators.required],
       logoo: [null],
       logo: [null],
       color_botones: [''],
@@ -165,11 +165,11 @@ export class ConfiguracionesComponent {
     // console.log(this.form_dataConfig);
     // this.formConfig.patchValue({color_botones: this.color});
     let formData = new FormData();
-    // let hola = this.form_dataConfig.get('logo');
-    // console.log(hola);
-    if( this.form_dataConfig.get('logo') != null){
+    // let logo = this.form_dataConfig.entries();
+    // console.log(logo);
+    // if( logo != null){
       formData.append('logo', this.form_dataConfig.get('logo'));
-    }
+    // }
     // console.log(formData.get('logo'));
     // return false;
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
@@ -178,6 +178,7 @@ export class ConfiguracionesComponent {
     formData.append('permitir_registracion',  this.formConfig.get('permitir_registracion').value);
     formData.append('dominio',  this.formConfig.get('dominio').value);
     formData.append('send_whatspp',  this.formConfig.get('send_whatspp').value);
+    formData.append('invitado',  this.formConfig.get('invitado').value);
     formData.append('descripcion_empresa',  this.formConfig.get('descripcion_empresa').value);
 
     formData.append('nombre_empresa',  this.formConfig.get('nombre_empresa').value);

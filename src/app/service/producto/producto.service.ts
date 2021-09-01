@@ -147,7 +147,20 @@ export class ProductoService {
     });
     FileSaver.saveAs(data, fileName + '_exported'+ EXCEL_EXTENSION);
   }
+  updateProductCaract(producto){
 
+    console.log(producto);
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateCaractProduct",producto,options).toPromise().then((res) =>{     
+      return { success: true, productos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+  }
 
 
 }

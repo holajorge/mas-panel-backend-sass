@@ -90,6 +90,7 @@ export const ROUTES: RouteInfo[] = [
     icontype: "ni-shop text-primary",
     isCollapsed: true,
     children: [
+      { path: "configuracion", title: "Configuración de productos", type: "link" },
       { path: "productos", title: "Lista Productos", type: "link" },
       { path: "importarproducto", title: "Importar Productos", type: "link" },
       { path: "importarfotos", title: "Importar Fotos", type: "link" },

@@ -14,7 +14,8 @@
             "permitirRegistro": "Permitir Registración",
             "envioWhatssap": "Enviar pedido por whatsapp al vendedor",
             "descripcionEmpresa": "Descripción Empresa",
-            "guardar": "Guardar"
+            "guardar": "Guardar",
+            "invitado": "Permitir entrar como Invitado"
         }
     },
     "banner": {
@@ -45,6 +46,13 @@
         "swal": "Seleccione una imagen para los mensajes de alerta"
     },
     "producto": {
+        "configuracion": {
+            "titulo": "Configuración de productos",
+            "caract1": "Caracteristica 1",
+            "caract2": "Caracteristica 2",
+            "caract3": "Caracteristica 3",
+            "send": "Enviar"
+        },
         "titulo":"Lista Productos",
         "tituloEdit": "Editar Producto",
         "foto": {

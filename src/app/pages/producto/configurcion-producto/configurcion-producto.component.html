@@ -1,0 +1,63 @@
+<div class=" header bg-maspedidos pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0 mr-1">{{  'producto.configuracion.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+            
+                <form [formGroup]="addForm" novalidate>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="titulo">{{ 'producto.configuracion.caract1' | translate }}:</label>
+                                <input type="text" formControlName="caract1" placeholder="{{ 'producto.configuracion.caract1' | translate }}" name="titulo" class="form-control" id="caract1">
+                                 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="codigo_producto">{{ 'producto.configuracion.caract2' | translate }}:</label>
+                                <input type="text" formControlName="caract2" placeholder="{{ 'producto.configuracion.caract2' | translate }}" name="caract2" class="form-control" id="caract2">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="precio">{{ 'producto.configuracion.caract3' | translate }}:</label>
+                                <input type="text" formControlName="caract3" placeholder="{{ 'producto.configuracion.caract3' | translate }}" name="caract3" class="form-control" id="caract3">
+                                
+                            </div>
+                        </div>
+        
+                    </div>                        
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button class="btn btn-success" [disabled]='addForm.invalid' (click)="senConfiguracionProduct()" >{{ 'producto.configuracion.send' | translate }}</button> 
+                        </div>
+                    </div>                       
+            
+                </form>                
+             
+                </div>                 
+            </div>
+        </div>
+    </div>
+</div>

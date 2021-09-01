@@ -13,6 +13,7 @@ import { ImportarproductoComponent } from './producto/impotar/importarproducto/i
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { ImportarVendedorComponent } from './vendedor/importar-vendedor/importar-vendedor.component';
 import { ImportarFotosComponent } from './producto/importar-fotos/importar-fotos.component';
+import { ConfigurcionProductoComponent } from './producto/configurcion-producto/configurcion-producto.component';
 
 
 const routes:Routes = [
@@ -32,6 +33,7 @@ const routes:Routes = [
             {path: 'cliente/clientes',  component: ClienteComponent},
             {path: 'cliente/importar',  component: ImportarComponent},
             //productos
+            {path: 'producto/configuracion',  component: ConfigurcionProductoComponent},
             {path: 'producto/productos',  component: ProductoComponent},
             {path: 'producto/importarproducto',  component: ImportarproductoComponent},
             {path: 'producto/importarfotos',  component: ImportarFotosComponent},
