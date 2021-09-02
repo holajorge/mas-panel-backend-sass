@@ -46,6 +46,11 @@ export class ProductoComponent implements OnInit {
   empresa:any = "";
   rows:any = [];
   rowsTemp:any = [];
+  arrayCaracteristica1:any = [];
+  arrayCaracteristica2:any = [];
+  arrayCaracteristica3:any = [];
+  caracteristica2:any = [];
+  caracteristica3:any = [];
   entries: number = 10;
   entriesDestacados: number = 10;
   editForm: FormGroup;
@@ -56,6 +61,11 @@ export class ProductoComponent implements OnInit {
   producto:any = {id:'',empresa_id: ''};
   destacados:any = [];
   cambios:boolean = false;
+  
+  addTextCaract:boolean = false;
+  addTextCaract2:boolean = false;
+  addTextCaract3:boolean = false;
+
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
     this.translate.addLangs(['en','es','pt']);
@@ -125,12 +135,16 @@ export class ProductoComponent implements OnInit {
       if(res.success){
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
+        this.arrayCaracteristica1 = res.productos['caracteristica1'];
+        this.arrayCaracteristica2 = res.productos['caracteristica2'];
+        this.arrayCaracteristica3 = res.productos['caracteristica3'];
       }else{
       }
     }).catch(err=>{
       console.log(err);
     });
   }
+  
   entriesChange($event) {
     this.entries = $event.target.value;
   }
@@ -195,6 +209,10 @@ export class ProductoComponent implements OnInit {
         this.editForm.reset();
         this.getProductos();
         Swal.fire('Listo!','Producto Editardo, con sucesso!', 'success')
+        this.addTextCaract = false;
+        this.addTextCaract2 = false;
+        this.addTextCaract3 = false;
+
       }else{
         Swal.fire('Editar Error, intente nuevamente', 'error')
 

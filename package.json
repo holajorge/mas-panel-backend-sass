@@ -26,6 +26,7 @@
     "@fullcalendar/interaction": "4.4.0",
     "@kolkov/angular-editor": "^1.2.0",
     "@ng-bootstrap/ng-bootstrap": "^4.2.2",
+    "@ng-select/ng-select": "^7.2.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@sweetalert2/ngx-sweetalert2": "^10.0.0",

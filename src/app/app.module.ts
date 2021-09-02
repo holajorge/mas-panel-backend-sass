@@ -20,7 +20,7 @@ import { DateFormatterService } from "./service/date/date-formatter.service";
 import { AuthModule } from "./auth/auth.module";
 import { PagesModule } from "./pages/pages.module"
 import { environment } from '../environments/environment';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -28,7 +28,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   imports: [
-    NgbModule,
+    NgbModule,NgSelectModule,
     ModalModule.forRoot(),
     NgxDatatableModule,
     BrowserAnimationsModule,

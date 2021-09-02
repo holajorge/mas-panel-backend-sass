@@ -11,6 +11,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
+
 import { AdminComponent } from '../layouts/admin/admin.component';
 import { VendedorComponent } from './vendedor/vendedor.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
@@ -24,7 +25,7 @@ import { ImportarVendedorComponent } from './vendedor/importar-vendedor/importar
 import { ImportarFotosComponent } from './producto/importar-fotos/importar-fotos.component';
 import { ConfigurcionProductoComponent } from './producto/configurcion-producto/configurcion-producto.component';
 
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -51,7 +52,7 @@ imports: [
     
   ],
   imports: [
-    FormsModule,ReactiveFormsModule,
+    FormsModule,ReactiveFormsModule,NgSelectModule,
     NgbModule,
     CommonModule,
     ComponentsModule,
