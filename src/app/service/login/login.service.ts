@@ -26,6 +26,48 @@ export class LoginService {
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/authlogin",this.user,options).pipe( map( resp => true), catchError(error => of(false) ) );
     
   }
+  sendemailresetpassword(email){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    let data = {email:email}
+
+    console.log(email);
+    return this._http.post(ConfigService.API_ENDPOINT() + "Backend/sendemailEmpresaResetPass",JSON.stringify(data),options).pipe(map(
+      res => res,
+      error => {
+        return {error:true, message:error};
+      }
+    ));
+
+    
+  }
+  validateToken(token){
+
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let data = {token:token}
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT() + "Backend/validateTokenEnterprice",JSON.stringify(data),options).pipe(map(
+        res => res,
+        error => {
+            return {error:true, message:error};
+        }
+    ));
+
+  } 
+  resetpasswordfinal(pass,empresa){    
+  
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let data = {pass:pass,empresa_id: empresa.id,token: empresa.token, apikey: empresa.apikey}
+    let options = { headers: headers };
+  
+    return this._http.post(ConfigService.API_ENDPOINT() + "Backend/saveNewPasswordEnterprice",JSON.stringify(data),options).pipe(map(
+        res => res,
+        error => {
+            return {error:true, message:error};
+        }
+    ));
+  }
 }
 
 

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';//importar para formular envio de todos los parametros
 import { Router } from '@angular/router'; //para redireccionar las vistas
 import { LoginService } from '../../service/login/login.service';
-import swal from "sweetalert2";
+import Swal from "sweetalert2";
 import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
         form.reset();
         this.router.navigate(['/admin']);
        }else{
-        swal.fire({
+        Swal.fire({
           title: "Hubo un error",
           text: "Revise los datos e intente nuevamente",
           type: "error",
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
        }
     },  
       error => {  
-        swal.fire({
+        Swal.fire({
           title: "Hubo un error",
           text: "Revise los datos e intente nuevamente",
           type: "error",
@@ -57,6 +58,45 @@ export class LoginComponent implements OnInit {
     //   localStorage.setItem('usuario', form.value.usuario);
     //   this.router.navigate(['/admin']);
     // }
+  }
+  passwordRecover(){
+
+    Swal.fire({
+      title: "¿Olvidaste la contraseña?",
+      text: "A continuación, te enviaremos una contraseña para recuperar el acceso a la cuenta.",
+      input: 'text',
+      inputPlaceholder: "usuario@correo.com.ar",
+      confirmButtonText: 'Recuperar contraseña',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        confirmButton: 'btn btn-primary ml-0 ml-sm-1',
+        cancelButton: 'btn btn-outline-light mt-1 mt-sm-0',
+        input: 'form-control'
+      },
+      reverseButtons: true,
+      buttonsStyling: false,
+      showCancelButton: true,
+      showCloseButton: true,
+      }).then((result) => {
+          if (result.value) {
+              // console.log("Result: " + result.value);
+
+            this.loginService.sendemailresetpassword(result.value).subscribe(
+              (data:any) => {
+                console.log(data);
+                if(data.body == true){
+                  Swal.fire('Listo!','correo enviado!', 'success')
+                }
+              }
+              ,(err)=>{
+                Swal.fire('error','error de comunicación, intente de nuevo!', 'error');
+
+              }
+  
+            );
+          }
+      });
+
   }
 
 }

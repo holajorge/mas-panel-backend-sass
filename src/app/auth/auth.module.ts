@@ -6,6 +6,7 @@ import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
+import { ClaveComponent } from './clave/clave.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -13,7 +14,8 @@ export function createTranslateLoader(http: HttpClient) {
 }
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    ClaveComponent
   ],
   exports: [
     LoginComponent

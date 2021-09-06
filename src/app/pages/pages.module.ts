@@ -27,7 +27,6 @@ import { ConfigurcionProductoComponent } from './producto/configurcion-producto/
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
-
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }

@@ -34,6 +34,7 @@
               <div class=" text-center text-muted mb-4"><small> {{ 'login.titulo' | translate}} </small></div>
   
               <form role="form" #loginForm="ngForm"  (ngSubmit)="login(loginForm)">
+                
                 <div class="form-group mb-3" [ngClass]="{ focused: focus === true }" >
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -42,6 +43,7 @@
                     <input class="form-control" id="usuario" name="usuario" placeholder="{{ 'login.user' | translate}}" type="text" (focus)="focus = true" (blur)="focus = false" ngModel/>
                   </div>
                 </div>
+                <a href="javascript:void(0)" (click)="passwordRecover()" class="text-primary font-weight-bold">¿Olvidaste la contraseña?</a>
                 <div class="form-group" [ngClass]="{ focused: focus1 === true }">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -50,6 +52,7 @@
                     <input class="form-control" id="password" name="password" placeholder="{{ 'login.pass' | translate}}" type="password" (focus)="focus1 = true" (blur)="focus1 = false" ngModel/>
                   </div>
                 </div>
+
                 <div class="text-center">
                   <button type="button"  type="submit" class="btn btn-primary my-4">{{ 'login.ingresar' | translate}}</button>
                 </div>
