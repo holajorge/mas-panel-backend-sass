@@ -82,6 +82,30 @@ export class ClienteService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  deshacerCambiosClientes(empresaa){
+    let empresa = {id: empresaa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshacerCambiosCliente",empresa,options).toPromise().then((res) =>{      
+      return { success: true, flag:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  aplaychangeClientes(empresaa){
+    let empresa = {id: empresaa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/aplicarCambiosCliente",empresa,options).toPromise().then((res) =>{      
+      return { success: true, flag:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
   exportAsExcelFile(data, nameFile){
     
     const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);

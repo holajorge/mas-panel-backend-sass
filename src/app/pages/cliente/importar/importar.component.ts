@@ -62,22 +62,75 @@ export class ImportarComponent implements OnInit {
     });
   }
   sendfile(){
+    
     Swal.showLoading()
     this.clienteService.importClient(this.file_data).then( (res:any) =>{    
-      if(res.response == true){
-      Swal.close();
-
-        Swal.fire('Listo!','Archivo de produtos importado con exito!', 'success')
-      }else{
+      console.log(res.response);
+      if(res.success == true){
         Swal.close();
-        Swal.fire('Error al importar los datos de los productos, intente de nuevo!', 'error')
+        Swal.fire({
+          // icon: "info",
+          title: "Cantidad de Cliente afectado",
+          // text: "Cantidad productos eliminados: "+ 40 +"<br>" + "productos Nuevos:" + 50, 
+          html: 'cantidad Cliente eliminados: '+ '<b>' + res.response.antes[0].cantidad +'</b><br>'+
+            'productos Nuevos:' + '<b>' + res.response.nuevos +'</b>',         
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Deshacer!'
+        }).then((result) => {
+
+          let resul = result;
+          if (resul.value) {
+            this.deshacerCambios();
+          }
+          if (resul.dismiss){
+            this.aplayChange();
+          }
+          
+        });        
+      }else{
+        Swal.close()
+        Swal.fire('Error al importar los datos de los clientes, intente de nuevo!', 'error')
       }
+
     }).catch(err=>{
       Swal.close();
+      Swal.fire('Error al importar los datos de los clientes, intente de nuevo!', 'error')
+
       console.log(err);
     });
     
+  }
+  deshacerCambios(){
+    this.clienteService.deshacerCambiosClientes(this.empresa).then( (res:any) =>{    
+      if(res.flag == true){
+        Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        this.getClientes();
 
+      }else{
+        Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      }
+    }).catch(err=>{
+      Swal.close()
+      Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      console.log(err);
+    });
+  }
+  aplayChange(){
+    this.clienteService.aplaychangeClientes(this.empresa).then( (res:any) =>{    
+      if(res.flag == true){
+        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        this.getClientes();
+
+      }else{
+        Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      }
+    }).catch(err=>{
+      Swal.close()
+      Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      console.log(err);
+    });
   }
 
   handleFile(event) {
@@ -107,8 +160,6 @@ export class ImportarComponent implements OnInit {
     this.clienteService.exportAsExcelFile(this.modeloExcel, 'modelo_cliente');
   }
   dataExcelClientes(){
-
-
     this.clienteService.exportAsExcelFile(this.dataExcel, 'clientes');
   }
 }

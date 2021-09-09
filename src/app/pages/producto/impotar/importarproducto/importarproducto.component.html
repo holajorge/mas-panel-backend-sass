@@ -22,20 +22,21 @@
         <div class=" col">
             <div class=" card">
                 <div class="dataTables_wrapper py-4">
-                    <div class="card">
-                        
-                        <div class="card-body">
-                            
-                            <h3 class="mb-0">{{'producto.importar.select'  | translate }}</h3>
-                            
+                    <div class="card">                        
+                        <div class="card-body">                            
+                            <h3 class="mb-0">{{'producto.importar.select'  | translate }}</h3>                            
                             <form [formGroup]="addForm" novalidate>
-                                <div class="custom-file">
-                                    <input formControlName="file"  (change)="handleFile($event)"  class="custom-file-input" id="customFileLang" lang="pt" type="file"  />
-                                    <label class="custom-file-label" for="customFileLang"> {{'producto.importar.labelselect'  | translate }} </label>
+                                <!-- <div class="custom-file"> -->
+                                    <input formControlName="file" 
+                                        (change)="handleFile($event)"  
+                                        class="form-control" 
+                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                        id="customFileLang" lang="pt" type="file"  />
+                                    <!-- <label class="custom-file-label" for="customFileLang"> {{'producto.importar.labelselect'  | translate }} </label> -->
                                     <div class="alert  alert-danger" *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">  
                                         Archivo es requerido
                                     </div>  
-                                </div>
+                                <!-- </div> -->
                             </form>
                             
                         </div>

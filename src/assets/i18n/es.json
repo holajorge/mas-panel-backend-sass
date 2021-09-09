@@ -57,7 +57,7 @@
         "tituloEdit": "Editar Producto",
         "foto": {
             "titulo": "Importar Fotos",
-            "text": "Selectione un archivo ZIP con las fotos"
+            "text": "Seleccione un archivo ZIP con las fotos"
         },
         "tabla":{
             "codigo":"Codigo",
@@ -149,7 +149,7 @@
         },
         "importar":{
             "titulo":"importar Vendedor",
-            "select": "Selecione un arcuivo",
+            "select": "Seleccione un archivo",
             "labelselect": "Selecione"
         }
         

@@ -59,6 +59,32 @@ export class VendedorService {
     });
 
   }
+  deshacerCambiosVendedores(empresaa){
+
+    let empresa = {id: empresaa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshacerCambiosVendedor",empresa,options).toPromise().then((res) =>{      
+      return { success: true, flag:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+  }
+  aplaychangeVendedores(empresaa){
+    let empresa = {id: empresaa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/aplicarCambiosVendedor",empresa,options).toPromise().then((res) =>{      
+      return { success: true, flag:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
   exportAsExcelFile(data, nameFile){
 
     
