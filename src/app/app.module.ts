@@ -22,6 +22,7 @@ import { PagesModule } from "./pages/pages.module"
 import { environment } from '../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -54,6 +55,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   declarations: [
     AppComponent,
+    
   ],
   providers: [{ provide: NgbDateParserFormatter, useClass: DateFormatterService }],
   bootstrap: [AppComponent]

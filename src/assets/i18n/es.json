@@ -105,6 +105,39 @@
             "titulo": "Productos destacados"
         }
     },
+    "precios": {
+        "titulo" : "Lista de Precios",
+        "importar":{
+            "titulo":"importar un archivo de precios",
+            "select": "Seleccione un archivo",
+            "labelselect": "Seleccione"
+        },
+        "tabla": {
+            "nrocliente": "Nro cliente",
+            "codigo" : "Codigo",
+            "precio": "Precio",
+            "descuento": "Descuento",
+            "mostrar": "mostrar",
+            "total": "total",
+            "buscar": "buscar precio",
+            "log": "registro",
+            "entradas": "resultados",
+            "acciones": "Acciones",
+            "editar": "Editar",
+            "actualizar": "Actualizar",
+            "agregar": "Guardar",
+            "add": "nuevo",
+            "delete": "Eliminar",
+            "cancelar": "Cencelar"
+        },
+        "form": {
+            "titulo": "Agregar/editar Precios",
+            "nrocliente": "Nro cliente",
+            "codigo": "codigo",
+            "precio": ""
+        }
+
+    },
     "vendedores":{
         "lista": "Lista de vendedores",
         "tabla":{
