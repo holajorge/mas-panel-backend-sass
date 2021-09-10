@@ -67,10 +67,10 @@ export class ImportarComponent implements OnInit {
       if(res.response == true){
       Swal.close();
 
-        Swal.fire('Listo!','Archivo de produtos importado con exito!', 'success')
+        Swal.fire('Listo!','Archivo de clientes importado con exito!', 'success')
       }else{
         Swal.close();
-        Swal.fire('Error al importar los datos de los productos, intente de nuevo!', 'error')
+        Swal.fire('Error al importar los datos de los clientes, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       Swal.close();
