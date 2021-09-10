@@ -66,7 +66,7 @@ export class ImportarVendedorComponent implements OnInit {
     this.vendedorService.importVendedor(this.file_data).then( (res:any) =>{    
       if(res.response == true){
         Swal.close()
-        Swal.fire('Listo!','Archivo de vededores importado con exito!', 'success')
+        Swal.fire('Listo!','Archivo de vendedores importado con exito!', 'success')
       }else{
         Swal.close()
         Swal.fire('Error al importar los datos de los vededores, intente de nuevo!', 'error')
