@@ -122,7 +122,32 @@ export class ProductoService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
 
+  }
+  deshacerCambiosProductos(empresaa){
 
+    let empresa = {id: empresaa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshacerCambiosProducto",empresa,options).toPromise().then((res) =>{      
+      return { success: true, flag:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+  }
+  aplaychangeProducts(empresaa){
+    let empresa = {id: empresaa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/aplicarCambiosProducto",empresa,options).toPromise().then((res) =>{      
+      return { success: true, flag:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
   }
   importPhoto(filedata){
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importPhotoProduct",filedata).toPromise().then((res) =>{     

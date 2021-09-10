@@ -26,6 +26,8 @@ import { ImportarFotosComponent } from './producto/importar-fotos/importar-fotos
 import { ConfigurcionProductoComponent } from './producto/configurcion-producto/configurcion-producto.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PreciosComponent } from './precios/precios.component';
+import { ImportarPreciosComponent } from './precios/importar-precios/importar-precios.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,6 +50,8 @@ imports: [
     ImportarVendedorComponent,
     ImportarFotosComponent,
     ConfigurcionProductoComponent,
+    PreciosComponent,
+    ImportarPreciosComponent,
     
   ],
   imports: [

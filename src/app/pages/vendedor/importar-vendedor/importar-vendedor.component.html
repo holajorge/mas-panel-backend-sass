@@ -26,13 +26,16 @@
                         <div class="card-body">
                             <h3 class=" mb-0">{{'vendedores.importar.select'  | translate }}</h3>
                             <form [formGroup]="addForm" novalidate>
-                                <div class="custom-file">
-                                    <input formControlName="file"  (change)="handleFile($event)"  class="custom-file-input" id="customFileLang" lang="pt" type="file"  />
-                                    <label class="custom-file-label" for="customFileLang"> {{'vendedores.importar.labelselect'  | translate }} </label>
-                                    <div class="alert  alert-danger" *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">  
+                                <!-- <div class="custom-file"> -->
+                                    <input formControlName="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                            (change)="handleFile($event)"  
+                                            class="form-control" id="customFileLang" type="file"  />
+                                            
+                                    <div class="alert  alert-danger" 
+                                        *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">  
                                         Archivo es requerido
                                     </div>  
-                                </div>
+                                <!-- </div> -->
                             </form>
                         </div>
                         <div class="card-footer">

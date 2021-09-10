@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+// import Swal from 'sweetalert2/dist/sweetalert2.js'
+// import 'sweetalert2/src/sweetalert2.scss'
 import {TranslateService} from '@ngx-translate/core';
 import { ProductoService } from 'src/app/service/producto/producto.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-importarproducto',
@@ -87,26 +88,81 @@ export class ImportarproductoComponent implements OnInit {
     Swal.showLoading()
 
     this.productoService.importProducto(this.file_data).then( (res:any) =>{    
-      if(res.response == true){
-        Swal.close()
-        Swal.fire('Listo!','Archivo de Productos importado con exito!', 'success')
+      console.log(res.response);
+      if(res.success == true){
+        Swal.close();
+        Swal.fire({
+          // icon: "info",
+          title: "Cantidad de Producto afectado",
+          // text: "Cantidad productos eliminados: "+ 40 +"<br>" + "productos Nuevos:" + 50, 
+          html: 'Productos eliminados: '+ '<b>' + res.response.antes[0].cantidad +'</b><br>'+
+            'Productos Nuevos:' + '<b>' + res.response.nuevos +'</b>',         
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Deshacer!'
+        }).then((result) => {
+          console.log(result);
+          let resul = result;
+          if (resul.value) {
+            this.deshacerCambios();
+
+          }
+          if (resul.dismiss){
+            console.log("ya chale");
+            this.aplayChange();
+
+          }
+
+        });        
       }else{
         Swal.close()
         Swal.fire('Error al importar los datos de los productos, intente de nuevo!', 'error')
       }
+
     }).catch(err=>{
       Swal.close()
       console.log(err);
     });
-    
-
   }
+
+  deshacerCambios(){
+    this.productoService.deshacerCambiosProductos(this.empresa).then( (res:any) =>{    
+      if(res.flag == true){
+        Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        this.getProductos();
+
+      }else{
+        Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      }
+    }).catch(err=>{
+      Swal.close()
+      Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      console.log(err);
+    });
+  }
+  aplayChange(){
+    this.productoService.aplaychangeProducts(this.empresa).then( (res:any) =>{    
+      if(res.flag == true){
+        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        this.getProductos();
+
+      }else{
+        Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      }
+    }).catch(err=>{
+      Swal.close()
+      Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      console.log(err);
+    });
+  }
+
   modeloProducto(){
     this.productoService.exportAsExcelFile(this.modeloExcel, 'modelo_producto');
 
   }
   dataExcelProductos(){
-    this.dataExcel = [];
+    // this.dataExcel = [];
     if(this.dataExcel.length > 0){
       this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
     }else{

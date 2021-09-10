@@ -5,77 +5,54 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
-
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
+export class PreciosService {
 
   constructor(private _http:HttpClient) { }
 
-  getcliente(idEmpresa){
-    console.log(idEmpresa);
+  createPrecio(formadd){
+    
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getClientes",idEmpresa,options).toPromise().then((res) =>{      
-      return { success: true, pedidos:res};
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/createPrecio",formadd,options).toPromise().then((res) =>{     
+      return { success: true, precio:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+  }
+  delitePrice(formadd){
+    
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deletePrecio",formadd,options).toPromise().then((res) =>{     
+      return { success: true, precio:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+  }
+  updatePrecio(formadd){
+    
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updatePrecio",formadd,options).toPromise().then((res) =>{      
+      return { success: true, precio:res};
     })
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
-  postCliente(cliente){
-    console.log(cliente);
-    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    let options = { headers: headers };
+  importPrecios(formdata){
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateCliente",cliente,options).toPromise().then((res) =>{      
-      return { success: true, response:res};
-    })
-    .catch( (err) =>{
-      return { success: false, msj:'Ocurrió un error en al traer los datos'};
-    });
-  }
-  postInsertCliente(newCliente){
-    console.log(newCliente);
-    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    let options = { headers: headers };
-    
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/insertNewCliente",newCliente,options).toPromise().then((res) =>{      
-      return { success: true, response:res};
-    })
-    .catch( (err) =>{
-      return { success: false, msj:'Ocurrió un error en al traer los datos'};
-    });
-  }
-  postDeshabilitar(cliente){
-    console.log(cliente);
-    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    let options = { headers: headers };
-    
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshabilitarCliente",cliente,options).toPromise().then((res) =>{      
-      return { success: true, response:res};
-    })
-    .catch( (err) =>{
-      return { success: false, msj:'Ocurrió un error en al traer los datos'};
-    });
-  }
-  postHabilitar(cliente){
-    
-    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    let options = { headers: headers };
-    
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/activarCliente",cliente,options).toPromise().then((res) =>{      
-      return { success: true, response:res};
-    })
-    .catch( (err) =>{
-      return { success: false, msj:'Ocurrió un error en al traer los datos'};
-    });
-  }
-  importClient(formdata){
-    
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importCliente",formdata).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importPrecios",formdata).toPromise().then((res) =>{      
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -87,7 +64,7 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshacerCambiosCliente",empresa,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/deshacerCambiosPrecios",empresa,options).toPromise().then((res) =>{      
       return { success: true, flag:res};
     })
     .catch( (err) =>{
@@ -99,8 +76,20 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/aplicarCambiosCliente",empresa,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/aplicarCambiosPrecios",empresa,options).toPromise().then((res) =>{      
       return { success: true, flag:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  getPrecios(idEmpresa){
+    console.log(idEmpresa);
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPrecios",idEmpresa,options).toPromise().then((res) =>{      
+      return { success: true, pedidos:res};
     })
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al traer los datos'};

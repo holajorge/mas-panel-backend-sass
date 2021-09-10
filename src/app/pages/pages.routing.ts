@@ -15,6 +15,8 @@ import { ImportarVendedorComponent } from './vendedor/importar-vendedor/importar
 import { ImportarFotosComponent } from './producto/importar-fotos/importar-fotos.component';
 import { ConfigurcionProductoComponent } from './producto/configurcion-producto/configurcion-producto.component';
 
+import { PreciosComponent } from './precios/precios.component';
+import { ImportarPreciosComponent } from './precios/importar-precios/importar-precios.component';
 
 const routes:Routes = [
     {
@@ -37,6 +39,9 @@ const routes:Routes = [
             {path: 'producto/productos',  component: ProductoComponent},
             {path: 'producto/importarproducto',  component: ImportarproductoComponent},
             {path: 'producto/importarfotos',  component: ImportarFotosComponent},
+            //precios
+            {path: 'precios/lista',  component: PreciosComponent},
+            {path: 'precios/importar-precios',  component: ImportarPreciosComponent},
             
         ]
     },

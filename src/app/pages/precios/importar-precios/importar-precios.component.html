@@ -4,11 +4,11 @@
         <div class=" row align-items-center py-4">
           <div class=" col-lg-6 col-7">
             <h6 class=" h2 text-white d-inline-block mb-0">
-                {{  'producto.importar.titulo' | translate}}</h6>
+                {{  'precios.importar.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modeloProducto()"> Descargar Modelo </a>
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelProductos()"> Exportar Excel</a>
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modelocliente()"> Descargar Modelo </a>
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelClientes()"> Exportar Excel</a>
             <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
           </div>
         </div>
@@ -16,29 +16,29 @@
     </div>
 </div>
 
-
 <div class=" container-fluid mt--6">
     <div class=" row">
         <div class=" col">
             <div class=" card">
-                <div class="dataTables_wrapper py-4">
-                    <div class="card">                        
-                        <div class="card-body">                            
-                            <h3 class="mb-0">{{'producto.importar.select'  | translate }}</h3>                            
+                
+                <div class="dataTables_wrapper py-4">                    
+                    <div class=" card">
+                        <div class="card-body">
+                            <h3 class=" mb-0">{{'precios.importar.select'  | translate }}</h3>
                             <form [formGroup]="addForm" novalidate>
-                                <!-- <div class="custom-file"> -->
-                                    <input formControlName="file" 
-                                        (change)="handleFile($event)"  
-                                        class="form-control" 
-                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                                        id="customFileLang" lang="pt" type="file"  />
-                                    <!-- <label class="custom-file-label" for="customFileLang"> {{'producto.importar.labelselect'  | translate }} </label> -->
+                                <div class="custom-file">
+                                    <!--   <label class="custom-file-label" for="customFileLang">
+                                         {{'cliente.importar.labelselect'  | translate }} 
+                                    </label> -->
+                                    <input formControlName="file"  (change)="handleFile($event)"  
+                                        class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                        id="customFileLang" lang="pt" type="file"   />
+                                  
                                     <div class="alert  alert-danger" *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">  
                                         Archivo es requerido
                                     </div>  
-                                <!-- </div> -->
+                                </div>
                             </form>
-                            
                         </div>
                         <div class="card-footer">
                             <div class="col-lg-2 d-inline pull-right">
@@ -46,7 +46,8 @@
                             </div>
                         </div>
                     </div>                    
-                </div>                
+                </div>
+                
             </div>
         </div>
     </div>

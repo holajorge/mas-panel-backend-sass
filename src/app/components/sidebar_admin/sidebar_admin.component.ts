@@ -97,6 +97,17 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
+    path: "precios",
+    title: "Precios",
+    type: "sub",
+    icontype: "ni-shop text-primary",
+    isCollapsed: true,
+    children: [
+      { path: "lista", title: "Lista Precios", type: "link" },
+      { path: "importar-precios", title: "Importar precios", type: "link" },
+    ]
+  },
+  {
     path: "banners",
     title: "Banners",
     type: "link",

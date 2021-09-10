@@ -64,15 +64,70 @@ export class ImportarVendedorComponent implements OnInit {
     Swal.showLoading()
 
     this.vendedorService.importVendedor(this.file_data).then( (res:any) =>{    
-      if(res.response == true){
-        Swal.close()
-        Swal.fire('Listo!','Archivo de vendedores importado con exito!', 'success')
+      console.log(res.response);
+      if(res.success == true){
+        Swal.close();
+        Swal.fire({
+          // icon: "info",
+          title: "Cantidad de Registros afectado",
+          // text: "Cantidad productos eliminados: "+ 40 +"<br>" + "productos Nuevos:" + 50, 
+          html: 'Vendedores eliminados: '+ '<b>' + res.response.antes[0].cantidad +'</b><br>'+
+            'Vendedores Nuevos:' + '<b>' + res.response.nuevos +'</b>',         
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Deshacer!'
+        }).then((result) => {
+          console.log(result);
+          let resul = result;
+          if (resul.value) {
+            this.deshacerCambios();
+
+          }
+          if (resul.dismiss){
+            console.log("ya chale");
+            this.aplayChange();
+
+          }
+
+        });        
       }else{
         Swal.close()
-        Swal.fire('Error al importar los datos de los vededores, intente de nuevo!', 'error')
+        Swal.fire('Error al importar los datos de los Vendedores, intente de nuevo!', 'error')
+      }
+
+    }).catch(err=>{
+      Swal.close()
+      console.log(err);
+    });
+  }
+  deshacerCambios(){
+    this.vendedorService.deshacerCambiosVendedores(this.empresa).then( (res:any) =>{    
+      if(res.flag == true){
+        Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        this.getDataVendedorExcel();
+
+      }else{
+        Swal.fire('Error de comunicación, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       Swal.close()
+      Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      console.log(err);
+    });
+  }
+  aplayChange(){
+    this.vendedorService.aplaychangeVendedores(this.empresa).then( (res:any) =>{    
+      if(res.flag == true){
+        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        this.getDataVendedorExcel();
+
+      }else{
+        Swal.fire('Error de comunicación, intente de nuevo!', 'error')
+      }
+    }).catch(err=>{
+      Swal.close()
+      Swal.fire('Error de comunicación, intente de nuevo!', 'error')
       console.log(err);
     });
   }
