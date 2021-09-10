@@ -28,7 +28,8 @@
                                     <div class="form-group mr-1">
                                         <label for="nombre_empresa" class="form-control-label">{{ 'config.formConfig.nombre' | translate }}</label>
                                         <input type="text" placeholder="Nombre de la empresa" formControlName="nombre_empresa"  class="form-control"> 
-                                        <div class="alert  alert-danger" *ngIf="formConfig.get('nombre_empresa').hasError('required') && formConfig.get('nombre_empresa').touched">  
+                                        <div class="alert  alert-danger" 
+                                            *ngIf="formConfig.get('nombre_empresa').hasError('required') && formConfig.get('nombre_empresa').touched">  
                                             {{ 'config.formConfig.nombre' | translate }} es obligatorio
                                         </div>  
                                     </div>

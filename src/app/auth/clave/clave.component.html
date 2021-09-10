@@ -44,14 +44,14 @@
                             <a routerLink="/signup" class="text-primary font-weight-bold">Solicitar un usuario</a>
                         </div> -->
                         <div class="form-group">
-                            <label for="inputUserName">Nueva Clave</label>
+                            <label class="form-control-label" for="inputUserName">Nueva Clave</label>
                             <input [(ngModel)]="pass" [ngModelOptions]="{standalone: true}" type="password" id="inputPassword" class="form-control" placeholder="********"  required>
                             <div class="invalid-feedback">
                                 El campo es <strong>requerido</strong>.
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputUserName">repita la clave</label>
+                            <label class="form-control-label" for="inputUserName">repita la clave</label>
                             <input [(ngModel)]="confirm" [ngModelOptions]="{standalone: true}" (keyup.enter)="reset()"  type="password" id="inputPasswordconfirm" class="form-control" placeholder="********" required>
                             <div class="invalid-feedback">
                                 El campo es <strong>requerido</strong>.

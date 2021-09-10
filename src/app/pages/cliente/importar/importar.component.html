@@ -33,7 +33,7 @@
                                          {{'cliente.importar.labelselect'  | translate }} 
                                     </label> -->
                                     <input formControlName="file"  (change)="handleFile($event)"  
-                                        class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                        class="form-control-label" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                                         id="customFileLang" lang="pt" type="file"   />
                                   
                                     <div class="alert  alert-danger" *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">  
