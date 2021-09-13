@@ -30,6 +30,8 @@ export class PedidosComponent implements OnInit {
   entriesDet: number = 10;
   addForm: FormGroup;
   btnvisibility: boolean = true;  
+  emptyTable:boolean = false;
+
   constructor(private pedidosService: PedidosService,public translate: TranslateService,private modalService: BsModalService,private formBuilder: FormBuilder,) {
 
     this.translate.addLangs(['en','es','pt']);
@@ -50,9 +52,15 @@ export class PedidosComponent implements OnInit {
   getPedidos(){ 
 
     this.pedidosService.getPedidos(this.empresa).then( (res:any) =>{    
-      this.temp = res.pedidos;
-      this.tempRow = res.pedidos;
-      this.loadingIndicator = true;
+      if(res.pedidos.length > 0){
+        this.emptyTable = true;
+        this.temp = res.pedidos;
+        this.tempRow = res.pedidos;
+        this.loadingIndicator = true;
+      }else{
+        this.emptyTable = false;
+
+      }
 
     }).catch(err=>{
       console.log(err);

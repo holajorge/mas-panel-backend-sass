@@ -144,6 +144,7 @@ export class ConfiguracionesComponent {
         // this.formConfig.patchValue({filesource: files});
         // console.log(this.form_dataConfig.get('logo'));
         // File Preview        
+
       }else{
         Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
       }
@@ -159,18 +160,24 @@ export class ConfiguracionesComponent {
   deleteImage(){
     this.imageURLogo = "";
     this.form_dataConfig.delete('logo');
-    console.log(this.form_dataConfig);
+    this.formConfig.patchValue(
+      {logoo:''}
+    );
+    
   }
   registrarConfig(){
-    // console.log(this.form_dataConfig);
-    // this.formConfig.patchValue({color_botones: this.color});
+    
+    Swal.showLoading();
+
+    
     let formData = new FormData();
-    // let logo = this.form_dataConfig.entries();
-    // console.log(logo);
-    // if( logo != null){
-      formData.append('logo', this.form_dataConfig.get('logo'));
-    // }
-    // console.log(formData.get('logo'));
+    if(Array.isArray(this.form_dataConfig)){
+      
+    }else{
+      
+      formData.append('logo', this.form_dataConfig.get('logo'));    
+
+    }
     // return false;
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
     formData.append('color_botones',  this.color);
@@ -185,8 +192,11 @@ export class ConfiguracionesComponent {
     formData.append('direccion',  this.formConfig.get('direccion').value);
     formData.append('telefono',  this.formConfig.get('telefono').value);
     formData.append('correo',  this.formConfig.get('correo').value);
+    
     this.configService.saveConfig(formData).then( (res:any) =>{    
+      Swal.close();
       if(res.response.body.flag == true){
+
         Swal.fire('Listo!','configuracion guardada con exito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')

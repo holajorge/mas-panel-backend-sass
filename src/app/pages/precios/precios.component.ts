@@ -11,7 +11,8 @@ import { NgbDateStruct,NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-precios',
   templateUrl: './precios.component.html',
-  styles: []
+  styleUrls: ['./precios.component.scss'],
+  // styles: []
 })
 export class PreciosComponent implements OnInit {
   model: NgbDateStruct;
@@ -47,14 +48,16 @@ export class PreciosComponent implements OnInit {
       empresa_id: this.empresa.id,
       nrocliente: ['',Validators.required],
       codigo_producto: ['',Validators.required],
-      precio: ['',Validators.required],
+      precio: [''],
       descuento: [''],
     });
   }
   getPrecios(){ 
     this.preciosService.getPrecios(this.empresa).then( (res:any) =>{    
-      this.rows = res.pedidos['precios'];
-      this.rowsTemp = res.pedidos['precios'];
+      
+        this.rows = res.pedidos['precios'];
+        this.rowsTemp = res.pedidos['precios'];
+      
 
     }).catch(err=>{
       console.log(err);
@@ -104,9 +107,23 @@ export class PreciosComponent implements OnInit {
       empresa_id: this.empresa.id
     });
   }
-
+  
   insertPrecio(){
-
+    let precio = this.editForm.get('precio').value;
+    let descuento = this.editForm.get('descuento').value;
+    
+    if(precio != "" && descuento != ""){   
+      Swal.fire('Elegí si el precio especial es un descuento o un precio fijo.','','info');
+      this.editForm.patchValue({
+        precio: "", descuento: ""
+      });
+      return false;
+    }
+    if(precio === "" && descuento === ""){
+      Swal.fire('Elegí si el precio especial es un descuento o un precio fijo.','','info');
+      return false;
+    }
+   
     this.preciosService.createPrecio(this.editForm.value).then( (res:any) =>{    
       
       if(res.precio){
