@@ -35,4 +35,22 @@ export class ConfigService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  saveDominio(data){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveDominio",data).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  saveGenerales(data){
+    console.log(data);
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveGenerales",data).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
 }

@@ -1,7 +1,9 @@
 {
     "config": {
         "titulo" : "Configuración Generales",
-        "subtitulo": "Ingrese las configuraciones generales",
+        "subtitulo": "Ingrese las configuraciones de la empresa",
+        "dominio":"Ingrese las configuraciones de dominio",
+        "general":"Ingrese las configuraciones generales",
         "formConfig" : {
             "nombre": "Nombre de la empresa",
             "direccion": "Dirección",
@@ -9,6 +11,7 @@
             "correo": "Email de Contacto",
             "colorButton": "Color Botones",
             "dominio": "Dominio",
+            "subdominio": "subdominio",
             "logo": "Logo",
             "aprobarUsuario": "Aprobar usuario" ,
             "permitirRegistro": "Permitir Registración",

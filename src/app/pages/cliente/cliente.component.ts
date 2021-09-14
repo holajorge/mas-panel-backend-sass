@@ -62,6 +62,7 @@ export class ClienteComponent implements OnInit {
       localidad: [''],
       direccion: [''],
       coeficiente: [''],
+      clave: ['']
     });
     this.addFormNew = this.formBuilder.group({
       empresa_id: this.empresa,
@@ -117,10 +118,11 @@ export class ClienteComponent implements OnInit {
       modalEdit,
       this.notification
     );
-    
+    console.log(row);
     this.addForm.setValue({
       nrocliente:row.nrocliente, 
       nombre:row.nombre, 
+      clave: row.clave,
       email:row.email, 
       descuento_general:row.descuento_general, 
       usuario:row.usuario, 

@@ -18,6 +18,9 @@ import { ConfigurcionProductoComponent } from './producto/configurcion-producto/
 import { PreciosComponent } from './precios/precios.component';
 import { ImportarPreciosComponent } from './precios/importar-precios/importar-precios.component';
 
+import { DominioComponent } from './configuraciones/dominio/dominio.component';
+import { GeneralComponent } from './configuraciones/general/general.component';
+
 const routes:Routes = [
     {
         path: 'admin', 
@@ -25,7 +28,11 @@ const routes:Routes = [
         canActivate: [AuthGuard],
         children: [            
             {path:'', component: PedidosComponent},
-            {path: 'configuraciones', component: ConfiguracionesComponent},
+            // empresa
+            {path: 'configuraciones/empresa', component: ConfiguracionesComponent},
+            {path: 'configuraciones/dominios', component: DominioComponent},
+            {path: 'configuraciones/general', component: GeneralComponent},
+
             {path:'pedidos', component: PedidosComponent},
             {path:'banners', component: BannerComponent},
             //vendedores

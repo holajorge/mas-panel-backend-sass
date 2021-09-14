@@ -1,0 +1,89 @@
+<div class=" header bg-maspedidos pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{ 'config.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">{{ 'config.general' | translate }}</h3></div>
+                    <div class="card-body">
+                                        
+                        <form [formGroup]="formConfig" novalidate >
+                                                                          
+                            <div class="row">        
+                                <div class="col-md-3">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  > 
+                                            <input id="aprobar_usuario" 
+                                                class="custom-control-input" type="checkbox" formControlName="aprobar_usuario">
+                                            <label for="aprobar_usuario" 
+                                                class="custom-control-label" >{{ 'config.formConfig.aprobarUsuario' | translate }}</label>
+                                        </div>
+                                        <!-- <label for="aprobar_usuario">Aprobar Usuario</label>
+                                        <input type="checkbox" placeholder="aprobar_usuario" formControlName="aprobar_usuario"  class="form-control">  -->
+                                    </div>
+                                </div>                            
+                                <div class="col-md-3">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  > 
+                                            <input id="permitir_registracion" 
+                                                class="custom-control-input" type="checkbox" formControlName="permitir_registracion">
+                                            <label for="permitir_registracion" 
+                                                class="custom-control-label" >{{ 'config.formConfig.permitirRegistro' | translate }} </label>
+                                        </div>
+                                        <!-- <label for="permitir_registracion">Permitir Registración</label>
+                                        <input type="checkbox" placeholder="permitir_registracion" formControlName="permitir_registracion"  class="form-control">  -->
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  > 
+                                            <input id="send_whatspp" 
+                                                class="custom-control-input" type="checkbox" formControlName="send_whatspp">
+                                            <label for="send_whatspp" 
+                                                class="custom-control-label" >{{ 'config.formConfig.envioWhatssap' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  > 
+                                            <input id="invitado" 
+                                                class="custom-control-input" type="checkbox" formControlName="invitado">
+                                            <label for="invitado" 
+                                                class="custom-control-label" >{{ 'config.formConfig.invitado' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>       
+                    </div>                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

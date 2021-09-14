@@ -209,6 +209,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label class="form-control-label" for="clave"> {{ 'cliente.tabla.clave' | translate}}:</label>
+                        <input type="text" formControlName="clave" placeholder="{{ 'cliente.tabla.clave' | translate}}" name="clave" class="form-control" id="clave">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('clave').hasError('required') && addForm.get('clave').touched">  
+                            {{ 'cliente.tabla.clave' | translate}} requerido
+                        </div>  
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label class="form-control-label" for="email"> {{ 'cliente.tabla.email' | translate}}:</label>
                         <input type="text" formControlName="email" placeholder="{{ 'cliente.tabla.email' | translate}}" name="email" class="form-control" id="email">
                         <div class="alert  alert-danger" *ngIf="addForm.get('email').hasError('required') && addForm.get('email').touched">  
@@ -216,9 +228,6 @@
                         </div>  
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label" for="descuento_general">{{ 'cliente.tabla.decuento' | translate}}:</label>
@@ -237,6 +246,9 @@
                         </div>  
                     </div>
                 </div>
+                
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label" for="telefono">{{ 'cliente.tabla.telefono' | translate}}:</label>
@@ -246,8 +258,6 @@
                         </div>  
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label" for="encargado_compras">{{ 'cliente.tabla.encargado' | translate}}:</label>

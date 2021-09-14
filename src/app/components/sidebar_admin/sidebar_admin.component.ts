@@ -32,9 +32,15 @@ export interface ChildrenItems2 {
 export const ROUTES: RouteInfo[] = [
   {
     path: "configuraciones",
-    title: "Configuracion",
-    type: "link",
+    title: "Configuraciones",
+    type: "sub",
     icontype: "ni-map-big text-primary",
+    isCollapsed: true,
+    children: [
+      { path: "empresa", title: "Configuración de la empresa", type: "link" },
+      { path: "dominios", title: "Configuración de dominios", type: "link" },
+      { path: "general", title: "Configuración general ", type: "link" },
+    ]
   },
   {
     path: "admin",

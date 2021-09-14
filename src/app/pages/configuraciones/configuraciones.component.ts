@@ -80,38 +80,30 @@ export class ConfiguracionesComponent {
     this.empresa = localStorage.getItem('usuario');
     
     this.formConfig = this.fb.group({
-
       nombre_empresa: [null],
       direccion: [null],
       telefono: [null],
       correo: [null],
-      invitado: [null],
-      dominio: [null,Validators.required],
       logoo: [null],
       logo: [null],
       color_botones: [''],
-      aprobar_usuario: [''],
-      permitir_registracion: [''],
       empresa_id:  this.empresa,
-      send_whatspp: [''],
       descripcion_empresa: [''] 
     });
     this.empresaData.id = this.empresa;
     this.getConfig();
   }
   getConfig(){
+    Swal.showLoading();
+    
     this.configService.getConfigEmpresa(this.empresaData).then( (res:any) =>{    
+      Swal.close();      
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
         this.formConfig.patchValue({
-          dominio: this.configuraciones.dominio,
           color_botones: this.configuraciones.color_botones,
-          aprobar_usuario: this.configuraciones.aprobar_automaticamente_usuario,
-          permitir_registracion: this.configuraciones.permitir_registracion,
-          send_whatspp: this.configuraciones.pedido_whatsapp,
           descripcion_empresa: this.configuraciones.descripcion_empresa,
-
           nombre_empresa: this.configuraciones.nombre_empresa,
           direccion: this.configuraciones.direccion,
           telefono: this.configuraciones.telefono,
@@ -120,6 +112,8 @@ export class ConfiguracionesComponent {
       }
       
     }).catch(err=>{
+      Swal.close();      
+
       console.log(err);
     });
   }
@@ -181,11 +175,11 @@ export class ConfiguracionesComponent {
     // return false;
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
     formData.append('color_botones',  this.color);
-    formData.append('aprobar_user',  this.formConfig.get('aprobar_usuario').value);
-    formData.append('permitir_registracion',  this.formConfig.get('permitir_registracion').value);
-    formData.append('dominio',  this.formConfig.get('dominio').value);
-    formData.append('send_whatspp',  this.formConfig.get('send_whatspp').value);
-    formData.append('invitado',  this.formConfig.get('invitado').value);
+    // formData.append('aprobar_user',  this.formConfig.get('aprobar_usuario').value);
+    // formData.append('permitir_registracion',  this.formConfig.get('permitir_registracion').value);
+    // formData.append('dominio',  this.formConfig.get('dominio').value);
+    // formData.append('send_whatspp',  this.formConfig.get('send_whatspp').value);
+    // formData.append('invitado',  this.formConfig.get('invitado').value);
     formData.append('descripcion_empresa',  this.formConfig.get('descripcion_empresa').value);
 
     formData.append('nombre_empresa',  this.formConfig.get('nombre_empresa').value);

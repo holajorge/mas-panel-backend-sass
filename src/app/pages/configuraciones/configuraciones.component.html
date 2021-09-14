@@ -26,8 +26,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group mr-1">
-                                        <label for="nombre_empresa" class="form-control-label">{{ 'config.formConfig.nombre' | translate }}</label>
-                                        <input type="text" placeholder="Nombre de la empresa" formControlName="nombre_empresa"  class="form-control"> 
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ 'config.formConfig.nombre' | translate }}</label>
+                                        <input type="text" 
+                                            placeholder="Nombre de la empresa" 
+                                            formControlName="nombre_empresa"  class="form-control"> 
                                         <div class="alert  alert-danger" 
                                             *ngIf="formConfig.get('nombre_empresa').hasError('required') && formConfig.get('nombre_empresa').touched">  
                                             {{ 'config.formConfig.nombre' | translate }} es obligatorio
@@ -36,8 +39,10 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group ">
-                                        <label for="direccion" class="form-control-label">{{ 'config.formConfig.direccion' | translate }}</label>
-                                        <input type="text" placeholder="Direccion" formControlName="direccion"  class="form-control"> 
+                                        <label for="direccion" 
+                                            class="form-control-label">{{ 'config.formConfig.direccion' | translate }}</label>
+                                        <input type="text" 
+                                            placeholder="Direccion" formControlName="direccion"  class="form-control"> 
                                     </div>
                                 </div>                            
                             </div>
@@ -45,91 +50,56 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group ">
-                                        <label for="telefono" class="form-control-label">{{ 'config.formConfig.telefono' | translate }}</label>
-                                        <input type="text" placeholder="Telefono" formControlName="telefono"  class="form-control"> 
+                                        <label for="telefono" 
+                                            class="form-control-label">{{ 'config.formConfig.telefono' | translate }}</label>
+                                        <input type="text" 
+                                            placeholder="Telefono" formControlName="telefono"  class="form-control"> 
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group ">
-                                        <label for="correo" class="form-control-label">{{ 'config.formConfig.correo' | translate }}</label>
-                                        <input type="text" placeholder="Email" formControlName="correo"  class="form-control"> 
+                                        <label for="correo" 
+                                            class="form-control-label">{{ 'config.formConfig.correo' | translate }}</label>
+                                        <input type="text" 
+                                            placeholder="Email" formControlName="correo"  class="form-control"> 
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group mr-1">
-                                        <label for="color_botones" class="form-control-label">{{ 'config.formConfig.colorButton' | translate }}</label>
-                                        <input [(colorPicker)]="color" [value]="color" [(ngModel)]="color" [style.background]="color" formControlName="color_botones" class="form-control">
+                                        <label for="color_botones" 
+                                            class="form-control-label">{{ 'config.formConfig.colorButton' | translate }}</label>
+                                        <input [(colorPicker)]="color" 
+                                            [value]="color" [(ngModel)]="color" [style.background]="color" 
+                                            formControlName="color_botones" class="form-control">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">        
-                                <div class="col-md-5">
-                                    <div class="form-group mr-1">
-                                        <label for="nombre" class="form-control-label">{{ 'config.formConfig.dominio' | translate }}</label>
-                                        <input type="text" placeholder="{{ 'config.formConfig.dominio' | translate }}" formControlName="dominio"  class="form-control"> 
-                                        <div class="alert  alert-danger" *ngIf="formConfig.get('dominio').hasError('required') && formConfig.get('dominio').touched">  
-                                            {{ 'config.formConfig.dominio' | translate }} es obligatorio
-                                        </div>  
-                                    </div>
-                                </div>
+                                
                                 <div class="col-md-4">
                                     <div class="form-group ">
-                                        <label for="logo" class="form-control-label">{{ 'config.formConfig.logo' | translate }}</label>
-                                        <input type="file" accept="image/*" placeholder="logo" (change)="showPreviewHeader($event)" formControlName="logoo"  class="form-control">
+                                        <label for="logo" 
+                                            class="form-control-label">{{ 'config.formConfig.logo' | translate }}</label>
+                                        <input type="file" accept="image/*" placeholder="logo" 
+                                            (change)="showPreviewHeader($event)" formControlName="logoo"  class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="imagePreview" *ngIf="imageURLogo && imageURLogo !== ''">
-                                        <button class="btn btn-danger delete-entry d-inline-block btn-lg btn-block" (click)="deleteImage()">x</button>
+                                        <button class="btn btn-danger delete-entry d-inline-block btn-lg btn-block" 
+                                            (click)="deleteImage()">x</button>
                                         <img class="ard-img-top" 
                                             [src]="imageURLogo" 
                                             style="width:100%; position: relative;">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">        
-                                <div class="col-md-3">
-                                    <div class="form-group mr-1">
-                                        <div class="custom-control custom-checkbox mt-4"  > 
-                                            <input id="aprobar_usuario" class="custom-control-input" type="checkbox" formControlName="aprobar_usuario">
-                                            <label for="aprobar_usuario" class="custom-control-label" >{{ 'config.formConfig.aprobarUsuario' | translate }}</label>
-                                        </div>
-                                        <!-- <label for="aprobar_usuario">Aprobar Usuario</label>
-                                        <input type="checkbox" placeholder="aprobar_usuario" formControlName="aprobar_usuario"  class="form-control">  -->
-                                    </div>
-                                </div>                            
-                                <div class="col-md-3">
-                                    <div class="form-group mr-1">
-                                        <div class="custom-control custom-checkbox mt-4"  > 
-                                            <input id="permitir_registracion" class="custom-control-input" type="checkbox" formControlName="permitir_registracion">
-                                            <label for="permitir_registracion" class="custom-control-label" >{{ 'config.formConfig.permitirRegistro' | translate }} </label>
-                                        </div>
-                                        <!-- <label for="permitir_registracion">Permitir Registración</label>
-                                        <input type="checkbox" placeholder="permitir_registracion" formControlName="permitir_registracion"  class="form-control">  -->
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group mr-1">
-                                        <div class="custom-control custom-checkbox mt-4"  > 
-                                            <input id="send_whatspp" class="custom-control-input" type="checkbox" formControlName="send_whatspp">
-                                            <label for="send_whatspp" class="custom-control-label" >{{ 'config.formConfig.envioWhatssap' | translate }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group mr-1">
-                                        <div class="custom-control custom-checkbox mt-4"  > 
-                                            <input id="invitado" class="custom-control-input" type="checkbox" formControlName="invitado">
-                                            <label for="invitado" class="custom-control-label" >{{ 'config.formConfig.invitado' | translate }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group mr-1">
-                                        <label for="color_botones" class="form-control-label">{{ 'config.formConfig.descripcionEmpresa' | translate }}</label>
+                                        <label for="color_botones" 
+                                            class="form-control-label">{{ 'config.formConfig.descripcionEmpresa' | translate }}</label>
                                         <angular-editor formControlName="descripcion_empresa" [config]="config"></angular-editor>
                                     </div>
                                 </div>
