@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
 import { ClaveComponent } from './clave/clave.component';
+import { RegistracionComponent } from './registracion/registracion.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -15,10 +16,12 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     LoginComponent,
-    ClaveComponent
+    ClaveComponent,
+    RegistracionComponent
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    RegistracionComponent
   ],
   imports: [    
     CommonModule,
