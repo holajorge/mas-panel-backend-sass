@@ -70,7 +70,7 @@ export class ConfiguracionesComponent {
         tag: "h1",
       },
     ]
-  };
+  };  
   imageURLogo: string;
  
   constructor(public translate: TranslateService,  public fb: FormBuilder, public configService: ConfigService) { 
@@ -101,6 +101,7 @@ export class ConfiguracionesComponent {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
+        console.log(this.configuraciones);
         this.formConfig.patchValue({
           color_botones: this.configuraciones.color_botones,
           descripcion_empresa: this.configuraciones.descripcion_empresa,
@@ -109,6 +110,15 @@ export class ConfiguracionesComponent {
           telefono: this.configuraciones.telefono,
           correo: this.configuraciones.correo,
         });
+
+        if(this.configuraciones.logo == '' || this.configuraciones.logo == undefined){ 
+          
+          this.imageURLogo = "";
+        }else{          
+              
+          this.imageURLogo = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo;
+        }   
+
       }
       
     }).catch(err=>{
