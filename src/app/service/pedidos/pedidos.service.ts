@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
-
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +18,18 @@ export class PedidosService {
     let options = { headers: headers };
     
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidos",idEmpresa,options).toPromise().then((res) =>{      
+      return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  getPedidosCliente(idEmpresa){
+    console.log(idEmpresa);
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidosCliente",idEmpresa,options).toPromise().then((res) =>{      
       return { success: true, pedidos:res};
     })
     .catch( (err) =>{
@@ -44,4 +59,18 @@ export class PedidosService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  exportAsExcelFile(data){
+    // console.log(data);
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/descargarPedido",data,options).toPromise().then((res) =>{      
+      return { success: true, resultado:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  
+  }
+  
 }

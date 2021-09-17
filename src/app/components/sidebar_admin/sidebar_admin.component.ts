@@ -56,15 +56,15 @@ export const ROUTES: RouteInfo[] = [
   {
     path: "pedidos",
     title: "Pedidos",
-    type: "link",
-    icontype: "ni-cart text-primary",
+    type: "sub",
+    icontype: "ni-shop text-primary",
+    isCollapsed: true,
+    children: [
+      { path: "clientes", title: "Pedido de Clientes", type: "link" },
+      { path: "vendedores", title: "Pedido de Vendedores", type: "link" },    
+    ]
   },
-  // {
-  //   path: "vendedores",
-  //   title: "Vendedores",
-  //   type: "link",
-  //   icontype: "ni-map-big text-primary",
-  // },
+  
   {
     path: "vendedor",
     title: "Vendedor",

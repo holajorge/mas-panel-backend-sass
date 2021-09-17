@@ -201,7 +201,8 @@
 
     },
     "pedidos":{
-        "titulo": "Lista de Pedidos",
+        "titulo": "Lista de Pedidos Vendedores",
+        "tituloCliente": "Lista de Pedidos Clientes",
         "tabla":{
             "nombre":"Nombre",
             "email":"Correo",
@@ -250,6 +251,7 @@
             "select": "Seleccione un archivo",
             "labelselect": "Seleccione"
         },
+        "pedidos": "Lista de Pedidos",
         "tabla":{
             "nrocliente": "Nro cliente",
             "nombre":"Nombre",
@@ -279,8 +281,18 @@
             "localidad": "Localidad",
             "direccion": "Dirección",
             "actualizar": "Actualizar",
-            "cancelar": "Cancelar"
-
+            "cancelar": "Cancelar",
+            "pedido": "Pedidos"
+        },
+        "tablaCliente":{
+            "cliente": "Cliente",
+            "nrocliente": "Nro Cliente",
+            "estado": "Estado",
+            "fecha": "Fecha",
+            "mostrar": "Mostrar",
+            "buscar": "buscar pedido",
+            "entradas": "resultados",
+            "comentario":"comentario"
         },
         "formClient": {
             "new": "Nuevo cliente",

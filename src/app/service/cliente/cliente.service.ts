@@ -25,6 +25,20 @@ export class ClienteService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  getPedidoCliente(pedido){
+
+    console.log(pedido);
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidosClienteModal",pedido,options).toPromise().then((res) =>{      
+      return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+  }
   postCliente(cliente){
     console.log(cliente);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});

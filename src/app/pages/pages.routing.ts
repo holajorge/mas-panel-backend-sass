@@ -20,6 +20,7 @@ import { ImportarPreciosComponent } from './precios/importar-precios/importar-pr
 
 import { DominioComponent } from './configuraciones/dominio/dominio.component';
 import { GeneralComponent } from './configuraciones/general/general.component';
+import { ClientesComponent } from './pedidos/clientes/clientes.component';
 
 const routes:Routes = [
     {
@@ -33,7 +34,9 @@ const routes:Routes = [
             {path: 'configuraciones/dominios', component: DominioComponent},
             {path: 'configuraciones/general', component: GeneralComponent},
 
-            {path:'pedidos', component: PedidosComponent},
+            {path:'pedidos/vendedores', component: PedidosComponent},
+            {path:'pedidos/clientes', component: ClientesComponent},
+            
             {path:'banners', component: BannerComponent},
             //vendedores
             {path:'vendedor/vendedores', component: VendedorComponent}, 

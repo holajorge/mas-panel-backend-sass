@@ -6,6 +6,8 @@ import {TranslateService} from '@ngx-translate/core';
 // import Swal from 'sweetalert2'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { ConfigService } from 'src/app/service/config/config.service';
+
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
@@ -18,6 +20,7 @@ export class ClienteComponent implements OnInit {
     class: "modal-dialog-centered modal-xl static", 
   };
   empresa:any = {id:'', pedido:''};
+  pedido:any = {empresa:'', pedido:'', nrocliente: '', vendedor:''};
   temRow:any = [];
   temRowDet:any = [];
   temp = [];
@@ -37,13 +40,9 @@ export class ClienteComponent implements OnInit {
   
   constructor(private clienteService: ClienteService,
     public translate: TranslateService,
-    private modalService: BsModalService,private formBuilder: FormBuilder) { 
-
-      this.translate.addLangs(['en','es','pt']);
-      this.translate.setDefaultLang('es');
+    private modalService: BsModalService,private formBuilder: FormBuilder) {       
       this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');
-
       this.getClientes();
   }
 
@@ -79,6 +78,28 @@ export class ClienteComponent implements OnInit {
   entriesChangeDet($event){
     this.entriesDet = $event.target.value;
   }
+  filterTableDet(event){
+    const val = event.target.value.toLowerCase();
+    
+    if(val !== ''){
+      // filter our data
+      this.temRowDet = this.detalleRow.filter(function (item) {
+        console.log(item);
+        console.log(val);        
+        
+        for (var key in item) {
+          let hola = (item[key] != null) ? item[key].toLowerCase() : '';
+          if ( hola.indexOf(val) !== -1) {
+            return true;
+          }
+        }
+        return false;
+      });
+      this.detalleRow =this.temRowDet;
+    }else{
+      this.detalleRow = this.tempRowDet;
+    }
+  }
   getClientes(){ 
     this.clienteService.getcliente(this.empresa).then( (res:any) =>{    
       
@@ -89,6 +110,35 @@ export class ClienteComponent implements OnInit {
       console.log(err);
     });
   }
+  pedidos(modalPedido,row){
+    console.log(row);
+    Swal.showLoading();
+    this.detalleRow = [];
+    this.pedido.empresa = row.empresa_id;
+    this.pedido.vendedor = row.vendedor_id;
+    this.pedido.nrocliente = row.nrocliente;
+    this.clienteService.getPedidoCliente(this.pedido).then( (res:any) =>{    
+      console.log(res.pedidos);
+      Swal.close();
+      this.detalleRow = res.pedidos.pedidos;
+      this.tempRowDet = res.pedidos.pedidos;
+
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+    
+    this.notificationModal = this.modalService.show(
+      modalPedido,
+      this.notification
+    );
+  }
+  dataExcelClientes(row){
+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id, "_blank");
+
+  }
+  
   filterTable(event) {
     const val = event.target.value.toLowerCase();
     

@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {PedidosService } from '../../service/pedidos/pedidos.service';
+import {PedidosService } from '../../../service/pedidos/pedidos.service';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ConfigService } from 'src/app/service/config/config.service';
 
+
 @Component({
-  selector: 'app-pedidos',
-  templateUrl: './pedidos.component.html',
-  styleUrls: ['./pedidos.component.scss']
+  selector: 'app-clientes',
+  templateUrl: './clientes.component.html',
+  styles: []
 })
-export class PedidosComponent implements OnInit {
+export class ClientesComponent implements OnInit {
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
@@ -32,16 +33,18 @@ export class PedidosComponent implements OnInit {
   addForm: FormGroup;
   btnvisibility: boolean = true;  
   emptyTable:boolean = false;
+  dataExcel: any = [];
+  
 
-  constructor(private pedidosService: PedidosService,public translate: TranslateService,private modalService: BsModalService,private formBuilder: FormBuilder,) {
-
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
+  constructor(private pedidosService: PedidosService,
+    public translate: TranslateService,
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder
+  ){ 
     this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
-
     this.getPedidos();
-   }
+  }
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
@@ -49,18 +52,18 @@ export class PedidosComponent implements OnInit {
       comentario: ['', Validators.required],
     });
   }
-
   getPedidos(){ 
 
-    this.pedidosService.getPedidos(this.empresa).then( (res:any) =>{    
-      console.log(res.pedidos);
-      
-      
-      if(res.pedidos.length > 0){
+    this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{    
+    
+      if(res.pedidos.pedidos.length > 0){
+
         this.emptyTable = true;
-        this.temp = res.pedidos;
-        this.tempRow = res.pedidos;
+        this.temp = res.pedidos.pedidos;
+        this.tempRow = res.pedidos.pedidos;
         this.loadingIndicator = true;
+        this.dataExcel = res.pedidos.detalle;
+
       }else{
         this.emptyTable = false;
 
@@ -73,10 +76,8 @@ export class PedidosComponent implements OnInit {
 
   }
   dataExcelClientes(row){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedidoVendedor?pedido="+row.id, "_blank");
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id, "_blank");
   }
-  
-
   entriesChange($event) {
     this.entries = $event.target.value;
   }
