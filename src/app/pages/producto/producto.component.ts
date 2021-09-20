@@ -261,7 +261,7 @@ export class ProductoComponent implements OnInit {
   onActiveClient(row){    
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Habilitar?',
+      title: 'Seguro de Habilitar?',
       text: "Habilitar producto!",
       type: 'warning',
       showCancelButton: true,
@@ -293,8 +293,8 @@ export class ProductoComponent implements OnInit {
 
   onDisableActive(row){    
     Swal.fire({
-      title: 'segurdo de deshabilitar?',
-      text: "Desabilitara al producto!",
+      title: 'Seguro de deshabilitar?',
+      text: "Deshabilitará al producto!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -350,7 +350,7 @@ export class ProductoComponent implements OnInit {
     this.producto.empresa_id = this.empresa;
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Habilitar producto como Destacado?',
+      title: 'Seguro de Habilitar producto como Destacado?',
       text: "Destacar producto!",
       type: 'warning',
       showCancelButton: true,
@@ -380,8 +380,8 @@ export class ProductoComponent implements OnInit {
     this.producto.empresa_id = this.empresa;
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Deshabilitar producto como Destacado?',
-      text: "Deshabilitar destacado producto!",
+      title: 'Seguro de deshabilitar el producto como destacado?',
+      text: "Deshabilitar producto como destacado!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -394,7 +394,7 @@ export class ProductoComponent implements OnInit {
           this.productoService.deshalitarDestacado(this.producto).then( (res:any) =>{    
             if(res.response == true){
               this.cambios = true;
-              Swal.fire('Listo!','Producto no destacado con exito!', 'success')
+              Swal.fire('Listo!','Producto no destacado con éxito!', 'success')
               this.getProductos();
             }else{
               Swal.fire('Upps!','Error al deshabilitar producto como no destacado, intente nuevamente!', 'error')

@@ -28,7 +28,7 @@ const routes:Routes = [
         component: AdminComponent,
         canActivate: [AuthGuard],
         children: [            
-            {path:'', component: PedidosComponent},
+            {path:'', component: ClientesComponent},
             // empresa
             {path: 'configuraciones/empresa', component: ConfiguracionesComponent},
             {path: 'configuraciones/dominios', component: DominioComponent},

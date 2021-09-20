@@ -62,13 +62,24 @@ export class ImportarFotosComponent implements OnInit {
             Swal.fire('Listo!','Archivo de fotos importado con exito!', 'success')
           }
         }
-        if(res.success == false){
+
+        if(res.response['flag'] == 2){
           this.btnvisibilitybtn = false;
-          Swal.fire('error','Error al importar las fotos, intente de nuevo!')
+          Swal.fire('Error','Error al importar las fotos, revise el archivo e intente de nuevo!')
         }
 
+        if(res.response['flag'] == 3){
+          this.btnvisibilitybtn = false;
+          Swal.fire('Error','Error al importar las fotos, intente de nuevo!')
+        }
+        if(res.response['flag'] == 4){
+          this.btnvisibilitybtn = false;
+          Swal.fire('Error','Error al importar las fotos, el archivo tiene que ser un ZIP!')
+        }
+
+
       }).catch(err=>{
-        console.log(err);
+        console.log("Error", err);
       });
   }
 }

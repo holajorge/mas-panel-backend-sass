@@ -240,8 +240,8 @@ export class ClienteComponent implements OnInit {
   }
   onDisableActive(row){    
     Swal.fire({
-      title: 'segurdo de deshabilitar?',
-      text: "Desabilitar al cliente!",
+      title: 'Seguro de deshabilitar?',
+      text: "Deshabilitar al cliente!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -257,7 +257,7 @@ export class ClienteComponent implements OnInit {
   onActiveClient(row){    
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Habilitar?',
+      title: 'Seguro de Habilitar?',
       text: "Habilitar cliente!",
       type: 'warning',
       showCancelButton: true,

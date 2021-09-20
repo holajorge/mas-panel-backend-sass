@@ -77,15 +77,19 @@ export class ImportarComponent implements OnInit {
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Deshacer!'
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Deshacer'
         }).then((result) => {
 
           let resul = result;
           if (resul.value) {
-            this.deshacerCambios();
+           // console.log("APLICAR");
+             this.aplayChange();
           }
           if (resul.dismiss){
-            this.aplayChange();
+           
+         // console.log("DESHACER");
+            this.deshacerCambios();
           }
           
         });        
@@ -120,7 +124,7 @@ export class ImportarComponent implements OnInit {
   aplayChange(){
     this.clienteService.aplaychangeClientes(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+         Swal.fire('Listo!','se ejecutaron los cambios!', 'success')
         this.getClientes();
 
       }else{

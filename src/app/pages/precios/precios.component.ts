@@ -174,8 +174,8 @@ export class PreciosComponent implements OnInit {
   delitePrice(row){
 
     Swal.fire({
-      title: '¿segurdo de eliminar?',
-      text: "El precio se eliminar definitivamente!",
+      title: 'Seguro de eliminar?',
+      text: "El precio se eliminará definitivamente!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
