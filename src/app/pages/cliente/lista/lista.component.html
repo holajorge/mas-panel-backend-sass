@@ -1,0 +1,155 @@
+<div class=" header bg-maspedidos pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{ 'cliente.comprobantes.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+        <div class=" card">
+            
+            <div class="dataTables_wrapper py-4">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                        <label class="form-control-label"> {{ 'cliente.comprobantes.tabla.mostrar' | translate}}
+                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                            <option value="10" [selected]="entries == 10">10</option>
+                            <option value="25" [selected]="entries == 25">25</option>
+                            <option value="50" [selected]="entries == 50">50</option>
+                            <option value="-1" [selected]="entries == -1">All</option>
+                        </select>
+                        {{ 'cliente.comprobantes.tabla.entradas' | translate}}
+                        </label>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div id="datatable_filter" class="dataTables_filter">
+                            <label class="form-control-label"><input type="text" class="form-control form-control-sm" placeholder="{{ 'cliente.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                        </div>
+                    </div>
+                </div>
+    
+                <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                    class="bootstrap selection-cell" 
+                    [columnMode]="'force'" [headerHeight]="50" 
+                    [footerHeight]="50" [rowHeight]="'auto'" 
+                    [limit]="entries != -1 ? entries : undefined" [rows]="comprobantes" 
+                    (activate)="onActivate($event)">
+                    <ngx-datatable-column name="nrocliente">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.comprobantes.tabla.nrocliente' | translate}} </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="nombre">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.comprobantes.tabla.nombre' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="fechacomprobante">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.comprobantes.tabla.fecha' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="archivo" >
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.comprobantes.tabla.link' | translate}}</span>
+                        </ng-template>
+                        <ng-template  let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <!-- <ng-template let-column="column"  ngx-datatable-header-template> -->
+                            <span>
+                                <a class="nav-link edit" href="javascript:void(0)" (click)="viewCourseTrainings(row)">{{row.archivo}}</a>
+                            </span>
+                        </ng-template>                              
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Acción" >
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'cliente.comprobantes.tabla.acciones' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <span>
+                                <button class="btn btn-sm btn-primary" (click)='editar(modalEdit,row)' 
+                                    title="{{ 'cliente.comprobantes.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span>  </button>
+                                
+                                <button class="btn btn-sm btn-danger" (click)='delete(row)' 
+                                    title="{{ 'cliente.comprobantes.tabla.eliminar' | translate}}"><i class="fas fa-minus-circle"></i> </button>
+                                
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalEdit >
+    <div class="modal-header">    
+        <h5 class="modal-title" >{{ 'cliente.comprobantes.tabla.actualizar' | translate}} </h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    <div class="modal-body pt-0">
+        <form [formGroup]="formConfig" novalidate >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label for="nombre_empresa"
+                         class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                         <ng-select formControlName="cliente"
+                            [items]="clientes" 
+                            bindValue="nrocliente" 
+                            bindLabel="nombre">
+                        </ng-select>
+                        
+                        <div class="alert  alert-danger" 
+                            *ngIf="formConfig.get('cliente').hasError('required') && formConfig.get('cliente').touched">  
+                            {{ 'cliente.add.cliente' | translate }} es obligatorio
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label for="fecha" 
+                            class="form-control-label">{{ 'cliente.add.fecha' | translate }}</label>
+                        <input class="form-control" formControlName="fecha" 
+                            type="datetime-local"  id="example-datetime-local-input">
+                        <div class="alert  alert-danger" 
+                            *ngIf="formConfig.get('fecha').hasError('required') && formConfig.get('fecha').touched">  
+                            {{ 'cliente.add.fecha' | translate }} es obligatorio
+                        </div> 
+                    </div>
+                </div>                            
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label for="documento" 
+                            class="form-control-label">{{ 'cliente.add.documento' | translate }}</label>
+                        <input type="file" formControlName="doc"  (change)="showPreviewHeader($event)"
+                            placeholder="{{ 'cliente.add.documento' | translate }}" 
+                            class="form-control"> 
+                    </div>
+                </div>                            
+            </div>
+        </form>    
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-success" [disabled]='formConfig.invalid' *ngIf="!btnvisibilityAdd" (click)="update()">{{ 'cliente.add.guardar' | translate}}</button> 
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.comprobantes.tabla.cancelar' | translate}}</button>
+    </div>
+</ng-template>
