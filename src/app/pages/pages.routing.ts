@@ -14,13 +14,13 @@ import { ConfiguracionesComponent } from './configuraciones/configuraciones.comp
 import { ImportarVendedorComponent } from './vendedor/importar-vendedor/importar-vendedor.component';
 import { ImportarFotosComponent } from './producto/importar-fotos/importar-fotos.component';
 import { ConfigurcionProductoComponent } from './producto/configurcion-producto/configurcion-producto.component';
-
 import { PreciosComponent } from './precios/precios.component';
 import { ImportarPreciosComponent } from './precios/importar-precios/importar-precios.component';
-
 import { DominioComponent } from './configuraciones/dominio/dominio.component';
 import { GeneralComponent } from './configuraciones/general/general.component';
 import { ClientesComponent } from './pedidos/clientes/clientes.component';
+import { AgregarComponent } from './cliente/agregar/agregar.component'
+import { ListaComponent } from './cliente/lista/lista.component'
 
 const routes:Routes = [
     {
@@ -44,6 +44,8 @@ const routes:Routes = [
             // clientes
             {path: 'cliente/clientes',  component: ClienteComponent},
             {path: 'cliente/importar',  component: ImportarComponent},
+            {path: 'cliente/agregar-comprobante',  component: AgregarComponent},
+            {path: 'cliente/lista-comprobante',  component: ListaComponent},
             //productos
             {path: 'producto/configuracion',  component: ConfigurcionProductoComponent},
             {path: 'producto/productos',  component: ProductoComponent},

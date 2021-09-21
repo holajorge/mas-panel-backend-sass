@@ -74,9 +74,36 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">     
+                                <div class=" col-md-4">
+                                    <label class="form-control-label" 
+                                      for="example-time-input">{{ 'config.formConfig.hora_limite_pedido' | translate}}</label>
+                                    <input class=" form-control" formControlName="hora"  type="time"/>
+                                </div>
+                                <div class=" col-md-2">
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input name="size_foto" formControlName="size_foto" [value]="1" [checked]="chico == true" 
+                                            class="custom-control-input" id="customRadio5" type="radio">
+                                        <label class="custom-control-label" for="customRadio5">{{ 'config.formConfig.chico' | translate}}</label>
+                                    </div>
+                                </div>
+                                <div class=" col-md-2">
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input name="size_foto" formControlName="size_foto"  [value]="2" [checked]="mediano == true" 
+                                            class="custom-control-input" id="customRadio6"  type="radio">
+                                        <label class="custom-control-label" for="customRadio6">{{ 'config.formConfig.mediano' | translate}}</label>
+                                    </div>
+                                </div>
+                                <div class=" col-md-2">
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input name="size_foto" formControlName="size_foto" [value]="3" [checked]="grande == true"
+                                            class="custom-control-input" id="customRadio7"  type="radio">
+                                        <label class="custom-control-label" for="customRadio7">{{ 'config.formConfig.grande' | translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">        
-                                
                                 <div class="col-md-4">
                                     <div class="form-group ">
                                         <label for="logo" 
@@ -94,7 +121,9 @@
                                             style="width:100%; position: relative;">
                                     </div>
                                 </div>
+                                
                             </div>
+                           
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group mr-1">
