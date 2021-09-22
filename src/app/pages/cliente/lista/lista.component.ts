@@ -25,6 +25,9 @@ export class ListaComponent implements OnInit {
   formConfig:any = [];
   clientes:any = [];
   form_dataConfig:any = [];
+  entries: number = 10;
+  activeRow:any;
+
   constructor(
     public translate: TranslateService,  
     public fb: FormBuilder,
@@ -130,7 +133,9 @@ export class ListaComponent implements OnInit {
       }
     }  
   }
-
+  entriesChange($event) {
+    this.entries = $event.target.value;
+  }
   update(){
     Swal.showLoading();
     let formData = new FormData();
@@ -160,7 +165,31 @@ export class ListaComponent implements OnInit {
     console.log(row);
     window.open(row.link, "_blank");
   }
+  filterTable(event) {
+    const val = event.target.value.toLowerCase();
+    
+    if(val !== ''){
+      // filter our data
+      const temRow = this.comprobantes.filter(function (d) {
+      
+        for (var key in d) {
+          if(!Array.isArray(d[key])){      
+            let hola = (d[key] != null) ? d[key].toLowerCase() : '';
+            if ( hola.indexOf(val) !== -1) {
+              return true;
+            }      
 
-
+          }  
+        }
+        return false;
+      });
+      this.comprobantes = temRow;
+    }else{
+      this.comprobantes = this.tempRow;
+    }    
+  }
+  onActivate(event) {
+    this.activeRow = event.row;
+  }
 
 }
