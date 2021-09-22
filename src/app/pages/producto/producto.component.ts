@@ -65,7 +65,11 @@ export class ProductoComponent implements OnInit {
   addTextCaract:boolean = false;
   addTextCaract2:boolean = false;
   addTextCaract3:boolean = false;
-
+  configuraciones:any = [];
+  textCaract1:string = "";
+  textCaract2:string = "";
+  textCaract3:string = "";
+  
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
     this.translate.addLangs(['en','es','pt']);
@@ -131,16 +135,24 @@ export class ProductoComponent implements OnInit {
 
   }
   getProductos(){ 
+    Swal.showLoading();
     this.productoService.getProducto(this.empresa).then( (res:any) =>{    
       if(res.success){
+        Swal.close();
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
         this.arrayCaracteristica1 = res.productos['caracteristica1'];
         this.arrayCaracteristica2 = res.productos['caracteristica2'];
         this.arrayCaracteristica3 = res.productos['caracteristica3'];
+        this.configuraciones = res.productos['configuraciones'];
+        this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
+        this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
+        this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
       }else{
+        Swal.close();
       }
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
   }
