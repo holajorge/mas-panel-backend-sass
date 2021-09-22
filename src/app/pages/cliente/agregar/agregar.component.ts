@@ -75,12 +75,16 @@ export class AgregarComponent implements OnInit {
     
     this.clienteService.saveComprobante(formData).then( (res:any) =>{    
       Swal.close();
+      console.log(res);
       if(res.response){
+        this.formConfig.reset();
+        this.form_dataConfig = [];
         Swal.fire('Listo!','Comprobante agregado con exito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
       }
     }).catch(err=>{
+      Swal.fire('Error al guardar, intente de nuevo!', 'error')
       console.log(err);
     });
 

@@ -79,7 +79,7 @@ export class VendedorComponent implements OnInit {
       email: ['', [Validators.required, ValidationService.emailValidator]],
       clave: ['', Validators.required],
       usuario: ['',Validators.required],
-      gerencia: [''],
+      // gerencia: [''],
       empresa_id: [''],
     });
   }
@@ -203,7 +203,7 @@ export class VendedorComponent implements OnInit {
     this.vendedorService.createVendedor(this.newFormVendedor.value).subscribe(data => {  
       if(data == true){
         Swal.fire('guardado el vendedor, con exito!', 'success')
-        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'',clave: '', usuario:'',gerencia:'' });        
+        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'',clave: '', usuario:''});        
         this.getVendedor();
 
         this.notificationModal.hide();

@@ -159,7 +159,6 @@ export class ListaComponent implements OnInit {
   viewCourseTrainings(row){
     console.log(row);
     window.open(row.link, "_blank");
-    // this.router.navigate(['/home-page/mentor-trainings/'+ valObj.id])
   }
 
 
