@@ -213,7 +213,7 @@ export class ConfiguracionesComponent {
       Swal.close();
       if(res.response.body.flag == true){
 
-        Swal.fire('Listo!','configuracion guardada con exito!', 'success')
+        Swal.fire('Listo!','configuración guardada con exito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
       }

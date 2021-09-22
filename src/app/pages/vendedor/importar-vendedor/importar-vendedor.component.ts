@@ -55,7 +55,7 @@ export class ImportarVendedorComponent implements OnInit {
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});
       }else{
-        Swal.fire('Erro al importar al archivo excede el limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar al archivo excede el limite de tamanho permitido, intente de nuevo!', 'error')
       }
     }
     

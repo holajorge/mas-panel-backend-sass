@@ -74,7 +74,7 @@ export class ConfigurcionProductoComponent implements OnInit {
         Swal.fire('Listo!','Configuración guardada, con exito!', 'success')
         this.getConfiguracion();
       }else{
-        Swal.fire('error al guardad, intente novamente', 'error')
+        Swal.fire('error al guardar, intente nuevamente', 'error')
       }
       
     }).catch(err=>{

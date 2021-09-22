@@ -280,7 +280,7 @@ export class ClienteComponent implements OnInit {
         Swal.fire('Listo!','Cliente deshabilitado con exito!', 'success')
         this.getClientes();
       }else{
-        Swal.fire('Upps!','Error al deshabilitar al cliente, tente novamente!', 'error')
+        Swal.fire('Upps!','Error al deshabilitar al cliente, intente nuevamente!', 'error')
       }
 
     }).catch(err=>{

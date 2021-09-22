@@ -245,7 +245,7 @@ export class ProductoComponent implements OnInit {
         this.getProductos();
         Swal.fire('Listo!','Producto creado, con exito!', 'success')
       }else{
-        Swal.fire('Editar Erro, intente novamente', 'error')
+        Swal.fire('Editar Erro, intente nuevamente', 'error')
       }
       
     }).catch(err=>{
