@@ -76,17 +76,21 @@ export class ImportarVendedorComponent implements OnInit {
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Deshacer!'
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Deshacer'
         }).then((result) => {
           console.log(result);
           let resul = result;
           if (resul.value) {
-            this.deshacerCambios();
+
+          //  console.log("APLICAR");
+            this.aplayChange();
+            
 
           }
           if (resul.dismiss){
-            console.log("ya chale");
-            this.aplayChange();
+          //  console.log("DESHACER");
+            this.deshacerCambios();
 
           }
 
@@ -119,7 +123,7 @@ export class ImportarVendedorComponent implements OnInit {
   aplayChange(){
     this.vendedorService.aplaychangeVendedores(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+         Swal.fire('Listo!','Se aplicaron los cambios!', 'success')
         this.getDataVendedorExcel();
 
       }else{

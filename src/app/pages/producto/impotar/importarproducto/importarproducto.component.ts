@@ -100,17 +100,19 @@ export class ImportarproductoComponent implements OnInit {
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Deshacer!'
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Deshacer'
         }).then((result) => {
-          console.log(result);
+         
           let resul = result;
           if (resul.value) {
-            this.deshacerCambios();
+            this.aplayChange();
 
           }
           if (resul.dismiss){
             console.log("ya chale");
-            this.aplayChange();
+            
+            this.deshacerCambios();
 
           }
 
@@ -144,7 +146,7 @@ export class ImportarproductoComponent implements OnInit {
   aplayChange(){
     this.productoService.aplaychangeProducts(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+       Swal.fire('Listo!','Se ejectuaron los cambios!', 'success')
         this.getProductos();
 
       }else{
