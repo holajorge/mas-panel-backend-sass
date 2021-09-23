@@ -53,6 +53,7 @@ export class ClienteService {
   }
   postInsertCliente(newCliente){
     console.log(newCliente);
+    // return false; 
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
