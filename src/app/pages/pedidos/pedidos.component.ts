@@ -33,13 +33,14 @@ export class PedidosComponent implements OnInit {
   btnvisibility: boolean = true;  
   emptyTable:boolean = false;
 
-  constructor(private pedidosService: PedidosService,public translate: TranslateService,private modalService: BsModalService,private formBuilder: FormBuilder,) {
-
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
+  constructor(
+    private pedidosService: PedidosService,
+    public translate: TranslateService,
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder,
+  ) {
     this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
-
     this.getPedidos();
    }
 

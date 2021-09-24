@@ -84,8 +84,8 @@ export class ProductoComponent implements OnInit {
     this.editForm = this.formBuilder.group({
       id: [''],
       empresa_id: [],
-      titulo: [''],
-      codigo_producto: [''],
+      titulo: ['', Validators.required],
+      codigo_producto: ['',Validators.required],
       precio: [''],
       stock: [''],
       caracteristica1: [''],
@@ -155,8 +155,7 @@ export class ProductoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
-  }
-  
+  }  
   entriesChange($event) {
     this.entries = $event.target.value;
   }
@@ -236,6 +235,12 @@ export class ProductoComponent implements OnInit {
   }
   insertProduct(){
 
+    if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
+      this.editForm.get('caracteristica3').value ==  null){
+      Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ '<strong>'+this.textCaract1+', '+this.textCaract2+', '+this.textCaract3+ '<strong>', '','error');      
+        return false;
+    } 
+    Swal.showLoading();
     this.productoService.createProducto(this.editForm.value).then( (res:any) =>{    
       if(res.productos.body.usuario == 2){
         Swal.fire('Error', 'Codigo producto ya existe', 'error');      
@@ -249,6 +254,7 @@ export class ProductoComponent implements OnInit {
       }
       
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
   }
@@ -289,6 +295,7 @@ export class ProductoComponent implements OnInit {
   }
   available(row){
     this.producto.id = row.id;
+    this.producto.empresa_id = this.empresa;
 
     this.productoService.productoHabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
@@ -322,6 +329,8 @@ export class ProductoComponent implements OnInit {
 
   disable(row){
     this.producto.id = row.id;
+    this.producto.empresa_id = this.empresa;
+
     this.productoService.deshabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
         Swal.fire('Listo!','Producto deshabilitado con exito!', 'success')

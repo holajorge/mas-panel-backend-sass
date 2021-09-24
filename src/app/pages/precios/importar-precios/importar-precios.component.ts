@@ -5,6 +5,7 @@ import { validate } from 'json-schema';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { PreciosService } from 'src/app/service/precios/precios.service';
+import { ConfigService } from 'src/app/service/config/config.service';
 
 @Component({
   selector: 'app-importar-precios',
@@ -148,6 +149,7 @@ export class ImportarPreciosComponent implements OnInit {
     this.preciosService.exportAsExcelFile(this.modeloExcel, 'modelo_precios');
   }
   dataExcelClientes(){
-    this.preciosService.exportAsExcelFile(this.dataExcel, 'precios');
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_precios?empresa="+this.empresaa.id,"_blank");
+    // this.preciosService.exportAsExcelFile(this.dataExcel, 'precios');
   }
 }
