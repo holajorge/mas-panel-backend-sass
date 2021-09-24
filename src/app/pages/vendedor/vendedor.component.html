@@ -159,7 +159,6 @@
     <div class=" modal-body  pt-0">
         <form [formGroup]="newFormVendedor" novalidate >
             
-
             <div class="form-row">
                 <div class="form-group col">
                     <label class="form-control-label" for="nombre">{{  'vendedores.newForm.nombre' | translate}}  </label>
@@ -195,7 +194,17 @@
                     <input class="custom-control-input" formControlName="gerencia" name="gerencia" id="gerencia" type="checkbox">
                     <label class="custom-control-label" for="gerencia">{{ 'vendedores.newForm.agencia' | translate}}</label>
                 </div> -->
-            </div>           
+            </div>   
+            <div class="form-row">    
+                <div class="form-group col-4 mt-5 ml-5">
+                    <input class="custom-control-input" formControlName="archivo" name="archivo"  id="archivo" type="checkbox">
+                    <label class="custom-control-label" for="archivo">Bajar {{ 'vendedores.updateForm.archivo' | translate}} </label>
+                </div>
+                <div class="form-group col-4 mt-5 ml-5">
+                    <input class="custom-control-input" formControlName="lista" name="lista" id="lista" type="checkbox">
+                    <label class="custom-control-label" for="lista">{{ 'vendedores.updateForm.lista' | translate}}</label>
+                </div>
+            </div>         
       </form>
     </div>
     <div class=" modal-footer">
@@ -223,7 +232,14 @@
                     <div class="alert  alert-danger" *ngIf="addForm.get('nombre').hasError('required') && addForm.get('nombre').touched">  
                         {{ 'vendedores.updateForm.nombre' | translate}} é obrigatório
                     </div>  
-                </div>        
+                </div>   
+                <div class="form-group col">
+                    <label class="form-control-label" for="usuario">{{  'vendedores.newForm.usuario' | translate}}</label>
+                    <input type="text" formControlName="usuario" placeholder="{{ 'vendedores.newForm.usuario' | translate}}" name="usuario" class="form-control" id="usuario">
+                    <div class="alert  alert-danger" *ngIf="addForm.get('usuario').hasError('required') && addForm.get('usuario').touched">  
+                        {{  'vendedores.newForm.usuario' | translate}} es obrigatório
+                    </div>  
+                </div>     
                 <div class="form-group col">
                     <label class="form-control-label" for="clave">{{ 'vendedores.updateForm.clave' | translate}}</label>
                     <input type="text" formControlName="clave" placeholder="{{ 'vendedores.updateForm.clave' | translate}}" name="clave" class="form-control" id="clave">
