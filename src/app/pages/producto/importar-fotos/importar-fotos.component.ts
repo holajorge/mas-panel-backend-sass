@@ -40,14 +40,15 @@ export class ImportarFotosComponent implements OnInit {
     const files:FileList = event.target.files;
     if(files.length > 0){
       const file = files[0];
-      if((file.size/1048576)<=4){
+
+      if((file.size/1048576)<=300){
         let formData = new FormData();
         formData.append('file', file, file.name);
         formData.append('id',this.addForm.get('empresa_id').value);
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});
       }else{
-        Swal.fire('error','Error al importar al archivo excede o limite de tamaño permitido, intente de nuevo!')
+        Swal.fire('error','Error máximo de tamaño permitido es de 300MB, intente de nuevo!')
       }
     }
     
