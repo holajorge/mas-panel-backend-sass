@@ -65,7 +65,11 @@ export class ProductoComponent implements OnInit {
   addTextCaract:boolean = false;
   addTextCaract2:boolean = false;
   addTextCaract3:boolean = false;
-
+  configuraciones:any = [];
+  textCaract1:string = "";
+  textCaract2:string = "";
+  textCaract3:string = "";
+  
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
     this.translate.addLangs(['en','es','pt']);
@@ -80,8 +84,8 @@ export class ProductoComponent implements OnInit {
     this.editForm = this.formBuilder.group({
       id: [''],
       empresa_id: [],
-      titulo: [''],
-      codigo_producto: [''],
+      titulo: ['', Validators.required],
+      codigo_producto: ['',Validators.required],
       precio: [''],
       stock: [''],
       caracteristica1: [''],
@@ -131,20 +135,27 @@ export class ProductoComponent implements OnInit {
 
   }
   getProductos(){ 
+    Swal.showLoading();
     this.productoService.getProducto(this.empresa).then( (res:any) =>{    
       if(res.success){
+        Swal.close();
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
         this.arrayCaracteristica1 = res.productos['caracteristica1'];
         this.arrayCaracteristica2 = res.productos['caracteristica2'];
         this.arrayCaracteristica3 = res.productos['caracteristica3'];
+        this.configuraciones = res.productos['configuraciones'];
+        this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
+        this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
+        this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
       }else{
+        Swal.close();
       }
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
-  }
-  
+  }  
   entriesChange($event) {
     this.entries = $event.target.value;
   }
@@ -224,6 +235,12 @@ export class ProductoComponent implements OnInit {
   }
   insertProduct(){
 
+    if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
+      this.editForm.get('caracteristica3').value ==  null){
+      Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ '<strong>'+this.textCaract1+', '+this.textCaract2+', '+this.textCaract3+ '<strong>', '','error');      
+        return false;
+    } 
+    Swal.showLoading();
     this.productoService.createProducto(this.editForm.value).then( (res:any) =>{    
       if(res.productos.body.usuario == 2){
         Swal.fire('Error', 'Codigo producto ya existe', 'error');      
@@ -233,10 +250,11 @@ export class ProductoComponent implements OnInit {
         this.getProductos();
         Swal.fire('Listo!','Producto creado, con exito!', 'success')
       }else{
-        Swal.fire('Editar Erro, intente novamente', 'error')
+        Swal.fire('Editar Erro, intente nuevamente', 'error')
       }
       
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
   }
@@ -261,7 +279,7 @@ export class ProductoComponent implements OnInit {
   onActiveClient(row){    
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Habilitar?',
+      title: 'Seguro de Habilitar?',
       text: "Habilitar producto!",
       type: 'warning',
       showCancelButton: true,
@@ -277,6 +295,7 @@ export class ProductoComponent implements OnInit {
   }
   available(row){
     this.producto.id = row.id;
+    this.producto.empresa_id = this.empresa;
 
     this.productoService.productoHabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
@@ -293,8 +312,8 @@ export class ProductoComponent implements OnInit {
 
   onDisableActive(row){    
     Swal.fire({
-      title: 'segurdo de deshabilitar?',
-      text: "Desabilitara al producto!",
+      title: 'Seguro de deshabilitar?',
+      text: "Deshabilitará al producto!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -310,6 +329,8 @@ export class ProductoComponent implements OnInit {
 
   disable(row){
     this.producto.id = row.id;
+    this.producto.empresa_id = this.empresa;
+
     this.productoService.deshabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
         Swal.fire('Listo!','Producto deshabilitado con exito!', 'success')
@@ -350,7 +371,7 @@ export class ProductoComponent implements OnInit {
     this.producto.empresa_id = this.empresa;
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Habilitar producto como Destacado?',
+      title: 'Seguro de Habilitar producto como Destacado?',
       text: "Destacar producto!",
       type: 'warning',
       showCancelButton: true,
@@ -380,8 +401,8 @@ export class ProductoComponent implements OnInit {
     this.producto.empresa_id = this.empresa;
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Deshabilitar producto como Destacado?',
-      text: "Deshabilitar destacado producto!",
+      title: 'Seguro de deshabilitar el producto como destacado?',
+      text: "Deshabilitar producto como destacado!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -394,7 +415,7 @@ export class ProductoComponent implements OnInit {
           this.productoService.deshalitarDestacado(this.producto).then( (res:any) =>{    
             if(res.response == true){
               this.cambios = true;
-              Swal.fire('Listo!','Producto no destacado con exito!', 'success')
+              Swal.fire('Listo!','Producto no destacado con éxito!', 'success')
               this.getProductos();
             }else{
               Swal.fire('Upps!','Error al deshabilitar producto como no destacado, intente nuevamente!', 'error')

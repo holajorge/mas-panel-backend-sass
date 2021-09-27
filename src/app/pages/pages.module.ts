@@ -31,6 +31,8 @@ import { ImportarPreciosComponent } from './precios/importar-precios/importar-pr
 import { DominioComponent } from './configuraciones/dominio/dominio.component';
 import { GeneralComponent } from './configuraciones/general/general.component';
 import { ClientesComponent } from './pedidos/clientes/clientes.component';
+import { AgregarComponent } from './cliente/agregar/agregar.component';
+import { ListaComponent } from './cliente/lista/lista.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -58,6 +60,8 @@ imports: [
     DominioComponent,
     GeneralComponent,
     ClientesComponent,
+    AgregarComponent,
+    ListaComponent,
     
   ],
   imports: [

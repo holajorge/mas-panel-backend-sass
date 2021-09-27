@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import Swal from 'sweetalert2/dist/sweetalert2.js'
 // import 'sweetalert2/src/sweetalert2.scss'
 import {TranslateService} from '@ngx-translate/core';
+import { ConfigService } from 'src/app/service/config/config.service';
 import { ProductoService } from 'src/app/service/producto/producto.service';
 import Swal from "sweetalert2";
 
@@ -81,8 +82,7 @@ export class ImportarproductoComponent implements OnInit {
       }else{
         Swal.fire('Error al importar al archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
       }
-    }
-    
+    }    
   }
   sendfile(){
     Swal.showLoading()
@@ -100,17 +100,19 @@ export class ImportarproductoComponent implements OnInit {
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Deshacer!'
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Deshacer'
         }).then((result) => {
-          console.log(result);
+         
           let resul = result;
           if (resul.value) {
-            this.deshacerCambios();
+            this.aplayChange();
 
           }
           if (resul.dismiss){
             console.log("ya chale");
-            this.aplayChange();
+            
+            this.deshacerCambios();
 
           }
 
@@ -144,7 +146,7 @@ export class ImportarproductoComponent implements OnInit {
   aplayChange(){
     this.productoService.aplaychangeProducts(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+       Swal.fire('Listo!','Se ejectuaron los cambios!', 'success')
         this.getProductos();
 
       }else{
@@ -162,13 +164,15 @@ export class ImportarproductoComponent implements OnInit {
 
   }
   dataExcelProductos(){
-    // this.dataExcel = [];
-    if(this.dataExcel.length > 0){
-      this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
-    }else{
-      Swal.fire('No hay productos para exportar, intente de nuevo!', 'error')
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_products?empresa="+this.empresa,"_blank");
 
-    }
+    // this.dataExcel = [];
+    // if(this.dataExcel.length > 0){
+    //   this.productoService.exportAsExcelFile(this.dataExcel, 'productos');
+    // }else{
+    //   Swal.fire('No hay productos para exportar, intente de nuevo!', 'error')
+
+    // }
 
   }
 }

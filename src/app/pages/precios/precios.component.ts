@@ -113,14 +113,14 @@ export class PreciosComponent implements OnInit {
     let descuento = this.editForm.get('descuento').value;
     
     if(precio != "" && descuento != ""){   
-      Swal.fire('Elegí si el precio especial es un descuento o un precio fijo.','','info');
+      Swal.fire('Elige si el precio especial es un descuento o un precio fijo.','','info');
       this.editForm.patchValue({
         precio: "", descuento: ""
       });
       return false;
     }
     if(precio === "" && descuento === ""){
-      Swal.fire('Elegí si el precio especial es un descuento o un precio fijo.','','info');
+      Swal.fire('Elige si el precio especial es un descuento o un precio fijo.','','info');
       return false;
     }
    
@@ -132,7 +132,7 @@ export class PreciosComponent implements OnInit {
         this.getPrecios();
         Swal.fire('Listo!','Precio creado, con exito!', 'success')
       }else{
-        Swal.fire('Editar Erro, intente novamente', 'error')
+        Swal.fire('Editar Error, intente nuevamente', 'error')
       }
       
     }).catch(err=>{
@@ -174,8 +174,8 @@ export class PreciosComponent implements OnInit {
   delitePrice(row){
 
     Swal.fire({
-      title: '¿segurdo de eliminar?',
-      text: "El precio se eliminar definitivamente!",
+      title: 'Seguro de eliminar?',
+      text: "El precio se eliminará definitivamente!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -193,7 +193,7 @@ export class PreciosComponent implements OnInit {
               this.getPrecios();
               Swal.fire('Listo!','Precio eliminado, con exito!', 'success')
             }else{
-              Swal.fire('Editar Erro, intente novamente', 'error')
+              Swal.fire('Editar Error, intente nuevamente', 'error')
             }
             
           }).catch(err=>{

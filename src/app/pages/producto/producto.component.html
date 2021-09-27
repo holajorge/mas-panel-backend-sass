@@ -5,7 +5,7 @@
           <div class=" col-lg-6 col-7">
             <h6 class=" h2 text-white d-inline-block mb-0 mr-1">{{  'producto.titulo' | translate}}</h6>
             <a class=" btn btn-sm btn-primary" href="javascript:void(0)" (click)="destacadoProducts(modaDestacadoProducto)"> Destacados </a>
-            <a class=" btn btn-sm btn-success" href="javascript:void(0)" *ngIf="cambios" (click)="gurdarcambios()"> Guardar cambios </a>
+            <!-- <a class=" btn btn-sm btn-success" href="javascript:void(0)" *ngIf="cambios" (click)="gurdarcambios()"> Guardar cambios </a> -->
 
           </div>
           <div class=" col-lg-6 col-5 text-right">
@@ -67,17 +67,17 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="caracteristica1">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.caracteristica' | translate}} 1</span>
+                        <span>{{textCaract1}}</span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="caracteristica2">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.caracteristica' | translate}} 2</span>
+                        <span>{{textCaract2}}</span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="caracteristica3">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.caracteristica' | translate}} 3</span>
+                        <span>{{textCaract3}}</span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="precio">
@@ -183,7 +183,7 @@
                 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="caracteristica1">{{ 'producto.formEdit.caracteristica' | translate }} 1:</label> 
+                        <label class="form-control-label" for="caracteristica1">{{textCaract1}}:</label> 
                         <button class="btn btn-sm btn-info" (click)="addTextCaract =! addTextCaract"> 
                             <span class="fas fa-plus"></span> 
                         </button>
@@ -197,7 +197,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="caracteristica2">{{ 'producto.formEdit.caracteristica' | translate }} 2:</label>
+                        <label class="form-control-label" for="caracteristica2">{{textCaract2}}:</label>
                         <button class="btn btn-sm btn-info" (click)="addTextCaract2 =! addTextCaract2"> 
                             <span class="fas fa-plus"></span> 
                         </button>
@@ -211,7 +211,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="caracteristica3">{{ 'producto.formEdit.caracteristica' | translate }} 3:</label>
+                        <label class="form-control-label" for="caracteristica3">{{textCaract3}}:</label>
                         <button class="btn btn-sm btn-info" (click)="addTextCaract3 =! addTextCaract3"> 
                             <span class="fas fa-plus"></span> 
                         </button>
@@ -227,12 +227,12 @@
                 
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica4">{{ 'producto.formEdit.caracteristica' | translate }} 4:</label>
                         <input type="text" formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col-md-2">
                     <div class="form-group">
                         <label for="solapa1">{{ 'producto.formEdit.solapa' | translate }} 1:</label>
@@ -358,17 +358,17 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="caracteristica1">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.caracteristica' | translate}} 1</span>
+                        <span>{{textCaract1}}</span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="caracteristica2">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.caracteristica' | translate}} 2</span>
+                        <span>{{textCaract2}}</span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="caracteristica3">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.caracteristica' | translate}} 3</span>
+                        <span>{{textCaract3}}</span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="precio">

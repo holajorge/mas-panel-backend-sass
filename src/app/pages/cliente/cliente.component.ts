@@ -70,6 +70,15 @@ export class ClienteComponent implements OnInit {
       email: ['', Validators.required],
       usuario: ['', Validators.required],
       clave: ['', Validators.required],
+
+      descuento_general: ['', Validators.required],
+      cuit: ['', Validators.required],
+      telefono: ['', Validators.required],
+      encargado_compras: [''],
+      encargado_pagos: [''],
+      provincia: [''],
+      localidad: [''],
+      direccion: [''],
     });
   }
   entriesChange($event) {
@@ -227,7 +236,7 @@ export class ClienteComponent implements OnInit {
         this.addFormNew.reset();
         this.getClientes();
        
-        Swal.fire('Listo!','Cliente creado com sucesso!', 'success')
+        Swal.fire('Listo!','Cliente creado con exito!', 'success')
       }else{
 
         Swal.fire('Upps!','Error al crear el nuevo cliente,intente de nuevo!', 'error')
@@ -240,8 +249,8 @@ export class ClienteComponent implements OnInit {
   }
   onDisableActive(row){    
     Swal.fire({
-      title: 'segurdo de deshabilitar?',
-      text: "Desabilitar al cliente!",
+      title: 'Seguro de deshabilitar?',
+      text: "Deshabilitar al cliente!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -257,7 +266,7 @@ export class ClienteComponent implements OnInit {
   onActiveClient(row){    
     console.log(row);
     Swal.fire({
-      title: 'segurdo de Habilitar?',
+      title: 'Seguro de Habilitar?',
       text: "Habilitar cliente!",
       type: 'warning',
       showCancelButton: true,
@@ -280,7 +289,7 @@ export class ClienteComponent implements OnInit {
         Swal.fire('Listo!','Cliente deshabilitado con exito!', 'success')
         this.getClientes();
       }else{
-        Swal.fire('Upps!','Error al deshabilitar al cliente, tente novamente!', 'error')
+        Swal.fire('Upps!','Error al deshabilitar al cliente, intente nuevamente!', 'error')
       }
 
     }).catch(err=>{

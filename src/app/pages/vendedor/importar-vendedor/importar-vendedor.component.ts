@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import {TranslateService} from '@ngx-translate/core';
+import { ConfigService } from 'src/app/service/config/config.service';
 
 import { VendedorService } from 'src/app/service/vendedor/vendedor.service';
 
@@ -26,7 +27,11 @@ export class ImportarVendedorComponent implements OnInit {
     }
   ];
   dataExcel: any = [];
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder, private vendedorService:VendedorService) { 
+  constructor(
+    public translate: TranslateService,
+    private formBuilder: FormBuilder, 
+    private vendedorService:VendedorService
+  ) { 
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
@@ -55,7 +60,7 @@ export class ImportarVendedorComponent implements OnInit {
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});
       }else{
-        Swal.fire('Erro al importar al archivo excede el limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar al archivo excede el limite de tamanho permitido, intente de nuevo!', 'error')
       }
     }
     
@@ -76,17 +81,21 @@ export class ImportarVendedorComponent implements OnInit {
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Deshacer!'
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Deshacer'
         }).then((result) => {
           console.log(result);
           let resul = result;
           if (resul.value) {
-            this.deshacerCambios();
+
+          //  console.log("APLICAR");
+            this.aplayChange();
+            
 
           }
           if (resul.dismiss){
-            console.log("ya chale");
-            this.aplayChange();
+          //  console.log("DESHACER");
+            this.deshacerCambios();
 
           }
 
@@ -119,7 +128,7 @@ export class ImportarVendedorComponent implements OnInit {
   aplayChange(){
     this.vendedorService.aplaychangeVendedores(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+         Swal.fire('Listo!','Se aplicaron los cambios!', 'success')
         this.getDataVendedorExcel();
 
       }else{
@@ -144,6 +153,8 @@ export class ImportarVendedorComponent implements OnInit {
 
   }
   dataExcelVendedores(){
-    this.vendedorService.exportAsExcelFile(this.dataExcel, 'vendedores');
+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadVendedores?empresa="+this.empresaa.id, "_blank");
+    // this.vendedorService.exportAsExcelFile(this.dataExcel, 'vendedores');
   }
 }

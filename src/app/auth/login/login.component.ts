@@ -26,15 +26,17 @@ export class LoginComponent implements OnInit {
 
   login(form:NgForm){
     // console.log(form.value);
+    Swal.showLoading();
     this.loginService.auth(form.value).subscribe((data:any) => {  
       // console.log(data); return false;
       if(data.body.perfil != null){
         
         localStorage.setItem('usuario', data.body.id);
-
+        Swal.close();
         form.reset();
         this.router.navigate(['/admin']);
        }else{
+        Swal.close();
         Swal.fire({
           title: "Hubo un error",
           text: "Revise los datos e intente nuevamente",
@@ -45,6 +47,7 @@ export class LoginComponent implements OnInit {
        }
     },  
       error => {  
+        Swal.close();
         Swal.fire({
           title: "Hubo un error",
           text: "Revise los datos e intente nuevamente",

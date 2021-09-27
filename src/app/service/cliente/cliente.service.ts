@@ -53,6 +53,7 @@ export class ClienteService {
   }
   postInsertCliente(newCliente){
     console.log(newCliente);
+    // return false; 
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -133,6 +134,49 @@ export class ClienteService {
       type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + '_exported'+ EXCEL_EXTENSION);
+  }
+
+  saveComprobante(data){
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveComprobante",data).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  getComprobantes(empresa){
+    
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getComprobantes",empresa,options).toPromise().then((res) =>{      
+      return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  deleteComprobante(comprobante){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/eliminarComprobante",comprobante,options).toPromise().then((res) =>{      
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  updateComprobante(data){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateComprobante",data).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+
+
   }
 
 }

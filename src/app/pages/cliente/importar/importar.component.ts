@@ -5,6 +5,7 @@ import { ClienteService } from 'src/app/service/cliente/cliente.service';
 import { validate } from 'json-schema';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { ConfigService } from 'src/app/service/config/config.service';
 @Component({
   selector: 'app-importar',
   templateUrl: './importar.component.html',
@@ -77,15 +78,19 @@ export class ImportarComponent implements OnInit {
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Deshacer!'
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Deshacer'
         }).then((result) => {
 
           let resul = result;
           if (resul.value) {
-            this.deshacerCambios();
+           // console.log("APLICAR");
+             this.aplayChange();
           }
           if (resul.dismiss){
-            this.aplayChange();
+           
+         // console.log("DESHACER");
+            this.deshacerCambios();
           }
           
         });        
@@ -120,7 +125,7 @@ export class ImportarComponent implements OnInit {
   aplayChange(){
     this.clienteService.aplaychangeClientes(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        // Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+         Swal.fire('Listo!','se ejecutaron los cambios!', 'success')
         this.getClientes();
 
       }else{
@@ -160,6 +165,8 @@ export class ImportarComponent implements OnInit {
     this.clienteService.exportAsExcelFile(this.modeloExcel, 'modelo_cliente');
   }
   dataExcelClientes(){
-    this.clienteService.exportAsExcelFile(this.dataExcel, 'clientes');
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_clients?empresa="+this.empresaa.id, "_blank");
+
+    // this.clienteService.exportAsExcelFile(this.dataExcel, 'clientes');
   }
 }

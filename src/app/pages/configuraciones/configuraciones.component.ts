@@ -72,7 +72,10 @@ export class ConfiguracionesComponent {
     ]
   };  
   imageURLogo: string;
- 
+  chico:boolean = false;
+  mediano:boolean = false;
+  grande:boolean = false;
+  
   constructor(public translate: TranslateService,  public fb: FormBuilder, public configService: ConfigService) { 
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
@@ -88,7 +91,9 @@ export class ConfiguracionesComponent {
       logo: [null],
       color_botones: [''],
       empresa_id:  this.empresa,
-      descripcion_empresa: [''] 
+      descripcion_empresa: [''],
+      hora: [''],
+      size_foto: ['']
     });
     this.empresaData.id = this.empresa;
     this.getConfig();
@@ -101,7 +106,10 @@ export class ConfiguracionesComponent {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        console.log(this.configuraciones);
+        console.log(this.configuraciones.size_foto);
+        this.chico = (this.configuraciones.size_foto == 1) ? true : false;
+        this.mediano = (this.configuraciones.size_foto == 2) ? true : false;
+        this.grande = (this.configuraciones.size_foto == 3) ? true : false;
         this.formConfig.patchValue({
           color_botones: this.configuraciones.color_botones,
           descripcion_empresa: this.configuraciones.descripcion_empresa,
@@ -109,6 +117,8 @@ export class ConfiguracionesComponent {
           direccion: this.configuraciones.direccion,
           telefono: this.configuraciones.telefono,
           correo: this.configuraciones.correo,
+          hora: this.configuraciones.hora,
+          size_foto: this.configuraciones.size_foto
         });
 
         if(this.configuraciones.logo == '' || this.configuraciones.logo == undefined){ 
@@ -196,12 +206,14 @@ export class ConfiguracionesComponent {
     formData.append('direccion',  this.formConfig.get('direccion').value);
     formData.append('telefono',  this.formConfig.get('telefono').value);
     formData.append('correo',  this.formConfig.get('correo').value);
+    formData.append('hora',  this.formConfig.get('hora').value);
+    formData.append('size_foto',  this.formConfig.get('size_foto').value);
     
     this.configService.saveConfig(formData).then( (res:any) =>{    
       Swal.close();
       if(res.response.body.flag == true){
 
-        Swal.fire('Listo!','configuracion guardada con exito!', 'success')
+        Swal.fire('Listo!','configuración guardada con exito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
       }

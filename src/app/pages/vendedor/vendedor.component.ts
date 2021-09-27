@@ -70,6 +70,7 @@ export class VendedorComponent implements OnInit {
       nombre: ['',Validators.required],
       email: ['', Validators.required],
       clave: ['', Validators.required],
+      usuario: ['',Validators.required],
       lista: [''],
       archivo: [''],
     });
@@ -79,8 +80,9 @@ export class VendedorComponent implements OnInit {
       email: ['', [Validators.required, ValidationService.emailValidator]],
       clave: ['', Validators.required],
       usuario: ['',Validators.required],
-      gerencia: [''],
       empresa_id: [''],
+      lista: [''],
+      archivo: [''],
     });
   }
   getVendedor(){
@@ -120,6 +122,7 @@ export class VendedorComponent implements OnInit {
     
   }
   onSelectItem(modalEditVendedor,row) {
+    console.log(row);
     this.notificationModal = this.modalService.show(
       modalEditVendedor,
       this.notification
@@ -130,15 +133,22 @@ export class VendedorComponent implements OnInit {
     }else{
       hola = {baja:0,lista:0};
     }
-    this.addForm.setValue({id:row.id, nombre:row.nombre, email:row.email, clave:row.clave, lista: hola['lista'], archivo:hola['baja']});
+    this.addForm.setValue({
+      id:row.id, 
+      nombre:row.nombre, 
+      email:row.email, 
+      clave:row.clave, 
+      usuario: row.usuario,
+      lista: hola['lista'], archivo:hola['baja']
+    });
     this.btnvisibility = false;  
 
   }
   onUpdate(){
-    
+    Swal.showLoading();
     this.vendedorService.updateVendedor(this.addForm.value).subscribe(data => {  
       if(data == true){
-        Swal.fire('guardado el vendedor, con exito!', 'success')
+        Swal.fire('','Datos del vendedor actualizado, con exito!', 'success')
         this.addForm.reset();
         this.getVendedor();
         this.notificationModal.hide();
@@ -147,6 +157,7 @@ export class VendedorComponent implements OnInit {
        }
     },  
     error => {  
+      Swal.close();
         alert(error);  
     });  
   }
@@ -154,17 +165,22 @@ export class VendedorComponent implements OnInit {
     this.activeRow = event.row;
   }
   logLogin(modalLog,vendedor){
-    this.notificationModal = this.modalService.show(modalLog,this.notification);
 
+    this.notificationModal = this.modalService.show(modalLog,this.notification);
+    Swal.showLoading();
     this.vendedorService.getLog(vendedor).then( (res:any) =>{
+
       if(res.success == true){
+        Swal.close();
         this.logRow = res.logs;
         this.tempRowLog = res.logs;
       }else{
+        Swal.close();
         //no hay registros 
       }
       
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
   }
@@ -198,12 +214,12 @@ export class VendedorComponent implements OnInit {
     this.notificationModal = this.modalService.show(modalAdd,this.notification);
   }
   onCreateVendedor(){
-    console.log(this.newFormVendedor.value);
-
+    
+    Swal.showLoading();
     this.vendedorService.createVendedor(this.newFormVendedor.value).subscribe(data => {  
       if(data == true){
-        Swal.fire('guardado el vendedor, con exito!', 'success')
-        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'',clave: '', usuario:'',gerencia:'' });        
+        Swal.fire('','Datos del nuevo vendedor creado, con exito!', 'success')
+        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'',clave: '', usuario:''});        
         this.getVendedor();
 
         this.notificationModal.hide();
@@ -212,6 +228,7 @@ export class VendedorComponent implements OnInit {
        }
     },  
     error => {  
+        Swal.close();
         alert(error);  
     });  
 

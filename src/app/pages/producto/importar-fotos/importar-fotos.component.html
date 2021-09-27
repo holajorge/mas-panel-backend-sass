@@ -26,7 +26,7 @@
                             <h3 class=" mb-0">{{'producto.foto.text'  | translate }}</h3>
                             <form [formGroup]="addForm" novalidate>
                                 <!-- <div class="custom-file"> -->
-                                    <input formControlName="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                    <input formControlName="file" 
                                             (change)="handleFile($event)"  
                                             class="form-control" id="customFileLang" type="file"   accept=".zip,.7zip"  />                                            
                                     <div class="alert  alert-danger" 

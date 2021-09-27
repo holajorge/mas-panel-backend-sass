@@ -1,0 +1,79 @@
+<div class=" header bg-maspedidos pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{ 'cliente.add.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">{{ 'cliente.add.subtitulo' | translate }}</h3></div>
+                    <div class="card-body">
+                                        
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                                         <ng-select formControlName="cliente"
+                                            [items]="clientes" 
+                                            bindValue="nrocliente" 
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                        
+                                        <div class="alert  alert-danger" 
+                                            *ngIf="formConfig.get('cliente').hasError('required') && formConfig.get('cliente').touched">  
+                                            {{ 'cliente.add.cliente' | translate }} es obligatorio
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        <label for="fecha" 
+                                            class="form-control-label">{{ 'cliente.add.fecha' | translate }}</label>
+                                        <!-- <input type="date" formControlName="fecha" 
+                                            placeholder="{{ 'cliente.add.fecha' | translate }}"  class="form-control">  -->
+                                        <input class="form-control" formControlName="fecha" 
+                                        type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
+                                    </div>
+                                </div>                            
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        <label for="documento" 
+                                            class="form-control-label">{{ 'cliente.add.documento' | translate }}</label>
+                                        <input type="file" formControlName="doc"  (change)="showPreviewHeader($event)"
+                                            placeholder="{{ 'cliente.add.documento' | translate }}" 
+                                            class="form-control"> 
+                                    </div>
+                                </div>                            
+                            </div>
+                        
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrar()" class="btn btn-primary">
+                                            {{ 'cliente.add.guardar' | translate }} <span class="fas fa-save"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>       
+                    </div>                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

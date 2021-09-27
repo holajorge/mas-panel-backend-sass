@@ -99,7 +99,7 @@ export class BannerComponent implements OnInit {
         this.file_dataHeader=formData;
         this.uploadFormHeader.patchValue({filesource: files});
       }else{
-        Swal.fire('Error al importar el arquivo excede el limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar el archivo excede el limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
 
@@ -145,7 +145,7 @@ export class BannerComponent implements OnInit {
         this.file_dataFooter=formData;
         this.uploadFormFooter.patchValue({filesource: files});
       }else{
-        Swal.fire('Erro al importar o arquivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+        Swal.fire('Error al importar el archivo excede el limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
 
@@ -190,8 +190,8 @@ export class BannerComponent implements OnInit {
         formData.append('id',this.uploadFormSwal.get('empresa_id').value);
         this.file_dataSwal=formData;
         this.uploadFormSwal.patchValue({filesource: files});
-      }else{
-        Swal.fire('Erro al importar o arquivo excede o limite de tamanho permitido, intente de nuevo!', 'error')
+      }else{        
+        Swal.fire('Error al importar el archivo excede el limite de tamaño permitido, intente de nuevo!', 'error')
       }
     }
 
@@ -207,7 +207,7 @@ export class BannerComponent implements OnInit {
       if(res.response.body.flag == true){
         Swal.fire('Listo!','Archivo de Swal importado con exito!', 'success')
       }else{
-        Swal.fire('Erro al importar Archivo de Swal, intente de nuevo!', 'error')
+        Swal.fire('Error al importar Archivo de Swal, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       console.log(err);

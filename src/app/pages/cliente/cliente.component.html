@@ -226,17 +226,6 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="email">{{ 'cliente.tabla.email' | translate}}:</label>
-                        <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
-                        <div class="alert  alert-danger" *ngIf="addFormNew.get('email').hasError('required') && addFormNew.get('email').touched">  
-                            {{ 'cliente.tabla.email' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-            </div>
-            <div class="row">            
-                <div class="col-md-4">
-                    <div class="form-group">
                         <label class="form-control-label" for="usuario">{{ 'cliente.tabla.usuario' | translate}}:</label>
                         <input type="text" formControlName="usuario" placeholder="Usuario" name="usuario" class="form-control" id="usuario">
                         <div class="alert  alert-danger" *ngIf="addFormNew.get('usuario').hasError('required') && addFormNew.get('usuario').touched">  
@@ -244,7 +233,10 @@
                         </div>  
                     </div>
                 </div>                
-                <div class="col-md-3">
+                
+            </div>
+            <div class="row">            
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label" for="clave">{{ 'cliente.tabla.clave' | translate}}:</label>
                         <input type="text" formControlName="clave" placeholder="Clave" name="clave" class="form-control" id="clave">
@@ -252,8 +244,82 @@
                             {{ 'cliente.tabla.clave' | translate}} es requerido
                         </div>  
                     </div>
-                </div>               
-            </div>           
+                </div>  
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="email">{{ 'cliente.tabla.email' | translate}}:</label>
+                        <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+                        <div class="alert  alert-danger" *ngIf="addFormNew.get('email').hasError('required') && addFormNew.get('email').touched">  
+                            {{ 'cliente.tabla.email' | translate}} es requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="descuento_general">{{ 'cliente.tabla.decuento' | translate}}:</label>
+                        <input type="text" formControlName="descuento_general" placeholder="{{ 'cliente.tabla.decuento' | translate}}" name="descuento_general" class="form-control" id="descuento_general">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('descuento_general').hasError('required') && addForm.get('descuento_general').touched">  
+                            {{ 'cliente.tabla.decuento' | translate}} es requerido
+                        </div>  
+                    </div>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="cuit">{{ 'cliente.tabla.cuit' | translate}}:</label>
+                        <input type="text" formControlName="cuit" placeholder="{{ 'cliente.tabla.cuit' | translate}}" name="cuit" class="form-control" id="cuit">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('cuit').hasError('required') && addForm.get('cuit').touched">  
+                            {{ 'cliente.tabla.cuit' | translate}} es requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="telefono">{{ 'cliente.tabla.telefono' | translate}}:</label>
+                        <input type="text" formControlName="telefono" placeholder="{{ 'cliente.tabla.telefono' | translate}}" name="telefono" class="form-control" id="telefono">
+                        <div class="alert  alert-danger" *ngIf="addForm.get('telefono').hasError('required') && addForm.get('telefono').touched">  
+                            {{ 'cliente.tabla.telefono' | translate}} es requerido
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="encargado_compras">{{ 'cliente.tabla.encargado' | translate}}:</label>
+                        <input type="text" formControlName="encargado_compras" placeholder="{{ 'cliente.tabla.encargado' | translate}}" name="encargado_compras" class="form-control" id="encargado_compras">                        
+                    </div>
+                </div>                
+            </div> 
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="encargado_pagos">{{ 'cliente.tabla.pagos' | translate}}:</label>
+                        <input type="text" formControlName="encargado_pagos" placeholder="{{ 'cliente.tabla.pagos' | translate}}" name="encargado_pagos" class="form-control" id="encargado_pagos">                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="provincia">{{ 'cliente.tabla.provincia' | translate}}:</label>
+                        <input type="text" formControlName="provincia" placeholder="{{ 'cliente.tabla.provincia' | translate}}" name="provincia" class="form-control" id="provincia">
+                       
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="localidad">{{ 'cliente.tabla.localidad' | translate}}:</label>
+                        <input type="text" formControlName="localidad" placeholder="{{ 'cliente.tabla.localidad' | translate}}" name="localidad" class="form-control" id="localidad">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="form-control-label" for="direccion">{{ 'cliente.tabla.direccion' | translate}}:</label>
+                        <input type="text" formControlName="direccion" placeholder="{{ 'cliente.tabla.direccion' | translate}}" name="direccion" class="form-control" id="direccion">
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <div class=" modal-footer">
