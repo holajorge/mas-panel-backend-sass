@@ -70,6 +70,15 @@ export class ClienteComponent implements OnInit {
       email: ['', Validators.required],
       usuario: ['', Validators.required],
       clave: ['', Validators.required],
+
+      descuento_general: ['', Validators.required],
+      cuit: ['', Validators.required],
+      telefono: ['', Validators.required],
+      encargado_compras: [''],
+      encargado_pagos: [''],
+      provincia: [''],
+      localidad: [''],
+      direccion: [''],
     });
   }
   entriesChange($event) {
@@ -227,7 +236,7 @@ export class ClienteComponent implements OnInit {
         this.addFormNew.reset();
         this.getClientes();
        
-        Swal.fire('Listo!','Cliente creado com sucesso!', 'success')
+        Swal.fire('Listo!','Cliente creado con exito!', 'success')
       }else{
 
         Swal.fire('Upps!','Error al crear el nuevo cliente,intente de nuevo!', 'error')

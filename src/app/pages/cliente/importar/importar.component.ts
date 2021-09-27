@@ -5,6 +5,7 @@ import { ClienteService } from 'src/app/service/cliente/cliente.service';
 import { validate } from 'json-schema';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { ConfigService } from 'src/app/service/config/config.service';
 @Component({
   selector: 'app-importar',
   templateUrl: './importar.component.html',
@@ -164,6 +165,8 @@ export class ImportarComponent implements OnInit {
     this.clienteService.exportAsExcelFile(this.modeloExcel, 'modelo_cliente');
   }
   dataExcelClientes(){
-    this.clienteService.exportAsExcelFile(this.dataExcel, 'clientes');
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_clients?empresa="+this.empresaa.id, "_blank");
+
+    // this.clienteService.exportAsExcelFile(this.dataExcel, 'clientes');
   }
 }

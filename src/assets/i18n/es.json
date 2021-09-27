@@ -177,7 +177,7 @@
             "cancelar": "cancelar"
         },
         "updateForm":{
-            "titulo": "Agregar vendedor",
+            "titulo": "Actualizar vendedor",
             "nombre": "Nombre",
             "email": "correo",
             "usuario": "nombre de usuario",
