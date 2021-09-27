@@ -14,6 +14,10 @@ export class ConfigService {
     //  return "https://api.maspedidos.com.ar/";
   }
 
+  public static DOMAIN() :string{
+    return ".maspedidos.com.ar";
+  }
+
   saveConfig(data){
 
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveConfig",data).toPromise().then((res) =>{     
