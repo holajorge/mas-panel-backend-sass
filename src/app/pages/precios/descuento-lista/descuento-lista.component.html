@@ -54,12 +54,12 @@
                 
                 <ngx-datatable-column name="porcentaje">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.titulo' | translate}}</span>
+                        <span>{{ 'precios.descuento.descuento' | translate}} %</span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="nrocliente">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.nrocliente' | translate}}</span>
+                        <span>{{ 'precios.descuento.lista.nrocliente' | translate}}</span>
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                         <span *ngIf="value > 1" >{{value}} </span>

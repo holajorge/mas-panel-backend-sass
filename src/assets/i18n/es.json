@@ -149,8 +149,8 @@
             "subtitulo": "Ingrese los datos en los campo requeridos",
             "descuento": "Descuento",
             "lista" : {
-                "titulo" : "Lista de Descuentos aplicados"
-                
+                "titulo" : "Lista de Descuentos aplicados",
+                "nrocliente": "Nro Cliente"
             }
         }
 
