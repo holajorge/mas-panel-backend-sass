@@ -106,13 +106,15 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: "precios",
-    title: "Precios",
+    title: "Precios", //Descuentos por Categorias
     type: "sub",
     icontype: "ni-shop text-primary",
     isCollapsed: true,
     children: [
       { path: "lista", title: "Lista Precios", type: "link" },
       { path: "importar-precios", title: "Importar precios", type: "link" },
+      { path: "descuento-lista", title: "Lista Descuentos", type: "link" },
+      { path: "descuento-categorias", title: "Descuentos por Categorias", type: "link" },
     ]
   },
   {

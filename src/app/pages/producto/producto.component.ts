@@ -72,8 +72,6 @@ export class ProductoComponent implements OnInit {
   
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 

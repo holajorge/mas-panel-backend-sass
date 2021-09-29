@@ -20,23 +20,20 @@ export class ImportarFotosComponent implements OnInit {
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
     public productoService:ProductoService){
-
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
   }
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
-      empresa_id: this.empresa,
+      empresa_id: '',
       file: [''],
       filesource: ['',Validators.required]
       
     });
   }
   handleFile(event) {
-
+    this.addForm.patchValue({empresa_id: this.empresa});
     const files:FileList = event.target.files;
     if(files.length > 0){
       const file = files[0];
@@ -50,6 +47,8 @@ export class ImportarFotosComponent implements OnInit {
         Swal.fire('error','Error al importar al archivo excede o limite de tamaño permitido, intente de nuevo!')
       }
     }
+
+    console.log(this.addForm.value);
     
   }
   sendfile(){
@@ -58,6 +57,7 @@ export class ImportarFotosComponent implements OnInit {
       this.productoService.importPhoto(this.file_data).then( (res:any) =>{        
         if(typeof res.response['flag'] != 'undefined'){
           if(res.response['flag'] == true){
+            this.addForm.reset();
             this.btnvisibilitybtn = false;
             Swal.fire('Listo!','Archivo de fotos importado con exito!', 'success')
           }
@@ -76,7 +76,6 @@ export class ImportarFotosComponent implements OnInit {
           this.btnvisibilitybtn = false;
           Swal.fire('Error','Error al importar las fotos, el archivo tiene que ser un ZIP!')
         }
-
 
       }).catch(err=>{
         console.log("Error", err);

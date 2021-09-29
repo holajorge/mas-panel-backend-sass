@@ -17,8 +17,7 @@ export class ConfigurcionProductoComponent implements OnInit {
   configuraciones:any = [];
   constructor(public translate: TranslateService,public productoService: ProductoService,public configService: ConfigService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
+    
     this.translate.use('es');
 
     this.addForm = this.formBuilder.group({    

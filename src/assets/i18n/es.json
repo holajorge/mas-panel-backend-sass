@@ -142,8 +142,18 @@
             "titulo": "Agregar/editar Precios",
             "nrocliente": "Nro cliente",
             "codigo": "codigo",
-            "precio": ""
+            "precio": "precio"
+        },
+        "descuento": {
+            "titulo" : "Configuración de descuento",
+            "subtitulo": "Ingrese los datos en los campo requeridos",
+            "descuento": "Descuento",
+            "lista" : {
+                "titulo" : "Lista de Descuentos aplicados"
+                
+            }
         }
+
 
     },
     "vendedores":{

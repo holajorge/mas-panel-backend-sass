@@ -1,0 +1,104 @@
+<div class=" header bg-maspedidos pb-6">
+    <div class=" container-fluid">
+      <div class="header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{'precios.descuento.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+            <div class="card-wrapper">
+
+                <div class=" card">
+                    <div class="card-header"><h3 class="mb-0">{{ 'precios.descuento.subtitulo' | translate }}</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="addForm" novalidate >
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                                     <ng-select formControlName="cliente"
+                                        [items]="clientes" 
+                                        bindValue="nrocliente" 
+                                        bindLabel="nombre">
+
+                                    </ng-select>                                    
+                                    <div class="alert  alert-danger" 
+                                        *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">  
+                                        {{ 'cliente.add.cliente' | translate }} es obligatorio
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ textCaract1 }}</label>
+                                     <ng-select formControlName="caract1"
+                                        [items]="caract1" 
+                                        bindValue="nombre" 
+                                        bindLabel="nombre">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ textCaract2 }}</label>
+                                     <ng-select formControlName="caract2"
+                                        [items]="caract2" 
+                                        bindValue="nombre" 
+                                        bindLabel="nombre">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ textCaract3 }}</label>
+                                     <ng-select formControlName="caract3"
+                                        [items]="caract3" 
+                                        bindValue="nombre" 
+                                        bindLabel="nombre">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ 'precios.descuento.descuento' | translate}}</label>
+                                    <input type="number" formControlName="descuento" class="form-control"
+                                        placeholder="{{ 'precios.descuento.descuento' | translate }}">                                     
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="pt-2">
+                                    <button [disabled]='addForm.invalid' (click)="registrar()" class="btn btn-primary">
+                                        {{ 'cliente.add.guardar' | translate }} <span class="fas fa-save"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        </form>       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,6 +21,8 @@ import { GeneralComponent } from './configuraciones/general/general.component';
 import { ClientesComponent } from './pedidos/clientes/clientes.component';
 import { AgregarComponent } from './cliente/agregar/agregar.component'
 import { ListaComponent } from './cliente/lista/lista.component'
+import { DescuentoComponent } from './precios/descuento/descuento.component';
+import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lista.component';
 
 const routes:Routes = [
     {
@@ -54,6 +56,8 @@ const routes:Routes = [
             //precios
             {path: 'precios/lista',  component: PreciosComponent},
             {path: 'precios/importar-precios',  component: ImportarPreciosComponent},
+            {path: 'precios/descuento-categorias',  component: DescuentoComponent},
+            {path: 'precios/descuento-lista',  component: DescuentoListaComponent},
             
         ]
     },
