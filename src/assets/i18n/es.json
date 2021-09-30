@@ -216,6 +216,21 @@
         "nueva": "crear cuenta"
 
     },
+    "registracion":{
+        "bienvenido": "Bienvenido",
+        "titulo": "Nuevo registro",
+        "nombre": "Nombre de la empresa",
+        "email": "Email",
+        "pass": "Clave",
+        "subdomain": "Subdominio de la página web",
+        "errorCaracter": "Caracter inválido",
+        "ingresar":"Ingresar",
+        "registrar": "Guardar",
+        "nueva": "crear cuenta",
+        "error_email": "Ya existe un registro con el mismo email.",
+        "error_subdomain": "Ya existe un registro con el mismo subdominio."
+
+    },
     "pedidos":{
         "titulo": "Lista de Pedidos Vendedores",
         "tituloCliente": "Lista de Pedidos Clientes",
