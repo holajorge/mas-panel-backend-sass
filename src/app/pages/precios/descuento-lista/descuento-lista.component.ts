@@ -4,6 +4,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import {TranslateService} from '@ngx-translate/core';
 import { DescuentoCateService } from 'src/app/service/descuentoCate/descuento-cate.service';
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { NgbDateStruct,NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-descuento-lista',
@@ -11,6 +14,13 @@ import { DescuentoCateService } from 'src/app/service/descuentoCate/descuento-ca
   styles: []
 })
 export class DescuentoListaComponent implements OnInit {
+  notification = {
+    keyboard: true,
+    class: "modal-dialog-centered modal-xl static", 
+  };
+  notificationModal: BsModalRef;
+  model: NgbDateStruct;
+
   empresa:any = "";
   addForm: FormGroup;
   descuentos:any;
@@ -21,9 +31,16 @@ export class DescuentoListaComponent implements OnInit {
   textCaract1:any;
   textCaract2:any;
   textCaract3:any;
+  
+  clientes:any = [];;
+  caract1:any;
+  caract2:any;
+  caract3:any;
+
   constructor(
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
+    private modalService: BsModalService,
     public descuentoCateService: DescuentoCateService
   ) { 
     this.translate.use('es');
@@ -33,7 +50,19 @@ export class DescuentoListaComponent implements OnInit {
   ngOnInit() {
 
     this.getListaDescuentos();
+    
+    this.addForm = this.formBuilder.group({
+      id: [''],
+      empresa_id: [''],
+      caract1: [''],
+      caract2: [''],
+      caract3: [''],
+      cliente: ['',Validators.required],
+      descuento: ['']
+    });
+
   }
+
   getListaDescuentos(){
 
     Swal.showLoading();
@@ -43,6 +72,13 @@ export class DescuentoListaComponent implements OnInit {
       this.descuentos = res.response['descuentos'];
       this.rowTemp = res.response['descuentos'];
       this.configuraciones = res.response['configuraciones'];
+      this.clientes = res.response['clientes'];
+      this.clientes.push({nombre:'Todos',nrocliente:0 });
+
+      this.caract1 = res.response['caracteristica1'];
+      this.caract2 = res.response['caracteristica2'];
+      this.caract3 = res.response['caracteristica3'];
+
       this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
       this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
       this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
@@ -84,4 +120,71 @@ export class DescuentoListaComponent implements OnInit {
     }    
   }
 
+  onSelectItem(modal, row){
+
+    this.notificationModal = this.modalService.show(modal,this.notification);
+    console.log(row);
+    this.addForm.patchValue({
+      id: row.id,
+      empresa_id: row.empresa_id,
+      caract1: row.caracteristica1,
+      caract2: row.caracteristica2,
+      caract3: row.caracteristica3,
+      cliente: row.nrocliente,
+      descuento: row.porcentaje
+    });
+
+  }
+  update(){
+
+    Swal.showLoading();
+    this.descuentoCateService.actualizar(this.addForm.value).then( (res:any) =>{    
+      if(res.response){
+        Swal.close();
+        Swal.fire('Listo','Descuento actualizado con exito','success');
+        this.addForm.reset();
+        this.getListaDescuentos();
+        this.notificationModal.hide();
+      }else{
+        Swal.fire('','error de comuniación, intente de nuevo','error');
+        Swal.close();
+      }
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+
+  }
+  eliminarDecuento(row){
+
+    Swal.fire({
+      title: 'Seguro de eliminar?',
+      text: "El descuento se eliminará definitivamente!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          
+          this.descuentoCateService.deleteDescuento(row).then( (res:any) =>{    
+     
+            if(res.response){
+              // this.notificationModal.hide();
+              // this.editForm.reset();
+              this.getListaDescuentos();
+              Swal.fire('Listo!','Descuento eliminado, con exito!', 'success')
+            }else{
+              Swal.fire('Editar Error, intente nuevamente', 'error')
+            }
+            
+          }).catch(err=>{
+            console.log(err);
+          });
+
+        }
+    })
+  }
 } 

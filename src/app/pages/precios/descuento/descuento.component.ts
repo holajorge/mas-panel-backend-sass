@@ -28,12 +28,8 @@ export class DescuentoComponent implements OnInit {
   ) { 
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
-
-    
   }
-
   ngOnInit() {
-
     this.addForm = this.formBuilder.group({
       empresa: [''],
       caract1: [''],

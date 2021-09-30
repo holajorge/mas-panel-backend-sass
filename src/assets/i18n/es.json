@@ -148,6 +148,7 @@
             "titulo" : "Configuración de descuento",
             "subtitulo": "Ingrese los datos en los campo requeridos",
             "descuento": "Descuento",
+            "eliminar": "Eliminar",
             "lista" : {
                 "titulo" : "Lista de Descuentos aplicados",
                 "nrocliente": "Nro Cliente"

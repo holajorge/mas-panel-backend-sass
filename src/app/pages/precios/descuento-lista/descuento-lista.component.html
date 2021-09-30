@@ -52,20 +52,6 @@
                 [limit]="entries != -1 ? entries : undefined" [rows]="descuentos"  
                 (activate)="onActivate($event)">
                 
-                <ngx-datatable-column name="porcentaje">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'precios.descuento.descuento' | translate}} %</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="nrocliente">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'precios.descuento.lista.nrocliente' | translate}}</span>
-                    </ng-template>
-                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <span *ngIf="value > 1" >{{value}} </span>
-                        <span *ngIf="value == 0" >Todos </span>
-                    </ng-template>
-                </ngx-datatable-column>
                 <ngx-datatable-column name="caracteristica1">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract1}}</span>
@@ -81,21 +67,37 @@
                         <span>{{textCaract3}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-
+                <ngx-datatable-column name="nrocliente">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'precios.descuento.lista.nrocliente' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <span *ngIf="value > 1" >{{value}} </span>
+                        <span *ngIf="value == 0" >Todos </span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="porcentaje">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'precios.descuento.descuento' | translate}} %</span>
+                    </ng-template>
+                </ngx-datatable-column>
                 <ngx-datatable-column name="Acción" >
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.acciones' | translate}}</span>
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <!-- <span>
-                            <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditProducto,row)' title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
-                            <button class="btn btn-sm btn-success" *ngIf="row.activo == 0" (click)='onActiveClient(row)' title="{{ 'producto.tabla.habilitar' | translate}}"><span class="fas fa-check-square"></span> </button>
-                            <button class="btn btn-sm btn-danger" *ngIf="row.activo == 1" (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}"><span class="fas fa-times-circle"></span> </button>
-                            <button class="btn btn-sm btn-info" (click)='modalFoto(modalfoto,row)' title="{{ 'producto.tabla.foto' | translate}}"><span class="fas fa-file-image"></span> </button>
-                           
-                            <button class="btn btn-sm btn-info" *ngIf="row.destacado == 0" (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-check-circle"></span> </button>
-                            <button class="btn btn-sm btn-neutral" *ngIf="row.destacado == 1" (click)='deshabilitarDestacado(row)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-exclamation-triangle"></span> </button>
-                        </span> -->
+                        <span>
+                            <button class="btn btn-sm btn-primary" 
+                                (click)='onSelectItem(modalEditDescuento,row)' 
+                                title="{{ 'producto.tabla.editar' | translate}}">
+                                <span class="fas fa-pen-alt"></span> 
+                            </button>
+                            <button class="btn btn-sm btn-neutral" 
+                                (click)='eliminarDecuento(row)' 
+                                title="{{ 'precios.descuento.eliminar' | translate}}">
+                                <span class="fa fa-exclamation-triangle"></span> 
+                            </button>
+                        </span>
                       </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
@@ -104,3 +106,83 @@
         </div>
     </div>
 </div>
+
+<ng-template #modalEditDescuento >
+    <div class="modal-header">    
+        <h5 class="modal-title" >{{ 'cliente.comprobantes.tabla.actualizar' | translate}} </h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    <div class="modal-body pt-0">
+        
+        <form [formGroup]="addForm" novalidate >
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label for="nombre_empresa"
+                         class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                         <ng-select formControlName="cliente"
+                            [items]="clientes" 
+                            bindValue="nrocliente" 
+                            bindLabel="nombre">
+
+                        </ng-select>                                    
+                        <div class="alert  alert-danger" 
+                            *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">  
+                            {{ 'cliente.add.cliente' | translate }} es obligatorio
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label for="nombre_empresa"
+                         class="form-control-label">{{ textCaract1 }}</label>
+                         <ng-select formControlName="caract1"
+                            [items]="caract1" 
+                            bindValue="nombre" 
+                            bindLabel="nombre">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label for="nombre_empresa"
+                         class="form-control-label">{{ textCaract2 }}</label>
+                         <ng-select formControlName="caract2"
+                            [items]="caract2" 
+                            bindValue="nombre" 
+                            bindLabel="nombre">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label for="nombre_empresa"
+                         class="form-control-label">{{ textCaract3 }}</label>
+                         <ng-select formControlName="caract3"
+                            [items]="caract3" 
+                            bindValue="nombre" 
+                            bindLabel="nombre">
+                        </ng-select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label for="nombre_empresa"
+                         class="form-control-label">{{ 'precios.descuento.descuento' | translate}}</label>
+                        <input type="number" formControlName="descuento" class="form-control"
+                            placeholder="{{ 'precios.descuento.descuento' | translate }}">                                     
+                    </div>
+                </div>
+            </div>
+        </form>    
+
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-success" [disabled]='addForm.invalid' (click)="update()">{{ 'cliente.add.guardar' | translate}}</button> 
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.comprobantes.tabla.cancelar' | translate}}</button>
+    </div>
+</ng-template>
