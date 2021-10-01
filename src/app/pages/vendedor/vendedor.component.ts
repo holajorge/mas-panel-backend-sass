@@ -7,6 +7,7 @@ import { Router } from '@angular/router'; //para redireccionar las vistas
 import * as XLSX from 'xlsx'; 
 import {TranslateService} from '@ngx-translate/core';
 import { ValidationService } from '../../service/validation/validation.service';
+import { DescuentoCateService } from 'src/app/service/descuentoCate/descuento-cate.service';
 
 export enum SelectionType {
   single = "single",
@@ -32,10 +33,13 @@ export class VendedorComponent implements OnInit {
   entries: number = 10;
   temRow:any = [];
   activeRow: any;
+  activeRowCliente: any;
 
   // RESTROS LOG VAR
   entrieslog: number = 10;
+  entriesCliente: number = 10;
   tempRowLog:any = [];
+  tempRowCliente:any = [];
   logRow:any =[];
 
   rows: any = [];
@@ -47,10 +51,19 @@ export class VendedorComponent implements OnInit {
     keyboard: true,
     class: "modal-dialog-centered modal-lg static", 
   };
-  empresa:any = {id:''}; 
-  constructor(private router: Router,private vendedorService: VendedorService,private modalService: BsModalService,private formBuilder: FormBuilder, public translate: TranslateService) {
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
+  empresa:any = {id:'',vendedor:''}; 
+  clientes:any;
+  
+  constructor(
+    private router: Router,
+    private vendedorService: VendedorService,
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder, 
+    public translate: TranslateService,
+    public descuentoCateService: DescuentoCateService
+
+    ) {
+    
     this.translate.use('es');
     
     if(localStorage.getItem('usuario') === null ){
@@ -61,7 +74,6 @@ export class VendedorComponent implements OnInit {
       this.getVendedor();
     }
     
-
   } 
   ngOnInit() {
     
@@ -233,5 +245,128 @@ export class VendedorComponent implements OnInit {
     });  
 
   }
-  
+  asociarCliente(modalAsociar, row){
+    Swal.showLoading();
+    this.empresa.vendedor = row.id;
+    this.notificationModal = this.modalService.show(modalAsociar,this.notification);
+
+    this.descuentoCateService.getClienteAsociado(this.empresa).then( (res:any) =>{    
+      Swal.close();
+      this.clientes = res.response['clientes'];
+      this.tempRowCliente = res.response['clientes'];
+     
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+
+  entriesChangeCliente($event){
+    this.entriesCliente = $event.target.value;
+  }
+  filterTableCliente(event){
+
+    const val = event.target.value.toLowerCase();
+    
+    if(val !== ''){
+      // filter our data
+      let temRow = this.clientes.filter(function (d) {
+        for (var key in d) {
+          let hola = (d[key] != null) ? d[key].toLowerCase() : '';
+          if ( hola.indexOf(val) !== -1) {
+            return true;
+          }
+        }
+        return false;
+      });
+      this.clientes = temRow;
+    }else{
+      this.clientes = this.tempRowCliente;
+    }  
+  }
+
+  onActivateCliente(event) {
+    this.activeRowCliente = event.row;
+  }
+
+  desasociar(row){
+
+    console.log(this.empresa);
+    console.log(row);
+
+    let datos = {
+      empresa_id: this.empresa.id,
+      vendedor:this.empresa.vendedor,
+      nrocliente: row.nrocliente
+    };
+    Swal.fire({
+      title: 'Seguro de Desasociar?',
+      text: "Se eliminara la relacion entre el vendedor y el cliente!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Desasociar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          Swal.showLoading();  
+          this.descuentoCateService.desasociar(datos).then( (res:any) =>{    
+            
+            if(res.response){
+              Swal.fire('Listo!','Desasociado correctamente, con exito!', 'success')
+              this.notificationModal.hide();
+            }else{
+              Swal.fire('Error, intente nuevamente', 'error')
+            }
+
+          }).catch(err=>{
+
+            Swal.fire('Error, intente nuevamente', 'error')
+            console.log(err);
+          });
+          
+        }
+      })
+  }
+  asociar(row){
+
+    console.log(this.empresa);
+    console.log(row);
+
+    let datos = {
+      empresa_id: this.empresa.id,
+      vendedor:this.empresa.vendedor,
+      nrocliente: row.nrocliente
+    };
+    Swal.fire({
+      title: 'Seguro de Asociar?',
+      text: "Se creara una relacion entre el vendedor y el cliente!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Asociar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {  
+          Swal.showLoading();  
+          this.descuentoCateService.asociar(datos).then( (res:any) =>{    
+
+            if(res.response){
+              Swal.fire('Listo!','Asociado correctamente, con exito!', 'success') 
+              this.notificationModal.hide();
+
+            }else{
+              Swal.fire('Error, intente nuevamente', 'error')
+            }              
+          
+          }).catch(err=>{
+            Swal.fire('Error, intente nuevamente', 'error')
+            console.log(err);
+          });
+        }
+      })
+  }
+
 }

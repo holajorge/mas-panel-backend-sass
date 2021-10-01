@@ -169,13 +169,23 @@
             "buscar": "buscar vendedor",
             "entradas": "resultados",
             "total": "total",
-            "log": "registro"
+            "log": "registro",
+            "asociar": "Asociar cliente"
         },
         "tablalog":{
             "lista": "Lista registros",
             "buscar":"buscar registro",
             "fecha":  "fecha",
             "coords": "coordenadas"
+        },
+        "asociar":{
+            "lista": "Lista de clientes",
+            "nrocliente":"Nro Cliente",
+            "nombre": "Nombre",
+            "buscar": "buscar Cliente",
+            "desasociar": "Desasociar al vendedor",
+            "asociar": "Asociar al Vendedor"
+
         },
         "newForm":{
             "titulo": "Agregar vendedor",

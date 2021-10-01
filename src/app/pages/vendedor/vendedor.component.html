@@ -73,8 +73,18 @@
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                         <span>
-                        <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row)'><span class="fat-add"></span> {{ 'vendedores.tabla.editar' | translate}}</button>
-                        <button class="btn btn-sm btn-default" (click)='logLogin(modalLog,row)'><span class="single-copy-04"></span> {{ 'vendedores.tabla.log' | translate}}</button>
+                        <button class="btn btn-sm btn-primary" title="{{ 'vendedores.tabla.editar' | translate}}" 
+                            (click)='onSelectItem(modalEditVendedor,row)'>
+                            <span class="fas fa-user-plus"></span>
+                        </button>
+                        <button class="btn btn-sm btn-default" title="{{ 'vendedores.tabla.log' | translate}}"
+                            (click)='logLogin(modalLog,row)'>
+                            <span class="fas fa-clipboard-list"></span> 
+                        </button>
+                        <button class="btn btn-sm btn-default" title="{{ 'vendedores.tabla.asociar' | translate}}"
+                            (click)='asociarCliente(modalCliente,row)'>
+                            <span class="fas fa-file-signature"></span> 
+                        </button>
                         </span>
                     </ng-template>
                 </ngx-datatable-column>
@@ -84,6 +94,81 @@
         </div>
     </div>
 </div>
+
+<ng-template #modalCliente >
+    <div class=" modal-header">    
+        <h5 class="modal-title" >{{ 'vendedores.asociar.lista'| translate }}</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        
+        <div class="dataTables_wrapper py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="datatable_length">
+                    <label> {{ 'vendedores.tabla.mostrar' | translate }}
+                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChangeCliente($event)">
+                        <option value="10" [selected]="entries == 10">10</option>
+                        <option value="25" [selected]="entries == 25">25</option>
+                        <option value="50" [selected]="entries == 50">50</option>
+                        <option value="-1" [selected]="entries == -1">All</option>
+                    </select>
+                    {{ 'vendedores.tabla.entradas' | translate}}
+                    </label>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                <div id="datatable_filter" class="dataTables_filter">
+                    <label class="form-control-label"><input type="text" class="form-control form-control-sm"  
+                        placeholder="{{ 'vendedores.asociar.buscar' | translate}}" 
+                        aria-controls="datatable" (keyup)="filterTableCliente($event)"/>
+                    </label>
+                </div>
+                </div>
+            </div>
+
+            <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" 
+                [limit]="entriesCliente != -1 ? entries : undefined" [rows]="clientes" 
+                (activate)="onActivateCliente($event)">
+
+                <ngx-datatable-column name="nombre">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.asociar.nombre' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="nrocliente">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.asociar.nrocliente' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Acción" >
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.tabla.acciones' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <span>
+                            <button *ngIf="row.flag == 1"  class="btn btn-sm btn-default" title="{{ 'vendedores.asociar.desasociar' | translate}}"
+                                (click)='desasociar(row)'>
+                                <span class="far fa-times-circle"></span> 
+                            </button>
+                            <button *ngIf="row.flag == 0" class="btn btn-sm btn-success" title="{{ 'vendedores.asociar.asociar' | translate}}"
+                                (click)='asociar(row)'>
+                                <span class="fas fa-handshake"></span> 
+                            </button>
+                        </span>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+
+    </div>
+    <div class=" modal-footer">
+    </div>
+
+</ng-template>
   
 <ng-template #modalLog >
     <div class=" modal-header">    
@@ -142,8 +227,6 @@
 
     </div>
     <div class=" modal-footer">
-      <!-- <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="onUpdate()">Actualizar</button>  -->
-      <!-- <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button> -->
     </div>
 
 </ng-template>
