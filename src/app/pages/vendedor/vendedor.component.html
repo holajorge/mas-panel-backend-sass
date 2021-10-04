@@ -144,6 +144,11 @@
                         <span>{{ 'vendedores.asociar.nrocliente' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
+                <ngx-datatable-column name="vendedor">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'vendedores.asociar.vendedor' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
                 <ngx-datatable-column name="Acción" >
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'vendedores.tabla.acciones' | translate}}</span>

@@ -184,7 +184,8 @@
             "nombre": "Nombre",
             "buscar": "buscar Cliente",
             "desasociar": "Desasociar al vendedor",
-            "asociar": "Asociar al Vendedor"
+            "asociar": "Asociar al Vendedor",
+            "vendedor" : "Vendedor"
 
         },
         "newForm":{
