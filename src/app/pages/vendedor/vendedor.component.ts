@@ -49,7 +49,7 @@ export class VendedorComponent implements OnInit {
   btnvisibility: boolean = true;  
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-lg static", 
+    class: "modal-dialog-centered modal-xl static", 
   };
   empresa:any = {id:'',vendedor:''}; 
   clientes:any;

@@ -46,12 +46,13 @@
                 </div>
             </div>
     
-            <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+            <ngx-datatable 
+                [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
                 class="bootstrap selection-cell" 
                 [columnMode]="'force'" 
                 [headerHeight]="50" 
                 [footerHeight]="50" 
-                [rowHeight]="'auto'" 
+                [rowHeight]="70"
                 [limit]="entries != -1 ? entries : undefined" [rows]="rows"  
                 (activate)="onActivate($event)">
                 

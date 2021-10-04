@@ -15,7 +15,7 @@ export class PedidosComponent implements OnInit {
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-lg static", 
+    class: "modal-dialog-centered modal-xl static",
   };
   activeRow: any;
   activeRowDet: any;
