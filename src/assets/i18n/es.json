@@ -14,6 +14,7 @@
             "dominio": "Dominio",
             "subdominio": "subdominio",
             "logo": "Logo",
+            "LogoMobile": "Logo Mobile",
             "aprobarUsuario": "Aprobar usuario" ,
             "permitirRegistro": "Permitir Registración",
             "envioWhatssap": "Enviar pedido por whatsapp al vendedor",
