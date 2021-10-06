@@ -63,6 +63,12 @@ export class GeneralComponent implements OnInit {
           // telefono: this.configuraciones.telefono,
           // correo: this.configuraciones.correo,
         });
+
+        if(this.configuraciones.logo_mobile_file == '' || this.configuraciones.logo_mobile_file == undefined){
+          this.imageURLogo = "";
+        }else{
+          this.imageURLogo = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo_mobile_file;
+        }
       }
       
     }).catch(err=>{
