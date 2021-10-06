@@ -23,6 +23,7 @@ import { AgregarComponent } from './cliente/agregar/agregar.component'
 import { ListaComponent } from './cliente/lista/lista.component'
 import { DescuentoComponent } from './precios/descuento/descuento.component';
 import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lista.component';
+import { CategoriasComponent } from './categorias/categorias.component';
 
 const routes:Routes = [
     {
@@ -48,6 +49,8 @@ const routes:Routes = [
             {path: 'cliente/importar',  component: ImportarComponent},
             {path: 'cliente/agregar-comprobante',  component: AgregarComponent},
             {path: 'cliente/lista-comprobante',  component: ListaComponent},
+            //categorias
+            {path: 'categorias',  component: CategoriasComponent},
             //productos
             {path: 'producto/configuracion',  component: ConfigurcionProductoComponent},
             {path: 'producto/productos',  component: ProductoComponent},

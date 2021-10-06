@@ -92,6 +92,12 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
+    path: "categorias",
+    title: "Categorias",
+    type: "link",
+    icontype: "ni-map-big text-primary",
+  },
+  {
     path: "producto",
     title: "Productos",
     type: "sub",

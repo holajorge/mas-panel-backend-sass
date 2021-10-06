@@ -14,7 +14,7 @@ export class ClienteService {
   constructor(private _http:HttpClient) { }
 
   getcliente(idEmpresa){
-    console.log(idEmpresa);
+    
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -27,7 +27,7 @@ export class ClienteService {
   }
   getPedidoCliente(pedido){
 
-    console.log(pedido);
+    
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -40,7 +40,7 @@ export class ClienteService {
 
   }
   postCliente(cliente){
-    console.log(cliente);
+    
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -52,7 +52,7 @@ export class ClienteService {
     });
   }
   postInsertCliente(newCliente){
-    console.log(newCliente);
+    
     // return false; 
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
@@ -65,7 +65,7 @@ export class ClienteService {
     });
   }
   postDeshabilitar(cliente){
-    console.log(cliente);
+    
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     

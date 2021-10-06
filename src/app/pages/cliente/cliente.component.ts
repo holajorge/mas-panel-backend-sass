@@ -38,9 +38,12 @@ export class ClienteComponent implements OnInit {
   activeRowDet: any;
   cliente_id:any = {id:''};
   
-  constructor(private clienteService: ClienteService,
+  constructor(
+    private clienteService: ClienteService,
     public translate: TranslateService,
-    private modalService: BsModalService,private formBuilder: FormBuilder) {       
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder
+  ) {       
       this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');
       this.getClientes();

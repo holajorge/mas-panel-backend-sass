@@ -26,6 +26,14 @@
             "grande":"Grande"
         }
     },
+    "categorias":{
+        "titulo" : "Configuración de categoria",
+        "nombre": "nombre",
+        "restringir": "Restringir Cliente",
+        "categoria": "Categoria",
+        "desactivar": "Desactivar",
+        "activar": "Activar"
+    },
     "banner": {
         "header": {
             "titulo": "Selecione banner para el Header",
