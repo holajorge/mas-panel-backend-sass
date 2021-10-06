@@ -91,11 +91,22 @@ export const ROUTES: RouteInfo[] = [
       { path: "lista-comprobante", title: "Listar comprobantes", type: "link" },    
     ]
   },
+  // {
+  //   path: "categorias",
+  //   title: "Categorias",
+  //   type: "link",
+  //   icontype: "ni-map-big text-primary",
+  // },
   {
     path: "categorias",
     title: "Categorias",
-    type: "link",
-    icontype: "ni-map-big text-primary",
+    type: "sub",
+    icontype: "ni-shop text-primary",
+    isCollapsed: true,
+    children: [
+      { path: "lista", title: "Lista Categoria", type: "link" },
+      { path: "importar", title: "importar Categoria", type: "link" },
+    ]
   },
   {
     path: "producto",

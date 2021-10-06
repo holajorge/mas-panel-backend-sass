@@ -32,7 +32,8 @@
         "restringir": "Restringir Cliente",
         "categoria": "Categoria",
         "desactivar": "Desactivar",
-        "activar": "Activar"
+        "activar": "Activar",
+        "titulo-import": "Importar un archivo de clientes"
     },
     "banner": {
         "header": {

@@ -36,6 +36,7 @@ import { ListaComponent } from './cliente/lista/lista.component';
 import { DescuentoComponent } from './precios/descuento/descuento.component';
 import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lista.component';
 import { CategoriasComponent } from './categorias/categorias.component';
+import { ImportarCategoriaComponent } from './categorias/importar-categoria/importar-categoria.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -68,6 +69,7 @@ imports: [
     DescuentoComponent,
     DescuentoListaComponent,
     CategoriasComponent,
+    ImportarCategoriaComponent,
     
   ],
   imports: [

@@ -54,4 +54,13 @@ export class CategoriaService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  importCategoria(formdata){
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importarCategoriaCliente",formdata).toPromise().then((res) =>{ 
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
 }

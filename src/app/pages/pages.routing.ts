@@ -24,6 +24,7 @@ import { ListaComponent } from './cliente/lista/lista.component'
 import { DescuentoComponent } from './precios/descuento/descuento.component';
 import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lista.component';
 import { CategoriasComponent } from './categorias/categorias.component';
+import { ImportarCategoriaComponent } from './categorias/importar-categoria/importar-categoria.component';
 
 const routes:Routes = [
     {
@@ -50,7 +51,8 @@ const routes:Routes = [
             {path: 'cliente/agregar-comprobante',  component: AgregarComponent},
             {path: 'cliente/lista-comprobante',  component: ListaComponent},
             //categorias
-            {path: 'categorias',  component: CategoriasComponent},
+            {path: 'categorias/lista',  component: CategoriasComponent},
+            {path: 'categorias/importar',  component: ImportarCategoriaComponent},
             //productos
             {path: 'producto/configuracion',  component: ConfigurcionProductoComponent},
             {path: 'producto/productos',  component: ProductoComponent},
