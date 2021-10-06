@@ -24,8 +24,8 @@
                                         
                         <form [formGroup]="formConfig" novalidate >
                                                                           
-                            <div class="row">        
-                                <div class="col-md-3">
+                            <div class="row popup-info-custom">
+                                <div class="col-md-4">
                                     <div class="form-group mr-1">
                                         <div class="custom-control custom-checkbox mt-4"  > 
                                             <input id="aprobar_usuario" 
@@ -43,7 +43,7 @@
                                         <input type="checkbox" placeholder="aprobar_usuario" formControlName="aprobar_usuario"  class="form-control">  -->
                                     </div>
                                 </div>                            
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group mr-1">
                                         <div class="custom-control custom-checkbox mt-4"  > 
                                             <input id="permitir_registracion" 
@@ -59,7 +59,7 @@
                                         <input type="checkbox" placeholder="permitir_registracion" formControlName="permitir_registracion"  class="form-control">  -->
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <div class="form-group mr-1">
                                         <div class="custom-control custom-checkbox mt-4"  > 
                                             <input id="send_whatspp" 
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <div class="form-group mr-1">
                                         <div class="custom-control custom-checkbox mt-4"  > 
                                             <input id="invitado" 
@@ -85,6 +85,96 @@
                                                 <i class="fas fa fa-info-circle"></i>
                                             </button>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  >
+                                            <input id="descargaExcel"
+                                                class="custom-control-input" type="checkbox" formControlName="descarga_excel">
+                                            <label for="descargaExcel"
+                                                class="custom-control-label" >{{ 'config.formConfig.descargaExcel' | translate }}</label>
+                                            <button type="button" class="btn btn-default btn-sm" placement="right"
+                                            ngbPopover="This is a very beautiful popover, show some love.">
+                                                <i class="fas fa fa-info-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  >
+                                            <input id="markup"
+                                                class="custom-control-input" type="checkbox" formControlName="markup">
+                                            <label for="markup"
+                                                class="custom-control-label" >{{ 'config.formConfig.markup' | translate }}</label>
+                                            <button type="button" class="btn btn-default btn-sm" placement="right"
+                                            ngbPopover="This is a very beautiful popover, show some love.">
+                                                <i class="fas fa fa-info-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  >
+                                            <input id="comprobantes"
+                                                class="custom-control-input" type="checkbox" formControlName="comprobantes">
+                                            <label for="comprobantes"
+                                                class="custom-control-label" >{{ 'config.formConfig.comprobantes' | translate }}</label>
+                                            <button type="button" class="btn btn-default btn-sm" placement="right"
+                                                    ngbPopover="This is a very beautiful popover, show some love.">
+                                                <i class="fas fa fa-info-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row popup-info-custom">
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="numWhatsapp"
+                                         class="form-control-label">{{ 'config.formConfig.numWhatsapp' | translate }}</label>
+                                        <input type="text" id="numWhatsapp" placeholder="Tel. Whatsapp" formControlName="num_whatsapp"  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="urlFacebook"
+                                         class="form-control-label">{{ 'config.formConfig.urlFacebook' | translate }}</label>
+                                        <input type="text" id="urlFacebook" placeholder="URL Facebook" formControlName="url_facebook"  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="urlInstagram"
+                                         class="form-control-label">{{ 'config.formConfig.urlInstagram' | translate }}</label>
+                                        <input type="text" id="urlInstagram" placeholder="URL Instagram" formControlName="url_instagram"  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="qrAFIP"
+                                         class="form-control-label">{{ 'config.formConfig.qrAFIP' | translate }}</label>
+                                        <input type="text" id="qrAFIP" placeholder="URL QR AFIP" formControlName="qr_afip"  class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        <label for="logo_mobile"
+                                            class="form-control-label">{{ 'config.formConfig.LogoMobile' | translate }}</label>
+                                        <input type="file" accept="image/*" placeholder="logo mobile"
+                                            (change)="showPreview($event)" formControlName="logo_mobile"  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="imagePreview" *ngIf="imageURLogo && imageURLogo !== ''">
+                                        <label class="form-control-label">{{ 'config.formConfig.LogoMobile' | translate }} Preview</label>
+                                        <button class="btn btn-danger delete-entry d-inline-block btn-block" (click)="deleteImage()">x</button>
+                                        <img class="ard-img-top" [src]="imageURLogo" style="width:100%; position: relative; margin-top: 4%">
                                     </div>
                                 </div>
                             </div>
