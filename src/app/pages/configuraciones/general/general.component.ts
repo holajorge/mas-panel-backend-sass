@@ -9,7 +9,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
-  styles: []
+  styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
   
@@ -36,6 +36,13 @@ export class GeneralComponent implements OnInit {
       empresa_id:  this.empresa,
       logo_mobile: [null],
       logo_mobile_file: [null],
+      descarga_excel: [''],
+      markup: [''],
+      comprobantes: [''],
+      num_whatsapp: [null],
+      url_facebook: [null],
+      url_instagram: [null],
+      qr_afip: [null]
     });
     this.empresaData.id = this.empresa;
   }
@@ -57,6 +64,13 @@ export class GeneralComponent implements OnInit {
           permitir_registracion: (this.configuraciones.permitir_registracion == "true" || this.configuraciones.permitir_registracion == "1") ? 1 : 0,
           send_whatspp: (this.configuraciones.pedido_whatsapp == "true" || this.configuraciones.pedido_whatsapp == "1") ? 1: 0,
           invitado: (this.configuraciones.invitado=="true" || this.configuraciones.invitado=="1" ) ? 1 : 0,
+          descarga_excel: (this.configuraciones.descarga_excel=="true" || this.configuraciones.descarga_excel=="1" ) ? 1 : 0,
+          markup: (this.configuraciones.markup=="true" || this.configuraciones.markup=="1" ) ? 1 : 0,
+          comprobantes: (this.configuraciones.comprobantes=="true" || this.configuraciones.comprobantes=="1" ) ? 1 : 0,
+          num_whatsapp: this.configuraciones.num_whatsapp,
+          url_facebook: this.configuraciones.url_facebook,
+          url_instagram: this.configuraciones.url_instagram,
+          qr_afip: this.configuraciones.qr_afip,
           // descripcion_empresa: this.configuraciones.descripcion_empresa,
           // nombre_empresa: this.configuraciones.nombre_empresa,
           // direccion: this.configuraciones.direccion,
@@ -90,8 +104,14 @@ export class GeneralComponent implements OnInit {
     formData.append('send_whatspp',  this.formConfig.get('send_whatspp').value);
     formData.append('invitado',  this.formConfig.get('invitado').value);
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
-
-    this.configService.saveGenerales(formData).then( (res:any) =>{    
+    formData.append('descarga_excel',this.formConfig.get('descarga_excel').value);
+    formData.append('markup',this.formConfig.get('markup').value);
+    formData.append('comprobantes',this.formConfig.get('comprobantes').value);
+    formData.append('num_whatsapp',  this.formConfig.get('num_whatsapp').value);
+    formData.append('url_facebook',  this.formConfig.get('url_facebook').value);
+    formData.append('url_instagram',  this.formConfig.get('url_instagram').value);
+    formData.append('qr_afip',  this.formConfig.get('qr_afip').value);
+    this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){
 

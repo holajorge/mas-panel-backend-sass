@@ -24,7 +24,14 @@
             "textFoto": "Tamaño de las fotos",
             "chico":"Pequeña",
             "mediano":"Mediano",
-            "grande":"Grande"
+            "grande":"Grande",
+            "descargaExcel": "Permitir descargar listas en excel",
+            "markup": "Mostrar sección markup",
+            "comprobantes": "Mostrar sección comprobantes",
+            "numWhatsapp": "Teléfono Whatsapp",
+            "urlFacebook": "Página de Facebook",
+            "urlInstagram": "Página de Instagram",
+            "qrAFIP": "URL del QR AFIP"
         }
     },
     "categorias":{
