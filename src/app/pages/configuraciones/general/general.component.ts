@@ -78,10 +78,10 @@ export class GeneralComponent implements OnInit {
           // correo: this.configuraciones.correo,
         });
 
-        if(this.configuraciones.logo_mobile_file == '' || this.configuraciones.logo_mobile_file == undefined){
+        if(this.configuraciones.logo_mobile == '' || this.configuraciones.logo_mobile == undefined){
           this.imageURLogo = "";
         }else{
-          this.imageURLogo = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo_mobile_file;
+          this.imageURLogo = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo_mobile;
         }
       }
       
