@@ -111,7 +111,7 @@
             </div>
 
             <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" 
+                class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="70" 
                 [limit]="entriesCliente != -1 ? entries : undefined" [rows]="clientes" 
                 (activate)="onActivateCliente($event)">
 
@@ -132,11 +132,11 @@
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                         <span>
-                            <button *ngIf="row.flag == 0"  class="btn btn-sm btn-primary" title="{{ 'categorias.activar' | translate}}"
+                            <button *ngIf="row.flag == 0"  class="btn btn-sm btn-danger" title="{{ 'categorias.activar' | translate}}"
                                 (click)='activar(row)'>
                                 <span class="fas fa-check-circle"></span> 
                             </button>
-                            <button *ngIf="row.flag == 1" class="btn btn-sm btn-danger" title="{{ 'categorias.desactivar' | translate}}"
+                            <button *ngIf="row.flag == 1" class="btn btn-sm btn-success" title="{{ 'categorias.desactivar' | translate}}"
                                 (click)='desactivar(row)'>
                                 <span class="far fa-window-close"></span> 
                             </button>

@@ -37,6 +37,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}] 
 })
 export class ProductoComponent implements OnInit {
+  
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,

@@ -246,6 +246,8 @@ export class VendedorComponent implements OnInit {
 
   }
   asociarCliente(modalAsociar, row){
+
+    this.clientes = [];
     Swal.showLoading();
     this.empresa.vendedor = row.id;
     this.notificationModal = this.modalService.show(modalAsociar,this.notification);

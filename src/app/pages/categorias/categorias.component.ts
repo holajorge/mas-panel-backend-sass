@@ -21,10 +21,13 @@ export class CategoriasComponent implements OnInit {
   empresa:any = {id:'', pedido:''};
   categorias:any;
   activeRow: any;
+  activeRowCliente: any;
   clientes:any;
   categoriasRow:any;
   entries:number = 10;
+  entriesCliente:number = 10;
   nombreCarategoria:any;
+  clientesCop:any;
   constructor(
     private categoriaService: CategoriaService,
     public translate: TranslateService,
@@ -88,6 +91,7 @@ export class CategoriasComponent implements OnInit {
     this.categoriaService.getClienteRestringidos(data).then( (res:any) =>{    
       Swal.close();
       this.clientes = res.response['clientes'];
+      this.clientesCop = res.response['clientes'];
      
     }).catch(err=>{
       Swal.close();
@@ -169,5 +173,33 @@ export class CategoriasComponent implements OnInit {
         }
       })
   }
+  onActivateCliente(event){
+    this.activeRowCliente = event.row;
+  }
+  entriesChangeCliente($event){
 
+    this.entriesCliente = $event.target.value;
+
+  }
+  filterTableCliente(event){
+
+    const val = event.target.value.toLowerCase();
+    
+    if(val !== ''){
+      // filter our data
+      let temRow = this.clientes.filter(function (d) {
+        for (var key in d) {
+          let hola = (d[key] != null) ? d[key].toLowerCase() : '';
+          if ( hola.indexOf(val) !== -1) {
+            return true;
+          }
+        }
+        return false;
+      });
+      this.clientes = temRow;
+    }else{
+      this.clientes = this.clientesCop;
+    }  
+
+  }
 }

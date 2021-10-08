@@ -1,0 +1,21 @@
+
+      @media screen and (max-width: 800px) {
+        .desktop-hidden {
+          display: initial;
+        }
+        .mobile-hidden {
+          display: none;
+        }
+      }
+      @media screen and (min-width: 800px) {
+        .desktop-hidden {
+          display: none;
+        }
+        .mobile-hidden {
+          display: initial;
+        }
+      }
+
+      :host ::ng-deep .ngx-datatable .datatable-body .datatable-scroll {
+        display: inherit;
+      }

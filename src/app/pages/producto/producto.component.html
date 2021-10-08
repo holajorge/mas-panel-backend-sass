@@ -49,14 +49,15 @@
             <ngx-datatable 
                 [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
                 class="bootstrap selection-cell" 
-                [columnMode]="'force'" 
+                [columnMode]="'standard'" 
                 [headerHeight]="50" 
                 [footerHeight]="50" 
-                [rowHeight]="70"
+                [rowHeight]="50"
                 [limit]="entries != -1 ? entries : undefined" [rows]="rows"  
-                (activate)="onActivate($event)">
-                
-                <ngx-datatable-column name="titulo">
+                (activate)="onActivate($event)"
+                >
+                            
+                <ngx-datatable-column name="titulo" [flexGrow]="25">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.titulo' | translate}}</span>
                     </ng-template>
