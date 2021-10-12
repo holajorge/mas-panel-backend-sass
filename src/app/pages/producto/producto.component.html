@@ -49,18 +49,19 @@
             <ngx-datatable 
                 [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
                 class="bootstrap selection-cell" 
-                [columnMode]="'standard'" 
+                [columnMode]="'force'" 
                 [headerHeight]="50" 
                 [footerHeight]="50" 
-                [rowHeight]="50"
-                [limit]="entries != -1 ? entries : undefined" [rows]="rows"  
-                (activate)="onActivate($event)"
+                [rowHeight]="60"
+                [limit]="entries != -1 ? entries : undefined" [rows]="rows" 
+                (activate)="onActivate($event)" [rowHeight]="getRowHeight"
                 >
                             
-                <ngx-datatable-column name="titulo" [flexGrow]="25">
-                    <ng-template let-column="column" ngx-datatable-header-template>
+                <ngx-datatable-column name="titulo" [summaryTemplate]="nameSummaryCell">
+                    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.titulo' | translate}}</span>
                     </ng-template>
+                    
                 </ngx-datatable-column>
                 <ngx-datatable-column name="codigo">
                     <ng-template let-column="column" ngx-datatable-header-template>
@@ -112,6 +113,8 @@
                         </span>
                       </ng-template>
                 </ngx-datatable-column>
+
+                
             </ngx-datatable>
             </div>
         </div>

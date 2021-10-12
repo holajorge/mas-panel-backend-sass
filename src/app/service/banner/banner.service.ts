@@ -10,7 +10,7 @@ export class BannerService {
   constructor(private _http:HttpClient) { }
 
   importBanner(file){
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importHeader",file).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importEscritorio",file).toPromise().then((res) =>{     
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -18,7 +18,7 @@ export class BannerService {
     });
   }
   importFooter(file){
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importFooter",file).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importMoviles",file).toPromise().then((res) =>{     
       return { success: true, response:res};
     })
     .catch( (err) =>{

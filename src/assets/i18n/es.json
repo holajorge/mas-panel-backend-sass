@@ -44,6 +44,8 @@
         "titulo-import": "Importar un archivo de clientes"
     },
     "banner": {
+        "desktop": "Banner de escritorio: (1184px x 166px )",
+        "movile": "Banner para dispositivos móviles: ( 340px x 166px )",
         "header": {
             "titulo": "Selecione banner para el Header",
             "logo": " selecione archivo img",

@@ -53,17 +53,10 @@ export class BannerComponent implements OnInit {
   constructor(public translate: TranslateService, public fb: FormBuilder,
     public bannerService: BannerService
   ) { 
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 
-    this.uploadFormSwal = this.fb.group({
-      bannerr: [null,Validators.required],
-      banner: [null],
-      name: [''],
-      empresa_id: this.empresa,
-    });
+    
     this.uploadFormFooter = this.fb.group({
       bannerr: [null,Validators.required],
       banner: [null],
@@ -173,49 +166,6 @@ export class BannerComponent implements OnInit {
     this.imageURLFooter = "";
 
   }
-  showPreviewSwal(event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.uploadFormSwal.patchValue({
-      banner: file
-    });
-    this.uploadFormSwal.get('banner').updateValueAndValidity();
-
-    const files:FileList = event.target.files;    
-
-    if(files.length > 0){
-      const file = files[0];
-      if((file.size/1048576)<=4){
-        let formData = new FormData();
-        formData.append('file', file, file.name);
-        formData.append('id',this.uploadFormSwal.get('empresa_id').value);
-        this.file_dataSwal=formData;
-        this.uploadFormSwal.patchValue({filesource: files});
-      }else{        
-        Swal.fire('Error al importar el archivo excede el limite de tamaño permitido, intente de nuevo!', 'error')
-      }
-    }
-
-    // File Preview
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imageURLSwal = reader.result as string;
-    }
-    reader.readAsDataURL(file)
-  }
-  submitSwal() {
-    this.bannerService.importSwal(this.file_dataSwal).then( (res:any) =>{    
-      if(res.response.body.flag == true){
-        Swal.fire('Listo!','Archivo de Swal importado con exito!', 'success')
-      }else{
-        Swal.fire('Error al importar Archivo de Swal, intente de nuevo!', 'error')
-      }
-    }).catch(err=>{
-      console.log(err);
-    });
-  }
-  deleteImageSwal(url:any){
-
-    this.imageURLSwal = "";
-
-  }
+  
+  
 }

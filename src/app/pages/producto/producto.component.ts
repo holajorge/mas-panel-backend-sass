@@ -71,6 +71,9 @@ export class ProductoComponent implements OnInit {
   textCaract2:string = "";
   textCaract3:string = "";
   
+  enableSummary = true;
+  summaryPosition = 'top';
+  
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
     this.translate.use('es');
@@ -154,7 +157,10 @@ export class ProductoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
-  }  
+  } 
+  getNames(): string[] {
+    return this.rows.map(row => row.titulo).map(fullName => fullName.split(' ')[1]);
+  } 
   entriesChange($event) {
     this.entries = $event.target.value;
   }
