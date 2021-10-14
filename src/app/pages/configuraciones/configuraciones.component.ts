@@ -39,7 +39,7 @@ export class ConfiguracionesComponent {
   formConfig:any = [];
   empresa:any = "";
   form_dataConfig:any=[];
-  form_dataConfigValue:any=[];
+  form_dataConfigMobile:any=[];
   color:string="";
   empresaData:any = {id: ''};
   configuraciones:any;
@@ -191,7 +191,7 @@ export class ConfiguracionesComponent {
 
   deleteImageMobile(){
     this.imageURLogoMobile = "";
-    this.form_dataConfig.delete('logo_mobile_file');
+    this.form_dataConfigMobile.delete('logo_mobile_file');
     this.formConfig.patchValue(
       {logo_mobile:''}
     );
@@ -207,7 +207,7 @@ export class ConfiguracionesComponent {
       if((file.size/1048576)<=4){
         let formData = new FormData();
         formData.append('logo_mobile_file', (event.target as HTMLInputElement).files[0], file.name);
-        this.form_dataConfig = formData;
+        this.form_dataConfigMobile = formData;
       }else{
         Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error');
         return;
@@ -241,8 +241,8 @@ export class ConfiguracionesComponent {
       formData.append('logo', this.form_dataConfig.get('logo'));
     }
 
-    if(Array.isArray(this.form_dataConfig)){}else{
-      formData.append('logo_mobile_file', this.form_dataConfig.get('logo_mobile_file'));
+    if(Array.isArray(this.form_dataConfigMobile)){}else{
+      formData.append('logo_mobile_file', this.form_dataConfigMobile.get('logo_mobile_file'));
     }
     // return false;
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
