@@ -22,6 +22,9 @@ export class ImportarPreciosComponent implements OnInit {
       codigo: '',
       precio: '',
       porcentaje_descuento: '',
+      caracteristica1: '',
+      caracteristica2: '',
+      caracteristica3: '',
   }];
   dataExcel: any = [];
 

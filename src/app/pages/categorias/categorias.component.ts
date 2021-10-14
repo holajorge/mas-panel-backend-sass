@@ -6,6 +6,8 @@ import { CategoriaService } from 'src/app/service/categoria/categoria.service';
 // import Swal from 'sweetalert2'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { VendedorService } from 'src/app/service/vendedor/vendedor.service';
+import { ConfigService } from 'src/app/service/config/config.service';
 
 @Component({
   selector: 'app-categorias',
@@ -28,11 +30,13 @@ export class CategoriasComponent implements OnInit {
   entriesCliente:number = 10;
   nombreCarategoria:any;
   clientesCop:any;
+  
   constructor(
     private categoriaService: CategoriaService,
     public translate: TranslateService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+
   ) { 
     this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
@@ -202,4 +206,6 @@ export class CategoriasComponent implements OnInit {
     }  
 
   }
+  
+  
 }

@@ -4,38 +4,13 @@ import {TranslateService} from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BannerService } from '../../service/banner/banner.service';
 import Swal from "sweetalert2";
-
-import Dropzone from "dropzone";
-Dropzone.autoDiscover = false;
-const I18N_VALUES = {
-  'pt': {
-    weekdays: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
-    months: ['Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dez'],
-    weekLabel: 'sem'
-  }
-};
-
-@Injectable()
-export class I18n {
-  language = 'pt';
-}
-
-@Injectable()
-export class CustomDatepickerI18n extends NgbDatepickerI18n {
-  constructor(private _i18n: I18n) { super(); }
-
-  getWeekdayShortName(weekday: number): string { return I18N_VALUES[this._i18n.language].weekdays[weekday - 1]; }
-  getWeekLabel(): string { return I18N_VALUES[this._i18n.language].weekLabel; }
-  getMonthShortName(month: number): string { return I18N_VALUES[this._i18n.language].months[month - 1]; }
-  getMonthFullName(month: number): string { return this.getMonthShortName(month); }
-  getDayAriaLabel(date: NgbDateStruct): string { return `${date.day}-${date.month}-${date.year}`; }
-}
+import { ConfigService } from 'src/app/service/config/config.service';
 
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.scss'],
-  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}] 
+  providers: [] 
 
 })
 export class BannerComponent implements OnInit {
@@ -49,12 +24,17 @@ export class BannerComponent implements OnInit {
   file_dataHeader:any = [];
   file_dataFooter:any = [];
   file_dataSwal:any = [];
+  configuraciones:any;
+  empresa_idd: any = {id:''};
   
   constructor(public translate: TranslateService, public fb: FormBuilder,
-    public bannerService: BannerService
+    public bannerService: BannerService,
+   public configService: ConfigService,
+
   ) { 
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
+    this.empresa_idd.id = localStorage.getItem('usuario');
 
     
     this.uploadFormFooter = this.fb.group({
@@ -73,7 +53,29 @@ export class BannerComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    Swal.showLoading();
+    this.configService.getConfigEmpresa(this.empresa_idd).then( (res:any) =>{    
+      Swal.close();
+      if(res.response.body['configuraciones'] != ""){
+        this.configuraciones = JSON.parse(res.response.body['configuraciones']);
+        
+        console.log(this.configuraciones); //return false;
+        if(this.configuraciones.escritorios == '' || this.configuraciones.escritorios == undefined){ 
+        
+          this.imageURLHeader = "";
+          this.imageURLFooter = "";
+        }else{          
+          
+          this.imageURLHeader = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.escritorios;
+          this.imageURLFooter = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.moviles;
+        }    
+        
+      }
+      
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
   }
 
   showPreviewHeader(event) {
@@ -106,9 +108,9 @@ export class BannerComponent implements OnInit {
   submitHeader() {
     this.bannerService.importBanner(this.file_dataHeader).then( (res:any) =>{    
       if(res.response.body.flag == true){
-        Swal.fire('Listo!','Archivo de Header importado con exito!', 'success')
+        Swal.fire('Listo!','Banner de escritorio importado con exito!', 'success')
       }else{
-        Swal.fire('Erro al importar Archivo de Header, intente de nuevo!', 'error')
+        Swal.fire('Erro al importar Banner de escritorio, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       console.log(err);
@@ -116,7 +118,37 @@ export class BannerComponent implements OnInit {
     
   }
   deleteImage(url: any){
-    this.imageURLHeader = "";
+
+    Swal.fire({
+      title: 'Seguro de Eliminar?',
+      text: "eliminará la imagen del banner para escritorios!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+
+        if (result.value) {
+        Swal.showLoading();
+
+        this.bannerService.eliminarEscritorio(this.empresa_idd).then( (res:any) =>{    
+          Swal.close();
+
+          // console.log(res); return false;
+          if(res.response['body'].flag == true){
+            this.imageURLHeader = "";
+            Swal.fire('Listo!','Banner de móviles importado con exito!', 'success')
+          }else{
+            Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
+      }
+    })
+
   }
 
   showPreviewFooter(event) {
@@ -153,18 +185,45 @@ export class BannerComponent implements OnInit {
     
     this.bannerService.importFooter(this.file_dataFooter).then( (res:any) =>{    
       if(res.response.body.flag == true){
-        Swal.fire('Listo!','Archivo de Footer importado con exito!', 'success')
+        Swal.fire('Listo!','Banner de móviles importado con exito!', 'success')
       }else{
-        Swal.fire('Erro al importar Archivo de Footer, intente de nuevo!', 'error')
+        Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       console.log(err);
     });
   }
   deleteImageFooter(url:any){
+    Swal.fire({
+      title: 'Seguro de Eliminar?',
+      text: "eliminará la imagen del banner para escritorios!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
 
-    this.imageURLFooter = "";
+        if (result.value) {
+          Swal.showLoading();
+          
+          this.bannerService.eliminarMovil(this.empresa_idd).then( (res:any) =>{    
+            Swal.close();
 
+            // console.log(res); return false;
+            if(res.response['body'].flag == true){
+              this.imageURLFooter = "";
+
+              Swal.fire('Listo!','Banner de móviles importado con exito!', 'success')
+            }else{
+              Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
+            }
+          }).catch(err=>{
+            console.log(err);
+          });
+        }
+    })
   }
   
   

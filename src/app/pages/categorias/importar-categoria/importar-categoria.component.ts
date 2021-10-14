@@ -6,6 +6,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { ConfigService } from 'src/app/service/config/config.service';
 import { CategoriaService } from 'src/app/service/categoria/categoria.service';
+import { VendedorService } from 'src/app/service/vendedor/vendedor.service';
 
 @Component({
   selector: 'app-importar-categoria',
@@ -16,18 +17,21 @@ export class ImportarCategoriaComponent implements OnInit {
   empresaa:any = {id:'', pedido:''};
   addForm: FormGroup;
   file_data:any = [];
-  empresa:any = "";
-  modeloExcel: any = [{
-      nrocliente: '',
-      codigo: '',
-      precio: '',
-      porcentaje_descuento: '',
-  }];
+  empresa:any = "";  
+  modeloExcel: any = [
+    {
+      'caracteristica1': '',
+      'nrocliente':'',
+      'si/no': ''
+    }
+  ];
   dataExcel: any = [];
   constructor(
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
     private categoriaService: CategoriaService,
+    private vendedorService:VendedorService
+
   ) 
   { 
     this.translate.use('es');
@@ -90,9 +94,11 @@ export class ImportarCategoriaComponent implements OnInit {
     });
     
   }
-
-
-
-
+  modeloCategoria(){
+    this.vendedorService.exportAsExcelFile(this.modeloExcel, 'modelo_categorias');
+  }
+  dataExcelCategoria(){
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadCategorias?empresa="+this.empresaa.id, "_blank");
+  }
 
 }

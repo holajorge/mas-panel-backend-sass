@@ -32,8 +32,6 @@ export class ImportarVendedorComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private vendedorService:VendedorService
   ) { 
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
     this.empresaa.id = localStorage.getItem('usuario');

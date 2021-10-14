@@ -51,14 +51,13 @@ export class NavbarAdminComponent implements OnInit {
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     this.empresa.id = localStorage.getItem('usuario');
-    console.log(this.empresa);
 
     this.configService.getConfigEmpresa(this.empresa).then( (res:any) =>{    
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
         this.nombre_empresa = this.configuraciones.nombre_empresa;
-        console.log(this.configuraciones.logo);
+       
         if(this.configuraciones.logo == '' || this.configuraciones.logo == undefined){ 
           this.truelogo = false;
           this.logo = "";
@@ -66,7 +65,7 @@ export class NavbarAdminComponent implements OnInit {
           this.truelogo = true;       
           this.logo = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo;
         }    
-        console.log(this.logo);
+        
       }
       
     }).catch(err=>{
