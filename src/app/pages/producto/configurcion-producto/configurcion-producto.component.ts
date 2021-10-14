@@ -25,7 +25,7 @@ export class ConfigurcionProductoComponent implements OnInit {
       caract1: [''],
       caract2: [''],
       caract3: [''],
-     
+      caract4: [''],
     });
    }
 
@@ -49,15 +49,14 @@ export class ConfigurcionProductoComponent implements OnInit {
           this.addForm.patchValue({caract1: this.configuraciones.caracteristica1});
         }
         if(this.configuraciones.caracteristica2 != undefined){
-          
           this.addForm.patchValue({caract2: this.configuraciones.caracteristica2});
-
         }
-        if(this.configuraciones.caracteristica3 == undefined){
-
+        if(this.configuraciones.caracteristica3 != undefined){
           this.addForm.patchValue({caract3: this.configuraciones.caracteristica3});
         }
-        
+         if(this.configuraciones.caracteristica4 != undefined){
+          this.addForm.patchValue({caract4: this.configuraciones.caracteristica4});
+        }
       }
       
     }).catch(err=>{

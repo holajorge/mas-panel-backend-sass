@@ -49,8 +49,11 @@ export class ProductoComponent implements OnInit {
   arrayCaracteristica1:any = [];
   arrayCaracteristica2:any = [];
   arrayCaracteristica3:any = [];
+  arrayCaracteristica4:any = [];
+  caracteristica1:any = [];
   caracteristica2:any = [];
   caracteristica3:any = [];
+  caracteristica4:any = [];
   entries: number = 10;
   entriesDestacados: number = 10;
   editForm: FormGroup;
@@ -65,10 +68,12 @@ export class ProductoComponent implements OnInit {
   addTextCaract:boolean = false;
   addTextCaract2:boolean = false;
   addTextCaract3:boolean = false;
+  addTextCaract4:boolean = false;
   configuraciones:any = [];
   textCaract1:string = "";
   textCaract2:string = "";
   textCaract3:string = "";
+  textCaract4:string = "";
   
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder) {
@@ -142,10 +147,12 @@ export class ProductoComponent implements OnInit {
         this.arrayCaracteristica1 = res.productos['caracteristica1'];
         this.arrayCaracteristica2 = res.productos['caracteristica2'];
         this.arrayCaracteristica3 = res.productos['caracteristica3'];
+        this.arrayCaracteristica4 = res.productos['caracteristica4'];
         this.configuraciones = res.productos['configuraciones'];
         this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
         this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
         this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
+        this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
       }else{
         Swal.close();
       }
@@ -234,8 +241,8 @@ export class ProductoComponent implements OnInit {
   insertProduct(){
 
     if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
-      this.editForm.get('caracteristica3').value ==  null){
-      Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ '<strong>'+this.textCaract1+', '+this.textCaract2+', '+this.textCaract3+ '<strong>', '','error');      
+      this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
+      Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ '<strong>'+this.textCaract1+', '+this.textCaract2+', '+this.textCaract3 +', '+this.textCaract4+ '<strong>', '','error');
         return false;
     } 
     Swal.showLoading();

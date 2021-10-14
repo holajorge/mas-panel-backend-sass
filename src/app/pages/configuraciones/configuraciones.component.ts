@@ -72,6 +72,7 @@ export class ConfiguracionesComponent {
     ]
   };  
   imageURLogo: string;
+  imageURLogoMobile: string;
   chico:boolean = false;
   mediano:boolean = false;
   grande:boolean = false;
@@ -89,6 +90,8 @@ export class ConfiguracionesComponent {
       correo: [null],
       logoo: [null],
       logo: [null],
+      logo_mobile: [null],
+      logo_mobile_file: [null],
       color_botones: [''],
       empresa_id:  this.empresa,
       descripcion_empresa: [''],
@@ -127,7 +130,13 @@ export class ConfiguracionesComponent {
         }else{          
               
           this.imageURLogo = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo;
-        }   
+        }
+
+        if(this.configuraciones.logo_mobile == '' || this.configuraciones.logo_mobile == undefined){
+          this.imageURLogoMobile = "";
+        }else{
+          this.imageURLogoMobile = "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+res.response.body['bucket']+"/fotos/"+this.configuraciones.logo_mobile;
+        }
 
       }
       
@@ -179,18 +188,61 @@ export class ConfiguracionesComponent {
     );
     
   }
+
+  deleteImageMobile(){
+    this.imageURLogoMobile = "";
+    this.form_dataConfig.delete('logo_mobile_file');
+    this.formConfig.patchValue(
+      {logo_mobile:''}
+    );
+  }
+
+  showPreview(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const files:FileList = event.target.files;
+    this.formConfig.patchValue({logo_mobile_file: file});
+    this.formConfig.get('logo_mobile_file').updateValueAndValidity();
+    if(files.length > 0){
+      const file = files[0];
+      if((file.size/1048576)<=4){
+        let formData = new FormData();
+        formData.append('logo_mobile_file', (event.target as HTMLInputElement).files[0], file.name);
+        this.form_dataConfig = formData;
+      }else{
+        Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error');
+        return;
+      }
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+
+      var img = new Image();
+      img.src = reader.result as string;
+      img.onload = () => {
+          if(img.width != 512 || img.height != 512){
+            Swal.fire('Error al importar: la imagen debe ser de 512 x 512!', 'error');
+            this.deleteImageMobile();
+            return;
+          }
+      }
+      this.imageURLogoMobile = reader.result as string;
+    }
+    reader.readAsDataURL(file)
+  }
+
   registrarConfig(){
     
     Swal.showLoading();
 
     
     let formData = new FormData();
-    if(Array.isArray(this.form_dataConfig)){
-      
-    }else{
-      
-      formData.append('logo', this.form_dataConfig.get('logo'));    
+    if(Array.isArray(this.form_dataConfig)){}else{
+      formData.append('logo', this.form_dataConfig.get('logo'));
+    }
 
+    if(Array.isArray(this.form_dataConfig)){}else{
+      formData.append('logo_mobile_file', this.form_dataConfig.get('logo_mobile_file'));
     }
     // return false;
     formData.append('empresa_id',this.formConfig.get('empresa_id').value);
