@@ -1,4 +1,15 @@
 {
+    "cuenta": {
+        "titulo": "Mi Cuenta",
+        "subtitulo": "Ingrese los datos de su cuenta",
+        "datos":{
+            "email": "Correo",
+            "password": "Nueva Contraseña",
+            "lastpassword": "Contraseña Anterior",
+            "confirmPassword": "Confirmar Contraseña",
+            "btnbaja": "Solicitar Baja"
+        }
+    },
     "config": {
         "titulo" : "Configuración Generales",
         "subtitulo": "Ingrese las configuraciones de la empresa",

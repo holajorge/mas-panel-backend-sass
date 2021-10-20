@@ -25,6 +25,7 @@ import { DescuentoComponent } from './precios/descuento/descuento.component';
 import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lista.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { ImportarCategoriaComponent } from './categorias/importar-categoria/importar-categoria.component';
+import { MicuentaComponent } from './micuenta/micuenta.component';
 
 const routes:Routes = [
     {
@@ -33,6 +34,11 @@ const routes:Routes = [
         canActivate: [AuthGuard],
         children: [            
             {path:'', component: ClientesComponent},
+            //MI CUENTA
+            // empresa
+            {path: 'cuenta/datos', component: MicuentaComponent},
+            {path: 'cuenta/pagos', component: MicuentaComponent},
+
             // empresa
             {path: 'configuraciones/empresa', component: ConfiguracionesComponent},
             {path: 'configuraciones/dominios', component: DominioComponent},
