@@ -45,7 +45,7 @@ export const ROUTES: RouteInfo[] = [
     path: "configuraciones",
     title: "Configuraciones",
     type: "sub",
-    icontype: "ni-map-big text-primary",
+    icontype: "fa fa-sliders-h text-primary",
     isCollapsed: true,
     children: [
       { path: "empresa", title: "Configuración de la empresa", type: "link" },
@@ -53,7 +53,7 @@ export const ROUTES: RouteInfo[] = [
       { path: "general", title: "Configuración general ", type: "link" },
     ]
   },
-  {
+ /* {
     path: "admin",
     title: "Dashboard",
     type: "sub",
@@ -62,17 +62,17 @@ export const ROUTES: RouteInfo[] = [
     children: [
       { path: "dashboard", title: "Dashboard", type: "link" },
     ]
-  },
+  }, */
   
   {
     path: "pedidos",
     title: "Pedidos",
     type: "sub",
-    icontype: "ni-shop text-primary",
+    icontype: "fa fa-shopping-cart text-primary",
     isCollapsed: true,
     children: [
       { path: "clientes", title: "Pedido de Clientes", type: "link" },
-      { path: "vendedores", title: "Pedido de Vendedores", type: "link" },    
+     /* { path: "vendedores", title: "Pedido de Vendedores", type: "link" }, */   
     ]
   },
   
@@ -80,7 +80,7 @@ export const ROUTES: RouteInfo[] = [
     path: "vendedor",
     title: "Vendedor",
     type: "sub",
-    icontype: "ni-shop text-primary",
+    icontype: "fa fa-user text-primary",
     isCollapsed: true,
     children: [
       { path: "vendedores", title: "Lista Vendedores", type: "link" },
@@ -93,7 +93,7 @@ export const ROUTES: RouteInfo[] = [
     path: "cliente",
     title: "Clientes",
     type: "sub",
-    icontype: "ni-shop text-primary",
+    icontype: "fa fa-user-friends text-primary",
     isCollapsed: true,
     children: [
       { path: "clientes", title: "Lista clientes", type: "link" },
@@ -112,7 +112,7 @@ export const ROUTES: RouteInfo[] = [
     path: "categorias",
     title: "Categorias",
     type: "sub",
-    icontype: "ni-shop text-primary",
+    icontype: "fa fa-folder text-primary",
     isCollapsed: true,
     children: [
       { path: "lista", title: "Lista Categoria", type: "link" },
@@ -123,7 +123,7 @@ export const ROUTES: RouteInfo[] = [
     path: "producto",
     title: "Productos",
     type: "sub",
-    icontype: "ni-shop text-primary",
+    icontype: "fa fa-cube text-primary",
     isCollapsed: true,
     children: [
       { path: "configuracion", title: "Configuración de productos", type: "link" },
@@ -136,11 +136,11 @@ export const ROUTES: RouteInfo[] = [
     path: "precios",
     title: "Precios", //Descuentos por Categorias
     type: "sub",
-    icontype: "ni-shop text-primary",
+    icontype: "fa fa-tags text-primary",
     isCollapsed: true,
     children: [
-      { path: "lista", title: "Lista Precios", type: "link" },
-      { path: "importar-precios", title: "Importar precios", type: "link" },
+     /* { path: "lista", title: "Lista Precios", type: "link" },
+      { path: "importar-precios", title: "Importar precios", type: "link" }, */
       { path: "descuento-lista", title: "Lista Descuentos", type: "link" },
       { path: "descuento-categorias", title: "Descuentos por Categorias", type: "link" },
     ]
@@ -149,7 +149,7 @@ export const ROUTES: RouteInfo[] = [
     path: "banners",
     title: "Banners",
     type: "link",
-    icontype: "ni-map-big text-primary",
+    icontype: "fa fa-images text-primary",
   },
 ];
 
