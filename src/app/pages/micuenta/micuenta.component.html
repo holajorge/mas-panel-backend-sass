@@ -24,7 +24,7 @@
                                         
                         <form [formGroup]="addForm" novalidate >
                             <div class="row">
-                                <div class="col-md-4 col-lg-12">
+                                <div class="col-md-6 col-lg-12">
                                     <div class="form-group mr-1">
                                         <label for="email"
                                          class="form-control-label">{{ 'cuenta.datos.email' | translate }}</label>
@@ -37,6 +37,15 @@
                                         </div>  
                                     </div>
                                 </div>
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group ">
+                                        <button class="btn btn-primary" (click)="solicitarBaja()">{{ 'cuenta.datos.btnbaja' | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>Cambio de contraseña</h2>
+                            <div class="row">
+                                
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="lastpassword" 
@@ -69,11 +78,7 @@
                                         
                                     </div>
                                 </div>    
-                                <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <button class="btn btn-sm btn-primary" (click)="solicitarBaja()">{{ 'cuenta.datos.btnbaja' | translate }}</button>
-                                    </div>
-                                </div>
+                                
                             </div>
                                                       
                             <div class="row">

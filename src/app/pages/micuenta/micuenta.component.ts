@@ -108,4 +108,39 @@ export class MicuentaComponent implements OnInit {
     });
 
   }
+  solicitarBaja(){
+
+    Swal.fire({
+      title: '¿Seguro de Solicitar Baja?',
+      text: "Se dera de baja la cuenta!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Baja!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          Swal.showLoading();
+
+          this.configService.darBaja(this.empresa).then( (res:any) =>{
+
+            console.log(res);
+            if(res.response['body'].flag == true){
+              Swal.fire('Listo!','Baja solicitada con exito!', 'success');
+              this.getConfig();
+              // this.addForm.reset();
+            }else{
+              Swal.fire('Error al guardar, intente de nuevo!', 'error')
+            }
+            
+            
+          }).catch(err=>{
+            Swal.close();
+            console.log(err);
+          });
+        }
+    })
+
+  }
 }
