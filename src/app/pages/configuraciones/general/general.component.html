@@ -142,24 +142,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <label for="logo_mobile"
-                                            class="form-control-label">{{ 'config.formConfig.LogoMobile' | translate }}</label>
-                                        <input type="file" accept="image/*" placeholder="logo mobile"
-                                            (change)="showPreview($event)" formControlName="logo_mobile"  class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="imagePreview" *ngIf="imageURLogo && imageURLogo !== ''">
-                                        <label class="form-control-label">{{ 'config.formConfig.LogoMobile' | translate }} Preview</label>
-                                        <button class="btn btn-danger delete-entry d-inline-block btn-block" (click)="deleteImage()">x</button>
-                                        <img class="ard-img-top" [src]="imageURLogo" style="width:100%; position: relative; margin-top: 4%">
-                                    </div>
-                                </div>
-                            </div>
-                         
-                            <div class="row">
-                                <div class="col-md-4">
                                     <div class="pt-2">
                                         <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
                                             {{ 'config.formConfig.guardar' | translate }} <span class=""></span>

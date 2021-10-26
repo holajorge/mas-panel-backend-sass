@@ -22,25 +22,31 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="titulo">{{ 'producto.configuracion.caract1' | translate }}:</label>
+                                <label class="form-control-label" for="caract1">{{ 'producto.configuracion.caract1' | translate }}:</label>
                                 <input type="text" formControlName="caract1" placeholder="{{ 'producto.configuracion.caract1' | translate }}" name="titulo" class="form-control" id="caract1">                                 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="codigo_producto">{{ 'producto.configuracion.caract2' | translate }}:</label>
+                                <label class="form-control-label" for="caract2">{{ 'producto.configuracion.caract2' | translate }}:</label>
                                 <input type="text" formControlName="caract2" placeholder="{{ 'producto.configuracion.caract2' | translate }}" name="caract2" class="form-control" id="caract2">                                
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="precio">{{ 'producto.configuracion.caract3' | translate }}:</label>
+                                <label class="form-control-label" for="caract3">{{ 'producto.configuracion.caract3' | translate }}:</label>
                                 <input type="text" formControlName="caract3" placeholder="{{ 'producto.configuracion.caract3' | translate }}" name="caract3" class="form-control" id="caract3">
                             </div>
-                        </div>        
-                    </div>                        
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="caract4">{{ 'producto.configuracion.caract4' | translate }}:</label>
+                                <input type="text" formControlName="caract4" placeholder="{{ 'producto.configuracion.caract4' | translate }}" name="caract4" class="form-control" id="caract4">
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-2">
                             <button class="btn btn-success" [disabled]='addForm.invalid' (click)="senConfiguracionProduct()" >{{ 'producto.configuracion.send' | translate }}</button> 

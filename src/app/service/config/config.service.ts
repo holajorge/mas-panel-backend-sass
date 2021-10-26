@@ -49,7 +49,6 @@ export class ConfigService {
     });
   }
   saveGenerales(data){
-    
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveGenerales",data).toPromise().then((res) =>{     
       return { success: true, response:res};
     })
