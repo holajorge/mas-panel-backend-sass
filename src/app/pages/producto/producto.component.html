@@ -57,7 +57,7 @@
                 (activate)="onActivate($event)" [rowHeight]="getRowHeight"
                 >
                             
-                <ngx-datatable-column name="titulo" [summaryTemplate]="nameSummaryCell">
+                <ngx-datatable-column name="titulo" >
                     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.titulo' | translate}}</span>
                     </ng-template>
