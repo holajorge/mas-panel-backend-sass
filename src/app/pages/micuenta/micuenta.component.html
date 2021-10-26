@@ -1,0 +1,99 @@
+<div class=" header bg-maspedidos pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">
+                {{ 'cuenta.titulo' | translate}}</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">{{ 'cuenta.subtitulo' | translate }}</h3></div>
+                    <div class="card-body">
+                                        
+                        <form [formGroup]="addForm" novalidate >
+                            <div class="row">
+                                <div class="col-md-6 col-lg-12">
+                                    <div class="form-group mr-1">
+                                        <label for="email"
+                                         class="form-control-label">{{ 'cuenta.datos.email' | translate }}</label>
+                                        <input type="text" 
+                                            placeholder="{{ 'cuenta.datos.email' | translate }}" 
+                                            formControlName="email"  class="form-control"> 
+                                        <div class="alert  alert-danger" 
+                                            *ngIf="addForm.get('email').hasError('required') && addForm.get('email').touched">  
+                                            {{ 'cuenta.datos.email' | translate }} es obligatorio
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group ">
+                                        <button class="btn btn-primary" (click)="solicitarBaja()">{{ 'cuenta.datos.btnbaja' | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>Cambio de contraseña</h2>
+                            <div class="row">
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="lastpassword" 
+                                            class="form-control-label">{{ 'cuenta.datos.lastpassword' | translate }}</label>
+                                        <input type="text" formControlName="lastpassword" 
+                                            placeholder="{{ 'cuenta.datos.lastpassword' | translate }}" 
+                                             class="form-control" (keyup)="comprobarPassword($event)" > 
+                                    </div>
+                                </div>   
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="passoword" 
+                                            class="form-control-label">{{ 'cuenta.datos.password' | translate }}</label>
+                                        <input type="password" [readonly]="flag"
+                                            placeholder="{{ 'cuenta.datos.password' | translate }}" 
+                                            formControlName="password"  class="form-control" > 
+                                        <div class="alert  alert-danger" 
+                                            *ngIf="addForm.get('password').hasError('required') && addForm.get('password').touched">  
+                                            {{ 'cuenta.datos.password' | translate }} es obligatorio
+                                        </div>  
+                                    </div>
+                                </div>      
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="confirmPassword"  
+                                            class="form-control-label">{{ 'cuenta.datos.confirmPassword' | translate }}</label>
+                                        <input type="password" [readonly]="flag" (keyup)="confirmPasswordNew($event)"
+                                            placeholder="{{ 'cuenta.datos.confirmPassword' | translate }}" 
+                                            class="form-control"> 
+                                        
+                                    </div>
+                                </div>    
+                                
+                            </div>
+                                                      
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='addForm.invalid' (click)="registrarData()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>       
+                    </div>                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

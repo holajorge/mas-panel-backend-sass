@@ -49,8 +49,32 @@ export class ConfigService {
     });
   }
   saveGenerales(data){
-    console.log(data);
+    
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveGenerales",data).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  saveData(data){
+    console.log(data);
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveDatosCuenta",data, options).toPromise().then((res) =>{     
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  darBaja(data){
+    console.log(data);
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveBajaCuenta",data, options).toPromise().then((res) =>{     
       return { success: true, response:res};
     })
     .catch( (err) =>{
