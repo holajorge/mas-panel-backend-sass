@@ -35,10 +35,25 @@
               <i class="ni {{ menuitem.icontype }}"></i>
               <span class="nav-link-text">{{ menuitem.title }}</span>
             </a>
-            <!--If it have a submenu-->
-            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub'"
-              (click)="menuitem.isCollapsed = !menuitem.isCollapsed" [attr.aria-expanded]="!menuitem.isCollapsed" 
-              [attr.aria-controls]="menuitem.collapse" >
+
+            <!--If it have a submenu -->
+            <!--If it has a task -->
+            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && onboardingService.on && checkTask(menuitem, 'taskClickProducts')" [bdcWalkTriggerFor]="taskClickProducts" [enabled]="onboardingService.on"
+               (click)="menuitem.isCollapsed = !menuitem.isCollapsed; setStepOnboarding('taskClickProducts')" [attr.aria-expanded]="!menuitem.isCollapsed"
+               [attr.aria-controls]="menuitem.collapse">
+              <i class="ni {{ menuitem.icontype }}"></i>
+              <span class="nav-link-text">{{ menuitem.title }}</span>
+            </a>
+            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && onboardingService.on && checkTask(menuitem, 'clickClients')" [bdcWalkTriggerFor]="clickClients" [enabled]="onboardingService.on"
+               (click)="menuitem.isCollapsed = !menuitem.isCollapsed; setStepOnboarding('clickClients')" [attr.aria-expanded]="!menuitem.isCollapsed"
+               [attr.aria-controls]="menuitem.collapse">
+              <i class="ni {{ menuitem.icontype }}"></i>
+              <span class="nav-link-text">{{ menuitem.title }}</span>
+            </a>
+            <!--If it hasn't a task -->
+            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && (checkTask(menuitem, 'nothing') || !onboardingService.on)"
+               (click)="menuitem.isCollapsed = !menuitem.isCollapsed;" [attr.aria-expanded]="!menuitem.isCollapsed"
+               [attr.aria-controls]="menuitem.collapse">
               <i class="ni {{ menuitem.icontype }}"></i>
               <span class="nav-link-text">{{ menuitem.title }}</span>
             </a>
@@ -48,44 +63,47 @@
               <ul class="nav nav-sm flex-column">
                 <li *ngFor="let childitems of menuitem.children" class="nav-item" >
                   <!--If is a single link-->
-                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path]" class="nav-link" *ngIf="childitems.type === 'link'">
+                  <!--If it has a task -->
+                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path]" class="nav-link" *ngIf="childitems.type === 'link' && onboardingService.on && checkTask(childitems, 'clickImport')" (click)="setStepOnboarding('clickImport')" [bdcWalkTriggerFor]="clickImport" [enabled]="onboardingService.on">
+                    {{ childitems.title }}
+                  </a>
+                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path]" class="nav-link" *ngIf="childitems.type === 'link' && onboardingService.on && checkTask(childitems, 'clickProductList')" (click)="setStepOnboarding('clickProductList')" [bdcWalkTriggerFor]="clickProductList" [enabled]="onboardingService.on">
+                    {{ childitems.title }}
+                  </a>
+                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path]" class="nav-link" *ngIf="childitems.type === 'link' && onboardingService.on &&  checkTask(childitems, 'clickListClients')" (click)="setStepOnboarding('clickListClients')" [bdcWalkTriggerFor]="clickListClients" [enabled]="onboardingService.on">
+                    {{ childitems.title }}
+                  </a>
+                  <!--If it hasn't a task -->
+                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path]" class="nav-link" *ngIf="childitems.type === 'link' && (checkTask(childitems, 'nothing') || !onboardingService.on)">
                     {{ childitems.title }}
                   </a>
                   <!--If it have a submenu-->
                   <a data-toggle="collapse" class="nav-link"
-                    (click)="childitems.isCollapsed = !childitems.isCollapsed" 
-                    [attr.aria-expanded]="!childitems.isCollapsed" [attr.aria-controls]="childitems.collapse" *ngIf="childitems.type === 'sub'" 
-                  >
+                    (click)="childitems.isCollapsed = !childitems.isCollapsed"
+                    [attr.aria-expanded]="!childitems.isCollapsed" [attr.aria-controls]="childitems.collapse" *ngIf="childitems.type === 'sub'">
                     {{ childitems.title }}
                   </a>
+
                   <!--Display the submenu items-->
-                  <div
-                    id="{{ childitems.collapse }}"
-                    class="collapse"
-                    *ngIf="childitems.type === 'sub'"
-                    [collapse]="childitems.isCollapsed"
-                    [isAnimated]="true"
-                  >
+                  <div id="{{ childitems.collapse }}" class="collapse" *ngIf="childitems.type === 'sub'" [collapse]="childitems.isCollapsed" [isAnimated]="true">
                     <ul class="nav">
-                      <li
-                        *ngFor="let childitem of childitems.children"
-                        class="nav-item"
-                      >
+                      <li *ngFor="let childitem of childitems.children" class="nav-item">
                         <a href="javascript:void(0)" class="nav-link">
                           {{ childitem.title }}
                         </a>
-                      </li>                      
+                      </li>
                     </ul>
                   </div>
-                  
                 </li>
-                
               </ul>
             </div>
 
           </li>
-          <li class="nav-item text-center">  
-            <button class="btn btn-sm btn-neutral" (click)="onLogout()"><i class="fa fa-door-open"></i> Logout</button>  
+          <div *ngIf="onboardingService.on" [enabled]="onboardingService.on" [bdcWalkTriggerFor]="taskWelcome">
+
+          </div>
+          <li class="nav-item text-center">
+            <button class="btn btn-sm btn-neutral" (click)="onLogout()"><i class="ni ni-user-run"></i> Logout</button>
           </li>  
         </ul>
         <!-- Divider -->
@@ -96,3 +114,49 @@
 </perfect-scrollbar>
 
 </nav>
+
+<!-- Onboarding components -->
+
+<ng-template #modalLoadOptionOnboarding >
+    <div class=" modal-header">
+        <h5 class="modal-title" >Elige una opción</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="optionModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        <h4>Elige cómo deseas cargar un nuevo producto: Importandolo desde un archivo excel o en forma manual.</h4>
+    </div>
+    <div class=" modal-footer">
+      <button class="btn btn-info" (click)="onboardingService.select_load_from_excel(); optionModal.hide();"> Desde archivo excel </button>
+      <button class="btn btn-info" (click)="onboardingService.select_manual_load(); optionModal.hide();"> De forma manual </button>
+    </div>
+</ng-template>
+
+<bdc-walk-popup #taskWelcome name="taskWelcome" header="Bienvenido! " xPosition="after" [showButton]="true" buttonText="Comenzar!" [closeOnClick]="false" [onButtonCompleteTask]="{taskWelcome: true}"> <!-- [onCloseCompleteTask]="{taskWelcome: false}"> -->
+  Este tutorial te guiará en el proceso de carga de productos
+</bdc-walk-popup>
+
+<bdc-walk-popup #taskClickProducts name="taskClickProducts" [showCloseButton]="false" header="Paso 1" xPosition="after" [mustCompleted]="{taskWelcome: true}">
+  Haz click aquí para cargar productos.
+</bdc-walk-popup>
+
+<bdc-walk-popup #clickImport name="clickImport"
+  [mustCompleted]="{taskClickOptionExcel: true}" [showCloseButton]="false" header="Paso 3" xPosition="after">
+  Haz click aquí para importar productos desde un excel.
+</bdc-walk-popup>
+
+<bdc-walk-popup #clickProductList name="clickProductList"
+  [mustCompleted]="{taskClickOptionManual: true}" [showCloseButton]="false" header="Paso 3" xPosition="after">
+  Haz click aquí para cargar un nuevo producto de forma manual.
+</bdc-walk-popup>
+
+<bdc-walk-popup #clickClients name="clickClients"
+  [mustCompleted]="{taskLoadProducts: true}" [showCloseButton]="false" header="Paso 6" xPosition="after">
+  Haz click aquí para cargar un nuevo cliente.
+</bdc-walk-popup>
+
+<bdc-walk-popup #clickListClients name="clickListClients"
+  [mustCompleted]="{clickClients: true}" [showCloseButton]="false" header="Paso 7" xPosition="after">
+  Haz click aquí en el submenu lista clientes .
+</bdc-walk-popup>

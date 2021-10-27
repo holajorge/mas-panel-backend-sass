@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import Swal from "sweetalert2";
 import { NgbDateStruct,NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
 
 const I18N_VALUES = {
   'pt': {
@@ -80,7 +81,7 @@ export class ProductoComponent implements OnInit {
   summaryPosition = 'top';
   
   constructor(public translate: TranslateService,public productoService: ProductoService,
-    private modalService: BsModalService,private formBuilder: FormBuilder) {
+    private modalService: BsModalService,private formBuilder: FormBuilder,  private onboardingService:WalkthroughService) {
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 

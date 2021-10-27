@@ -9,7 +9,8 @@
 
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo </a>
+              <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto); onboardingService.submit('clickNewProduct')" [bdcWalkTriggerFor]="clickNewProduct"> Nuevo </a>
+              <a *ngIf="!onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo </a>
           </div>
         </div>
       </div>
@@ -294,9 +295,10 @@
         </form>
     </div>
     <div class=" modal-footer">
-      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateProduct()" >{{ 'producto.formEdit.actualizar' | translate }}</button> 
-      <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibilityIn" (click)="insertProduct()" >{{ 'producto.formEdit.guardar' | translate }}</button> 
-      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'producto.formEdit.cancelar' | translate }}</button>
+        <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateProduct()" >{{ 'producto.formEdit.actualizar' | translate }}</button>
+        <button *ngIf="onboardingService.on && !btnvisibilityIn" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertProduct(); onboardingService.submit('completeProducts')" [bdcWalkTriggerFor]="completeProducts">{{ 'producto.formEdit.guardar' | translate }}</button>
+        <button *ngIf="!onboardingService.on && !btnvisibilityIn" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertProduct()" >{{ 'producto.formEdit.guardar' | translate }}</button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'producto.formEdit.cancelar' | translate }}</button>
     </div>
 
 </ng-template>
@@ -410,3 +412,15 @@
     </div>
 
 </ng-template>
+
+
+<bdc-walk-popup #clickNewProduct name="clickNewProduct"
+  [mustCompleted]="{clickProductList: true}" [showCloseButton]="false" header="Paso 4" xPosition="after">
+  Haz click en el botón "Nuevo"
+</bdc-walk-popup>
+
+
+<bdc-walk-popup #completeProducts name="completeProducts"
+  [mustCompleted]="{clickNewProduct: true}" [showCloseButton]="false" header="Paso 5" xPosition="after">
+  Completá los datos del producto y guardá.
+</bdc-walk-popup>

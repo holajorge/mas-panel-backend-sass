@@ -21,7 +21,7 @@ import { AuthModule } from "./auth/auth.module";
 import { PagesModule } from "./pages/pages.module"
 import { environment } from '../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import {BdcWalkModule} from 'bdc-walkthrough';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -52,6 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AuthModule,
     PagesModule,
+    BdcWalkModule,
   ],
   declarations: [
     AppComponent,

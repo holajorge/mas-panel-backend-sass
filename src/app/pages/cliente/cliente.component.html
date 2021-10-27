@@ -7,7 +7,8 @@
                 {{  'cliente.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" >{{ 'cliente.nuevo' | translate }} </a>
+              <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd); onboardingService.submit('newClient')" [bdcWalkTriggerFor]="newClient">{{ 'cliente.nuevo' | translate }}</a>
+              <a *ngIf="!onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" >{{ 'cliente.nuevo' | translate }} </a>
           </div>
         </div>
       </div>
@@ -323,8 +324,9 @@
         </form>
     </div>
     <div class=" modal-footer">
-      <button class="btn btn-success" [disabled]='addFormNew.invalid' *ngIf="!btnvisibilityAdd" (click)="insertNewClient()">{{ 'cliente.formClient.guardar' | translate}}</button> 
-      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
+        <button *ngIf="onboardingService.on && !btnvisibilityAdd" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='addFormNew.invalid' (click)="insertNewClient(); onboardingService.submit('completeData')" [bdcWalkTriggerFor]="completeData">{{ 'cliente.formClient.guardar' | translate}}</button>
+        <button *ngIf="!onboardingService.on && !btnvisibilityAdd" class="btn btn-success" [disabled]='addFormNew.invalid' (click)="insertNewClient()">{{ 'cliente.formClient.guardar' | translate}}</button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
     </div>
 </ng-template>
                
@@ -455,3 +457,31 @@
     </div>
 
 </ng-template>
+
+
+<bdc-walk-popup #newClient name="newClient"
+  [mustCompleted]="{clickListClients: true}" [showCloseButton]="false" header="Paso 8" xPosition="after">
+  Haz click en Nuevo Cliente.
+</bdc-walk-popup>
+
+
+<bdc-walk-popup #completeData name="completeData"
+  [mustCompleted]="{newClient: true}" [showCloseButton]="false" header="Paso 9" xPosition="after">
+  Completá con los datos y guardá.
+</bdc-walk-popup>
+
+
+<bdc-walk-dialog #dialogFinish name="dialogFinish" width="400px" [mustCompleted]="{completeData: true}">
+  <h1>
+    <i class="fa fa-flag" aria-hidden="true"></i> Finalizado!
+  </h1>
+
+  <p>
+    Felicitaciones,<br>
+    Todos los pasos completos, ahora podes entrar al <a routerLinkActive="active" [routerLink]="['../../producto', 'productos']" (click)="dialogFinish.close({dialogFinish: true}); onboardingService.turn_off">catalogo</a>.
+  </p>
+
+  <div class="modal-footer">
+    <button (click)="dialogFinish.close({dialogFinish: true}); onboardingService.turn_off" mat-raised-button class="btn btn-info">Cerrar</button>
+  </div>
+</bdc-walk-dialog>

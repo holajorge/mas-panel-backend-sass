@@ -4,6 +4,7 @@ import { Router } from '@angular/router'; //para redireccionar las vistas
 import { LoginService } from '../../service/login/login.service';
 import Swal from "sweetalert2";
 import { TranslateService } from '@ngx-translate/core';
+import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class LoginComponent implements OnInit {
   focus;
   focus1;
-  constructor(private loginService:LoginService, private router: Router, public translate: TranslateService) { 
+  constructor(private loginService:LoginService, private router: Router, public translate: TranslateService, private onboardingService:WalkthroughService) {
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');

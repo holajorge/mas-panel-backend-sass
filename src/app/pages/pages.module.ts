@@ -38,6 +38,7 @@ import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lis
 import { CategoriasComponent } from './categorias/categorias.component';
 import { ImportarCategoriaComponent } from './categorias/importar-categoria/importar-categoria.component';
 import { MicuentaComponent } from './micuenta/micuenta.component';
+import {BdcWalkModule} from 'bdc-walkthrough';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -89,7 +90,8 @@ imports: [
           deps: [HttpClient]
       }
     }),
-    AngularEditorModule 
+    AngularEditorModule,
+    BdcWalkModule
   ],
   exports: [
     AdminComponent,

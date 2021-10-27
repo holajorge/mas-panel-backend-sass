@@ -7,8 +7,9 @@
                 {{  'producto.importar.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modeloProducto()"> Descargar Modelo </a>
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelProductos()"> Exportar Excel</a>
+              <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modeloProducto(); onboardingService.submit('downloadModel')" [bdcWalkTriggerFor]="downloadModel"> Descargar Modelo </a>
+              <a *ngIf="onboardingService.on == false" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="modeloProducto();"> Descargar Modelo </a>
+              <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelProductos()"> Exportar Excel</a>
             <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
           </div>
         </div>
@@ -27,9 +28,14 @@
                             <h3 class="mb-0">{{'producto.importar.select'  | translate }}</h3>                            
                             <form [formGroup]="addForm" novalidate>
                                 <!-- <div class="custom-file"> -->
-                                    <input formControlName="file" 
-                                        (change)="handleFile($event)"  
-                                        class="form-control-label" 
+                                    <input *ngIf="onboardingService.on" [enabled]="onboardingService.on" formControlName="file"
+                                        (change)="handleFile($event)"
+                                        class="form-control-label"
+                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                        id="customFileLang" lang="pt" type="file" (click)="onboardingService.submit('importFile')"  [bdcWalkTriggerFor]="importFile" />
+                                    <input *ngIf="onboardingService.on == false" formControlName="file"
+                                        (change)="handleFile($event)"
+                                        class="form-control-label"
                                         accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                                         id="customFileLang" lang="pt" type="file"  />
                                     <!-- <label class="custom-file-label" for="customFileLang"> {{'producto.importar.labelselect'  | translate }} </label> -->
@@ -51,3 +57,13 @@
         </div>
     </div>
 </div>
+
+<bdc-walk-popup #downloadModel name="downloadModel"
+  [mustCompleted]="{clickImport: true}" [showCloseButton]="false" header="Paso 4" xPosition="after">
+  Haz click en descargar modelo.
+</bdc-walk-popup>
+
+<bdc-walk-popup #importFile name="importFile"
+  [mustCompleted]="{downloadModel: true}" [showCloseButton]="false" header="Paso 5" xPosition="after">
+  Completa los datos e importa el archivo.
+</bdc-walk-popup>
