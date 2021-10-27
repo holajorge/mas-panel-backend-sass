@@ -110,7 +110,7 @@ export class ImportarproductoComponent implements OnInit {
 
           }
           if (resul.dismiss){
-            console.log("ya chale");
+           // console.log("ya chale");
             
             this.deshacerCambios();
 
@@ -160,7 +160,7 @@ export class ImportarproductoComponent implements OnInit {
   }
 
   modeloProducto(){
-    this.productoService.exportAsExcelFile(this.modeloExcel, 'modelo_producto');
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_products?modelo=1&empresa="+this.empresa,"_blank");
 
   }
   dataExcelProductos(){
