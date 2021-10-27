@@ -6,6 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 import { ConfigService } from 'src/app/service/config/config.service';
 import { ProductoService } from 'src/app/service/producto/producto.service';
 import Swal from "sweetalert2";
+import { WalkthroughService } from '../../../../service/walkthrough/walkthrough.service';
 
 @Component({
   selector: 'app-importarproducto',
@@ -39,7 +40,7 @@ export class ImportarproductoComponent implements OnInit {
 
     }
   ];
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService) { 
+  constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService,  private onboardingService:WalkthroughService) {
 
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');

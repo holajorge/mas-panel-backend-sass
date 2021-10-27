@@ -17,6 +17,8 @@ import { RouterModule } from "@angular/router";
 import { CollapseModule } from "ngx-bootstrap/collapse";
 import { DxVectorMapModule } from "devextreme-angular";
 import { BsDropdownModule } from "ngx-bootstrap";
+import {BdcWalkModule} from 'bdc-walkthrough';
+import { TaskmanagerComponent } from './taskmanager/taskmanager.component';
 
 @NgModule({
   imports: [
@@ -25,21 +27,22 @@ import { BsDropdownModule } from "ngx-bootstrap";
     CollapseModule.forRoot(),
     DxVectorMapModule,
     PerfectScrollbarModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    BdcWalkModule
   ],
   declarations: [
-    
     VectorMapComponent1,
     SidebarAdminComponent,
     NavbarAdminComponent,
-    FooterAdminComponent
+    FooterAdminComponent,
+    TaskmanagerComponent
   ],
   exports: [
-    
     VectorMapComponent1,
     SidebarAdminComponent,
     NavbarAdminComponent,
-    FooterAdminComponent
+    FooterAdminComponent,
+    TaskmanagerComponent
   ],
   providers: [
     {

@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
 
 @Component({
   selector: 'app-admin',
@@ -7,7 +8,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
   isMobileResolution: boolean;
-  constructor() {
+  constructor(private onboardingService:WalkthroughService) {
     if (window.innerWidth < 1200) {
       this.isMobileResolution = true;
     } else {

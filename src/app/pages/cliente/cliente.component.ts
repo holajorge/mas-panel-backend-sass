@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { ConfigService } from 'src/app/service/config/config.service';
+import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
 
 @Component({
   selector: 'app-cliente',
@@ -42,7 +43,7 @@ export class ClienteComponent implements OnInit {
     private clienteService: ClienteService,
     public translate: TranslateService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder, private onboardingService:WalkthroughService
   ) {       
       this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');

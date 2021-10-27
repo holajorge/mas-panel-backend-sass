@@ -1,0 +1,20 @@
+<div *ngIf="onboardingService.on" class="taskManager">
+  <div class="title">
+    <i class="fa fa-flag" aria-hidden="true"></i>
+    <div style="flex: 1">
+      Resumen de las tareas
+    </div>
+    <a (click)="onboardingService.reset()">
+      <i class="fa fa-retweet" aria-hidden="true"></i>
+    </a>
+    <a (click)="onboardingService.turn_off()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  <div *ngFor="let task of onboardingService.tasks" class="task">
+    <i *ngIf="!task.done" class="fa fa-circle" aria-hidden="true"></i>
+    <i *ngIf="task.done" class="fa fa-check" aria-hidden="true"></i>
+    {{ task.title }}
+  </div>
+</div>

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
+import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 
 var misc: any = {
   sidebar_mini_active: true
@@ -161,7 +163,8 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarAdminComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
-  constructor(private router: Router) { }
+  public optionModal: BsModalRef;
+  constructor(private router: Router, private onboardingService:WalkthroughService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -205,4 +208,69 @@ export class SidebarAdminComponent implements OnInit {
       misc.sidebar_mini_active = true;
     }
   }
+
+  setStepOnboarding(task_name){
+    if(this.onboardingService.on == false){
+        return;
+    }
+    if(task_name == 'taskClickProducts'){
+        this.openModalOptionsOnboarding();
+    }
+    this.onboardingService.submit(task_name);
+  }
+
+  checkTask(menuitem, task_name){
+    var aux_keys = {"producto": 1, "importarproducto": 1, "productos": 1, "cliente": 1, "clientes": 1};
+
+    switch (task_name) {
+        case 'taskClickProducts':
+            if(menuitem.path == "producto"){
+                return true;
+            }
+            break;
+        case 'clickImport':
+            if(menuitem.path == "importarproducto"){
+                return true;
+            }
+            break;
+        case 'clickProductList':
+            if(menuitem.path == "productos"){
+                return true;
+            }
+            break;
+        case 'clickClients':
+            if(menuitem.path == "cliente"){
+                return true;
+            }
+            break;
+        case 'clickListClients':
+            if(menuitem.path == "clientes"){
+                return true;
+            }
+            break;
+        case 'nothing':
+            if(!(menuitem.path in aux_keys)){
+                return true;
+            }
+        default:
+            return false;
+    }
+    return false;
+  }
+
+  @ViewChild('modalLoadOptionOnboarding') modalLoadOptionOnboarding: ElementRef;
+  openModalOptionsOnboarding(){
+    this.optionModal = this.modalService.show(
+      this.modalLoadOptionOnboarding,
+      {keyboard: true, class: "modal-dialog-centered modal-lg static"}
+    );
+  }
+
+  public collapseAll(){
+    for(let menuitem of this.menuItems){
+        menuitem.isCollapsed = true;
+        console.log(menuitem);
+    }
+  }
+
 }
