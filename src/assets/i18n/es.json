@@ -130,7 +130,8 @@
             "descripcion": "Descripcion",
             "actualizar": "Actualizar",
             "guardar": "Guardar",
-            "cancelar": "Cancelar"
+            "cancelar": "Cancelar",
+            "foto": "Foto"
         },
         "grid":{
             "titulo": "Grid de fotos"
