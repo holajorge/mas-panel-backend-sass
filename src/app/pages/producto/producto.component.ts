@@ -307,13 +307,50 @@ export class ProductoComponent implements OnInit {
     }else{
       formData.append('foto',this.form_dataConfig.get('foto'));
     }
-    // console.log(this.editForm.value); return false;
+    const caract1 = this.editForm.get('caracteristica1').value;
+    const caract2 = this.editForm.get('caracteristica2').value;
+    const caract3 = this.editForm.get('caracteristica3').value;
+    const caract4 = this.editForm.get('caracteristica3').value;
+
+    let ca1 = '';
+    let ca2 = "";
+    let ca3 = "";
+    let ca4 = "";
+
+    if(this.isKeyExists(caract1,'nombre')){
+      ca1 =  caract1.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca1 =  caract1;
+      }
+    }
+    if(this.isKeyExists(caract2,'nombre')){
+      ca2 =  caract2.nombre;
+    }else{
+      if(caract2 != "" ){
+        ca2 =  caract2;
+      }
+    }
+    if(this.isKeyExists(caract3,'nombre')){
+      ca3 =  caract3.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca3 =  caract3;
+      }
+    }
+    if(this.isKeyExists(caract4,'nombre')){
+      ca4 =  caract4.nombre;
+    }else{
+      if(caract4 != "" ){
+        ca4 =  caract4;
+      }
+    }
 
     formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
-    formData.append('caracteristica1',this.editForm.get('caracteristica1').value);
-    formData.append('caracteristica2',this.editForm.get('caracteristica2').value);
-    formData.append('caracteristica3',this.editForm.get('caracteristica3').value);
-    formData.append('caracteristica4',this.editForm.get('caracteristica4').value);
+    formData.append('caracteristica1',ca1);
+    formData.append('caracteristica2',ca2);
+    formData.append('caracteristica3',ca3);
+    formData.append('caracteristica4',ca4);
     formData.append('codigo_producto',this.editForm.get('codigo_producto').value);
     formData.append('descripcion',this.editForm.get('descripcion').value);
     formData.append('destacado',this.editForm.get('destacado').value);
@@ -351,8 +388,6 @@ export class ProductoComponent implements OnInit {
   }
   insertProduct(){
 
-    
-
     if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
       this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
       Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ '<strong>'+this.textCaract1+', '+this.textCaract2+', '+this.textCaract3 +', '+this.textCaract4+ '<strong>', '','error');
@@ -368,27 +403,47 @@ export class ProductoComponent implements OnInit {
     }
     // console.log(this.editForm.value); return false;
     const caract1 = this.editForm.get('caracteristica1').value;
-    let ca1 = "";
-    if(caract1 != null){
-      ca1 = caract1.nombre
-    }
     const caract2 = this.editForm.get('caracteristica2').value;
-    let ca2 = "";
-    if(caract1 != null){
-      ca2 = caract2.nombre
-    }
     const caract3 = this.editForm.get('caracteristica3').value;
-    let ca3 = "";
-    if(caract3 != null){
-      ca3 = caract3.nombre
-    }
     const caract4 = this.editForm.get('caracteristica3').value;
+
+    let ca1 = '';
+    let ca2 = "";
+    let ca3 = "";
     let ca4 = "";
-    if(caract4 != null){
-      ca4 = caract4.nombre
+
+    if(this.isKeyExists(caract1,'nombre')){
+      ca1 =  caract1.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca1 =  caract1;
+      }
     }
-    
+    if(this.isKeyExists(caract2,'nombre')){
+      ca2 =  caract2.nombre;
+    }else{
+      if(caract2 != "" ){
+        ca2 =  caract2;
+      }
+    }
+    if(this.isKeyExists(caract3,'nombre')){
+      ca3 =  caract3.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca3 =  caract3;
+      }
+    }
+    if(this.isKeyExists(caract4,'nombre')){
+      ca4 =  caract4.nombre;
+    }else{
+      if(caract4 != "" ){
+        ca4 =  caract4;
+      }
+    }
+
+    // console.log(ca1); return false;
     // console.log(caract2); return false;
+    // console.log(caract3); return false;
     formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
     formData.append('caracteristica1',ca1);
     formData.append('caracteristica2',ca2);
@@ -428,7 +483,13 @@ export class ProductoComponent implements OnInit {
       console.log(err);
     });
   }
-
+  isKeyExists(obj,key){
+    if( obj[key] == undefined ){
+        return false;
+    }else{
+        return true;
+    }
+}
   newProduct(modalEditProducto){
     this.textAddOrEdit = false;
 
