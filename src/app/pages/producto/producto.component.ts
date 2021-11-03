@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild, ElementRef, TemplateRef,Injectable } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe, TranslateDirective } from '@ngx-translate/core';
 import { ProductoService } from '../../service/producto/producto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
@@ -19,7 +19,16 @@ const I18N_VALUES = {
 export class I18n {
   language = 'pt';
 }
-
+export abstract class TranslateParser {
+  /**
+   * Interpolates a string to replace parameters
+   * "This is a {{ key }}" ==> "This is a value", with params = { key: "value" }
+   * @param expr
+   * @param params
+   * @returns {string}
+   */
+  abstract interpolate(expr: string | Function, params?: any): string;
+}
 @Injectable()
 export class CustomDatepickerI18n extends NgbDatepickerI18n {
   constructor(private _i18n: I18n) { super(); }
@@ -80,7 +89,9 @@ export class ProductoComponent implements OnInit {
   enableSummary = true;
   summaryPosition = 'top';
   form_dataConfig:any=[];
-  
+  textAddOrEdit:boolean = false;
+  bucket:string = "";
+  fotos:any;
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder,  private onboardingService:WalkthroughService) {
     this.translate.use('es');
@@ -115,7 +126,22 @@ export class ProductoComponent implements OnInit {
     });
   }
   onSelectItem(modalEditProducto,row) {
+    this.textAddOrEdit = true;
     
+    let fotosArray = JSON.parse(row.fotos);
+    if(fotosArray.length > 0){
+      this.fotos = fotosArray.map( (val) =>{
+        return {
+          img: "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+this.bucket+"/fotos/"+val,
+          id: row.id,
+          nombre: val
+        };          
+      });
+    }else{
+      this.fotos = [];
+    }
+
+    console.log(this.fotos);
     this.editForm.patchValue({
       id: row.id,
       empresa_id: row.empresa_id,
@@ -151,6 +177,8 @@ export class ProductoComponent implements OnInit {
       if(res.success){
       
         Swal.close();
+        this.bucket = res.productos['empresa'].bucket;
+        
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
         this.arrayCaracteristica1 = res.productos['caracteristica1'];
@@ -162,8 +190,7 @@ export class ProductoComponent implements OnInit {
           this.textCaract1 = "caracteristica 1";
           this.textCaract2 = "caracteristica 2";
           this.textCaract3 = "caracteristica 3";
-          this.textCaract4 = "caracteristica 4";
-          console.log(this.textCaract4);
+          this.textCaract4 = "caracteristica 4";          
 
         }else{
           this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1";
@@ -173,10 +200,7 @@ export class ProductoComponent implements OnInit {
           if(this.textCaract4 == undefined){
             this.textCaract4 = "caracteristica 4";
           }
-          console.log(this.textCaract4);
-
         }
-        // console.log(this.textCaract4);
       }else{
         Swal.close();
       }
@@ -273,8 +297,11 @@ export class ProductoComponent implements OnInit {
     this.activeRow = event.row;
   }
   updateProduct(){
+    this.translate.get('producto.tituloEdit', {value: 'Editar'}).subscribe((res: string) => {
+      console.log(res);
+      //=> 'hello world'
+    });
     let formData = new FormData();
-
     if(Array.isArray(this.form_dataConfig)){
 
     }else{
@@ -403,6 +430,8 @@ export class ProductoComponent implements OnInit {
   }
 
   newProduct(modalEditProducto){
+    this.textAddOrEdit = false;
+
     this.editForm.reset();
  
     this.notificationModal = this.modalService.show(
@@ -413,7 +442,7 @@ export class ProductoComponent implements OnInit {
       empresa_id: this.empresa
     });
 
-    console.log(this.editForm.value);
+    // console.log(this.editForm.value);
     this.btnvisibility = true;  
     this.btnvisibilityIn = false; 
 
@@ -583,6 +612,37 @@ export class ProductoComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+
+  }
+  eliminarFoto(foto){
+
+    Swal.fire({
+      title: 'Seguro de eliminar esta '+foto.nombre+' foto del producto?',
+      text: "Eliminar foto producto!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          
+          this.productoService.deleteFotoProducto(foto).then( (res:any) =>{    
+            if(res.success == true){
+              this.cambios = true;
+              Swal.fire('Listo!','Foto eliminado con exito!', 'success')
+              this.getProductos();
+            }else{
+              Swal.fire('Upps!','Error al eliminar foto del producto, intente nuevamente!', 'error')
+            }
+          }).catch(err=>{
+            Swal.fire('Upps!','Error al eliminar foto del producto, intente nuevamente!', 'error')
+            console.log(err);
+          });
+        }
+    }) 
+    
 
   }
 }
