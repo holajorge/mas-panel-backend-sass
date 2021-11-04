@@ -7,7 +7,7 @@ import { WalkthroughService } from '../../service/walkthrough/walkthrough.servic
   styleUrls: ['./taskmanager.component.scss']
 })
 export class TaskmanagerComponent implements OnInit {
-  constructor(private onboardingService:WalkthroughService) { }
+  constructor(public onboardingService:WalkthroughService) { }
 
   ngOnInit() {
   }

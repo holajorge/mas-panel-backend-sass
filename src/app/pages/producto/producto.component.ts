@@ -81,7 +81,7 @@ export class ProductoComponent implements OnInit {
   summaryPosition = 'top';
   
   constructor(public translate: TranslateService,public productoService: ProductoService,
-    private modalService: BsModalService,private formBuilder: FormBuilder,  private onboardingService:WalkthroughService) {
+    private modalService: BsModalService,private formBuilder: FormBuilder,  public onboardingService:WalkthroughService) {
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 

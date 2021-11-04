@@ -43,7 +43,7 @@ export class ClienteComponent implements OnInit {
     private clienteService: ClienteService,
     public translate: TranslateService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder, private onboardingService:WalkthroughService
+    private formBuilder: FormBuilder, public onboardingService:WalkthroughService
   ) {       
       this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');

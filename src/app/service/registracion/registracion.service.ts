@@ -19,7 +19,7 @@ export class RegistracionService {
     data["domain"] = data["subdomain"] + ConfigService.DOMAIN();
     data["config"] = {"subdominio": data["bucket"]};
     data["status"] = 1;
-    console.log(data);
+    // console.log(data);
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveCompany",data,options);
   }
 }

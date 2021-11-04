@@ -109,10 +109,17 @@ export class ConfiguracionesComponent {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        console.log(this.configuraciones.size_foto);
+      //  console.log('CONFIGURACIONES', this.configuraciones);
         this.chico = (this.configuraciones.size_foto == 1) ? true : false;
         this.mediano = (this.configuraciones.size_foto == 2) ? true : false;
         this.grande = (this.configuraciones.size_foto == 3) ? true : false;
+
+        console.log('Fotos', this.configuraciones);
+        if (this.configuraciones.size_foto == undefined || this.configuraciones.size_foto === undefined){
+          this.mediano = true;
+          this.configuraciones.size_foto = 2;
+        }
+
         this.formConfig.patchValue({
           color_botones: this.configuraciones.color_botones,
           descripcion_empresa: this.configuraciones.descripcion_empresa,

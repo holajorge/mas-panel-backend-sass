@@ -19,7 +19,7 @@ export class RegistracionComponent implements OnInit {
   focus1;
   disableButton = false;
   errorForm = false;
-  constructor(private registracionService:RegistracionService, private router: Router, public translate: TranslateService, private loginService:LoginService, private onboardingService:WalkthroughService) {
+  constructor(private registracionService:RegistracionService, private router: Router, public translate: TranslateService, private loginService:LoginService, public onboardingService:WalkthroughService) {
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
@@ -46,8 +46,8 @@ export class RegistracionComponent implements OnInit {
           if(data.body.perfil != null){
             localStorage.setItem('usuario', data.body.id);
             form.reset();
-            this.onboardingService.turn_on();
-            this.onboardingService.reset();
+        //    this.onboardingService.turn_on();
+        //    this.onboardingService.reset();
             this.router.navigate(['/admin']);
            }else{
             Swal.fire({

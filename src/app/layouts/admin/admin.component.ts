@@ -8,7 +8,7 @@ import { WalkthroughService } from '../../service/walkthrough/walkthrough.servic
 })
 export class AdminComponent implements OnInit {
   isMobileResolution: boolean;
-  constructor(private onboardingService:WalkthroughService) {
+  constructor(public onboardingService:WalkthroughService) {
     if (window.innerWidth < 1200) {
       this.isMobileResolution = true;
     } else {

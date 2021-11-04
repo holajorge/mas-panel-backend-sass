@@ -15,7 +15,7 @@ import { WalkthroughService } from '../../service/walkthrough/walkthrough.servic
 export class LoginComponent implements OnInit {
   focus;
   focus1;
-  constructor(private loginService:LoginService, private router: Router, public translate: TranslateService, private onboardingService:WalkthroughService) {
+  constructor(private loginService:LoginService, private router: Router, public translate: TranslateService, public onboardingService:WalkthroughService) {
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');
     this.translate.use('es');
@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('usuario', data.body.id);
         Swal.close();
         form.reset();
+
+       // this.onboardingService.turn_on();
+       // this.onboardingService.reset();
+
         this.router.navigate(['/admin']);
        }else{
         Swal.close();

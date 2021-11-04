@@ -111,13 +111,13 @@ export class MicuentaComponent implements OnInit {
   solicitarBaja(){
 
     Swal.fire({
-      title: '¿Seguro de Solicitar Baja?',
-      text: "Se dera de baja la cuenta!",
+      title: '¿Seguro de solicitar la baja?',
+      text: "Se dará de baja la cuenta!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Baja!',
+      confirmButtonText: 'si, estoy seguro!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
@@ -127,7 +127,7 @@ export class MicuentaComponent implements OnInit {
 
             console.log(res);
             if(res.response['body'].flag == true){
-              Swal.fire('Listo!','Baja solicitada con exito!', 'success');
+              Swal.fire('Listo!','Baja solicitada con éxito!', 'success');
               this.getConfig();
               // this.addForm.reset();
             }else{

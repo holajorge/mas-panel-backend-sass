@@ -40,7 +40,7 @@ export class ImportarproductoComponent implements OnInit {
 
     }
   ];
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService,  private onboardingService:WalkthroughService) {
+  constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService,  public onboardingService:WalkthroughService) {
 
     this.translate.addLangs(['en','es','pt']);
     this.translate.setDefaultLang('es');

@@ -164,7 +164,7 @@ export class SidebarAdminComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
   public optionModal: BsModalRef;
-  constructor(private router: Router, private onboardingService:WalkthroughService, private modalService: BsModalService) { }
+  constructor(private router: Router, public onboardingService:WalkthroughService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
