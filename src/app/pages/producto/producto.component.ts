@@ -141,7 +141,6 @@ export class ProductoComponent implements OnInit {
       this.fotos = [];
     }
 
-    console.log(this.fotos);
     this.editForm.patchValue({
       id: row.id,
       empresa_id: row.empresa_id,
@@ -297,10 +296,7 @@ export class ProductoComponent implements OnInit {
     this.activeRow = event.row;
   }
   updateProduct(){
-    this.translate.get('producto.tituloEdit', {value: 'Editar'}).subscribe((res: string) => {
-      console.log(res);
-      //=> 'hello world'
-    });
+    
     let formData = new FormData();
     if(Array.isArray(this.form_dataConfig)){
 
@@ -310,9 +306,9 @@ export class ProductoComponent implements OnInit {
     const caract1 = this.editForm.get('caracteristica1').value;
     const caract2 = this.editForm.get('caracteristica2').value;
     const caract3 = this.editForm.get('caracteristica3').value;
-    const caract4 = this.editForm.get('caracteristica3').value;
+    const caract4 = this.editForm.get('caracteristica4').value;
 
-    let ca1 = '';
+    let ca1 = "";
     let ca2 = "";
     let ca3 = "";
     let ca4 = "";
@@ -345,7 +341,9 @@ export class ProductoComponent implements OnInit {
         ca4 =  caract4;
       }
     }
-
+    console.log(caract4);
+    console.log(ca4);
+    // return false;
     formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
     formData.append('caracteristica1',ca1);
     formData.append('caracteristica2',ca2);
@@ -489,7 +487,7 @@ export class ProductoComponent implements OnInit {
     }else{
         return true;
     }
-}
+  }
   newProduct(modalEditProducto){
     this.textAddOrEdit = false;
 
@@ -675,7 +673,10 @@ export class ProductoComponent implements OnInit {
     });
 
   }
-  eliminarFoto(foto){
+  eliminarFoto(foto, index){
+
+    console.log(index);
+    console.log(this.fotos);
 
     Swal.fire({
       title: 'Seguro de eliminar esta '+foto.nombre+' foto del producto?',
@@ -694,6 +695,8 @@ export class ProductoComponent implements OnInit {
               this.cambios = true;
               Swal.fire('Listo!','Foto eliminado con exito!', 'success')
               this.getProductos();
+              this.fotos.splice(index,1);
+
             }else{
               Swal.fire('Upps!','Error al eliminar foto del producto, intente nuevamente!', 'error')
             }

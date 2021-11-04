@@ -203,7 +203,8 @@
                             [items]="arrayCaracteristica1" 
                             bindLabel="nombre">
                         </ng-select>
-                        <input *ngIf="addTextCaract"  type="text" formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" name="caracteristica1" class="form-control" id="caracteristica1">
+                        <input *ngIf="addTextCaract"  type="text" 
+                            formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" name="caracteristica1" class="form-control" id="caracteristica1">
                     </div>
                 </div>
                 <div class="col-md-3 col-xs-12">
@@ -216,7 +217,8 @@
                             [items]="arrayCaracteristica2" 
                             bindLabel="nombre">
                         </ng-select>
-                        <input  *ngIf="addTextCaract2" type="text" formControlName="caracteristica2" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 2" name="caracteristica2" class="form-control" id="caracteristica2">
+                        <input  *ngIf="addTextCaract2" type="text" 
+                            formControlName="caracteristica2" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 2" name="caracteristica2" class="form-control" id="caracteristica2">
                         
                     </div>
                 </div>
@@ -230,7 +232,8 @@
                             [items]="arrayCaracteristica3" 
                             bindLabel="nombre">
                         </ng-select>
-                        <input *ngIf="addTextCaract3" type="text" formControlName="caracteristica3" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 3" name="caracteristica3" class="form-control" id="caracteristica3">
+                        <input *ngIf="addTextCaract3" type="text" 
+                            formControlName="caracteristica3" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 3" name="caracteristica3" class="form-control" id="caracteristica3">
                         
                     </div>
                 </div>
@@ -244,7 +247,8 @@
                             [items]="arrayCaracteristica4"
                             bindLabel="nombre">
                         </ng-select>
-                        <input *ngIf="addTextCaract4" type="text" formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
+                        <input *ngIf="addTextCaract4" type="text" 
+                            formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
                     </div>
                 </div>
                 
@@ -281,7 +285,7 @@
                     <div class="form-group ">
                         <label for="foto" 
                             class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
-                        <input type="file" accept="image/*" 
+                        <input type="file" accept="image/*"  accept=".png, .jpg, .jpeg"
                             (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
                     </div>
                 </div>
@@ -299,12 +303,12 @@
                 </div> -->
             </div>
             <div class="row">
-                <div class="col-3 mb-3" *ngFor="let foto of fotos">
+                <div class="col-3 mb-3" *ngFor="let foto of fotos; let i = index">
                     <div class="card-group">
                         <div class="card text-center" >
                           <img class="card-img-top " src="{{foto.img}}" alt="Card image cap">
                           <div class="card-body">
-                            <a href="javascript::void()" (click)="eliminarFoto(foto)" class="btn btn-danger">Eliminar</a>
+                            <a href="javascript::void()" (click)="eliminarFoto(foto, i)" class="btn btn-danger">Eliminar</a>
                           </div>
                         </div>
                     </div>
