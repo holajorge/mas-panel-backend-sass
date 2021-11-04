@@ -25,12 +25,24 @@ export class ProductoService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
-  updateProducto(producto){
-    console.log(producto);
+  deleteFotoProducto(foto){
+    
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateProducto",producto,options).toPromise().then((res) =>{      
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/eliminarFotoProducto",foto,options).toPromise().then((res) =>{      
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  updateProducto(producto){
+    console.log(producto);
+    // let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    // let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateProducto",producto).toPromise().then((res) =>{      
       return { success: true, productos:res};
     })
     .catch( (err) =>{
@@ -40,10 +52,10 @@ export class ProductoService {
   createProducto(producto){
 
     console.log(producto);
-    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    let options = { headers: headers };
+    // let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    // let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/createProducto",producto,options).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/createProducto",producto).toPromise().then((res) =>{     
       return { success: true, productos:res};
     })
     .catch( (err) =>{

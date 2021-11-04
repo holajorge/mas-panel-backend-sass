@@ -78,11 +78,8 @@ export class ConfiguracionesComponent {
   grande:boolean = false;
   
   constructor(public translate: TranslateService,  public fb: FormBuilder, public configService: ConfigService) { 
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
-    
     this.formConfig = this.fb.group({
       nombre_empresa: [null],
       direccion: [null],

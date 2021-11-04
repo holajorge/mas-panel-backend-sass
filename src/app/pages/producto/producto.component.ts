@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild, ElementRef, TemplateRef,Injectable } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe, TranslateDirective } from '@ngx-translate/core';
 import { ProductoService } from '../../service/producto/producto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
@@ -19,7 +19,16 @@ const I18N_VALUES = {
 export class I18n {
   language = 'pt';
 }
-
+export abstract class TranslateParser {
+  /**
+   * Interpolates a string to replace parameters
+   * "This is a {{ key }}" ==> "This is a value", with params = { key: "value" }
+   * @param expr
+   * @param params
+   * @returns {string}
+   */
+  abstract interpolate(expr: string | Function, params?: any): string;
+}
 @Injectable()
 export class CustomDatepickerI18n extends NgbDatepickerI18n {
   constructor(private _i18n: I18n) { super(); }
@@ -76,10 +85,13 @@ export class ProductoComponent implements OnInit {
   textCaract2:string = "";
   textCaract3:string = "";
   textCaract4:string = "";
-  
+  // caract4:any = [];
   enableSummary = true;
   summaryPosition = 'top';
-  
+  form_dataConfig:any=[];
+  textAddOrEdit:boolean = false;
+  bucket:string = "";
+  fotos:any;
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder,  public onboardingService:WalkthroughService) {
     this.translate.use('es');
@@ -109,10 +121,27 @@ export class ProductoComponent implements OnInit {
       fecha_sync: [''],
       stock_minimo: [''],
       descripcion: [''],
+      logoo: [null],
+      foto: [null],
     });
   }
   onSelectItem(modalEditProducto,row) {
+    this.textAddOrEdit = true;
     
+    let fotosArray = JSON.parse(row.fotos);
+    if(fotosArray.length > 0){
+      this.fotos = fotosArray.map( (val) =>{
+        return {
+          img: "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+this.bucket+"/fotos/"+val,
+          id: row.id,
+          nombre: val
+        };          
+      });
+    }else{
+      this.fotos = [];
+    }
+
+    console.log(this.fotos);
     this.editForm.patchValue({
       id: row.id,
       empresa_id: row.empresa_id,
@@ -146,7 +175,10 @@ export class ProductoComponent implements OnInit {
     Swal.showLoading();
     this.productoService.getProducto(this.empresa).then( (res:any) =>{    
       if(res.success){
+      
         Swal.close();
+        this.bucket = res.productos['empresa'].bucket;
+        
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
         this.arrayCaracteristica1 = res.productos['caracteristica1'];
@@ -154,10 +186,21 @@ export class ProductoComponent implements OnInit {
         this.arrayCaracteristica3 = res.productos['caracteristica3'];
         this.arrayCaracteristica4 = res.productos['caracteristica4'];
         this.configuraciones = res.productos['configuraciones'];
-        this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
-        this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
-        this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
-        this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
+        if(this.configuraciones == false || this.configuraciones == null){
+          this.textCaract1 = "caracteristica 1";
+          this.textCaract2 = "caracteristica 2";
+          this.textCaract3 = "caracteristica 3";
+          this.textCaract4 = "caracteristica 4";          
+
+        }else{
+          this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1";
+          this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2";
+          this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3";
+          this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4";
+          if(this.textCaract4 == undefined){
+            this.textCaract4 = "caracteristica 4";
+          }
+        }
       }else{
         Swal.close();
       }
@@ -165,7 +208,35 @@ export class ProductoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
-  } 
+
+  }
+  showPreviewHeader(event) {
+    const file = (event.target as HTMLInputElement).files[0];    
+    const files:FileList = event.target.files;    
+    this.editForm.patchValue({logo: file});
+    this.editForm.get('foto').updateValueAndValidity();
+
+    if(files.length > 0){
+      const file = files[0];
+      if((file.size/1048576)<=4){        
+
+        let formData = new FormData();
+        // console.log(file);
+        // console.log(file.name);
+        formData.append('foto', (event.target as HTMLInputElement).files[0], file.name);
+        // formData.append('empresa_id',this.formConfig.get('empresa_id').value); 
+        // console.log(formData);
+        this.form_dataConfig = formData;
+        // console.log(this.form_dataConfig);
+        // this.formConfig.patchValue({filesource: files});
+        // console.log(this.form_dataConfig.get('logo'));
+        // File Preview        
+
+      }else{
+        Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
+      }
+    }
+  }
   getNames(): string[] {
     return this.rows.map(row => row.titulo).map(fullName => fullName.split(' ')[1]);
   } 
@@ -226,8 +297,77 @@ export class ProductoComponent implements OnInit {
     this.activeRow = event.row;
   }
   updateProduct(){
+    this.translate.get('producto.tituloEdit', {value: 'Editar'}).subscribe((res: string) => {
+      console.log(res);
+      //=> 'hello world'
+    });
+    let formData = new FormData();
+    if(Array.isArray(this.form_dataConfig)){
 
-    this.productoService.updateProducto(this.editForm.value).then( (res:any) =>{    
+    }else{
+      formData.append('foto',this.form_dataConfig.get('foto'));
+    }
+    const caract1 = this.editForm.get('caracteristica1').value;
+    const caract2 = this.editForm.get('caracteristica2').value;
+    const caract3 = this.editForm.get('caracteristica3').value;
+    const caract4 = this.editForm.get('caracteristica3').value;
+
+    let ca1 = '';
+    let ca2 = "";
+    let ca3 = "";
+    let ca4 = "";
+
+    if(this.isKeyExists(caract1,'nombre')){
+      ca1 =  caract1.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca1 =  caract1;
+      }
+    }
+    if(this.isKeyExists(caract2,'nombre')){
+      ca2 =  caract2.nombre;
+    }else{
+      if(caract2 != "" ){
+        ca2 =  caract2;
+      }
+    }
+    if(this.isKeyExists(caract3,'nombre')){
+      ca3 =  caract3.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca3 =  caract3;
+      }
+    }
+    if(this.isKeyExists(caract4,'nombre')){
+      ca4 =  caract4.nombre;
+    }else{
+      if(caract4 != "" ){
+        ca4 =  caract4;
+      }
+    }
+
+    formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
+    formData.append('caracteristica1',ca1);
+    formData.append('caracteristica2',ca2);
+    formData.append('caracteristica3',ca3);
+    formData.append('caracteristica4',ca4);
+    formData.append('codigo_producto',this.editForm.get('codigo_producto').value);
+    formData.append('descripcion',this.editForm.get('descripcion').value);
+    formData.append('destacado',this.editForm.get('destacado').value);
+    formData.append('empresa_id',this.editForm.get('empresa_id').value);
+    formData.append('fecha_sync',this.editForm.get('fecha_sync').value);
+    formData.append('id',this.editForm.get('id').value);
+    // formData.append('logoo',this.editForm.get('logoo').value);
+    formData.append('precio',this.editForm.get('precio').value);
+    formData.append('precio_oferta',this.editForm.get('precio_oferta').value);
+    formData.append('solapa1',this.editForm.get('solapa1').value);
+    formData.append('solapa2',this.editForm.get('solapa2').value);
+    formData.append('stock',this.editForm.get('stock').value);
+    formData.append('stock_minimo',this.editForm.get('stock_minimo').value);
+    formData.append('sync',this.editForm.get('sync').value);
+    formData.append('titulo',this.editForm.get('titulo').value);
+
+    this.productoService.updateProducto(formData).then( (res:any) =>{    
       if(res.success == true){
         this.notificationModal.hide();
         this.editForm.reset();
@@ -253,8 +393,80 @@ export class ProductoComponent implements OnInit {
       Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ '<strong>'+this.textCaract1+', '+this.textCaract2+', '+this.textCaract3 +', '+this.textCaract4+ '<strong>', '','error');
         return false;
     } 
+
+    let formData = new FormData();
+
+    if(Array.isArray(this.form_dataConfig)){
+
+    }else{
+      formData.append('foto',this.form_dataConfig.get('foto'));
+    }
+    // console.log(this.editForm.value); return false;
+    const caract1 = this.editForm.get('caracteristica1').value;
+    const caract2 = this.editForm.get('caracteristica2').value;
+    const caract3 = this.editForm.get('caracteristica3').value;
+    const caract4 = this.editForm.get('caracteristica3').value;
+
+    let ca1 = '';
+    let ca2 = "";
+    let ca3 = "";
+    let ca4 = "";
+
+    if(this.isKeyExists(caract1,'nombre')){
+      ca1 =  caract1.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca1 =  caract1;
+      }
+    }
+    if(this.isKeyExists(caract2,'nombre')){
+      ca2 =  caract2.nombre;
+    }else{
+      if(caract2 != "" ){
+        ca2 =  caract2;
+      }
+    }
+    if(this.isKeyExists(caract3,'nombre')){
+      ca3 =  caract3.nombre;
+    }else{
+      if(caract1 != "" ){
+        ca3 =  caract3;
+      }
+    }
+    if(this.isKeyExists(caract4,'nombre')){
+      ca4 =  caract4.nombre;
+    }else{
+      if(caract4 != "" ){
+        ca4 =  caract4;
+      }
+    }
+
+    // console.log(ca1); return false;
+    // console.log(caract2); return false;
+    // console.log(caract3); return false;
+    formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
+    formData.append('caracteristica1',ca1);
+    formData.append('caracteristica2',ca2);
+    formData.append('caracteristica3',ca3);
+    formData.append('caracteristica4',ca4);
+    formData.append('codigo_producto',this.editForm.get('codigo_producto').value);
+    formData.append('descripcion',this.editForm.get('descripcion').value);
+    formData.append('destacado',this.editForm.get('destacado').value);
+    formData.append('empresa_id',this.editForm.get('empresa_id').value);
+    formData.append('fecha_sync',this.editForm.get('fecha_sync').value);
+    // formData.append('id',this.editForm.get('id').value);
+    // formData.append('logoo',this.editForm.get('logoo').value);
+    formData.append('precio',this.editForm.get('precio').value);
+    formData.append('precio_oferta',this.editForm.get('precio_oferta').value);
+    formData.append('solapa1',this.editForm.get('solapa1').value);
+    formData.append('solapa2',this.editForm.get('solapa2').value);
+    formData.append('stock',this.editForm.get('stock').value);
+    formData.append('stock_minimo',this.editForm.get('stock_minimo').value);
+    formData.append('sync',this.editForm.get('sync').value);
+    formData.append('titulo',this.editForm.get('titulo').value);
+
     Swal.showLoading();
-    this.productoService.createProducto(this.editForm.value).then( (res:any) =>{    
+    this.productoService.createProducto(formData).then( (res:any) =>{    
       if(res.productos.body.usuario == 2){
         Swal.fire('Error', 'Codigo producto ya existe', 'error');      
       }else if(res.productos.body.usuario == 1){
@@ -271,8 +483,16 @@ export class ProductoComponent implements OnInit {
       console.log(err);
     });
   }
-
+  isKeyExists(obj,key){
+    if( obj[key] == undefined ){
+        return false;
+    }else{
+        return true;
+    }
+}
   newProduct(modalEditProducto){
+    this.textAddOrEdit = false;
+
     this.editForm.reset();
  
     this.notificationModal = this.modalService.show(
@@ -283,7 +503,7 @@ export class ProductoComponent implements OnInit {
       empresa_id: this.empresa
     });
 
-    console.log(this.editForm.value);
+    // console.log(this.editForm.value);
     this.btnvisibility = true;  
     this.btnvisibilityIn = false; 
 
@@ -453,6 +673,37 @@ export class ProductoComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+
+  }
+  eliminarFoto(foto){
+
+    Swal.fire({
+      title: 'Seguro de eliminar esta '+foto.nombre+' foto del producto?',
+      text: "Eliminar foto producto!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          
+          this.productoService.deleteFotoProducto(foto).then( (res:any) =>{    
+            if(res.success == true){
+              this.cambios = true;
+              Swal.fire('Listo!','Foto eliminado con exito!', 'success')
+              this.getProductos();
+            }else{
+              Swal.fire('Upps!','Error al eliminar foto del producto, intente nuevamente!', 'error')
+            }
+          }).catch(err=>{
+            Swal.fire('Upps!','Error al eliminar foto del producto, intente nuevamente!', 'error')
+            console.log(err);
+          });
+        }
+    }) 
+    
 
   }
 }

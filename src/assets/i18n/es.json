@@ -94,6 +94,7 @@
         },
         "titulo":"Lista Productos",
         "tituloEdit": "Editar Producto",
+        "tituloAdd": "Nuevo Producto",
         "foto": {
             "titulo": "Importar Fotos",
             "text": "Seleccione un archivo ZIP con las fotos"
@@ -130,7 +131,8 @@
             "descripcion": "Descripcion",
             "actualizar": "Actualizar",
             "guardar": "Guardar",
-            "cancelar": "Cancelar"
+            "cancelar": "Cancelar",
+            "foto": "Foto"
         },
         "grid":{
             "titulo": "Grid de fotos"
