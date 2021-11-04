@@ -112,9 +112,7 @@
                             <button class="btn btn-sm btn-danger" *ngIf="row.activo == 1" 
                                 (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}">
                                     <span class="fas fa-times-circle"></span> </button>
-                            <button class="btn btn-sm btn-info" (click)='modalFoto(modalfoto,row)' 
-                                title="{{ 'producto.tabla.foto' | translate}}">
-                                    <span class="fas fa-file-image"></span> </button>                           
+                                                   
                             <button class="btn btn-sm btn-info" *ngIf="row.destacado == 0" 
                                 (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-check-circle"></span> </button>
                             <button class="btn btn-sm btn-neutral" *ngIf="row.destacado == 1" 
@@ -274,10 +272,12 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-control-label" for="destacado">{{ 'producto.formEdit.destacado' | translate }}:</label>
-                        <input type="checkbox" formControlName="destacado" placeholder="{{ 'producto.formEdit.destacado' | translate }}" name="destacado" class="form-control" id="destacado">
+                        <input type="checkbox" formControlName="destacado" placeholder="{{ 'producto.formEdit.destacado' | translate }}" name="destacado" class="ml-1" style="height: 18;width: 18px;" id="destacado">
                     </div>
                 </div>
-                <div class="col-md-6">
+                </div>
+                <div class="row">
+                <div class="col-md-12">
                     <div class="form-group ">
                         <label for="foto" 
                             class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
@@ -299,18 +299,17 @@
                 </div> -->
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-3 mb-3" *ngFor="let foto of fotos">
                     <div class="card-group">
-                        
-                        <div class="card text-center" *ngFor="let foto of fotos">
-                          <img class="card-img-top" src="{{foto.img}}" alt="Card image cap">
+                        <div class="card text-center" >
+                          <img class="card-img-top " src="{{foto.img}}" alt="Card image cap">
                           <div class="card-body">
                             <a href="javascript::void()" (click)="eliminarFoto(foto)" class="btn btn-danger">Eliminar</a>
                           </div>
                         </div>
-                        
                     </div>
                 </div>
+               
             </div>
             <div class="row">
                 
