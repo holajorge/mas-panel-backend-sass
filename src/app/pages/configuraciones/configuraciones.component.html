@@ -1,3 +1,4 @@
+<form [formGroup]="formConfig" novalidate >
 <div class=" header bg-maspedidos pb-6">
     <div class=" container-fluid">
       <div class=" header-body">
@@ -7,7 +8,9 @@
                 {{ 'config.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+            <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+            </button>
           </div>
         </div>
       </div>
@@ -22,7 +25,7 @@
                     <div class="card-header"><h3 class="mb-0">{{ 'config.subtitulo' | translate }}</h3></div>
                     <div class="card-body">
                                         
-                        <form [formGroup]="formConfig" novalidate >
+                        
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group mr-1">
@@ -64,23 +67,51 @@
                                             placeholder="Email" formControlName="correo"  class="form-control"> 
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group mr-1">
                                         <label for="color_botones" 
-                                            class="form-control-label">{{ 'config.formConfig.colorButton' | translate }}</label>
-                                        <input [(colorPicker)]="color" 
-                                            [value]="color" [(ngModel)]="color" [style.background]="color" 
-                                            formControlName="color_botones" class="form-control">
+                                            class="form-control-label">{{ 'config.formConfig.descripcionEmpresa' | translate }}</label>
+                                            <textarea  class="form-control" formControlName="descripcion_empresa" placeholder="Corta descripción de la empresa" ></textarea>
                                     </div>
                                 </div>
                             </div>
+                        
+                    </div>                 
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3>Horario límite para recibir pedidos</h3></div>
+                    <div class="card-body">
+                        
                             <div class="row">     
-                                <div class=" col-md-4">
+                                <div class="col-4">
                                     <label class="form-control-label" 
                                       for="example-time-input">{{ 'config.formConfig.hora_limite_pedido' | translate}}</label>
                                     <input class=" form-control" formControlName="hora"  type="time"/>
                                 </div>
-                                <div class="col-md-6">
+
+                            </div>
+                           
+                        
+                    </div>
+                </div>
+            </div>               
+
+            <!-- Colores y fotos -->
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3>Colores y tamaño de fotos</h3></div>
+                    <div class="card-body">
+                       
+                            <div class="row">     
+                                
+                                <div class="col-4">
                                     <label class="form-control-label">{{ 'config.formConfig.textFoto' | translate}}</label>
                                     <div class="row">
                                         <div class=" col-md-3">
@@ -106,69 +137,81 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">        
-                                <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <label for="logo" 
-                                            class="form-control-label">{{ 'config.formConfig.logo' | translate }}</label>
-                                        <input type="file" accept="image/*" placeholder="logo" 
-                                            (change)="showPreviewHeader($event)" formControlName="logoo"  class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="imagePreview" *ngIf="imageURLogo && imageURLogo !== ''">
-                                        <button class="btn btn-danger delete-entry d-inline-block btn-lg btn-block" 
-                                            (click)="deleteImage()">x</button>
-                                        <img class="ard-img-top" 
-                                            [src]="imageURLogo" 
-                                            style="width:100%; position: relative;">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group ">
-                                        <label for="logo_mobile"
-                                            class="form-control-label">{{ 'config.formConfig.LogoMobile' | translate }}</label>
-                                        <input type="file" accept="image/*" placeholder="logo mobile"
-                                            (change)="showPreview($event)" formControlName="logo_mobile"  class="form-control" id="logo_mobile">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="imagePreview" *ngIf="imageURLogoMobile && imageURLogoMobile !== ''">
-                                        <label class="form-control-label">{{ 'config.formConfig.LogoMobile' | translate }} Preview</label>
-                                        <button class="btn btn-danger delete-entry d-inline-block btn-block" (click)="deleteImageMobile()">x</button>
-                                        <img class="ard-img-top" [src]="imageURLogoMobile" style="width:100%; position: relative; margin-top: 4%">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-4">
                                     <div class="form-group mr-1">
                                         <label for="color_botones" 
-                                            class="form-control-label">{{ 'config.formConfig.descripcionEmpresa' | translate }}</label>
-                                            <textarea  class="form-control" formControlName="descripcion_empresa" placeholder="Corta descripción de la empresa" ></textarea>
-                    
+                                            class="form-control-label">{{ 'config.formConfig.colorButton' | translate }}</label>
+                                        <input [(colorPicker)]="color" 
+                                            [value]="color" [(ngModel)]="color" [style.background]="color" 
+                                            formControlName="color_botones" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="pt-2">
-                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
-                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
-                                        </button>
+                                      
                                     </div>
                                 </div>
-                            </div>
-                        </form>       
-                    </div>                 
+                            </div> 
+                        
+                    </div>
                 </div>
+            </div> 
+
+            <!-- Colores y fotos-->
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3>Ingrese los logos</h3></div>
+                    <div class="card-body">
+                        
+                        <!--  LOGOS -->
+                        <div class="row">        
+                            <div class="col-6">
+                                <div class="form-group ">
+                                    <label for="logo" 
+                                        class="form-control-label">{{ 'config.formConfig.logo' | translate }}</label>
+                                    <input type="file" accept="image/*" placeholder="logo" 
+                                        (change)="showPreviewHeader($event)" formControlName="logoo"  class="form-control">
+                                </div>
+                            
+                                <div class="imagePreview w-50" *ngIf="imageURLogo && imageURLogo !== ''">
+                                    <img class="card-img-top  h-50 mt-1" [src]="imageURLogo">
+                                    <button class="btn btn-danger delete-entry d-inline-block " 
+                                        (click)="deleteImage()">x</button>
+                                </div>
+                            </div>
+                        
+                            <div class="col-6">
+                                <div class="form-group ">
+                                    <label for="logo_mobile"
+                                        class="form-control-label">{{ 'config.formConfig.LogoMobile' | translate }}</label>
+                                    <input type="file" accept="image/*" placeholder="logo mobile"
+                                        (change)="showPreview($event)" formControlName="logo_mobile"  class="form-control" id="logo_mobile">
+                                </div>
+                            
+                                <div class="imagePreview w-25" *ngIf="imageURLogoMobile && imageURLogoMobile !== ''">                                   
+                                    <img class="card-img-top h-50 mt-1" [src]="imageURLogoMobile" >
+                                    <button class="btn btn-danger delete-entry d-inline-block" (click)="deleteImageMobile()">
+                                        <i class="ni ni-fat-remove"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- LOGOS -->
+                        
+                       
+                    </div>
+
+                    
+                   
+                   
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+</form>

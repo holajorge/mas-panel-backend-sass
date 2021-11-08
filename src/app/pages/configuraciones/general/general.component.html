@@ -110,36 +110,7 @@
                                 </div>
                             </div>
 
-                            <div class="row popup-info-custom">
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <label for="numWhatsapp"
-                                         class="form-control-label">{{ 'config.formConfig.numWhatsapp' | translate }}</label>
-                                        <input type="text" id="numWhatsapp" placeholder="Tel. Whatsapp" formControlName="num_whatsapp"  class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <label for="urlFacebook"
-                                         class="form-control-label">{{ 'config.formConfig.urlFacebook' | translate }}</label>
-                                        <input type="text" id="urlFacebook" placeholder="URL Facebook" formControlName="url_facebook"  class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <label for="urlInstagram"
-                                         class="form-control-label">{{ 'config.formConfig.urlInstagram' | translate }}</label>
-                                        <input type="text" id="urlInstagram" placeholder="URL Instagram" formControlName="url_instagram"  class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <label for="qrAFIP"
-                                         class="form-control-label">{{ 'config.formConfig.qrAFIP' | translate }}</label>
-                                        <input type="text" id="qrAFIP" placeholder="URL QR AFIP" formControlName="qr_afip"  class="form-control">
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="pt-2">
@@ -153,6 +124,77 @@
                     </div>                 
                 </div>
             </div>
+        
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">{{ 'config.general_redes' | translate }}</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row popup-info-custom">
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="numWhatsapp"
+                                        class="form-control-label">{{ 'config.formConfig.numWhatsapp' | translate }}</label>
+                                        <input type="text" id="numWhatsapp" placeholder="Tel. Whatsapp" formControlName="num_whatsapp"  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="urlFacebook"
+                                        class="form-control-label">{{ 'config.formConfig.urlFacebook' | translate }}</label>
+                                        <input type="text" id="urlFacebook" placeholder="URL Facebook" formControlName="url_facebook"  class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="urlInstagram"
+                                        class="form-control-label">{{ 'config.formConfig.urlInstagram' | translate }}</label>
+                                        <input type="text" id="urlInstagram" placeholder="URL Instagram" formControlName="url_instagram"  class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>    
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">{{ 'config.general_afip' | translate }}</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row popup-info-custom">
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="qrAFIP"
+                                        class="form-control-label">{{ 'config.formConfig.qrAFIP' | translate }}</label>
+                                        <input type="text" id="qrAFIP" placeholder="URL QR AFIP" formControlName="qr_afip"  class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>    
+            </div>
+
         </div>
     </div>
 </div>
