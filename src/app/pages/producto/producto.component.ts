@@ -285,6 +285,81 @@ export class ProductoComponent implements OnInit {
       this.rows = this.listaCop;
     }
   }
+  filterTableCodigo(event){
+    const val = event.target.value.toLowerCase();
+      
+    let listaTemp = [];
+    if(val !== ''){
+      if(this.rows.length > 0){
+        listaTemp = this.listaCop.filter(function(d) {          
+
+          for(var key in d){       
+            let buscar = "";    
+            console.log(key);    
+            if(key === "codigo"){          
+              if(typeof d[key] ){
+                buscar = d[key].toString().toLowerCase();
+              }else{
+                buscar = d[key].toLowerCase();
+              }
+              if( buscar != null && buscar.indexOf(val) !== -1){
+                return true;
+              }
+            }
+          }
+          return false;
+        });
+        this.rows = listaTemp;
+      }else{
+        this.rows = this.listaCop;
+        this.filterTable(event);
+      }
+      
+    }else{
+      this.rows = this.listaCop;
+    }
+  }
+  filtraCat(event,filtro){
+
+    console.log(event);
+    if(event != undefined){
+      const val = event.nombre.toLowerCase();
+        
+      let listaTemp = [];
+      if(val !== ''){
+        if(this.rows.length > 0){
+          listaTemp = this.listaCop.filter(function(d) {          
+
+            for(var key in d){       
+              let buscar = "";    
+              console.log(key);    
+              if(key === filtro){          
+                if(typeof d[key] ){
+                  buscar = d[key].toString().toLowerCase();
+                }else{
+                  buscar = d[key].toLowerCase();
+                }
+                if( buscar != null && buscar.indexOf(val) !== -1){
+                  return true;
+                }
+              }
+            }
+            return false;
+          });
+          this.rows = listaTemp;
+        }else{
+          this.rows = this.listaCop;
+          this.filterTable(event);
+        }
+        
+      }else{
+        this.rows = this.listaCop;
+      }
+    }else{
+      this.rows = this.listaCop;
+
+    }
+  }
   filterTableDestacado(event){
     const val = event.target.value.toLowerCase();
     
