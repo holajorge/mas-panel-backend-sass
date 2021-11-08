@@ -261,7 +261,7 @@ export class ProductoComponent implements OnInit {
           for(var key in d){       
             let buscar = "";    
             console.log(key);    
-            if(key === "codigo" || key === "caracteristica1" || key === "caracteristica2"){          
+            if(key === "codigo" || key === "caracteristica1" || key === "caracteristica2" || key === "caracteristica3"){          
 
               if(typeof d[key] ){
                 buscar = d[key].toString().toLowerCase();
