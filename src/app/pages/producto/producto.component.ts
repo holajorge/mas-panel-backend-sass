@@ -92,6 +92,8 @@ export class ProductoComponent implements OnInit {
   textAddOrEdit:boolean = false;
   bucket:string = "";
   fotos:any;
+  listaCop:any;
+
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder,  public onboardingService:WalkthroughService) {
     this.translate.use('es');
@@ -180,6 +182,8 @@ export class ProductoComponent implements OnInit {
         
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
+        this.listaCop = res.productos['productos'];
+
         this.arrayCaracteristica1 = res.productos['caracteristica1'];
         this.arrayCaracteristica2 = res.productos['caracteristica2'];
         this.arrayCaracteristica3 = res.productos['caracteristica3'];
@@ -248,26 +252,38 @@ export class ProductoComponent implements OnInit {
   }
   filterTable(event) {
     const val = event.target.value.toLowerCase();
-    
-    if(val !== ''){
-      // filter our data
-      const temRow = this.rows.filter(function (d) {
       
-        for (var key in d) {
-          if(!Array.isArray(d[key])){      
-            let hola = (d[key] != null) ? d[key].toLowerCase() : '';
-            if ( hola.indexOf(val) !== -1) {
-              return true;
-            }      
+    let listaTemp = [];
+    if(val !== ''){
+      if(this.rows.length > 0){
+        listaTemp = this.listaCop.filter(function(d) {          
 
-          }  
-        }
-        return false;
-      });
-      this.rows = temRow;
+          for(var key in d){       
+            let buscar = "";    
+            console.log(key);    
+            if(key === "codigo" || key === "caracteristica1" || key === "caracteristica2" || key === "caracteristica3"){          
+
+              if(typeof d[key] ){
+                buscar = d[key].toString().toLowerCase();
+              }else{
+                buscar = d[key].toLowerCase();
+              }
+              if( buscar != null && buscar.indexOf(val) !== -1){
+                return true;
+              }
+            }
+          }
+          return false;
+        });
+        this.rows = listaTemp;
+      }else{
+        this.rows = this.listaCop;
+        this.filterTable(event);
+      }
+      
     }else{
-      this.rows = this.rowsTemp;
-    }    
+      this.rows = this.listaCop;
+    }
   }
   filterTableDestacado(event){
     const val = event.target.value.toLowerCase();
