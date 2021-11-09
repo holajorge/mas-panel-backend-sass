@@ -220,7 +220,7 @@ export class ClienteComponent implements OnInit {
         this.loadingIndicator = true;
         this.addForm.reset();
         this.getClientes();
-        Swal.fire('Listo!','Cliente Editardo, con existo!', 'success')
+        Swal.fire('Listo!','Cliente Editado con éxito!', 'success')
       }else{
         Swal.fire('error, intente nuevamente', 'error')
 

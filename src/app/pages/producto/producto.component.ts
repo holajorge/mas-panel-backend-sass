@@ -461,7 +461,7 @@ export class ProductoComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getProductos();
-        Swal.fire('Listo!','Producto Editardo, con sucesso!', 'success')
+        Swal.fire('Listo!','Producto Editado, con sucesso!', 'success')
         this.addTextCaract = false;
         this.addTextCaract2 = false;
         this.addTextCaract3 = false;
