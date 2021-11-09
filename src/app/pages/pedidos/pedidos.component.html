@@ -20,7 +20,7 @@
     <div class=" row">
         <div class=" col">
             <div class=" card">
-
+                
                 <div class="dataTables_wrapper py-4 "  *ngIf="!emptyTable">  
                     <div class="row">
                         <div class="col-2" ></div>
@@ -33,7 +33,10 @@
                         <div class="col-2"></div>
                     </div>        
                 </div>
-
+                <div class=" card-header" *ngIf="!emptyTable">
+                    <h3 class="catd-text">Filtros</h3>
+                    
+                </div>
                 <div class="dataTables_wrapper py-4" *ngIf="emptyTable">
 
                     <div class="row">

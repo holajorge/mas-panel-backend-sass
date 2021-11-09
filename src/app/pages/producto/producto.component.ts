@@ -93,7 +93,11 @@ export class ProductoComponent implements OnInit {
   bucket:string = "";
   fotos:any;
   listaCop:any;
-
+  listaTemp:any = [];
+  selectCara1:any ;
+  selectCara2:any;
+  selectCara3:any;
+  codigoP:any;
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder,  public onboardingService:WalkthroughService) {
     this.translate.use('es');
@@ -126,6 +130,7 @@ export class ProductoComponent implements OnInit {
       logoo: [null],
       foto: [null],
     });
+    
   }
   onSelectItem(modalEditProducto,row) {
     this.textAddOrEdit = true;
@@ -260,7 +265,7 @@ export class ProductoComponent implements OnInit {
 
           for(var key in d){       
             let buscar = "";    
-            console.log(key);    
+            console.log("pasa aqui");    
             if(key === "codigo" || key === "caracteristica1" || key === "caracteristica2" || key === "caracteristica3"){          
 
               if(typeof d[key] ){
@@ -287,79 +292,96 @@ export class ProductoComponent implements OnInit {
   }
   filterTableCodigo(event){
     const val = event.target.value.toLowerCase();
-      
+
+    const car1 = this.selectCara1;
+    const car2 = this.selectCara2;
+    const car3 = this.selectCara3;
+    console.log(val);
     let listaTemp = [];
     if(val !== ''){
-      if(this.rows.length > 0){
-        listaTemp = this.listaCop.filter(function(d) {          
+      // if(this.rows.length > 0){
+        let producto = [];  
 
-          for(var key in d){       
-            let buscar = "";    
-            console.log(key);    
-            if(key === "codigo"){          
-              if(typeof d[key] ){
-                buscar = d[key].toString().toLowerCase();
-              }else{
-                buscar = d[key].toLowerCase();
-              }
-              if( buscar != null && buscar.indexOf(val) !== -1){
-                return true;
-              }
-            }
-          }
-          return false;
+        producto = this.listaCop.filter(function(d) {   
+
+          if( d['codigo'].indexOf(val) !== -1 || d['caracteristica1'].includes(car1) || d['caracteristica2'].includes(car2) ||  d['caracteristica3'].includes(car3)){
+            return true
+          }  
+         
         });
-        this.rows = listaTemp;
-      }else{
-        this.rows = this.listaCop;
-        this.filterTable(event);
-      }
+        this.rows = producto;
+        
+      // }else{
+        // this.rows = this.listaCop;
+        // this.filterTable(event);
+      // }
+      // 
       
     }else{
       this.rows = this.listaCop;
     }
   }
-  filtraCat(event,filtro){
-
-    console.log(event);
+  filtraCat(event){
+    console.log("cambia");
     if(event != undefined){
-      const val = event.nombre.toLowerCase();
-        
-      let listaTemp = [];
-      if(val !== ''){
-        if(this.rows.length > 0){
-          listaTemp = this.listaCop.filter(function(d) {          
 
-            for(var key in d){       
-              let buscar = "";    
-              console.log(key);    
-              if(key === filtro){          
-                if(typeof d[key] ){
-                  buscar = d[key].toString().toLowerCase();
-                }else{
-                  buscar = d[key].toLowerCase();
-                }
-                if( buscar != null && buscar.indexOf(val) !== -1){
-                  return true;
-                }
-              }
-            }
-            return false;
+      const val = event.nombre.toLowerCase();
+      if(val !== ''){
+
+        const car1 = this.selectCara1;
+        const car2 = this.selectCara2;
+        const car3 = this.selectCara3;
+        const code = this.codigoP;
+
+        // console.log(code);
+
+        if(this.rows.length > 0){
+        
+          let producto1 = [];  
+          producto1 = this.listaCop.filter(function(d) {
+         
+              if( d['codigo'].indexOf(val) !== -1 || d['caracteristica1'].includes(car1) || d['caracteristica2'].includes(car2) ||  d['caracteristica3'].includes(car3)){
+                return true
+              }           
           });
-          this.rows = listaTemp;
+          this.rows = producto1;
+
         }else{
           this.rows = this.listaCop;
           this.filterTable(event);
         }
         
       }else{
+
         this.rows = this.listaCop;
       }
+    }else if(this.codigoP != null){
+
+      if(this.rows.length > 0){
+        const code = this.codigoP;
+        
+        let producto1 = [];  
+        producto1 = this.listaCop.filter(function(d) {
+       
+            if( d['codigo'].indexOf(code) !== -1){
+              return true
+            }           
+        });
+        this.rows = producto1;
+
+      }else{
+        this.rows = this.listaCop;
+        this.filterTable(event);
+      }
+      // this.filterTableCodigo(this.listaCop);
+
+
     }else{
       this.rows = this.listaCop;
 
     }
   }
+
   filterTableDestacado(event){
     const val = event.target.value.toLowerCase();
     
@@ -572,6 +594,7 @@ export class ProductoComponent implements OnInit {
       console.log(err);
     });
   }
+  
   isKeyExists(obj,key){
     if( obj[key] == undefined ){
         return false;
