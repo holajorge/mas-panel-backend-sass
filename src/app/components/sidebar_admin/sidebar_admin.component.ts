@@ -51,8 +51,8 @@ export const ROUTES: RouteInfo[] = [
     isCollapsed: true,
     children: [
       { path: "empresa", title: "Configuración de la empresa", type: "link" },
-      { path: "dominios", title: "Configuración de dominios", type: "link" },
-      { path: "general", title: "Configuración general ", type: "link" },
+     /* { path: "dominios", title: "Configuración de dominios", type: "link" },*/
+      { path: "general", title: "Configuración general ", type: "link" }
     ]
   },
  /* {
@@ -73,7 +73,7 @@ export const ROUTES: RouteInfo[] = [
     icontype: "fa fa-shopping-cart text-primary",
     isCollapsed: true,
     children: [
-      { path: "clientes", title: "Pedido de Clientes", type: "link" },
+      { path: "clientes", title: "Pedidos de clientes", type: "link" },
      /* { path: "vendedores", title: "Pedido de Vendedores", type: "link" }, */   
     ]
   },
