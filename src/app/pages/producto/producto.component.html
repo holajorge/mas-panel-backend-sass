@@ -30,21 +30,21 @@
                             <label class="form-control-label">{{ 'producto.formEdit.codigo' | translate }}</label>
                             <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoP"
                                     placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" 
-                                    (keyup)="filterTableCodigo($event)"/>
+                                    (keyup)="filtraCat($event)"/>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="from-group">
                             <label for="">{{textCaract1}}</label>
                             <ng-select *ngIf="!addTextCaract1" [items]="arrayCaracteristica1" [(ngModel)]="selectCara1"
-                            bindValue="nombre"  (change)="filtraCat($event)" bindLabel="nombre"
+                            bindValue="nombre"  (change)="filtraCat()" bindLabel="nombre"
                             [clearSearchOnAdd]="true"></ng-select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="from-group">
                             <label for="">{{textCaract2}}</label>
-                            <ng-select *ngIf="!addTextCaract2" (change)="filtraCat($event)"[(ngModel)]="selectCara2"
+                            <ng-select *ngIf="!addTextCaract2" (change)="filtraCat()"[(ngModel)]="selectCara2"
                             bindValue="nombre" [items]="arrayCaracteristica2" bindLabel="nombre">
                             </ng-select>
                         </div>
@@ -52,12 +52,22 @@
                     <div class="col-md-3">
                         <div class="from-group">
                             <label for="">{{textCaract3}}</label>
-                            <ng-select *ngIf="!addTextCaract3" (change)="filtraCat($event)" [(ngModel)]="selectCara3"
+                            <ng-select *ngIf="!addTextCaract3" (change)="filtraCat()" [(ngModel)]="selectCara3"
                                 bindValue="nombre"[items]="arrayCaracteristica3" bindLabel="nombre">
                             </ng-select>
                         </div>
                     </div>
-                    
+                    <div class="col-md-3">
+                        <div class="from-group">
+                            <label for="">Destacados </label>
+                            <ng-select  (change)="filtraCat()" [(ngModel)]="selectDest"
+                                bindValue="id" [items]="arrayDestacados" bindLabel="nombre">
+                            </ng-select>                      
+                        </div>
+                    </div>
+                    <div class="col-md-1 mt-3">
+                        <button class="btn btn-danger" (click)="eliminar()"><i class="fas fa-times-circle"></i></button>
+                     </div>
                 </div>
             </div>
             <div class="dataTables_wrapper py-4">

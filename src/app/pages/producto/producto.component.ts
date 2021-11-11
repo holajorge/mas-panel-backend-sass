@@ -65,6 +65,11 @@ export class ProductoComponent implements OnInit {
   caracteristica2:any = [];
   caracteristica3:any = [];
   caracteristica4:any = [];
+  arrayDestacados:any = [
+    {nombre: 'Destacado', id:"1"},
+    {nombre: 'No destacado', id:"0"},
+    // {nombre: 'ambos', id:""}
+  ];
   entries: number = 10;
   entriesDestacados: number = 10;
   editForm: FormGroup;
@@ -94,10 +99,11 @@ export class ProductoComponent implements OnInit {
   fotos:any;
   listaCop:any;
   listaTemp:any = [];
-  selectCara1:any ;
-  selectCara2:any;
-  selectCara3:any;
-  codigoP:any;
+  selectCara1:any = "";
+  selectCara2:any="";
+  selectCara3:any="";
+  codigoP:any = "";
+  selectDest:any = "";
   constructor(public translate: TranslateService,public productoService: ProductoService,
     private modalService: BsModalService,private formBuilder: FormBuilder,  public onboardingService:WalkthroughService) {
     this.translate.use('es');
@@ -290,96 +296,57 @@ export class ProductoComponent implements OnInit {
       this.rows = this.listaCop;
     }
   }
-  filterTableCodigo(event){
-    const val = event.target.value.toLowerCase();
-
+  
+  filtraCat(){
+         
     const car1 = this.selectCara1;
     const car2 = this.selectCara2;
     const car3 = this.selectCara3;
-    console.log(val);
-    let listaTemp = [];
-    if(val !== ''){
-      // if(this.rows.length > 0){
-        let producto = [];  
-
-        producto = this.listaCop.filter(function(d) {   
-
-          if( d['codigo'].indexOf(val) !== -1 || d['caracteristica1'].includes(car1) || d['caracteristica2'].includes(car2) ||  d['caracteristica3'].includes(car3)){
-            return true
-          }  
-         
-        });
-        this.rows = producto;
-        
-      // }else{
-        // this.rows = this.listaCop;
-        // this.filterTable(event);
-      // }
-      // 
-      
-    }else{
-      this.rows = this.listaCop;
+    const code = this.codigoP;
+    const check = this.selectDest;
+    
+    const filtros = {
+      codigo: [code, d => d['codigo'].includes(code)],
+      caracteristica1: [car1, d => d['caracteristica1'].includes(car1)],
+      caracteristica2: [car2, d => d['caracteristica2'].includes(car2)],
+      caracteristica3: [car3, d => d['caracteristica3'].includes(car3)],
+      destacado: [check, d => d['destacado'] === check]
     }
+    // console.log(check);
+    
+    let producto1 = this.listaCop;  
+    for (const filtro in filtros) {
+      if(filtros[filtro][0]){
+        producto1 = producto1.filter( filtros[filtro][1])   
+      }
+    }         
+    this.rows = producto1;        
   }
-  filtraCat(event){
-    console.log("cambia");
-    if(event != undefined){
-
-      const val = event.nombre.toLowerCase();
-      if(val !== ''){
-
-        const car1 = this.selectCara1;
-        const car2 = this.selectCara2;
-        const car3 = this.selectCara3;
-        const code = this.codigoP;
-
-        // console.log(code);
-
-        if(this.rows.length > 0){
+  eliminar(){
+    this.selectCara1 = null;
+    this.selectCara2 = null;
+    this.selectCara3 = null;
+    this.codigoP = '';
+    this.selectDest = null;
+    this.rows = this.listaCop;
+  }
+  chekDestacado(){
+    
+    this.selectDest = (this.selectDest) ? false : true;
+    const car1 = (this.selectCara1 == '' || this.selectCara1 == undefined) ? '' : this.selectCara1;
+    const car2 = (this.selectCara2 == '' || this.selectCara2 == undefined) ? '' : this.selectCara2;
+    const car3 = (this.selectCara3 == '' || this.selectCara3 == undefined) ? '' : this.selectCara3;
+    const code = (this.codigoP == '' ||  this.codigoP == undefined) ? '' :  this.codigoP;
+    const chek = this.selectDest;
+    let producto1 = [];  
+      producto1 = this.listaCop.filter(function(d) {      
         
-          let producto1 = [];  
-          producto1 = this.listaCop.filter(function(d) {
-         
-              if( d['codigo'].indexOf(val) !== -1 || d['caracteristica1'].includes(car1) || d['caracteristica2'].includes(car2) ||  d['caracteristica3'].includes(car3)){
-                return true
-              }           
-          });
-          this.rows = producto1;
-
-        }else{
-          this.rows = this.listaCop;
-          this.filterTable(event);
-        }
-        
-      }else{
-
-        this.rows = this.listaCop;
-      }
-    }else if(this.codigoP != null){
-
-      if(this.rows.length > 0){
-        const code = this.codigoP;
-        
-        let producto1 = [];  
-        producto1 = this.listaCop.filter(function(d) {
-       
-            if( d['codigo'].indexOf(code) !== -1){
-              return true
-            }           
-        });
-        this.rows = producto1;
-
-      }else{
-        this.rows = this.listaCop;
-        this.filterTable(event);
-      }
-      // this.filterTableCodigo(this.listaCop);
-
-
-    }else{
-      this.rows = this.listaCop;
-
-    }
+          if(d['destacado'] == chek || d['codigo'].indexOf(code) !== -1 || d['caracteristica1'].includes(car1) || d['caracteristica2'].includes(car2) ||  d['caracteristica3'].includes(car3)){
+            
+            return true;
+          }
+      });
+      this.rows = producto1;
   }
 
   filterTableDestacado(event){
