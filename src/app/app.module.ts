@@ -22,13 +22,14 @@ import { PagesModule } from "./pages/pages.module"
 import { environment } from '../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {BdcWalkModule} from 'bdc-walkthrough';
-
+import {DpDatePickerModule} from 'ng2-date-picker';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
   imports: [
+    DpDatePickerModule,
     NgbModule,NgSelectModule,
     ModalModule.forRoot(),
     NgxDatatableModule,

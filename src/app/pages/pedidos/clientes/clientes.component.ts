@@ -34,8 +34,10 @@ export class ClientesComponent implements OnInit {
   btnvisibility: boolean = true;  
   emptyTable:boolean = false;
   dataExcel: any = [];
-  
-
+  nroPedido:string = "";
+  nroCliente:string = "";
+  dateStar:any;
+  dateEnd:any;
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -74,6 +76,47 @@ export class ClientesComponent implements OnInit {
     });
 
 
+  }
+  filters(){
+
+    
+    const npedido = this.nroPedido;
+    const ncliente = this.nroCliente;
+    const star = this.dateStar;
+    const end = this.dateEnd;
+    console.log(star);
+    console.log(end);
+    const filtros = {
+      id: [npedido, d => d['id'].includes(npedido)],
+      nrocliente: [ncliente, d => d['nrocliente'].includes(ncliente)],
+      star: [star, d => {
+        if(d['fechafiltro'] >= star){
+          return true;
+        }
+        // d['fechafiltro'].includes(star)
+      }],
+      end: [end, d => {
+
+        if(star <= d['fechafiltro'] && d['fechafiltro'] <= end ){
+          return true
+        }
+      }],
+    }
+    let producto1 = this.tempRow;  
+    for (const filtro in filtros) {
+      if(filtros[filtro][0]){
+        producto1 = producto1.filter( filtros[filtro][1])   
+      }
+    }         
+    this.temp = producto1;  
+
+  }
+  eliminar(){
+    this.nroPedido = null;
+    this.nroCliente = null;
+    this.dateStar = null;
+    this.dateEnd = null;
+    this.temp = this.tempRow;
   }
   dataExcelClientes(row){
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id, "_blank");

@@ -10,7 +10,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 import { AdminComponent } from '../layouts/admin/admin.component';
 import { VendedorComponent } from './vendedor/vendedor.component';
@@ -76,6 +76,7 @@ imports: [
     
   ],
   imports: [
+    DpDatePickerModule,
     FormsModule,ReactiveFormsModule,NgSelectModule,
     NgbModule,
     CommonModule,
