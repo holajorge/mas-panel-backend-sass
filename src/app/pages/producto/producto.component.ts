@@ -194,7 +194,7 @@ export class ProductoComponent implements OnInit {
         this.rows = res.productos['productos'];
         this.rowsTemp = res.productos['productos'];
         this.listaCop = res.productos['productos'];
-
+        this.filtraCat();
         this.arrayCaracteristica1 = res.productos['caracteristica1'];
         this.arrayCaracteristica2 = res.productos['caracteristica2'];
         this.arrayCaracteristica3 = res.productos['caracteristica3'];
@@ -450,6 +450,7 @@ export class ProductoComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getProductos();
+        
         Swal.fire('Listo!','Producto Editado, con sucesso!', 'success')
         this.addTextCaract = false;
         this.addTextCaract2 = false;
@@ -551,6 +552,7 @@ export class ProductoComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getProductos();
+        this.filtraCat();
         Swal.fire('Listo!','Producto creado, con exito!', 'success')
       }else{
         Swal.fire('Editar Erro, intente nuevamente', 'error')
