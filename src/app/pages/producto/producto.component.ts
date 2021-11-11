@@ -224,6 +224,46 @@ export class ProductoComponent implements OnInit {
     });
 
   }
+  addNewCarat1(){
+
+    this.addTextCaract =! this.addTextCaract;
+    const car1 = this.editForm.get('caracteristica1').value;    
+    if(typeof  car1){
+      this.editForm.patchValue({
+        caracteristica1: null
+      })
+    }
+  }
+  addNewCarat2(){
+
+    this.addTextCaract2 =! this.addTextCaract2;
+    const car2 = this.editForm.get('caracteristica2').value;    
+    if(typeof  car2){
+      this.editForm.patchValue({
+        caracteristica2: null
+      })
+    }
+  }
+  addNewCarat3(){
+
+    this.addTextCaract3 =! this.addTextCaract3;
+    const car3 = this.editForm.get('caracteristica3').value;    
+    if(typeof  car3){
+      this.editForm.patchValue({
+        caracteristica3: null
+      })
+    }
+  }
+  addNewCarat4(){
+
+    this.addTextCaract4 =! this.addTextCaract4;
+    const car4 = this.editForm.get('caracteristica4').value;    
+    if(typeof  car4){
+      this.editForm.patchValue({
+        caracteristica4: null
+      })
+    }
+  }
   showPreviewHeader(event) {
     const file = (event.target as HTMLInputElement).files[0];    
     const files:FileList = event.target.files;    
