@@ -86,11 +86,11 @@
                 </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
-                <div id="datatable_filter" class="dataTables_filter">
-                    <label class="form-control-label">
-                    <input type="text" class="form-control form-control-sm" 
-                        placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
-                </div>
+                    <div id="datatable_filter" class="dataTables_filter">
+                        <label class="form-control-label">
+                        <input type="hidden" class="form-control form-control-sm" 
+                            placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                    </div>
                 </div>
             </div>
     
@@ -186,7 +186,7 @@
         </button>
     </div>
     <div class="modal-body pt-0">
-        <form [formGroup]="editForm" novalidate>
+        <form [formGroup]="editForm" novalidate >
             <div class="row">
                 <div class="col-md-7">
                     <div class="form-group">
@@ -243,7 +243,7 @@
                 <div class="col-md-3 col-xs-12">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica1">{{textCaract1}}:</label> 
-                        <button class="btn btn-sm btn-info" (click)="addNewCarat1()"> 
+                        <button class="btn btn-sm btn-info" type="button" (click)="addNewCarat1()"> 
                             <span class="fas fa-plus"></span> 
                         </button>
                         <ng-select *ngIf="!addTextCaract" formControlName="caracteristica1"
@@ -251,13 +251,14 @@
                             bindLabel="nombre">
                         </ng-select>
                         <input *ngIf="addTextCaract"  type="text" 
-                            formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" name="caracteristica1" class="form-control" id="caracteristica1">
+                            formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" 
+                            name="caracteristica1" class="form-control" id="caracteristica1">
                     </div>
                 </div>
                 <div class="col-md-3 col-xs-12">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica2">{{textCaract2}}:</label>
-                        <button class="btn btn-sm btn-info" (click)="addNewCarat2()"> 
+                        <button class="btn btn-sm btn-info"  type="button" (click)="addNewCarat2()"> 
                             <span class="fas fa-plus"></span> 
                         </button>
                         <ng-select *ngIf="!addTextCaract2" formControlName="caracteristica2"
@@ -265,14 +266,15 @@
                             bindLabel="nombre">
                         </ng-select>
                         <input  *ngIf="addTextCaract2" type="text" 
-                            formControlName="caracteristica2" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 2" name="caracteristica2" class="form-control" id="caracteristica2">
+                            formControlName="caracteristica2" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 2" (keydown.enter)="$event.preventDefault()"
+                            name="caracteristica2" class="form-control" id="caracteristica2">
                         
                     </div>
                 </div>
                 <div class="col-md-3 col-xs-12">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica3">{{textCaract3}}:</label>
-                        <button class="btn btn-sm btn-info" (click)="addNewCarat3()"> 
+                        <button class="btn btn-sm btn-info" type="button"  (click)="addNewCarat3()"> 
                             <span class="fas fa-plus"></span> 
                         </button>
                         <ng-select *ngIf="!addTextCaract3" formControlName="caracteristica3"
@@ -287,7 +289,7 @@
                  <div class="col-md-3 col-xs-12">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica4">{{textCaract4}}:</label>
-                        <button class="btn btn-sm btn-info" (click)="addNewCarat4()">
+                        <button class="btn btn-sm btn-info" type="button"  (click)="addNewCarat4()">
                             <span class="fas fa-plus"></span>
                         </button>
                         <ng-select *ngIf="!addTextCaract4" formControlName="caracteristica4"

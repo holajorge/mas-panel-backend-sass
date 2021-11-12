@@ -225,7 +225,7 @@ export class ProductoComponent implements OnInit {
 
   }
   addNewCarat1(){
-
+    console.log("entra aqui");
     this.addTextCaract =! this.addTextCaract;
     const car1 = this.editForm.get('caracteristica1').value;    
     if(typeof  car1){
@@ -233,6 +233,9 @@ export class ProductoComponent implements OnInit {
         caracteristica1: null
       })
     }
+  }
+  alert(e){
+    console.log(e);
   }
   addNewCarat2(){
 
