@@ -38,7 +38,12 @@ export class ClienteComponent implements OnInit {
   activeRow: any;
   activeRowDet: any;
   cliente_id:any = {id:''};
-  
+  cont: any = 0;
+  //filter
+  nroCliente:any = '';
+  nombreCliente:any = '';
+  mailCliente:any = '';
+  activoCliente:boolean = false;
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -319,6 +324,74 @@ export class ClienteComponent implements OnInit {
   }
   onActivateDet(event) {
     this.activeRowDet = event.row;
+  }
+
+  filters(){
+
+    const nCliente = this.nroCliente;
+    const nomCliente = this.nombreCliente;    
+    const correo = this.mailCliente;
+    let activo = null;
+    if(this.cont == 1){
+      activo = true
+    }else{
+      activo = (this.activoCliente == true) ? true : false;
+    }
+    
+    activo = (activo == true) ? true : false;
+
+    // let activo = this.activoCliente;
+    console.log(activo);
+
+    const filtros = {
+      codigo: [nCliente, d => d['nrocliente'].includes(nCliente)],
+      nombre: [nomCliente, d => {
+        let nombre = d['nombre'].toLowerCase();
+        
+        if(nombre.includes(nomCliente)){
+          return true;
+        }
+      }],
+      correo: [correo, d => {
+        let email = d['email'].toLowerCase();        
+        if(email.includes(correo)){
+          return true;
+        }
+      }],
+      activo: [activo, d => {
+
+        if(d['activo'] == "1"){
+          return true;
+        }
+      }],      
+
+    }
+    let producto1 = this.tempRow;  
+    for (const filtro in filtros) {
+      if(filtros[filtro][0]){
+        producto1 = producto1.filter( filtros[filtro][1])   
+      }
+    }         
+    this.temp = producto1;        
+  }
+  cambia(){
+    this.cont++;
+    console.log('input chek esta en:', this.activoCliente);
+
+    console.log('contador vale:', this.cont);
+    this.activoCliente = (this.activoCliente == true) ? false : true;
+
+    console.log('check esta en:', this.activoCliente);
+    this.filters();
+  }
+
+  eliminar(){
+    this.cont = 0;
+    this.nroCliente = '';
+    this.nombreCliente = '';    
+    this.mailCliente = '';
+    this.activoCliente = false;
+    this.temp = this.tempRow;
   }
   
 }
