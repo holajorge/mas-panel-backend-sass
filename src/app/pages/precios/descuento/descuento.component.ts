@@ -80,7 +80,6 @@ export class DescuentoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
-
   }
 
 

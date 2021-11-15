@@ -7,8 +7,8 @@
                 {{  'cliente.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-              <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd); onboardingService.submit('newClient')" [bdcWalkTriggerFor]="newClient">{{ 'cliente.nuevo' | translate }}</a>
-              <a *ngIf="!onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" >{{ 'cliente.nuevo' | translate }} </a>
+              <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalEdit); onboardingService.submit('newClient')" [bdcWalkTriggerFor]="newClient">{{ 'cliente.nuevo' | translate }}</a>
+              <a *ngIf="!onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalEdit)" >{{ 'cliente.nuevo' | translate }} </a>
           </div>
         </div>
       </div>
@@ -231,21 +231,21 @@
 
 
 
-<ng-template #modalAdd >
+<ng-template #modalEdit >
     <div class="modal-header">    
-        <h5 class="modal-title" >{{ 'cliente.formClient.new' | translate}}</h5>
+        <h5 class="modal-title" >{{ 'cliente.formClient.edit' | translate}}</h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
             <span aria-hidden="true"> × </span>
         </button>
     </div>    
     <div class="modal-body pt-0">
-        <form [formGroup]="addFormNew" novalidate>
+        <form [formGroup]="editForm" novalidate>
             <div class="row">                
                 <div class="col-md-4">                    
                     <div class="form-group">
                         <label for="nrocliente" class="form-control-label">{{ 'cliente.tabla.nrocliente' | translate}}:</label>
                         <input type="text" formControlName="nrocliente" placeholder="Nro cliente" name="nrocliente" class="form-control" id="nrocliente">
-                        <div class="alert  alert-danger" *ngIf="addFormNew.get('nrocliente').hasError('required') && addFormNew.get('nrocliente').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('nrocliente').hasError('required') && editForm.get('nrocliente').touched">
                             {{ 'cliente.tabla.nrocliente' | translate}} es requerido
                         </div>  
                     </div>
@@ -254,7 +254,7 @@
                     <div class="form-group">
                         <label for="nombre" class="form-control-label">{{ 'cliente.tabla.nombre' | translate}}:</label>
                         <input type="text" formControlName="nombre" placeholder="Nombre" name="nombre" class="form-control" id="nombre">
-                        <div class="alert  alert-danger" *ngIf="addFormNew.get('nombre').hasError('required') && addFormNew.get('nombre').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('nombre').hasError('required') && editForm.get('nombre').touched">
                             {{ 'cliente.tabla.nombre' | translate}} es requerido
                         </div>  
                     </div>
@@ -264,7 +264,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="usuario">{{ 'cliente.tabla.usuario' | translate}}:</label>
                         <input type="text" formControlName="usuario" placeholder="Usuario" name="usuario" class="form-control" id="usuario">
-                        <div class="alert  alert-danger" *ngIf="addFormNew.get('usuario').hasError('required') && addFormNew.get('usuario').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('usuario').hasError('required') && editForm.get('usuario').touched">
                             {{ 'cliente.tabla.usuario' | translate}} es requerido
                         </div>  
                     </div>
@@ -276,7 +276,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="clave">{{ 'cliente.tabla.clave' | translate}}:</label>
                         <input type="text" formControlName="clave" placeholder="Clave" name="clave" class="form-control" id="clave">
-                        <div class="alert  alert-danger" *ngIf="addFormNew.get('clave').hasError('required') && addFormNew.get('clave').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('clave').hasError('required') && editForm.get('clave').touched">
                             {{ 'cliente.tabla.clave' | translate}} es requerido
                         </div>  
                     </div>
@@ -285,7 +285,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="email">{{ 'cliente.tabla.email' | translate}}:</label>
                         <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
-                        <div class="alert  alert-danger" *ngIf="addFormNew.get('email').hasError('required') && addFormNew.get('email').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('email').hasError('required') && editForm.get('email').touched">
                             {{ 'cliente.tabla.email' | translate}} es requerido
                         </div>  
                     </div>
@@ -294,7 +294,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="descuento_general">{{ 'cliente.tabla.decuento' | translate}}:</label>
                         <input type="text" formControlName="descuento_general" placeholder="{{ 'cliente.tabla.decuento' | translate}}" name="descuento_general" class="form-control" id="descuento_general">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('descuento_general').hasError('required') && addForm.get('descuento_general').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('descuento_general').hasError('required') && editForm.get('descuento_general').touched">
                             {{ 'cliente.tabla.decuento' | translate}} es requerido
                         </div>  
                     </div>
@@ -305,7 +305,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="cuit">{{ 'cliente.tabla.cuit' | translate}}:</label>
                         <input type="text" formControlName="cuit" placeholder="{{ 'cliente.tabla.cuit' | translate}}" name="cuit" class="form-control" id="cuit">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('cuit').hasError('required') && addForm.get('cuit').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('cuit').hasError('required') && editForm.get('cuit').touched">
                             {{ 'cliente.tabla.cuit' | translate}} es requerido
                         </div>  
                     </div>
@@ -314,7 +314,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="telefono">{{ 'cliente.tabla.telefono' | translate}}:</label>
                         <input type="text" formControlName="telefono" placeholder="{{ 'cliente.tabla.telefono' | translate}}" name="telefono" class="form-control" id="telefono">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('telefono').hasError('required') && addForm.get('telefono').touched">  
+                        <div class="alert  alert-danger" *ngIf="editForm.get('telefono').hasError('required') && editForm.get('telefono').touched">
                             {{ 'cliente.tabla.telefono' | translate}} es requerido
                         </div>  
                     </div>
@@ -349,23 +349,34 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8 col-xs-12">
                     <div class="form-group">
                         <label class="form-control-label" for="direccion">{{ 'cliente.tabla.direccion' | translate}}:</label>
                         <input type="text" formControlName="direccion" placeholder="{{ 'cliente.tabla.direccion' | translate}}" name="direccion" class="form-control" id="direccion">
                     </div>
                 </div>
+                <div class="col-md-4 col-xs-6">
+                    <label class="form-control-label" for="lista">{{ 'cliente.tabla.price_list' | translate}}:</label>
+                  <ng-select
+                          formControlName="lista"
+                          [items]="price_lists"
+                          [placeholder]="'Seleccione una lista de precios'"
+                          [multiple]="false" name="lista" id="lista">
+                  </ng-select>
+                </div>
+
             </div>
         </form>
     </div>
     <div class=" modal-footer">
-        <button *ngIf="onboardingService.on && !btnvisibilityAdd" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='addFormNew.invalid' (click)="insertNewClient(); onboardingService.submit('completeData')" [bdcWalkTriggerFor]="completeData">{{ 'cliente.formClient.guardar' | translate}}</button>
-        <button *ngIf="!onboardingService.on && !btnvisibilityAdd" class="btn btn-success" [disabled]='addFormNew.invalid' (click)="insertNewClient()">{{ 'cliente.formClient.guardar' | translate}}</button>
+        <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateCliente()">{{ 'cliente.tabla.actualizar' | translate}}</button>
+        <button *ngIf="onboardingService.on && !btnvisibilityIn" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertNewClient(); onboardingService.submit('completeData')" [bdcWalkTriggerFor]="completeData">{{ 'cliente.formClient.guardar' | translate}}</button>
+        <button *ngIf="!onboardingService.on && !btnvisibilityIn" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertNewClient()">{{ 'cliente.formClient.guardar' | translate}}</button>
         <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
     </div>
 </ng-template>
                
-
+<!--
 <ng-template #modalEdit >
     <div class=" modal-header">    
         <h5 class="modal-title" >{{ 'cliente.formClient.edit' | translate}}</h5>
@@ -492,7 +503,7 @@
     </div>
 
 </ng-template>
-
+-->
 
 <bdc-walk-popup #newClient name="newClient"
   [mustCompleted]="{clickListClients: true}" [showCloseButton]="false" header="Paso 8" xPosition="after">

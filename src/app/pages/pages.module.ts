@@ -39,6 +39,7 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { ImportarCategoriaComponent } from './categorias/importar-categoria/importar-categoria.component';
 import { MicuentaComponent } from './micuenta/micuenta.component';
 import {BdcWalkModule} from 'bdc-walkthrough';
+import { ListaPreciosComponent } from './precios/lista-precios/lista-precios/lista-precios.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -73,7 +74,7 @@ imports: [
     CategoriasComponent,
     ImportarCategoriaComponent,
     MicuentaComponent,
-    
+    ListaPreciosComponent,
   ],
   imports: [
     DpDatePickerModule,
