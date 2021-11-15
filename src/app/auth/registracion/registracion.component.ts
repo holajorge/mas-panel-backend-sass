@@ -48,7 +48,7 @@ export class RegistracionComponent implements OnInit {
             form.reset();
             this.onboardingService.turn_on();
             this.onboardingService.reset();
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin/configuraciones/empresa']);
            }else{
             Swal.fire({
               title: "Hubo un error",

@@ -144,7 +144,8 @@ export const ROUTES: RouteInfo[] = [
      /* { path: "lista", title: "Lista Precios", type: "link" },
       { path: "importar-precios", title: "Importar precios", type: "link" }, */
       { path: "descuento-lista", title: "Lista Descuentos", type: "link" },
-      { path: "descuento-categorias", title: "Descuentos por Categorias", type: "link" },
+      /* { path: "descuento-categorias", title: "Descuentos por Categorias", type: "link" }, */
+       { path: "lista-precios", title: "Listas de Precios", type: "link" },
     ]
   },
   {

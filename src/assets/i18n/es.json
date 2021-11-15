@@ -177,7 +177,7 @@
         },
         "descuento": {
             "titulo" : "Configuración de descuento",
-            "subtitulo": "Ingrese los datos en los campo requeridos",
+            "subtitulo": "Ingrese los datos en los campos requeridos",
             "descuento": "Descuento",
             "eliminar": "Eliminar",
             "lista" : {
@@ -326,11 +326,12 @@
         },
         "add": {
             "titulo": "Alta Comprobante",
-            "subtitulo": "Ingrese los datos en los campo requeridos",
+            "subtitulo": "Ingrese los datos en los campos requeridos",
             "cliente": "Cliente",
             "fecha": "Fecha",
             "documento": "Documento",
-            "guardar": "Guardar"
+            "guardar": "Guardar",
+            "cancelar": "Cancelar"
 
         },
         "comprobantes": {
@@ -385,7 +386,8 @@
             "direccion": "Dirección",
             "actualizar": "Actualizar",
             "cancelar": "Cancelar",
-            "pedido": "Pedidos"
+            "pedido": "Pedidos",
+            "price_list": "Lista de precios"
         },
         "tablaCliente":{
             "cliente": "Cliente",

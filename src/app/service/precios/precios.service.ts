@@ -110,4 +110,38 @@ export class PreciosService {
     FileSaver.saveAs(data, fileName + '_exported'+ EXCEL_EXTENSION);
   }
 
+  getListaPrecios(data){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getListaPrecios",data,options).toPromise().then((res) =>{
+      return { success: true, listaPrecios:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  importListaPrecios(formdata){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importListaPrecios",formdata).toPromise().then((res) =>{
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  getDistinctListPrice(data){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/get_distinct_list_prices",data,options).toPromise().then((res) =>{
+      return { success: true, listaPrecios:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
 }

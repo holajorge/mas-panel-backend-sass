@@ -31,11 +31,13 @@ export class DescuentoListaComponent implements OnInit {
   textCaract1:any;
   textCaract2:any;
   textCaract3:any;
+  //textCaract4:any;
   
-  clientes:any = [];;
+  clientes:any = [];
   caract1:any;
   caract2:any;
   caract3:any;
+  //caract4:any;
 
   constructor(
     public translate: TranslateService,
@@ -57,9 +59,13 @@ export class DescuentoListaComponent implements OnInit {
       caract1: [''],
       caract2: [''],
       caract3: [''],
+      //caract4: [''],
       cliente: ['',Validators.required],
-      descuento: ['']
+      descuento: [''],
+      empresa: ['']
     });
+
+    this.getDataSelect();
 
   }
 
@@ -78,10 +84,13 @@ export class DescuentoListaComponent implements OnInit {
       this.caract1 = res.response['caracteristica1'];
       this.caract2 = res.response['caracteristica2'];
       this.caract3 = res.response['caracteristica3'];
+      //this.caract4 = res.response['caracteristica4'];
 
       this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
       this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
       this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
+      //this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
+
       console.log(res);
 
     }).catch(err=>{
@@ -130,8 +139,10 @@ export class DescuentoListaComponent implements OnInit {
       caract1: row.caracteristica1,
       caract2: row.caracteristica2,
       caract3: row.caracteristica3,
+      //caract4: row.caracteristica4,
       cliente: row.nrocliente,
-      descuento: row.porcentaje
+      descuento: row.porcentaje,
+      empresa: this.empresa
     });
 
   }
@@ -187,4 +198,61 @@ export class DescuentoListaComponent implements OnInit {
         }
     })
   }
+
+  newDiscount(modalAddDiscount){
+    this.addForm.reset();
+
+    this.notificationModal = this.modalService.show(
+      modalAddDiscount,
+      this.notification
+    );
+  }
+
+
+  getDataSelect(){
+    Swal.showLoading();
+    this.descuentoCateService.getDataSelect(this.empresa).then( (res:any) =>{
+
+      this.caract1 = res.response['caracteristica1'];
+      this.caract2 = res.response['caracteristica2'];
+      this.caract3 = res.response['caracteristica3'];
+      //this.caract4 = res.response['caracteristica4'];
+      this.clientes = res.response['clientes'];
+
+      this.configuraciones = res.response['configuraciones'];
+      this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
+      this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
+      this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
+      //this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
+
+      Swal.close();
+
+      this.clientes.push({nombre:'Todos',nrocliente:0 });
+
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+
+  registrar(){
+    console.log(this.addForm.value);
+    this.addForm.patchValue({empresa: this.empresa});
+    this.addForm.patchValue({empresa_id: this.empresa});
+    Swal.showLoading();
+    this.descuentoCateService.registrar(this.addForm.value).then( (res:any) =>{
+      if(res.response){
+        Swal.close();
+        Swal.fire('Listo','Descuento registrado con exito','success');
+        this.addForm.reset();
+      }else{
+        Swal.fire('','error de comuniación, intente de nuevo','error');
+        Swal.close();
+      }
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+
 } 
