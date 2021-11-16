@@ -39,7 +39,9 @@ export class GeneralComponent implements OnInit {
       num_whatsapp: [null],
       url_facebook: [null],
       url_instagram: [null],
-      qr_afip: [null]
+      qr_afip: [null],
+      stock_descontar: [null],
+      stock_permitir: [null]
     });
     this.empresaData.id = this.empresa;
   }
@@ -68,7 +70,9 @@ export class GeneralComponent implements OnInit {
           url_facebook: (this.configuraciones.url_facebook=="" || this.configuraciones.url_facebook=="undefined" || this.configuraciones.url_facebook==undefined) ? "" : this.configuraciones.url_facebook,
           url_instagram: (this.configuraciones.url_instagram=="" || this.configuraciones.url_instagram=="undefined" || this.configuraciones.url_instagram==undefined) ? "" : this.configuraciones.url_instagram,
           qr_afip: (this.configuraciones.qr_afip=="" || this.configuraciones.qr_afip=="undefined" || this.configuraciones.qr_afip==undefined) ? "" : this.configuraciones.qr_afip,
-          // descripcion_empresa: this.configuraciones.descripcion_empresa,
+          stock_permitir: (this.configuraciones.stock_permitir=="true" || this.configuraciones.stock_permitir=="1" ) ? 1 : 0,
+          stock_descontar: (this.configuraciones.stock_descontar=="true" || this.configuraciones.stock_descontar=="1" ) ? 1 : 0
+
           // nombre_empresa: this.configuraciones.nombre_empresa,
           // direccion: this.configuraciones.direccion,
           // telefono: this.configuraciones.telefono,
@@ -97,6 +101,8 @@ export class GeneralComponent implements OnInit {
     formData.append('url_facebook',  this.formConfig.get('url_facebook').value);
     formData.append('url_instagram',  this.formConfig.get('url_instagram').value);
     formData.append('qr_afip',  this.formConfig.get('qr_afip').value);
+    formData.append('stock_permitir',  this.formConfig.get('stock_permitir').value);
+    formData.append('stock_descontar',  this.formConfig.get('stock_descontar').value);
     this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){
