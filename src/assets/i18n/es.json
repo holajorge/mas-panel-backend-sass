@@ -296,7 +296,8 @@
             "nocliente":"Nro Cliente",
             "status": "Status",
             "add": "Comente",
-            "orcamento": "presupuesto"
+            "orcamento": "presupuesto",
+            "estado": "Estado"
         }, 
         "modalComentario": {
             "add": "Agregar Comentario",
