@@ -57,7 +57,6 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   declarations: [
     AppComponent,
-    
   ],
   providers: [{ provide: NgbDateParserFormatter, useClass: DateFormatterService }],
   bootstrap: [AppComponent]

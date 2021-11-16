@@ -8,6 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { ConfigService } from 'src/app/service/config/config.service';
 import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
+import { PreciosService } from 'src/app/service/precios/precios.service';
 
 @Component({
   selector: 'app-cliente',
@@ -31,50 +32,40 @@ export class ClienteComponent implements OnInit {
   loadingIndicator = true;
   entries: number = 10;
   entriesDet: number = 10;
-  addForm: FormGroup;
-  addFormNew: FormGroup;
+  editForm: FormGroup;
   btnvisibility: boolean = true;
-  btnvisibilityAdd:boolean = true;
+  btnvisibilityIn:boolean = true;
   activeRow: any;
   activeRowDet: any;
   cliente_id:any = {id:''};
-  
+  price_lists:any = [];
+
+  cont: any = 0;
+  //filter
+  nroCliente:any = '';
+  nombreCliente:any = '';
+  mailCliente:any = '';
+  activoCliente:boolean = false;
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
     private modalService: BsModalService,
+    public preciosService:PreciosService,
     private formBuilder: FormBuilder, public onboardingService:WalkthroughService
-  ) {       
+  ) {
       this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');
       this.getClientes();
   }
 
   ngOnInit() {
-    this.addForm = this.formBuilder.group({
-      nrocliente: ['', Validators.required],
-      nombre: ['', Validators.required],
-      email: ['', Validators.required],
-      descuento_general: ['', Validators.required],
-      usuario: ['', Validators.required],
-      cuit: ['', Validators.required],
-      telefono: ['', Validators.required],
-      encargado_compras: [''],
-      encargado_pagos: [''],
-      provincia: [''],
-      localidad: [''],
-      direccion: [''],
-      coeficiente: [''],
-      clave: ['']
-    });
-    this.addFormNew = this.formBuilder.group({
-      empresa_id: this.empresa,
+    this.editForm = this.formBuilder.group({
+      empresa_id: [''],
       nrocliente: ['', Validators.required],
       nombre: ['', Validators.required],
       email: ['', Validators.required],
       usuario: ['', Validators.required],
       clave: ['', Validators.required],
-
       descuento_general: ['', Validators.required],
       cuit: ['', Validators.required],
       telefono: ['', Validators.required],
@@ -83,7 +74,11 @@ export class ClienteComponent implements OnInit {
       provincia: [''],
       localidad: [''],
       direccion: [''],
+      lista: ['']
     });
+
+    this.getDistinctListPrice()
+
   }
   entriesChange($event) {
     this.entries = $event.target.value;
@@ -182,43 +177,49 @@ export class ClienteComponent implements OnInit {
       this.notification
     );
     console.log(row);
-    this.addForm.setValue({
-      nrocliente:row.nrocliente, 
-      nombre:row.nombre, 
+    this.editForm.setValue({
+      empresa_id: row.empresa_id,
+      nrocliente:row.nrocliente,
+      nombre:row.nombre,
       clave: row.clave,
-      email:row.email, 
-      descuento_general:row.descuento_general, 
-      usuario:row.usuario, 
-      cuit:row.cuit, 
-      telefono:row.telefono, 
-      encargado_compras:row.encargado_compras, 
-      encargado_pagos:row.encargado_pagos, 
-      provincia:row.provincia, 
-      localidad:row.localidad, 
-      direccion:row.direccion, 
-      coeficiente: row.coeficiente
-      
+      email:row.email,
+      descuento_general:row.descuento_general,
+      usuario:row.usuario,
+      cuit:row.cuit,
+      telefono:row.telefono,
+      encargado_compras:row.encargado_compras,
+      encargado_pagos:row.encargado_pagos,
+      provincia:row.provincia,
+      localidad:row.localidad,
+      direccion:row.direccion,
+      lista: row.lista
+      //coeficiente: row.coeficiente
     });
-    this.btnvisibility = false;  
+
+    this.btnvisibility = false;
+    this.btnvisibilityIn = true;
 
   }
   
-  addCliente(modalAdd){
+  addCliente(modalEdit){
+    this.editForm.reset();
 
-    this.btnvisibilityAdd = false;
     this.notificationModal = this.modalService.show(
-      modalAdd,
+      modalEdit,
       this.notification
     );
-  
+
+    this.btnvisibility = true;
+    this.btnvisibilityIn = false;
+
   }
   updateCliente(){
     
-    this.clienteService.postCliente(this.addForm.value).then( (res:any) =>{    
+    this.clienteService.postCliente(this.editForm.value).then( (res:any) =>{
       if(res.response == true){
+        this.editForm.reset();
         this.notificationModal.hide();
         this.loadingIndicator = true;
-        this.addForm.reset();
         this.getClientes();
         Swal.fire('Listo!','Cliente Editado con éxito!', 'success')
       }else{
@@ -233,11 +234,11 @@ export class ClienteComponent implements OnInit {
   }
   insertNewClient(){
 
-    this.clienteService.postInsertCliente(this.addFormNew.value).then( (res:any) =>{    
+    this.clienteService.postInsertCliente(this.editForm.value).then( (res:any) =>{
       if(res.response == true){
+        this.editForm.reset();
         this.notificationModal.hide();
         this.loadingIndicator = true;
-        this.addFormNew.reset();
         this.getClientes();
        
         Swal.fire('Listo!','Cliente creado con exito!', 'success')
@@ -320,5 +321,83 @@ export class ClienteComponent implements OnInit {
   onActivateDet(event) {
     this.activeRowDet = event.row;
   }
-  
+
+  getDistinctListPrice(){
+    this.preciosService.getDistinctListPrice(this.empresa).then( (res:any) =>{
+      this.price_lists = res.listaPrecios;
+      this.price_lists = this.price_lists.slice();
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
+
+  filters(){
+
+    const nCliente = this.nroCliente;
+    const nomCliente = this.nombreCliente;
+    const correo = this.mailCliente;
+    let activo = null;
+    if(this.cont == 1){
+      activo = true
+    }else{
+      activo = (this.activoCliente == true) ? true : false;
+    }
+
+    activo = (activo == true) ? true : false;
+
+    // let activo = this.activoCliente;
+    console.log(activo);
+
+    const filtros = {
+      codigo: [nCliente, d => d['nrocliente'].includes(nCliente)],
+      nombre: [nomCliente, d => {
+        let nombre = d['nombre'].toLowerCase();
+
+        if(nombre.includes(nomCliente)){
+          return true;
+        }
+      }],
+      correo: [correo, d => {
+        let email = d['email'].toLowerCase();
+        if(email.includes(correo)){
+          return true;
+        }
+      }],
+      activo: [activo, d => {
+
+        if(d['activo'] == "1"){
+          return true;
+        }
+      }],
+
+    }
+    let producto1 = this.tempRow;
+    for (const filtro in filtros) {
+      if(filtros[filtro][0]){
+        producto1 = producto1.filter( filtros[filtro][1])
+      }
+    }
+    this.temp = producto1;
+  }
+  cambia(){
+    this.cont++;
+    console.log('input chek esta en:', this.activoCliente);
+
+    console.log('contador vale:', this.cont);
+    this.activoCliente = (this.activoCliente == true) ? false : true;
+
+    console.log('check esta en:', this.activoCliente);
+    this.filters();
+  }
+
+  eliminar(){
+    this.cont = 0;
+    this.nroCliente = '';
+    this.nombreCliente = '';
+    this.mailCliente = '';
+    this.activoCliente = false;
+    this.temp = this.tempRow;
+  }
+
 }

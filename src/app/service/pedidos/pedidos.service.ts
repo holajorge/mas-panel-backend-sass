@@ -72,5 +72,29 @@ export class PedidosService {
     });
   
   }
-  
+
+  updateEstadoPedido(row){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateEstadoPedido",row,options).toPromise().then((res) =>{
+      return { success: true, resultado:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al actualizar estado'};
+    });
+  }
+
+  getDistinctEstadoPedidos(data){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getDistinctEstadoPedidos",data,options).toPromise().then((res) =>{
+      return { success: true, resultado:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al actualizar estado'};
+    });
+  }
+
 }

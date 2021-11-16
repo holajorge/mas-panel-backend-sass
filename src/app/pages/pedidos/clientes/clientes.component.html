@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                         <div id="datatable_filter" class="dataTables_filter">
-                            <label class="form-control-label"><input type="text" class="form-control form-control-sm" placeholder="{{ 'pedidos.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                            <label class="form-control-label"><input type="hidden" class="form-control form-control-sm" placeholder="{{ 'pedidos.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
                         </div>
                         </div>
                     </div>
@@ -119,7 +119,18 @@
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.nombre' | translate}}</span>
                             </ng-template>
-                        </ngx-datatable-column>                        
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="estado">
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>{{ 'pedidos.tabla.estado' | translate}}</span>
+                            </ng-template>
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <span>
+                                    <ng-select [(ngModel)]="models[row.id]" [items]="lista_estados" appendTo="body" (change)="change_state(row)">
+                                    </ng-select>
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
                         <ngx-datatable-column name="Acción" >
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.acciones' | translate}}</span>

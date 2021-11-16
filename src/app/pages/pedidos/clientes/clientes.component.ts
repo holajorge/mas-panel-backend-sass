@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {PedidosService } from '../../../service/pedidos/pedidos.service';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
@@ -10,7 +10,8 @@ import { ConfigService } from 'src/app/service/config/config.service';
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
-  styles: []
+  styleUrls: ['./clientes.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ClientesComponent implements OnInit {
   notificationModal: BsModalRef;
@@ -38,6 +39,9 @@ export class ClientesComponent implements OnInit {
   nroCliente:string = "";
   dateStar:any;
   dateEnd:any;
+  lista_estados: any = [];
+  estado_to_id: any = {};
+  models: any = {};
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -53,11 +57,25 @@ export class ClientesComponent implements OnInit {
       pedido_id: ['', Validators.required],
       comentario: ['', Validators.required],
     });
+
+    this.lista_estados = [];
+    this.pedidosService.getDistinctEstadoPedidos(this.empresa).then( (res:any) =>{
+      res.resultado.forEach(element => {
+        this.lista_estados.push(element.estado);
+        this.estado_to_id[element.estado] = element.estado_id;
+      });
+
+    }).catch(err=>{
+      console.log(err);
+    });
+
   }
   getPedidos(){ 
 
     this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{    
-    
+
+      res.pedidos.pedidos.forEach(element => this.models[element.id] = element.estado);
+
       if(res.pedidos.pedidos.length > 0){
 
         this.emptyTable = true;
@@ -226,4 +244,29 @@ export class ClientesComponent implements OnInit {
       console.log(err);
     });
   }
+
+  change_state(row){
+    console.log(row);
+    if(this.models[row.id] == null){
+        this.models[row.id] = row["estado"];
+        return;
+    }
+    let estado = row["estado"];
+    row["estado"] = this.models[row.id];
+    row["pedido_estado_id"] = this.estado_to_id[row["estado"]];
+    this.pedidosService.updateEstadoPedido(row).then( (res:any) =>{
+      if(res.resultado == true){
+        Swal.fire('Listo!','Estado cambiado con exito!', 'success');
+        this.notificationModal.hide();
+        this.getPedidos();
+       }else{
+        this.models[row.id] = estado;
+        row["estado"] = estado;
+        Swal.fire('Error!','el estado no fue modificado, intente nuevamente', 'error');
+       }
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
 }
