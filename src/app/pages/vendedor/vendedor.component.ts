@@ -53,7 +53,7 @@ export class VendedorComponent implements OnInit {
   };
   empresa:any = {id:'',vendedor:''}; 
   clientes:any;
-  
+  mobileToDisplay:any=0;
   constructor(
     private router: Router,
     private vendedorService: VendedorService,
@@ -81,20 +81,27 @@ export class VendedorComponent implements OnInit {
       id: [],
       nombre: ['',Validators.required],
       email: ['', Validators.required],
-      clave: ['', Validators.required],
-      usuario: ['',Validators.required],
-      lista: [''],
-      archivo: [''],
+      telefono: [
+        '', 
+        Validators.required,
+        
+      ],
+
+      // clave: ['', Validators.required],
+      // usuario: ['',Validators.required],
+      // lista: [''],
+      // archivo: [''],
     });
 
     this.newFormVendedor = this.formBuilder.group({
       nombre: ['',Validators.required],
       email: ['', [Validators.required, ValidationService.emailValidator]],
-      clave: ['', Validators.required],
-      usuario: ['',Validators.required],
+      // clave: ['', Validators.required],
+      // usuario: ['',Validators.required],
       empresa_id: [''],
-      lista: [''],
-      archivo: [''],
+      telefono: ['', Validators.required],
+      // lista: [''],
+      // archivo: [''],
     });
   }
   getVendedor(){
@@ -108,7 +115,16 @@ export class VendedorComponent implements OnInit {
       console.log(err);
     });
   }
- 
+  telInputObject(obj) {
+    console.log(obj);
+    // obj.setCountry('ar');
+    // obj.intlTelInput('setNumber');
+
+  }  
+  getNumber(event){
+    console.log(event);
+
+  }
   entriesChange($event) {
     this.entries = $event.target.value;
   }
@@ -149,9 +165,9 @@ export class VendedorComponent implements OnInit {
       id:row.id, 
       nombre:row.nombre, 
       email:row.email, 
-      clave:row.clave, 
-      usuario: row.usuario,
-      lista: hola['lista'], archivo:hola['baja']
+      telefono:row.telefono, 
+      // usuario: row.usuario,
+      // lista: hola['lista'], archivo:hola['baja']
     });
     this.btnvisibility = false;  
 
@@ -225,8 +241,8 @@ export class VendedorComponent implements OnInit {
     this.newFormVendedor.patchValue({empresa_id: this.empresa.id});
     this.notificationModal = this.modalService.show(modalAdd,this.notification);
   }
-  onCreateVendedor(){
-    
+  onCreateVendedor(){    
+
     Swal.showLoading();
     this.vendedorService.createVendedor(this.newFormVendedor.value).subscribe(data => {  
       if(data == true){

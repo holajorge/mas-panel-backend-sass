@@ -44,6 +44,7 @@
             "numWhatsapp": "Teléfono Whatsapp",
             "urlFacebook": "Página de Facebook",
             "urlInstagram": "Página de Instagram",
+            "urlWeb": "Pagina Web",
             "qrAFIP": "URL del QR AFIP"
         }
     },
@@ -205,7 +206,9 @@
             "entradas": "resultados",
             "total": "total",
             "log": "registro",
-            "asociar": "Asociar cliente"
+            "asociar": "Asociar cliente",
+            "telefono": "Telefono"
+
         },
         "tablalog":{
             "lista": "Lista registros",
@@ -228,6 +231,7 @@
             "nombre": "nombre",
             "email": "correo",
             "usuario": "nombre de usuario",
+            "telefono": "Telefono",
             "clave": "clave",
             "agencia": "agencia",
             "guardar": "Guardar",
