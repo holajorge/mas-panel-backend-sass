@@ -48,7 +48,8 @@
             "urlInstagram": "Página de Instagram",
             "qrAFIP": "URL del QR AFIP",
             "stock_descontar": "Descontar stock de productos al efecturse pedidos",
-            "stock_permitir": "Permitir pedir producto sin stock"
+            "stock_permitir": "Permitir pedir producto sin stock",
+            "urlWeb": "Pagina Web"
         }
     },
     "categorias":{
@@ -209,7 +210,9 @@
             "entradas": "resultados",
             "total": "total",
             "log": "registro",
-            "asociar": "Asociar cliente"
+            "asociar": "Asociar cliente",
+            "telefono": "Telefono"
+
         },
         "tablalog":{
             "lista": "Lista registros",
@@ -232,6 +235,7 @@
             "nombre": "nombre",
             "email": "correo",
             "usuario": "nombre de usuario",
+            "telefono": "Telefono",
             "clave": "clave",
             "agencia": "agencia",
             "guardar": "Guardar",

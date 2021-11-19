@@ -176,6 +176,13 @@
                                         <input type="text" id="urlInstagram" placeholder="URL Instagram" formControlName="url_instagram"  class="form-control">
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <label for="urlWeb"
+                                        class="form-control-label">{{ 'config.formConfig.urlWeb' | translate }}</label>
+                                        <input type="text" id="urlWeb" placeholder="URL Web" formControlName="url_web"  class="form-control">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -201,7 +208,8 @@
                                     <div class="form-group mr-1">
                                         <label for="qrAFIP"
                                         class="form-control-label">{{ 'config.formConfig.qrAFIP' | translate }}</label>
-                                        <input type="text" id="qrAFIP" placeholder="URL QR AFIP" formControlName="qr_afip"  class="form-control">
+                                        <textarea placeholder="URL QR AFIP" name="qrAFIP" id="qrAFIP" cols="50" rows="10"   class="form-control" formControlName="qr_afip"></textarea>
+                                        <!-- <input type="text" id="qrAFIP" placeholder="URL QR AFIP" formControlName="qr_afip"  class="form-control"> -->
                                     </div>
                                 </div>
                             </div>

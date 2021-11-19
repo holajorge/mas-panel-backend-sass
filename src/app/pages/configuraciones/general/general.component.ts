@@ -19,9 +19,11 @@ export class GeneralComponent implements OnInit {
   configuraciones:any;
   form_dataConfig:any=[];
 
-  constructor(public translate: TranslateService,  
+  constructor(
+    public translate: TranslateService,  
     public fb: FormBuilder, 
-    public configService: ConfigService)
+    public configService: ConfigService
+  )
   {
     this.translate.use('es');
 
@@ -41,7 +43,8 @@ export class GeneralComponent implements OnInit {
       url_instagram: [null],
       qr_afip: [null],
       stock_descontar: [null],
-      stock_permitir: [null]
+      stock_permitir: [null],
+      url_web: [null]
     });
     this.empresaData.id = this.empresa;
   }
@@ -69,6 +72,7 @@ export class GeneralComponent implements OnInit {
           num_whatsapp: this.configuraciones.num_whatsapp,
           url_facebook: (this.configuraciones.url_facebook=="" || this.configuraciones.url_facebook=="undefined" || this.configuraciones.url_facebook==undefined) ? "" : this.configuraciones.url_facebook,
           url_instagram: (this.configuraciones.url_instagram=="" || this.configuraciones.url_instagram=="undefined" || this.configuraciones.url_instagram==undefined) ? "" : this.configuraciones.url_instagram,
+          url_web: (this.configuraciones.url_web=="" || this.configuraciones.url_web=="undefined" || this.configuraciones.url_web==undefined) ? "" : this.configuraciones.url_web,
           qr_afip: (this.configuraciones.qr_afip=="" || this.configuraciones.qr_afip=="undefined" || this.configuraciones.qr_afip==undefined) ? "" : this.configuraciones.qr_afip,
           stock_permitir: (this.configuraciones.stock_permitir=="true" || this.configuraciones.stock_permitir=="1" ) ? 1 : 0,
           stock_descontar: (this.configuraciones.stock_descontar=="true" || this.configuraciones.stock_descontar=="1" ) ? 1 : 0
@@ -100,6 +104,7 @@ export class GeneralComponent implements OnInit {
     formData.append('num_whatsapp',  this.formConfig.get('num_whatsapp').value);
     formData.append('url_facebook',  this.formConfig.get('url_facebook').value);
     formData.append('url_instagram',  this.formConfig.get('url_instagram').value);
+    formData.append('url_web',  this.formConfig.get('url_web').value);
     formData.append('qr_afip',  this.formConfig.get('qr_afip').value);
     formData.append('stock_permitir',  this.formConfig.get('stock_permitir').value);
     formData.append('stock_descontar',  this.formConfig.get('stock_descontar').value);
