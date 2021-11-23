@@ -192,21 +192,27 @@
                     <div class="form-group">
                         <label class="form-control-label" for="titulo">{{ 'producto.formEdit.titulo' | translate }}:</label>
                         <input type="text" formControlName="titulo" placeholder="Titulo" name="titulo" class="form-control" id="titulo">
-                         
+                        <div class="alert  alert-danger" *ngIf="editForm.get('titulo').hasError('required') && editForm.get('titulo').touched">  
+                            {{ 'producto.formEdit.titulo' | translate }} es obrigatório
+                        </div>  
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-control-label" for="codigo_producto">{{ 'producto.formEdit.codigo' | translate }}:</label>
                         <input type="text" formControlName="codigo_producto" placeholder="Codigo" name="codigo_producto" class="form-control" id="codigo_producto">
-                        
+                        <div class="alert  alert-danger" *ngIf="editForm.get('codigo_producto').hasError('required') && editForm.get('codigo_producto').touched">  
+                            {{ 'producto.formEdit.codigo' | translate }} es obrigatório
+                        </div>  
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="form-control-label" for="precio">{{ 'producto.formEdit.precio' | translate }}:</label>
                         <input type="text" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
-                        
+                        <div class="alert  alert-danger" *ngIf="editForm.get('precio').hasError('required') && editForm.get('precio').touched">  
+                            {{ 'producto.formEdit.precio' | translate }} es obrigatório
+                        </div>  
                     </div>
                 </div>
             </div>

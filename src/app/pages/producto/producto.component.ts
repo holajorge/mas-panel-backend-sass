@@ -118,7 +118,7 @@ export class ProductoComponent implements OnInit {
       empresa_id: [],
       titulo: ['', Validators.required],
       codigo_producto: ['',Validators.required],
-      precio: [''],
+      precio: ['',Validators.required],
       stock: [''],
       caracteristica1: [''],
       caracteristica2: [''],
