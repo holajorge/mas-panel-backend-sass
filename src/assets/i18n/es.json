@@ -17,8 +17,10 @@
         "general":"Seleccione como desea que se comporte tu tienda",
         "general_redes": "Redes Sociales",
         "general_afip": "Ingrese la url del QR de la AFIP",
+        "general_limites":"Ingrese los límites de horario y monto mínimo para hacer pedidos",
         "formConfig" : {
             "hora_limite_pedido": "Horario límite para hacer pedidos",
+            "monto_limite_pedido": "Monto mínimo de dinero para hacer un pedido ",
             "nombre": "Nombre de la empresa",
             "direccion": "Dirección",
             "telefono": "Telefono",
@@ -44,8 +46,10 @@
             "numWhatsapp": "Teléfono Whatsapp",
             "urlFacebook": "Página de Facebook",
             "urlInstagram": "Página de Instagram",
-            "urlWeb": "Pagina Web",
-            "qrAFIP": "URL del QR AFIP"
+            "qrAFIP": "URL del QR AFIP",
+            "stock_descontar": "Descontar stock de productos al efecturse pedidos",
+            "stock_permitir": "Permitir pedir producto sin stock",
+            "urlWeb": "Pagina Web"
         }
     },
     "categorias":{
