@@ -59,16 +59,17 @@ export class ClienteComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.editForm = this.formBuilder.group({
-      empresa_id: [''],
+      empresa_id:  this.empresa.id,
       nrocliente: ['', Validators.required],
       nombre: ['', Validators.required],
       email: ['', Validators.required],
       usuario: ['', Validators.required],
       clave: ['', Validators.required],
-      descuento_general: ['', Validators.required],
-      cuit: ['', Validators.required],
-      telefono: ['', Validators.required],
+      descuento_general: [''],
+      cuit: [''],
+      telefono: [''],
       encargado_compras: [''],
       encargado_pagos: [''],
       provincia: [''],
@@ -234,6 +235,8 @@ export class ClienteComponent implements OnInit {
   }
   insertNewClient(){
 
+    this.editForm.controls['empresa_id'].setValue(this.empresa);
+
     this.clienteService.postInsertCliente(this.editForm.value).then( (res:any) =>{
       if(res.response == true){
         this.editForm.reset();
@@ -241,7 +244,7 @@ export class ClienteComponent implements OnInit {
         this.loadingIndicator = true;
         this.getClientes();
        
-        Swal.fire('Listo!','Cliente creado con exito!', 'success')
+        Swal.fire('Listo!','Cliente creado con éxito!', 'success')
       }else{
 
         Swal.fire('Upps!','Error al crear el nuevo cliente,intente de nuevo!', 'error')
