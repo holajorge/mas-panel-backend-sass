@@ -105,6 +105,11 @@
                             </ng-template>
                         </ngx-datatable-column>
                         <ngx-datatable-column name="fecha">
+                            
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                {{ value | date:'longDate' }}
+                            </ng-template>
+
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.fecha' | translate}}</span>
                             </ng-template>
@@ -138,7 +143,7 @@
                             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                                 <span>
                                     <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
-                                    <button class="btn btn-sm btn-success" (click)='onaddComente(modalComent,row)' title="comentar"><span class="fab fa-adn"></span> </button>
+                                    <button *ngIf="row.comentario != ''" class="btn btn-sm btn-info" (click)='onaddComente(modalComent,row)' title="comentar"><span class="fas fa-eye"></span> </button>
                                     <button class="btn btn-sm btn-success" (click)='dataExcelClientes(row)' title="exportar"><span class="fas fa-file-import"></span> </button>
                                 </span>
                             </ng-template>
@@ -198,11 +203,11 @@
                             <span>{{ 'pedidos.tabladetalle.codigo' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column prop="precio_real">
+                    <!-- <ngx-datatable-column prop="precio_real">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.precion_real' | translate}}</span>
                         </ng-template>
-                    </ngx-datatable-column>
+                    </ngx-datatable-column> -->
                     <ngx-datatable-column prop="precio">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.precio' | translate}}</span>
@@ -246,7 +251,7 @@
         <div class=" modal-body  pt-0">
             
             <form [formGroup]="addForm" novalidate>
-                <textarea class="form-control" formControlName="comentario" id="comentario" rows="3" placeholder="{{ 'pedidos.modalComentario.addText' | translate}}"></textarea>
+                <textarea disabled class="form-control" formControlName="comentario" id="comentario" rows="3" placeholder="{{ 'pedidos.modalComentario.addText' | translate}}"></textarea>
                 <div class="alert  alert-danger" *ngIf="addForm.get('comentario').hasError('required') && addForm.get('comentario').touched">  
                     {{ 'pedidos.modalComentario.text' | translate}} es requerido
                   </div>
@@ -254,7 +259,7 @@
 
         </div>
         <div class=" modal-footer">
-          <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="guardarComentarioPedido()"> {{ 'pedidos.modalComentario.guardar' | translate}}</button> 
+          <!-- <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="guardarComentarioPedido()"> {{ 'pedidos.modalComentario.guardar' | translate}}</button>  -->
           <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'pedidos.modalComentario.cancelar' | translate}}</button>
         </div>
     

@@ -71,6 +71,12 @@
                       <div *ngIf="validatePageField(subdomain.viewModel)">{{ 'registracion.errorCaracter' | translate}}</div>
                   </div>
                 </div>
+
+                
+                  <input class="btn btn-sm inline-block m-2" id="terminosycondiciones" name="terminosycondiciones" type="checkbox" ngModel/>
+                  acepta los<a class="inline-block" href="https://maspedidos.com.ar/politicas.html">términos y condiciones </a> de la empresa
+                  
+                
                 <div class="text-center">
                   <button type="button"  [disabled]="disableButton" type="submit" class="btn btn-primary my-4">{{ 'registracion.registrar' | translate}}</button>
                 </div>

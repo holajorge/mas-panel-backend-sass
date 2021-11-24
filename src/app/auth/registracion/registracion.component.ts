@@ -20,8 +20,7 @@ export class RegistracionComponent implements OnInit {
   disableButton = false;
   errorForm = false;
   constructor(private registracionService:RegistracionService, private router: Router, public translate: TranslateService, private loginService:LoginService, public onboardingService:WalkthroughService) {
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
+    
     this.translate.use('es');
   }
 
@@ -40,6 +39,7 @@ export class RegistracionComponent implements OnInit {
         });
         return;
     }
+        
     this.registracionService.save(form.value).subscribe((data:any) => {
         var data_login = {"usuario": form.value["email"], "password": form.value["password"]}
         this.loginService.auth(data_login).subscribe((data:any) => {

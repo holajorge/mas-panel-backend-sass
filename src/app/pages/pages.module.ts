@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID,NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 import { ComponentsModule } from '../components/components.module';
@@ -11,6 +11,10 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {DpDatePickerModule} from 'ng2-date-picker';
+
+import localeEs from '@angular/common/locales/es';
+import {registerLocaleData} from '@angular/common';
+registerLocaleData(localeEs, 'es'); 
 
 import { AdminComponent } from '../layouts/admin/admin.component';
 import { VendedorComponent } from './vendedor/vendedor.component';
@@ -49,6 +53,7 @@ imports: [
 ]
 
 @NgModule({
+  providers: [{provide:LOCALE_ID, useValue: 'es'}],
   declarations: [
     AdminComponent,
     VendedorComponent,
