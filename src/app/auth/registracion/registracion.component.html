@@ -40,7 +40,8 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                     </div>
-                    <input class="form-control" id="nombre" name="nombre" placeholder="{{ 'registracion.nombre' | translate}}" type="text" (focus)="focus = true" (blur)="focus = false" ngModel/>
+                    <input class="form-control" id="nombre" name="nombre" placeholder="{{ 'registracion.nombre' | translate}}" 
+                      type="text" (focus)="focus = true" (blur)="focus = false" ngModel/>
                   </div>
                 </div>
                 <div class="form-group mb-3" [ngClass]="{ focused: focus === true }" >
@@ -48,7 +49,8 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" id="email" name="email" placeholder="{{ 'registracion.email' | translate}}" type="text" (focus)="focus = true" (blur)="focus = false" ngModel/>
+                    <input class="form-control" id="email" name="email" placeholder="{{ 'registracion.email' | translate}}" 
+                      type="text" (focus)="focus = true" (blur)="focus = false" ngModel/>
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{ focused: focus1 === true }">
@@ -56,7 +58,20 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" id="password" name="password" placeholder="{{ 'registracion.pass' | translate}}" type="password" (focus)="focus1 = true" (blur)="focus1 = false" ngModel/>
+                    <input class="form-control" id="password" [type]="fieldTextType ? 'text' : 'password'"
+                        name="password" placeholder="{{ 'registracion.pass' | translate}}" 
+                      type="password" (focus)="focus1 = true" (blur)="focus1 = false" ngModel/>
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i  class="fa"
+                              [ngClass]="{
+                                'fa-eye-slash': !fieldTextType,
+                                'fa-eye': fieldTextType
+                              }"
+                              (click)="toggleFieldTextType()"
+                          ></i>
+                        </span>
+                     </div>
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{ focused: focus1 === true }">
@@ -64,17 +79,19 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-shop"></i></span>
                     </div>
-                    <input class="form-control" id="subdomain" name="subdomain" placeholder="{{ 'registracion.subdomain' | translate}}" type="text" (focus)="focus1 = true" (blur)="focus1 = false" ngModel #subdomain="ngModel"/>
+                    <input class="form-control" id="subdomain" name="subdomain" placeholder="{{ 'registracion.subdomain' | translate}}" 
+                      type="text" (focus)="focus1 = true" (blur)="focus1 = false" ngModel #subdomain="ngModel"/>
                     <small class="form-control"> .maspedidos.com.ar  </small>
                   </div>
-                  <div *ngIf="(subdomain.dirty || subdomain.touched)" class="alert">
-                      <div *ngIf="validatePageField(subdomain.viewModel)">{{ 'registracion.errorCaracter' | translate}}</div>
+                  <div *ngIf="(subdomain.dirty && subdomain.touched)" class="alert">
+                      <div *ngIf="validatePageField(subdomain.viewModel)" class="alert alert-danger">{{ 'registracion.errorCaracter' | translate}}</div>
                   </div>
                 </div>
 
                 
-                  <input class="btn btn-sm inline-block m-2" id="terminosycondiciones" name="terminosycondiciones" type="checkbox" ngModel/>
-                  acepta los<a class="inline-block" href="https://maspedidos.com.ar/politicas.html">términos y condiciones </a> de la empresa
+                  <input class="btn btn-sm inline-block m-2" id="terminosycondiciones" [(ngModel)]="flag" (change)="aceptTerminos()" 
+                    name="terminosycondiciones" type="checkbox" ngModel/>
+                  acepta los<a class="inline-block" href="https://maspedidos.com.ar/politicas.html"> términos y condiciones </a> de la empresa
                   
                 
                 <div class="text-center">

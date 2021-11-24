@@ -276,7 +276,7 @@
         "nombre": "Nombre de la empresa",
         "email": "Email",
         "pass": "Clave",
-        "subdomain": "Subdominio de la página web",
+        "subdomain": "Subdominio",
         "errorCaracter": "Caracter inválido",
         "ingresar":"Ingresar",
         "registrar": "Guardar",

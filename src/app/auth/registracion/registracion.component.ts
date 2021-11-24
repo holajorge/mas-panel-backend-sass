@@ -17,8 +17,10 @@ import { WalkthroughService } from '../../service/walkthrough/walkthrough.servic
 export class RegistracionComponent implements OnInit {
   focus;
   focus1;
-  disableButton = false;
+  disableButton = true;
   errorForm = false;
+  flag:boolean = false;
+  fieldTextType: boolean;
   constructor(private registracionService:RegistracionService, private router: Router, public translate: TranslateService, private loginService:LoginService, public onboardingService:WalkthroughService) {
     
     this.translate.use('es');
@@ -27,7 +29,18 @@ export class RegistracionComponent implements OnInit {
   ngOnInit() {
 
   }
+  aceptTerminos(){
+    
+    if(this.flag){      
+      this.disableButton = false;
+    }else{
+      this.disableButton = true;
 
+    }
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
   registracion(form:NgForm){
     if(this.errorForm){
         Swal.fire({

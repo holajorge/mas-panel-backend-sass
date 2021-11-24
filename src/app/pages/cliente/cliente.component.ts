@@ -66,7 +66,7 @@ export class ClienteComponent implements OnInit {
       email: ['', Validators.required],
       usuario: ['', Validators.required],
       clave: ['', Validators.required],
-      descuento_general: ['', Validators.required],
+      descuento_general: [''],
       cuit: ['', Validators.required],
       telefono: ['', Validators.required],
       encargado_compras: [''],
@@ -74,7 +74,8 @@ export class ClienteComponent implements OnInit {
       provincia: [''],
       localidad: [''],
       direccion: [''],
-      lista: ['']
+      lista: [''],
+      nroclientLast:[''] 
     });
 
     this.getDistinctListPrice()
@@ -119,7 +120,7 @@ export class ClienteComponent implements OnInit {
     });
   }
   pedidos(modalPedido,row){
-    console.log(row);
+    // console.log(row);
     Swal.showLoading();
     this.detalleRow = [];
     this.pedido.empresa = row.empresa_id;
@@ -176,8 +177,8 @@ export class ClienteComponent implements OnInit {
       modalEdit,
       this.notification
     );
-    console.log(row);
-    this.editForm.setValue({
+    // console.log(row);
+    this.editForm.patchValue({
       empresa_id: row.empresa_id,
       nrocliente:row.nrocliente,
       nombre:row.nombre,
@@ -192,9 +193,10 @@ export class ClienteComponent implements OnInit {
       provincia:row.provincia,
       localidad:row.localidad,
       direccion:row.direccion,
-      lista: row.lista
-      //coeficiente: row.coeficiente
+      lista: row.lista,
+      nroclientLast: row.nrocliente
     });
+    // console.log(this.editForm.value);
 
     this.btnvisibility = false;
     this.btnvisibilityIn = true;
@@ -233,7 +235,7 @@ export class ClienteComponent implements OnInit {
 
   }
   insertNewClient(){
-
+    
     this.clienteService.postInsertCliente(this.editForm.value).then( (res:any) =>{
       if(res.response == true){
         this.editForm.reset();
@@ -331,13 +333,35 @@ export class ClienteComponent implements OnInit {
     });
   }
 
+  esMayuscula(letra){
+      return letra === letra.toUpperCase();
+  }
+  comprobarTexto(itemBusqueda, textoInput ){
 
+    if(this.esMayuscula(textoInput)){
+      textoInput = textoInput.toUpperCase();
+      itemBusqueda = itemBusqueda.toUpperCase();
+      
+    }else{
+      textoInput = textoInput.toLowerCase()
+      itemBusqueda = itemBusqueda.toLowerCase();
+      
+    }
+    if(itemBusqueda.includes(textoInput)){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
   filters(){
 
     const nCliente = this.nroCliente;
     const nomCliente = this.nombreCliente;
     const correo = this.mailCliente;
     let activo = null;
+   
+    
     if(this.cont == 1){
       activo = true
     }else{
@@ -346,23 +370,18 @@ export class ClienteComponent implements OnInit {
 
     activo = (activo == true) ? true : false;
 
-    // let activo = this.activoCliente;
-    console.log(activo);
-
     const filtros = {
       codigo: [nCliente, d => d['nrocliente'].includes(nCliente)],
       nombre: [nomCliente, d => {
-        let nombre = d['nombre'].toLowerCase();
-
-        if(nombre.includes(nomCliente)){
+        if(this.comprobarTexto(d['nombre'],nomCliente)){
           return true;
         }
       }],
       correo: [correo, d => {
-        let email = d['email'].toLowerCase();
-        if(email.includes(correo)){
+        if(this.comprobarTexto(d['email'],correo)){
           return true;
-        }
+        } 
+      
       }],
       activo: [activo, d => {
 

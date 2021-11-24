@@ -294,9 +294,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="descuento_general">{{ 'cliente.tabla.decuento' | translate}}:</label>
                         <input type="text" formControlName="descuento_general" placeholder="{{ 'cliente.tabla.decuento' | translate}}" name="descuento_general" class="form-control" id="descuento_general">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('descuento_general').hasError('required') && editForm.get('descuento_general').touched">
-                            {{ 'cliente.tabla.decuento' | translate}} es requerido
-                        </div>  
+                       
                     </div>
                 </div>
             </div>    
