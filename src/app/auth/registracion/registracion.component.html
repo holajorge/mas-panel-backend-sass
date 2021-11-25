@@ -31,7 +31,7 @@
 
           <div class=" card bg-secondary border-0 mb-0">
             <div class=" card-body px-lg-5 py-lg-5">
-              <div class=" text-center text-muted mb-4"><small> {{ 'registracion.titulo' | translate}} </small></div>
+              <div class=" text-center text-muted mb-4"><h1> {{ 'registracion.titulo' | translate}} </h1></div>
 
               <form role="form" #registracionForm="ngForm"  (ngSubmit)="registracion(registracionForm)">
 
@@ -91,7 +91,7 @@
                 
                   <input class="btn btn-sm inline-block m-2" id="terminosycondiciones" [(ngModel)]="flag" (change)="aceptTerminos()" 
                     name="terminosycondiciones" type="checkbox" ngModel/>
-                  acepta los<a class="inline-block" href="https://maspedidos.com.ar/politicas.html"> términos y condiciones </a> de la empresa
+                  Aceptá los<a class="inline-block" target="_blank" href="https://maspedidos.com.ar/politicas.html"> términos y condiciones </a> de la empresa
                   
                 
                 <div class="text-center">
