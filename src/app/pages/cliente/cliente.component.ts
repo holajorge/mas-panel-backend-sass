@@ -374,7 +374,13 @@ export class ClienteComponent implements OnInit {
     activo = (activo == true) ? true : false;
 
     const filtros = {
-      codigo: [nCliente, d => d['nrocliente'].includes(nCliente)],
+      codigo: [nCliente, d => {
+        if(this.comprobarTexto(d['nrocliente'],nCliente)){
+          // d['nrocliente'].includes(nCliente)
+          return true;
+
+        }
+      }],
       nombre: [nomCliente, d => {
         if(this.comprobarTexto(d['nombre'],nomCliente)){
           return true;
