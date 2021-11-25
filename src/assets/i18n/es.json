@@ -17,8 +17,8 @@
         "general":"Seleccione como desea que se comporte tu tienda",
         "general_redes": "Redes Sociales",
         "general_afip": "Ingrese la url del QR de la AFIP",
-        "general_limites":"Ingrese los límites de horario y monto mínimo para hacer pedidos",
         "formConfig" : {
+            "general_limites":"Ingrese los límites de horario y monto mínimo para hacer pedidos",
             "hora_limite_pedido": "Horario límite para hacer pedidos",
             "monto_limite_pedido": "Monto mínimo de dinero para hacer un pedido ",
             "nombre": "Nombre de la empresa",
