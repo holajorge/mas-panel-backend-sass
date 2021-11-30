@@ -33,7 +33,7 @@
                                     (keyup)="filtraCat($event)"/>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngIf="textCaract1">
                         <div class="from-group">
                             <label for="">{{textCaract1}}</label>
                             <ng-select  [items]="arrayCaracteristica1" [(ngModel)]="selectCara1"
@@ -41,7 +41,7 @@
                             [clearSearchOnAdd]="true"></ng-select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3"  *ngIf="textCaract2">
                         <div class="from-group">
                             <label for="">{{textCaract2}}</label>
                             <ng-select (change)="filtraCat()"[(ngModel)]="selectCara2"
@@ -49,7 +49,7 @@
                             </ng-select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3"  *ngIf="textCaract3">
                         <div class="from-group">
                             <label for="">{{textCaract3}}</label>
                             <ng-select (change)="filtraCat()" [(ngModel)]="selectCara3"
@@ -116,17 +116,17 @@
                         <span>{{ 'producto.tabla.codigo' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica1">
+                <ngx-datatable-column name="caracteristica1" *ngIf="textCaract1">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract1}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica2">
+                <ngx-datatable-column name="caracteristica2" *ngIf="textCaract2">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract2}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica3">
+                <ngx-datatable-column name="caracteristica3" *ngIf="textCaract3">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract3}}</span>
                     </ng-template>
@@ -245,7 +245,7 @@
                     </div>
                 </div> 
             </div>
-            <div class="row caracteristicas">
+            <div class="row caracteristicas" *ngIf="textCaract1">
                 <div class="col-md-3 col-xs-12">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica1">{{textCaract1}}:</label> 
@@ -261,7 +261,7 @@
                             name="caracteristica1" class="form-control" id="caracteristica1">
                     </div>
                 </div>
-                <div class="col-md-3 col-xs-12">
+                <div class="col-md-3 col-xs-12" *ngIf="textCaract2">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica2">{{textCaract2}}:</label>
                         <button class="btn btn-sm btn-info"  type="button" (click)="addNewCarat2()"> 
@@ -277,7 +277,7 @@
                         
                     </div>
                 </div>
-                <div class="col-md-3 col-xs-12">
+                <div class="col-md-3 col-xs-12" *ngIf="textCaract3">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica3">{{textCaract3}}:</label>
                         <button class="btn btn-sm btn-info" type="button"  (click)="addNewCarat3()"> 
@@ -292,7 +292,7 @@
                         
                     </div>
                 </div>
-                 <div class="col-md-3 col-xs-12">
+                <div class="col-md-3 col-xs-12" *ngIf="textCaract4">
                     <div class="form-group">
                         <label class="form-control-label" for="caracteristica4">{{textCaract4}}:</label>
                         <button class="btn btn-sm btn-info" type="button"  (click)="addNewCarat4()">
@@ -309,29 +309,12 @@
                 
             </div>
             <div class="row">
-                <!-- <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="caracteristica4">{{ 'producto.formEdit.caracteristica' | translate }} 4:</label>
-                        <input type="text" formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
-                    </div>
-                </div> -->
-                <!-- <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="solapa1">{{ 'producto.formEdit.solapa' | translate }} 1:</label>
-                        <input type="checkbox" formControlName="solapa1" placeholder="{{ 'producto.formEdit.solapa' | translate }}" name="solapa1" class="form-control" id="solapa1">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="solapa2">{{ 'producto.formEdit.solapa' | translate }} 2:</label>
-                        <input type="checkbox" formControlName="solapa2" placeholder="{{ 'producto.formEdit.solapa' | translate }}" name="solapa2" class="form-control" id="solapa2">
-                    </div>
-                </div>   -->
-
+            
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-control-label" for="destacado">{{ 'producto.formEdit.destacado' | translate }}:</label>
-                        <input type="checkbox" formControlName="destacado" placeholder="{{ 'producto.formEdit.destacado' | translate }}" name="destacado" class="ml-1" style="height: 18;width: 18px;" id="destacado">
+                        <input type="checkbox" formControlName="destacado" placeholder="{{ 'producto.formEdit.destacado' | translate }}" 
+                            name="destacado" class="ml-1" style="height: 18;width: 18px;" id="destacado">
                     </div>
                 </div>
                 </div>
@@ -344,18 +327,6 @@
                             (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
                     </div>
                 </div>
-                <!-- <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="sync">Sync:</label>
-                        <input type="checkbox" formControlName="sync" placeholder="sync" name="sync" class="form-control" id="sync">
-                    </div>
-                </div>   
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="fecha_sync">Fecha sync:</label>
-                        <input class="form-control"  name="dp" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" formControlName="fecha_sync" placeholder="yyyy-mm-dd"  id="fecha_sync">
-                    </div>
-                </div> -->
             </div>
             <div class="row">
                 <div class="col-3 mb-3" *ngFor="let foto of fotos; let i = index">

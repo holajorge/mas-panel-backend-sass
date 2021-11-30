@@ -12,7 +12,6 @@ const EXCEL_EXTENSION = '.xlsx';
 export class ProductoService {
 
   constructor(private _http:HttpClient) { }
-
   getProducto(idEmpresa){
     let empresa = {id: idEmpresa};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
