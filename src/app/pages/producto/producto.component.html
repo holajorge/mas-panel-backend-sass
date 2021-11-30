@@ -323,7 +323,7 @@
                     <div class="form-group ">
                         <label for="foto" 
                             class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
-                        <input type="file" accept="image/*"  accept=".png, .jpg, .jpeg"
+                        <input type="file" accept="image/*" name="file" accept=".png, .jpg, .jpeg" multiple
                             (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
                     </div>
                 </div>

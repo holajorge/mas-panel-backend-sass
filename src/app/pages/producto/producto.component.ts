@@ -109,7 +109,7 @@ export class ProductoComponent implements OnInit {
   flagCarat2:boolean;
   flagCarat3:boolean;
   flagCarat4:boolean;
-
+  myFiles:string [] = [];
   constructor(public translate: TranslateService,
     public productoService: ProductoService,
     private modalService: BsModalService,
@@ -295,6 +295,9 @@ export class ProductoComponent implements OnInit {
       if((file.size/1048576)<=4){        
 
         let formData = new FormData();
+        for (var i = 0; i < event.target.files.length; i++) { 
+          this.myFiles.push(event.target.files[i]);
+        }
         // console.log(file);
         // console.log(file.name);
         formData.append('foto', (event.target as HTMLInputElement).files[0], file.name);
@@ -525,6 +528,21 @@ export class ProductoComponent implements OnInit {
       console.log(err);
     });
   }
+  validateStringCaract(caractNum){
+    if(!caractNum){
+      caractNum = "";
+    }
+    if(this.isKeyExists(caractNum,'nombre')){
+      return  caractNum.nombre;
+    }else{
+      if(caractNum != "" ){
+        return caractNum;
+      }else{
+        return caractNum;
+      }
+    }
+    
+  }
   insertProduct(){
     if(!this.flagProductList){
       console.log(this.textCaract1);
@@ -547,48 +565,26 @@ export class ProductoComponent implements OnInit {
     if(Array.isArray(this.form_dataConfig)){
 
     }else{
-      formData.append('foto',this.form_dataConfig.get('foto'));
+      for (var i = 0; i < this.myFiles.length; i++) { 
+        formData.append("fotos[]", this.myFiles[i]);
+      }
+      formData.append('foto[]',this.form_dataConfig.get('foto'));
     }
     // console.log(this.editForm.value); return false;
-    const caract1 = this.editForm.get('caracteristica1').value;
-    const caract2 = this.editForm.get('caracteristica2').value;
-    const caract3 = this.editForm.get('caracteristica3').value;
-    const caract4 = this.editForm.get('caracteristica3').value;
+    let caract1 = this.editForm.get('caracteristica1').value;
+    let caract2 = this.editForm.get('caracteristica2').value;
+    let caract3 = this.editForm.get('caracteristica3').value;
+    let caract4 = this.editForm.get('caracteristica3').value;
 
-    let ca1 = '';
+    let ca1 = "";
     let ca2 = "";
     let ca3 = "";
     let ca4 = "";
-
-    if(this.isKeyExists(caract1,'nombre')){
-      ca1 =  caract1.nombre;
-    }else{
-      if(caract1 != "" ){
-        ca1 =  caract1;
-      }
-    }
-    if(this.isKeyExists(caract2,'nombre')){
-      ca2 =  caract2.nombre;
-    }else{
-      if(caract2 != "" ){
-        ca2 =  caract2;
-      }
-    }
-    if(this.isKeyExists(caract3,'nombre')){
-      ca3 =  caract3.nombre;
-    }else{
-      if(caract1 != "" ){
-        ca3 =  caract3;
-      }
-    }
-    if(this.isKeyExists(caract4,'nombre')){
-      ca4 =  caract4.nombre;
-    }else{
-      if(caract4 != "" ){
-        ca4 =  caract4;
-      }
-    }
-
+    ca1 = this.validateStringCaract(caract1);
+    ca2 = this.validateStringCaract(caract2);
+    ca3 = this.validateStringCaract(caract3);
+    ca4 = this.validateStringCaract(caract4);
+   
     // console.log(ca1); return false;
     // console.log(caract2); return false;
     // console.log(caract3); return false;
