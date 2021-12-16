@@ -33,7 +33,7 @@
                                     (keyup)="filtraCat()"/>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngIf="textCaract1">
                         <div class="from-group">
                             <label for="">{{textCaract1}}</label>
                             <ng-select  [items]="arrayCaracteristica1" [(ngModel)]="selectCara1"
@@ -41,7 +41,7 @@
                             [clearSearchOnAdd]="true"></ng-select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3"  *ngIf="textCaract2">
                         <div class="from-group">
                             <label for="">{{textCaract2}}</label>
                             <ng-select (change)="filtraCat()"[(ngModel)]="selectCara2"
@@ -49,7 +49,7 @@
                             </ng-select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3"  *ngIf="textCaract3">
                         <div class="from-group">
                             <label for="">{{textCaract3}}</label>
                             <ng-select (change)="filtraCat()" [(ngModel)]="selectCara3"
@@ -116,17 +116,17 @@
                         <span>{{ 'producto.tabla.codigo' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica1">
+                <ngx-datatable-column name="caracteristica1" *ngIf="textCaract1">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract1}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica2">
+                <ngx-datatable-column name="caracteristica2" *ngIf="textCaract2">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract2}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica3">
+                <ngx-datatable-column name="caracteristica3" *ngIf="textCaract3">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract3}}</span>
                     </ng-template>

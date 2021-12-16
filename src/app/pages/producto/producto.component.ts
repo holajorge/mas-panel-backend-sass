@@ -92,10 +92,10 @@ export class ProductoComponent implements OnInit {
   ver_agregar_4 = false;
 
   configuraciones:any = [];
-  textCaract1:string = "";
-  textCaract2:string = "";
-  textCaract3:string = "";
-  textCaract4:string = "";
+  textCaract1:any = "";
+  textCaract2:any = "";
+  textCaract3:any = "";
+  textCaract4:any = "";
   // caract4:any = [];
   enableSummary = true;
   summaryPosition = 'top';
@@ -110,11 +110,20 @@ export class ProductoComponent implements OnInit {
   selectCara3:any="";
   codigoP:any = "";
   selectDest:any = "";
-  constructor(public translate: TranslateService,public productoService: ProductoService,
-    private modalService: BsModalService,private formBuilder: FormBuilder,  public onboardingService:WalkthroughService) {
+  flagProductList:boolean;
+  flagCarat1:boolean;
+  flagCarat2:boolean;
+  flagCarat3:boolean;
+  flagCarat4:boolean;
+  myFiles:string [] = [];
+  constructor(public translate: TranslateService,
+    public productoService: ProductoService,
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder,  
+    public onboardingService:WalkthroughService
+  ) {
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
-
   }
 
   ngOnInit() {
@@ -159,7 +168,7 @@ export class ProductoComponent implements OnInit {
     }else{
       this.fotos = [];
     }
-
+    
     this.editForm.patchValue({
       id: row.id,
       empresa_id: row.empresa_id,
@@ -175,7 +184,7 @@ export class ProductoComponent implements OnInit {
       solapa2:row.solapa2, 
       cantidad_minima:row.cantidad_minima, 
       precio_oferta:row.precio_oferta, 
-      destacado:row.destacado, 
+      destacado: (row.destacado === "0") ? false : true, 
       sync:row.sync, 
       fecha_sync: row.fecha_sync,
       stock_minimo: row.stock_minimo,
@@ -195,32 +204,40 @@ export class ProductoComponent implements OnInit {
       if(res.success){
       
         Swal.close();
-        this.bucket = res.productos['empresa'].bucket;
-        
-        this.rows = res.productos['productos'];
-        this.rowsTemp = res.productos['productos'];
-        this.listaCop = res.productos['productos'];
-        this.filtraCat();
-        this.arrayCaracteristica1 = res.productos['caracteristica1'];
-        this.arrayCaracteristica2 = res.productos['caracteristica2'];
-        this.arrayCaracteristica3 = res.productos['caracteristica3'];
-        this.arrayCaracteristica4 = res.productos['caracteristica4'];
-        this.configuraciones = res.productos['configuraciones'];
-        if(this.configuraciones == false || this.configuraciones == null){
-          this.textCaract1 = "caracteristica 1";
-          this.textCaract2 = "caracteristica 2";
-          this.textCaract3 = "caracteristica 3";
-          this.textCaract4 = "caracteristica 4";          
+        // if(res.productos['productos'].length > 0){
+          // this.flagProductList = true;
+          this.bucket = res.productos['empresa'].bucket;
+          
+          this.rows = res.productos['productos'];
+          this.rowsTemp = res.productos['productos'];
+          this.listaCop = res.productos['productos'];
+          this.filtraCat();
+          
+          this.arrayCaracteristica1 = res.productos['caracteristica1'];
+          this.arrayCaracteristica2 = res.productos['caracteristica2'];
+          this.arrayCaracteristica3 = res.productos['caracteristica3'];
+          this.arrayCaracteristica4 = res.productos['caracteristica4'];
 
-        }else{
-          this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1";
-          this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2";
-          this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3";
-          this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4";
-          if(this.textCaract4 == undefined){
-            this.textCaract4 = "caracteristica 4";
+          this.configuraciones = res.productos['configuraciones'];
+          if(this.configuraciones == false || this.configuraciones == null){
+            this.textCaract1 = false;
+            this.textCaract2 = false;
+            this.textCaract3 = false;
+            this.textCaract4 = false;      
+
+          }else{
+
+            this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : false;
+            this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : false;
+            this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : false;
+            this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : false;
+            
+            if(this.textCaract4 == undefined){
+              this.textCaract4 = false;
+            }
+
           }
-        }
+     
       }else{
         Swal.close();
       }
@@ -288,6 +305,9 @@ export class ProductoComponent implements OnInit {
       if((file.size/1048576)<=4){        
 
         let formData = new FormData();
+        for (var i = 0; i < event.target.files.length; i++) { 
+          this.myFiles.push(event.target.files[i]);
+        }
         // console.log(file);
         // console.log(file.name);
         formData.append('foto', (event.target as HTMLInputElement).files[0], file.name);
@@ -518,61 +538,63 @@ export class ProductoComponent implements OnInit {
       console.log(err);
     });
   }
+  validateStringCaract(caractNum){
+    if(!caractNum){
+      caractNum = "";
+    }
+    if(this.isKeyExists(caractNum,'nombre')){
+      return  caractNum.nombre;
+    }else{
+      if(caractNum != "" ){
+        return caractNum;
+      }else{
+        return caractNum;
+      }
+    }
+    
+  }
   insertProduct(){
-
-    if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
-      this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
-      Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ '<strong>'+this.textCaract1+', '+this.textCaract2+', '+this.textCaract3 +', '+this.textCaract4+ '<strong>', '','error');
-        return false;
-    } 
-
+    if(!this.flagProductList){
+      console.log(this.textCaract1);
+      console.log(this.textCaract2);
+      console.log(this.textCaract3);
+      console.log(this.textCaract4);
+      
+      if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
+        this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
+        Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ 
+                  '<strong>'
+                    + this.textCaract1  +', '+this.textCaract2 +', '+this.textCaract3 +', '+this.textCaract4
+                  + '<strong>', '','error');
+          return false;
+      } 
+    }
+    
     let formData = new FormData();
 
     if(Array.isArray(this.form_dataConfig)){
 
     }else{
-      formData.append('foto',this.form_dataConfig.get('foto'));
+      for (var i = 0; i < this.myFiles.length; i++) { 
+        formData.append("fotos[]", this.myFiles[i]);
+      }
+      formData.append('foto[]',this.form_dataConfig.get('foto'));
     }
     // console.log(this.editForm.value); return false;
-    const caract1 = this.editForm.get('caracteristica1').value;
-    const caract2 = this.editForm.get('caracteristica2').value;
-    const caract3 = this.editForm.get('caracteristica3').value;
-    const caract4 = this.editForm.get('caracteristica3').value;
+    let caract1 = this.editForm.get('caracteristica1').value;
+    let caract2 = this.editForm.get('caracteristica2').value;
+    let caract3 = this.editForm.get('caracteristica3').value;
+    let caract4 = this.editForm.get('caracteristica3').value;
 
-    let ca1 = '';
+    let ca1 = "";
     let ca2 = "";
     let ca3 = "";
     let ca4 = "";
-
-    if(this.isKeyExists(caract1,'nombre')){
-      ca1 =  caract1.nombre;
-    }else{
-      if(caract1 != "" ){
-        ca1 =  caract1;
-      }
-    }
-    if(this.isKeyExists(caract2,'nombre')){
-      ca2 =  caract2.nombre;
-    }else{
-      if(caract2 != "" ){
-        ca2 =  caract2;
-      }
-    }
-    if(this.isKeyExists(caract3,'nombre')){
-      ca3 =  caract3.nombre;
-    }else{
-      if(caract1 != "" ){
-        ca3 =  caract3;
-      }
-    }
-    if(this.isKeyExists(caract4,'nombre')){
-      ca4 =  caract4.nombre;
-    }else{
-      if(caract4 != "" ){
-        ca4 =  caract4;
-      }
-    }
-
+    ca1 = this.validateStringCaract(caract1);
+    ca2 = this.validateStringCaract(caract2);
+    ca3 = this.validateStringCaract(caract3);
+    ca4 = this.validateStringCaract(caract4);
+   
     // console.log(ca1); return false;
     // console.log(caract2); return false;
     // console.log(caract3); return false;
@@ -626,7 +648,7 @@ export class ProductoComponent implements OnInit {
   }
   newProduct(modalEditProducto){
     this.textAddOrEdit = false;
-
+    this.fotos = [];
     this.editForm.reset();
  
     this.notificationModal = this.modalService.show(
