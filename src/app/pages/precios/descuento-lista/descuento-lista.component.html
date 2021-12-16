@@ -68,6 +68,12 @@
                         <span>{{textCaract3}}</span>
                     </ng-template>
                 </ngx-datatable-column>
+
+                <ngx-datatable-column name="codigoProducto">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'precios.descuento.codigo' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
                 <!--
                 <ngx-datatable-column name="caracteristica4">
                     <ng-template let-column="column" ngx-datatable-header-template>
@@ -191,7 +197,15 @@
                 -->
                 <div class="col-md-4">
                     <div class="form-group mr-1">
-                        <label for="nombre_empresa"
+                        <label 
+                         class="form-control-label">{{ 'precios.descuento.codigo' | translate}}</label>
+                        <input formControlName="codigo_producto" class="form-control"
+                            placeholder="{{ 'precios.descuento.codigo' | translate }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label
                          class="form-control-label">{{ 'precios.descuento.descuento' | translate}}</label>
                         <input type="number" formControlName="descuento" class="form-control"
                             placeholder="{{ 'precios.descuento.descuento' | translate }}">                                     
@@ -280,6 +294,14 @@
                     </div>
                 </div>
                 -->
+                <div class="col-md-4">
+                    <div class="form-group mr-1">
+                        <label for="nombre_empresa"
+                         class="form-control-label">{{ 'precios.descuento.codigo' | translate}}</label>
+                        <input formControlName="codigo_producto" class="form-control"
+                            placeholder="{{ 'precios.descuento.codigo' | translate }}">
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="form-group mr-1">
                         <label for="nombre_empresa"

@@ -21,7 +21,7 @@ export class MicuentaComponent implements OnInit {
   empresa:any = {id:''}; 
   empresaData:any;
   // lastpassword:String = "";
-  flag:boolean = true;
+  flag:boolean = false;
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder, 
@@ -60,13 +60,13 @@ export class MicuentaComponent implements OnInit {
   }
   comprobarPassword(event:any){
     console.log(event.target.value);
-
+    /*
     const antes = event.target.value;
     if(antes == this.empresaData.clave){
       this.flag = false;
     }else{
         this.flag = true;
-    }
+    }*/
   }
 
   confirmPasswordNew(event:any){

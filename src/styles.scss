@@ -33,6 +33,18 @@ $argon-dashboard-pro-angular-theme: mat-light-theme($argon-dashboard-pro-angular
 .bg-maspedidos{
     background-color: #e81c62;
 }
+
+.modal-content-custom{
+    background-color: #f8f9fe !important;
+}
+.modal-content-custom .modal-content{
+    background-color: #f8f9fe !important;
+}
+.help-box {
+    font-family: "Roboto";
+    border: 1px solid #cdcdcd;
+    padding: 19px;
+}
 @import "~@ng-select/ng-select/themes/default.theme.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

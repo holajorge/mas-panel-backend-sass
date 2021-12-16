@@ -47,7 +47,7 @@
             "urlFacebook": "Página de Facebook",
             "urlInstagram": "Página de Instagram",
             "qrAFIP": "URL del QR AFIP",
-            "stock_descontar": "Descontar stock de productos al efecturse pedidos",
+            "stock_descontar": "Descontar stock de productos al efectuarse pedidos",
             "stock_permitir": "Permitir pedir producto sin stock",
             "urlWeb": "Pagina Web"
         }
@@ -129,8 +129,8 @@
             "codigo": "Codigo",
             "precio": "Precio",
             "stock": "Stock",
-            "stockMin": "Stock minimo",
-            "cantidadMin": "Cantidad minima",
+            "stockMin": "Stock mínimo",
+            "cantidadMin": "Cantidad mínima",
             "precioOferta": "Precio oferta",
             "caracteristica": "Caracteristica",
             "solapa": "Solapa",
@@ -188,6 +188,7 @@
             "titulo" : "Configuración de descuento",
             "subtitulo": "Ingrese los datos en los campos requeridos",
             "descuento": "Descuento",
+            "codigo": "Código de producto",
             "eliminar": "Eliminar",
             "lista" : {
                 "titulo" : "Lista de Descuentos aplicados",

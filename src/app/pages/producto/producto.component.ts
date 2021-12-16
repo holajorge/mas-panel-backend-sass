@@ -51,7 +51,7 @@ export class ProductoComponent implements OnInit {
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-xl static", 
+    class: "modal-dialog-centered modal-xl static modal-content-custom", 
   };
   model: NgbDateStruct;
   empresa:any = "";
@@ -85,6 +85,12 @@ export class ProductoComponent implements OnInit {
   addTextCaract2:boolean = false;
   addTextCaract3:boolean = false;
   addTextCaract4:boolean = false;
+
+  ver_agregar_1 = false;
+  ver_agregar_2 = false;
+  ver_agregar_3 = false;
+  ver_agregar_4 = false;
+
   configuraciones:any = [];
   textCaract1:string = "";
   textCaract2:string = "";
@@ -226,6 +232,7 @@ export class ProductoComponent implements OnInit {
   }
   addNewCarat1(){
     console.log("entra aqui");
+    this.ver_agregar_1 = !this.ver_agregar_1;
     this.addTextCaract =! this.addTextCaract;
     const car1 = this.editForm.get('caracteristica1').value;    
     if(typeof  car1){
@@ -239,6 +246,7 @@ export class ProductoComponent implements OnInit {
   }
   addNewCarat2(){
 
+    this.ver_agregar_2 = !this.ver_agregar_2;
     this.addTextCaract2 =! this.addTextCaract2;
     const car2 = this.editForm.get('caracteristica2').value;    
     if(typeof  car2){
@@ -249,6 +257,7 @@ export class ProductoComponent implements OnInit {
   }
   addNewCarat3(){
 
+    this.ver_agregar_3 = !this.ver_agregar_3;
     this.addTextCaract3 =! this.addTextCaract3;
     const car3 = this.editForm.get('caracteristica3').value;    
     if(typeof  car3){
@@ -259,6 +268,7 @@ export class ProductoComponent implements OnInit {
   }
   addNewCarat4(){
 
+    this.ver_agregar_4 = !this.ver_agregar_4;
     this.addTextCaract4 =! this.addTextCaract4;
     const car4 = this.editForm.get('caracteristica4').value;    
     if(typeof  car4){

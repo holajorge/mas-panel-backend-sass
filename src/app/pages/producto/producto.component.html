@@ -30,7 +30,7 @@
                             <label class="form-control-label">{{ 'producto.formEdit.codigo' | translate }}</label>
                             <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoP"
                                     placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" 
-                                    (keyup)="filtraCat($event)"/>
+                                    (keyup)="filtraCat()"/>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -178,6 +178,7 @@
 
 
 <ng-template #modalEditProducto >
+<form [formGroup]="editForm" novalidate >
     <div class=" modal-header">    
         <h5 class="modal-title" *ngIf="textAddOrEdit" >{{ 'producto.tituloEdit' | translate }}</h5>
         <h5 class="modal-title" *ngIf="!textAddOrEdit" >{{ 'producto.tituloAdd' | translate }}</h5>
@@ -186,210 +187,270 @@
         </button>
     </div>
     <div class="modal-body pt-0">
-        <form [formGroup]="editForm" novalidate >
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="form-group">
-                        <label class="form-control-label" for="titulo">{{ 'producto.formEdit.titulo' | translate }}:</label>
-                        <input type="text" formControlName="titulo" placeholder="Titulo" name="titulo" class="form-control" id="titulo">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('titulo').hasError('required') && editForm.get('titulo').touched">  
-                            {{ 'producto.formEdit.titulo' | translate }} es obrigatório
-                        </div>  
-                    </div>
+        
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Nombre y Descripcion</h3>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-control-label" for="codigo_producto">{{ 'producto.formEdit.codigo' | translate }}:</label>
-                        <input type="text" formControlName="codigo_producto" placeholder="Codigo" name="codigo_producto" class="form-control" id="codigo_producto">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('codigo_producto').hasError('required') && editForm.get('codigo_producto').touched">  
-                            {{ 'producto.formEdit.codigo' | translate }} es obrigatório
-                        </div>  
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="form-control-label" for="precio">{{ 'producto.formEdit.precio' | translate }}:</label>
-                        <input type="text" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('precio').hasError('required') && editForm.get('precio').touched">  
-                            {{ 'producto.formEdit.precio' | translate }} es obrigatório
-                        </div>  
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-control-label" for="stock">{{ 'producto.formEdit.stock' | translate }}:</label>
-                        <input type="text" formControlName="stock" placeholder="stock" name="stock" class="form-control" id="stock">
-                         
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-control-label" for="cantidad_minima">{{ 'producto.formEdit.cantidadMin' | translate }}:</label>
-                        <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
-                    </div>
-                </div> 
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-control-label" for="stock_minimo">{{ 'producto.formEdit.stockMin' | translate }}:</label>
-                        <input type="text" formControlName="stock_minimo" placeholder="stock minimo" name="stock_minimo" class="form-control" id="stock_minimo">
-                    </div>
-                </div> 
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-control-label" for="precio_oferta">{{ 'producto.formEdit.precioOferta' | translate }}:</label>
-                        <input type="text" formControlName="precio_oferta" placeholder="precio oferta" name="precio_oferta" class="form-control" id="precio_oferta">
-                    </div>
-                </div> 
-            </div>
-            <div class="row caracteristicas">
-                <div class="col-md-3 col-xs-12">
-                    <div class="form-group">
-                        <label class="form-control-label" for="caracteristica1">{{textCaract1}}:</label> 
-                        <button class="btn btn-sm btn-info" type="button" (click)="addNewCarat1()"> 
-                            <span class="fas fa-plus"></span> 
-                        </button>
-                        <ng-select *ngIf="!addTextCaract" formControlName="caracteristica1"
-                            [items]="arrayCaracteristica1" 
-                            bindLabel="nombre">
-                        </ng-select>
-                        <input *ngIf="addTextCaract"  type="text" 
-                            formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" 
-                            name="caracteristica1" class="form-control" id="caracteristica1">
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="form-group">
-                        <label class="form-control-label" for="caracteristica2">{{textCaract2}}:</label>
-                        <button class="btn btn-sm btn-info"  type="button" (click)="addNewCarat2()"> 
-                            <span class="fas fa-plus"></span> 
-                        </button>
-                        <ng-select *ngIf="!addTextCaract2" formControlName="caracteristica2"
-                            [items]="arrayCaracteristica2" 
-                            bindLabel="nombre">
-                        </ng-select>
-                        <input  *ngIf="addTextCaract2" type="text" 
-                            formControlName="caracteristica2" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 2" (keydown.enter)="$event.preventDefault()"
-                            name="caracteristica2" class="form-control" id="caracteristica2">
-                        
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12">
-                    <div class="form-group">
-                        <label class="form-control-label" for="caracteristica3">{{textCaract3}}:</label>
-                        <button class="btn btn-sm btn-info" type="button"  (click)="addNewCarat3()"> 
-                            <span class="fas fa-plus"></span> 
-                        </button>
-                        <ng-select *ngIf="!addTextCaract3" formControlName="caracteristica3"
-                            [items]="arrayCaracteristica3" 
-                            bindLabel="nombre">
-                        </ng-select>
-                        <input *ngIf="addTextCaract3" type="text" 
-                            formControlName="caracteristica3" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 3" name="caracteristica3" class="form-control" id="caracteristica3">
-                        
-                    </div>
-                </div>
-                 <div class="col-md-3 col-xs-12">
-                    <div class="form-group">
-                        <label class="form-control-label" for="caracteristica4">{{textCaract4}}:</label>
-                        <button class="btn btn-sm btn-info" type="button"  (click)="addNewCarat4()">
-                            <span class="fas fa-plus"></span>
-                        </button>
-                        <ng-select *ngIf="!addTextCaract4" formControlName="caracteristica4"
-                            [items]="arrayCaracteristica4"
-                            bindLabel="nombre">
-                        </ng-select>
-                        <input *ngIf="addTextCaract4" type="text" 
-                            formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
-                    </div>
-                </div>
-                
-            </div>
-            <div class="row">
-                <!-- <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="caracteristica4">{{ 'producto.formEdit.caracteristica' | translate }} 4:</label>
-                        <input type="text" formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
-                    </div>
-                </div> -->
-                <!-- <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="solapa1">{{ 'producto.formEdit.solapa' | translate }} 1:</label>
-                        <input type="checkbox" formControlName="solapa1" placeholder="{{ 'producto.formEdit.solapa' | translate }}" name="solapa1" class="form-control" id="solapa1">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="solapa2">{{ 'producto.formEdit.solapa' | translate }} 2:</label>
-                        <input type="checkbox" formControlName="solapa2" placeholder="{{ 'producto.formEdit.solapa' | translate }}" name="solapa2" class="form-control" id="solapa2">
-                    </div>
-                </div>   -->
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-control-label" for="destacado">{{ 'producto.formEdit.destacado' | translate }}:</label>
-                        <input type="checkbox" formControlName="destacado" placeholder="{{ 'producto.formEdit.destacado' | translate }}" name="destacado" class="ml-1" style="height: 18;width: 18px;" id="destacado">
-                    </div>
-                </div>
-                </div>
-                <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group ">
-                        <label for="foto" 
-                            class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
-                        <input type="file" accept="image/*"  accept=".png, .jpg, .jpeg"
-                            (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
-                    </div>
-                </div>
-                <!-- <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="sync">Sync:</label>
-                        <input type="checkbox" formControlName="sync" placeholder="sync" name="sync" class="form-control" id="sync">
-                    </div>
-                </div>   
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="fecha_sync">Fecha sync:</label>
-                        <input class="form-control"  name="dp" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" formControlName="fecha_sync" placeholder="yyyy-mm-dd"  id="fecha_sync">
-                    </div>
-                </div> -->
-            </div>
-            <div class="row">
-                <div class="col-3 mb-3" *ngFor="let foto of fotos; let i = index">
-                    <div class="card-group">
-                        <div class="card text-center" >
-                          <img class="card-img-top " src="{{foto.img}}" alt="Card image cap">
-                          <div class="card-body">
-                            <a href="javascript::void()" (click)="eliminarFoto(foto, i)" class="btn btn-danger">Eliminar</a>
-                          </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label class="form-control-label" for="titulo">{{ 'producto.formEdit.titulo' | translate }} ( * requerido ):</label>
+                                <input type="text" formControlName="titulo" placeholder="Titulo" name="titulo" class="form-control" id="titulo">
+                                <div class="alert  alert-danger" *ngIf="editForm.get('titulo').hasError('required') && editForm.get('titulo').touched">  
+                                    {{ 'producto.formEdit.titulo' | translate }} es obrigatório
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="form-control-label" for="codigo_producto">{{ 'producto.formEdit.codigo' | translate }}  ( * requerido ):</label>
+                                <input type="text" formControlName="codigo_producto" placeholder="Codigo" name="codigo_producto" class="form-control" id="codigo_producto">
+                                <div class="alert  alert-danger" *ngIf="editForm.get('codigo_producto').hasError('required') && editForm.get('codigo_producto').touched">  
+                                    {{ 'producto.formEdit.codigo' | translate }} es obrigatório
+                                </div>  
+                            </div>
                         </div>
                     </div>
-                </div>
-               
-            </div>
-            <div class="row">
-                
-                <div class="col-md-9">
-                    <div class="form-group">
-                        <label class="form-control-label" for="descripcion">{{ 'producto.formEdit.descripcion' | translate }}:</label>
-                        <textarea formControlName="descripcion"  name="descripcion" id="" cols="50" rows="5" class="form-control"></textarea>
-                        <!-- <input type="text" formControlName="descripcion" placeholder="descripcion" name="descripcion" class="form-control" id="descripcion"> -->
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="descripcion">{{ 'producto.formEdit.descripcion' | translate }}:</label>
+                                <textarea formControlName="descripcion"  name="descripcion" id="" cols="50" rows="5" class="form-control"></textarea>
+                                <!-- <input type="text" formControlName="descripcion" placeholder="descripcion" name="descripcion" class="form-control" id="descripcion"> -->
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
-                
             </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Precio y Stock</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="precio">{{ 'producto.formEdit.precio' | translate }}  ( * requerido ):</label>
+                                <input type="text" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
+                                <div class="alert  alert-danger" *ngIf="editForm.get('precio').hasError('required') && editForm.get('precio').touched">  
+                                    {{ 'producto.formEdit.precio' | translate }} es obrigatório
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="precio_oferta">{{ 'producto.formEdit.precioOferta' | translate }}:</label>
+                                <input type="text" formControlName="precio_oferta" placeholder="precio oferta" name="precio_oferta" class="form-control" id="precio_oferta">
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="stock">{{ 'producto.formEdit.stock' | translate }}:</label>
+                                <input type="text" formControlName="stock" placeholder="stock" name="stock" class="form-control" id="stock">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="cantidad_minima">{{ 'producto.formEdit.cantidadMin' | translate }}:</label>
+                                <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
+                            </div>
+                        </div> 
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="stock_minimo">{{ 'producto.formEdit.stockMin' | translate }}:</label>
+                                <input type="text" formControlName="stock_minimo" placeholder="stock minimo" name="stock_minimo" class="form-control" id="stock_minimo">
+                            </div>
+                        </div> 
+
+                        
+                    </div>
+                </div>
+            </div>    
+        </div>    
+
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Características</h3>
+                </div>
+                <div class="card-body">
+                
+                    <div class="row caracteristicas">
+                        <div class="col-md-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="caracteristica1">{{textCaract1}}:</label> 
+                                
+                                <ng-select *ngIf="!addTextCaract" formControlName="caracteristica1"
+                                    [items]="arrayCaracteristica1" 
+                                    bindLabel="nombre">
+                                </ng-select>
+                                <input *ngIf="addTextCaract"  type="text" 
+                                    formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" 
+                                    name="caracteristica1" class="form-control" id="caracteristica1">
+                                    <button *ngIf="!ver_agregar_1" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewCarat1()"> 
+                                        <span class="fas fa-plus"></span> Agregar nueva
+                                    </button>
+                                   
+                                    <button *ngIf="ver_agregar_1" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewCarat1()"> 
+                                        <span class="fas fa-times"></span> Cancelar
+                                    </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="caracteristica2">{{textCaract2}}:</label>
+                                
+                                <ng-select *ngIf="!addTextCaract2" formControlName="caracteristica2"
+                                    [items]="arrayCaracteristica2" 
+                                    bindLabel="nombre">
+                                </ng-select>
+                                <input  *ngIf="addTextCaract2" type="text" 
+                                    formControlName="caracteristica2" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 2" (keydown.enter)="$event.preventDefault()"
+                                    name="caracteristica2" class="form-control" id="caracteristica2">
+
+                                    <button *ngIf="!ver_agregar_2" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewCarat2()"> 
+                                        <span class="fas fa-plus"></span> Agregar nueva
+                                    </button>
+                                   
+                                    <button *ngIf="ver_agregar_2" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewCarat2()"> 
+                                        <span class="fas fa-times"></span> Cancelar
+                                    </button>   
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="caracteristica3">{{textCaract3}}:</label>
+                              
+                                <ng-select *ngIf="!addTextCaract3" formControlName="caracteristica3"
+                                    [items]="arrayCaracteristica3" 
+                                    bindLabel="nombre">
+                                </ng-select>
+                                <input *ngIf="addTextCaract3" type="text" 
+                                    formControlName="caracteristica3" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 3" name="caracteristica3" class="form-control" id="caracteristica3">
+                                
+                                    <button *ngIf="!ver_agregar_3" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewCarat3()"> 
+                                        <span class="fas fa-plus"></span> Agregar nueva
+                                    </button>
+                                   
+                                    <button *ngIf="ver_agregar_3" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewCarat3()"> 
+                                        <span class="fas fa-times"></span> Cancelar
+                                    </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="caracteristica4">{{textCaract4}}:</label>
+                                
+                                <ng-select *ngIf="!addTextCaract4" formControlName="caracteristica4"
+                                    [items]="arrayCaracteristica4"
+                                    bindLabel="nombre">
+                                </ng-select>
+                                <input *ngIf="addTextCaract4" type="text" 
+                                    formControlName="caracteristica4" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 4" name="caracteristica4" class="form-control" id="caracteristica4">
+                            
+                                    <button *ngIf="!ver_agregar_4" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewCarat4()"> 
+                                        <span class="fas fa-plus"></span> Agregar nueva
+                                    </button>
+                                   
+                                    <button *ngIf="ver_agregar_4" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewCarat4()"> 
+                                        <span class="fas fa-times"></span> Cancelar
+                                    </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-xs-12 help-box w-50">                                                          
+                        <div class="text-dark">
+                          <a class="cursor-pointer">  
+                              <span class="text-primary">
+                                <i class="fas fa-question-circle"></i> ¿Tenés dudas?
+                              </span> | Más información sobre las características </a>
+                        </div>
+                    </div>
+                </div>        
+            </div>   
+        </div> 
+
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                    <div class="card-header">
+                        <h3>Destacado</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="destacado">{{ 'producto.formEdit.destacado' | translate }}:</label>
+                                    <input type="checkbox" formControlName="destacado" placeholder="{{ 'producto.formEdit.destacado' | translate }}" name="destacado" class="ml-1" style="height: 18;width: 18px;" id="destacado">
+                                </div>
+                            </div>
+                            </div>
+                            
+                    
+                    </div>   
+            </div>
+        </div>
+
+
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Fotos</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label for="foto" 
+                                    class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
+                                <input type="file" accept="image/*"  accept=".png, .jpg, .jpeg"
+                                    (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div class="row">
+                        <div class="col-3 mb-3" *ngFor="let foto of fotos; let i = index">
+                            <div class="card-group">
+                                <div class="card text-center" >
+                                    <img class="card-img-top " src="{{foto.img.toLowerCase()}}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <a href="javascript::void()" (click)="eliminarFoto(foto, i)" class="btn btn-danger">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>    
+        </div>    
+
+    </div>       
+                    
+    
     <div class=" modal-footer">
         <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateProduct()" >{{ 'producto.formEdit.actualizar' | translate }}</button>
         <button *ngIf="onboardingService.on && !btnvisibilityIn" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertProduct(); onboardingService.submit('completeProducts')" [bdcWalkTriggerFor]="completeProducts">{{ 'producto.formEdit.guardar' | translate }}</button>
         <button *ngIf="!onboardingService.on && !btnvisibilityIn" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertProduct()" >{{ 'producto.formEdit.guardar' | translate }}</button>
         <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'producto.formEdit.cancelar' | translate }}</button>
     </div>
-
+</form>
 </ng-template>
 
 <ng-template #modalfoto >

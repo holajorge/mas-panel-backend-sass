@@ -62,7 +62,8 @@ export class DescuentoListaComponent implements OnInit {
       //caract4: [''],
       cliente: ['',Validators.required],
       descuento: [''],
-      empresa: ['']
+      empresa: [''],
+      codigo_producto: ['']
     });
 
     this.getDataSelect();
@@ -142,7 +143,8 @@ export class DescuentoListaComponent implements OnInit {
       //caract4: row.caracteristica4,
       cliente: row.nrocliente,
       descuento: row.porcentaje,
-      empresa: this.empresa
+      empresa: this.empresa,
+      codigo_producto: row.codigo_producto
     });
 
   }
@@ -243,7 +245,7 @@ export class DescuentoListaComponent implements OnInit {
     this.descuentoCateService.registrar(this.addForm.value).then( (res:any) =>{
       if(res.response){
         Swal.close();
-        Swal.fire('Listo','Descuento registrado con exito','success');
+        Swal.fire('Listo','Descuento registrado con éxito','success');
         this.addForm.reset();
       }else{
         Swal.fire('','error de comuniación, intente de nuevo','error');
