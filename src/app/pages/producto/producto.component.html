@@ -4,9 +4,7 @@
         <div class=" row align-items-center py-4">
           <div class=" col-lg-6 col-7">
             <h6 class=" h2 text-white d-inline-block mb-0 mr-1">{{  'producto.titulo' | translate}}</h6>
-            <a class=" btn btn-sm btn-primary" href="javascript:void(0)" (click)="destacadoProducts(modaDestacadoProducto)"> Destacados </a>
-            <!-- <a class=" btn btn-sm btn-success" href="javascript:void(0)" *ngIf="cambios" (click)="gurdarcambios()"> Guardar cambios </a> -->
-
+            
           </div>
           <div class=" col-lg-6 col-5 text-right">
               <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto); onboardingService.submit('clickNewProduct')" [bdcWalkTriggerFor]="clickNewProduct"> Nuevo </a>
@@ -288,9 +286,9 @@
                 </div>
                 <div class="card-body">
                 
-                    <div class="row caracteristicas">
+                    <div class="row caracteristicas" *ngIf="textCaract1">
                         <div class="col-md-3 col-xs-12">
-                            <div class="form-group">
+                            <div *ngIf="textCaract1" class="form-group">
                                 <label class="form-control-label" for="caracteristica1">{{textCaract1}}:</label> 
                                 
                                 <ng-select *ngIf="!addTextCaract" formControlName="caracteristica1"
@@ -310,7 +308,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-xs-12">
-                            <div class="form-group">
+                            <div *ngIf="textCaract2" class="form-group">
                                 <label class="form-control-label" for="caracteristica2">{{textCaract2}}:</label>
                                 
                                 <ng-select *ngIf="!addTextCaract2" formControlName="caracteristica2"
@@ -332,7 +330,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-xs-12">
-                            <div class="form-group">
+                            <div *ngIf="textCaract3" class="form-group">
                                 <label class="form-control-label" for="caracteristica3">{{textCaract3}}:</label>
                               
                                 <ng-select *ngIf="!addTextCaract3" formControlName="caracteristica3"
@@ -352,7 +350,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-xs-12">
-                            <div class="form-group">
+                            <div *ngIf="textCaract4" class="form-group">
                                 <label class="form-control-label" for="caracteristica4">{{textCaract4}}:</label>
                                 
                                 <ng-select *ngIf="!addTextCaract4" formControlName="caracteristica4"
@@ -418,7 +416,7 @@
                             <div class="form-group ">
                                 <label for="foto" 
                                     class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
-                                <input type="file" accept="image/*"  accept=".png, .jpg, .jpeg"
+                                <input type="file" accept="image/*"  name="file" accept=".png, .jpg, .jpeg" multiple
                                     (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
                             </div>
                         </div>
