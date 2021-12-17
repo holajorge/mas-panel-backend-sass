@@ -36,14 +36,11 @@ export class ConfigurcionProductoComponent implements OnInit {
   getConfiguracion(){
 
     this.empresa.id = localStorage.getItem('usuario');
-    console.log(this.empresa);
 
     this.configService.getConfigEmpresa(this.empresa).then( (res:any) =>{    
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        
-        console.log(this.configuraciones);
           
         if(this.configuraciones.caracteristica1 != undefined){
           this.addForm.patchValue({caract1: this.configuraciones.caracteristica1});
@@ -65,7 +62,7 @@ export class ConfigurcionProductoComponent implements OnInit {
   }
 
   senConfiguracionProduct(){
-    
+    Swal.showLoading();
     this.productoService.updateProductCaract(this.addForm.value).then( (res:any) =>{    
       if(res.productos){
         this.addForm.reset();
@@ -77,6 +74,7 @@ export class ConfigurcionProductoComponent implements OnInit {
       
     }).catch(err=>{
       console.log(err);
+      Swal.close();
     });  
   }
 

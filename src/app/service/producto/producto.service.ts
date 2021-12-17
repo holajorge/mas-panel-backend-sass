@@ -51,8 +51,6 @@ export class ProductoService {
   createProducto(producto){
 
     console.log(producto);
-    // let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    // let options = { headers: headers };
     
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/createProducto",producto).toPromise().then((res) =>{     
       return { success: true, productos:res};

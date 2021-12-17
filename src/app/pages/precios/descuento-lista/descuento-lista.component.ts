@@ -247,6 +247,9 @@ export class DescuentoListaComponent implements OnInit {
         Swal.close();
         Swal.fire('Listo','Descuento registrado con éxito','success');
         this.addForm.reset();
+        this.notificationModal.hide();
+        this.getListaDescuentos();
+
       }else{
         Swal.fire('','error de comuniación, intente de nuevo','error');
         Swal.close();

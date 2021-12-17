@@ -444,9 +444,10 @@
     
     <div class=" modal-footer">
         <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateProduct()" >{{ 'producto.formEdit.actualizar' | translate }}</button>
-        <button *ngIf="onboardingService.on && !btnvisibilityIn" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertProduct(); onboardingService.submit('completeProducts')" [bdcWalkTriggerFor]="completeProducts">{{ 'producto.formEdit.guardar' | translate }}</button>
+        <button *ngIf="onboardingService.on && !btnvisibilityIn" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='editForm.invalid'
+         (click)="insertProduct(); onboardingService.submit('completeProducts')" [bdcWalkTriggerFor]="completeProducts">{{ 'producto.formEdit.guardar' | translate }}</button>
         <button *ngIf="!onboardingService.on && !btnvisibilityIn" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertProduct()" >{{ 'producto.formEdit.guardar' | translate }}</button>
-        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'producto.formEdit.cancelar' | translate }}</button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="cerrarmodal()"> <i class="fa fa-times-circle" ></i>{{ 'producto.formEdit.cancelar' | translate }}</button>
     </div>
 </form>
 </ng-template>

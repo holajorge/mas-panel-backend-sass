@@ -157,7 +157,10 @@ export class ProductoComponent implements OnInit {
     this.textAddOrEdit = true;
     
     let fotosArray = JSON.parse(row.fotos);
-    if(fotosArray.length > 0){
+    console.log(fotosArray);
+    if(!fotosArray){
+      this.fotos = [];
+    }else{
       this.fotos = fotosArray.map( (val) =>{
         return {
           img: "https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/"+this.bucket+"/fotos/"+val,
@@ -165,9 +168,8 @@ export class ProductoComponent implements OnInit {
           nombre: val
         };          
       });
-    }else{
-      this.fotos = [];
     }
+    
     
     this.editForm.patchValue({
       id: row.id,
@@ -299,6 +301,7 @@ export class ProductoComponent implements OnInit {
     const files:FileList = event.target.files;    
     this.editForm.patchValue({logo: file});
     this.editForm.get('foto').updateValueAndValidity();
+    this.myFiles = [];
 
     if(files.length > 0){
       const file = files[0];
@@ -308,16 +311,9 @@ export class ProductoComponent implements OnInit {
         for (var i = 0; i < event.target.files.length; i++) { 
           this.myFiles.push(event.target.files[i]);
         }
-        // console.log(file);
-        // console.log(file.name);
+
         formData.append('foto', (event.target as HTMLInputElement).files[0], file.name);
-        // formData.append('empresa_id',this.formConfig.get('empresa_id').value); 
-        // console.log(formData);
         this.form_dataConfig = formData;
-        // console.log(this.form_dataConfig);
-        // this.formConfig.patchValue({filesource: files});
-        // console.log(this.form_dataConfig.get('logo'));
-        // File Preview        
 
       }else{
         Swal.fire('Error al importar o archivo excede o limite de tamaño permitido, intente de nuevo!', 'error')
@@ -454,8 +450,12 @@ export class ProductoComponent implements OnInit {
     if(Array.isArray(this.form_dataConfig)){
 
     }else{
-      formData.append('foto',this.form_dataConfig.get('foto'));
+      for (var i = 0; i < this.myFiles.length; i++) { 
+        formData.append("fotos[]", this.myFiles[i]);
+      }
+      formData.append('foto[]',this.form_dataConfig.get('foto'));
     }
+    
     const caract1 = this.editForm.get('caracteristica1').value;
     const caract2 = this.editForm.get('caracteristica2').value;
     const caract3 = this.editForm.get('caracteristica3').value;
@@ -465,38 +465,11 @@ export class ProductoComponent implements OnInit {
     let ca2 = "";
     let ca3 = "";
     let ca4 = "";
-
-    if(this.isKeyExists(caract1,'nombre')){
-      ca1 =  caract1.nombre;
-    }else{
-      if(caract1 != "" ){
-        ca1 =  caract1;
-      }
-    }
-    if(this.isKeyExists(caract2,'nombre')){
-      ca2 =  caract2.nombre;
-    }else{
-      if(caract2 != "" ){
-        ca2 =  caract2;
-      }
-    }
-    if(this.isKeyExists(caract3,'nombre')){
-      ca3 =  caract3.nombre;
-    }else{
-      if(caract1 != "" ){
-        ca3 =  caract3;
-      }
-    }
-    if(this.isKeyExists(caract4,'nombre')){
-      ca4 =  caract4.nombre;
-    }else{
-      if(caract4 != "" ){
-        ca4 =  caract4;
-      }
-    }
-    console.log(caract4);
-    console.log(ca4);
-    // return false;
+    ca1 = this.validateStringCaract(caract1);
+    ca2 = this.validateStringCaract(caract2);
+    ca3 = this.validateStringCaract(caract3);
+    ca4 = this.validateStringCaract(caract4);
+    
     formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
     formData.append('caracteristica1',ca1);
     formData.append('caracteristica2',ca2);
@@ -553,13 +526,13 @@ export class ProductoComponent implements OnInit {
     }
     
   }
+  cerrarmodal(){
+    this.myFiles = [];
+    this.notificationModal.hide();
+  }
   insertProduct(){
     if(!this.flagProductList){
-      console.log(this.textCaract1);
-      console.log(this.textCaract2);
-      console.log(this.textCaract3);
-      console.log(this.textCaract4);
-      
+    
       if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
         this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
         Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ 
@@ -595,9 +568,6 @@ export class ProductoComponent implements OnInit {
     ca3 = this.validateStringCaract(caract3);
     ca4 = this.validateStringCaract(caract4);
    
-    // console.log(ca1); return false;
-    // console.log(caract2); return false;
-    // console.log(caract3); return false;
     formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
     formData.append('caracteristica1',ca1);
     formData.append('caracteristica2',ca2);
