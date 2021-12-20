@@ -49,7 +49,8 @@
             "qrAFIP": "URL del QR AFIP",
             "stock_descontar": "Descontar stock de productos al efectuarse pedidos",
             "stock_permitir": "Permitir pedir producto sin stock",
-            "urlWeb": "Pagina Web"
+            "urlWeb": "Pagina Web",
+            "leyendaMasIva": "Mostrar leyenda \"Más Iva\" en el carrito "
         }
     },
     "categorias":{
