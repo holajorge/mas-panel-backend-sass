@@ -115,7 +115,11 @@ export class ProductoComponent implements OnInit {
   flagCarat2:boolean;
   flagCarat3:boolean;
   flagCarat4:boolean;
+  tituloP:string="";
   myFiles:string [] = [];
+  cont: any = 0;
+  activoCliente:boolean = false;
+  
   constructor(public translate: TranslateService,
     public productoService: ProductoService,
     private modalService: BsModalService,
@@ -372,14 +376,28 @@ export class ProductoComponent implements OnInit {
     const car2 = this.selectCara2;
     const car3 = this.selectCara3;
     const code = this.codigoP;
-    const check = this.selectDest;
+    // const check = this.selectDest;
+    const titulo = this.tituloP;
+    let activo = null;
+   
     
+    if(this.cont == 1){
+      activo = true
+    }else{
+      activo = (this.activoCliente == true) ? true : false;
+    }
     const filtros = {
       codigo: [code, d => d['codigo'].includes(code)],
       caracteristica1: [car1, d => d['caracteristica1'].includes(car1)],
       caracteristica2: [car2, d => d['caracteristica2'].includes(car2)],
       caracteristica3: [car3, d => d['caracteristica3'].includes(car3)],
-      destacado: [check, d => d['destacado'] === check]
+      // destacado: [check, d => d['destacado'] === check],
+      activo: [activo, d => {
+        if(d['destacado'] == "1"){
+          return true;
+        }
+      }],
+      titulo: [titulo, d => d['titulo'].includes(titulo)],
     }
     // console.log(check);
     
@@ -390,6 +408,16 @@ export class ProductoComponent implements OnInit {
       }
     }         
     this.rows = producto1;        
+  }
+  cambia(){
+    this.cont++;
+    console.log('input chek esta en:', this.activoCliente);
+
+    console.log('contador vale:', this.cont);
+    this.activoCliente = (this.activoCliente == true) ? false : true;
+
+    console.log('check esta en:', this.activoCliente);
+    this.filtraCat();
   }
   eliminar(){
     this.selectCara1 = null;
@@ -490,7 +518,7 @@ export class ProductoComponent implements OnInit {
     formData.append('stock_minimo',this.editForm.get('stock_minimo').value);
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
-
+    Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{    
       if(res.success == true){
         this.notificationModal.hide();
@@ -508,6 +536,7 @@ export class ProductoComponent implements OnInit {
       }
 
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
   }

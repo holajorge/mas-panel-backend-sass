@@ -31,6 +31,14 @@
                                     (keyup)="filtraCat()"/>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="from-group">
+                            <label class="form-control-label">Titulo</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="tituloP"
+                                    placeholder="{{ 'producto.tabla.titulo' | translate}}" aria-controls="datatable" 
+                                    (keyup)="filtraCat()"/>
+                        </div>
+                    </div>
                     <div class="col-md-3" *ngIf="textCaract1">
                         <div class="from-group">
                             <label for="">{{textCaract1}}</label>
@@ -55,12 +63,19 @@
                             </ng-select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="from-group">
                             <label for="">Destacados </label>
                             <ng-select  (change)="filtraCat()" [(ngModel)]="selectDest"
                                 bindValue="id" [items]="arrayDestacados" bindLabel="nombre">
                             </ng-select>                      
+                        </div>
+                    </div> -->
+                    <div class="col-12 col-md-3">
+                        <div class="from-group">
+                            <label class="form-control-label">Destacados</label>
+                            <input type="checkbox" class="form-control form-control-sm" [(ngModel)]="activoCliente" 
+                             value="true" aria-controls="datatable" (click)="cambia()"/>
                         </div>
                     </div>
                     <div class="col-md-1 mt-3">
