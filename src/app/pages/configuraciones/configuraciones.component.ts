@@ -270,7 +270,7 @@ export class ConfiguracionesComponent {
     this.configService.saveConfig(formData).then( (res:any) =>{    
       Swal.close();
       if(res.response.body.flag == true){
-
+        location.reload();
         Swal.fire('Listo!','configuración guardada con exito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
