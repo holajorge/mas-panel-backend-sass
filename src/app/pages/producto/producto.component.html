@@ -41,24 +41,24 @@
                     </div>
                     <div class="col-md-3" *ngIf="textCaract1">
                         <div class="from-group">
-                            <label for="">{{textCaract1}}</label>
-                            <ng-select  [items]="arrayCaracteristica1" [(ngModel)]="selectCara1"
+                            <label class="form-control-label" for="">{{textCaract1}}</label>
+                            <ng-select  [items]="arrayCaracteristica1" [(ngModel)]="selectCara1" class="custom"
                             bindValue="nombre"  (change)="filtraCat()" bindLabel="nombre"
                             [clearSearchOnAdd]="true"></ng-select>
                         </div>
                     </div>
                     <div class="col-md-3"  *ngIf="textCaract2">
                         <div class="from-group">
-                            <label for="">{{textCaract2}}</label>
-                            <ng-select (change)="filtraCat()"[(ngModel)]="selectCara2"
+                            <label class="form-control-label" for="">{{textCaract2}}</label>
+                            <ng-select (change)="filtraCat()"[(ngModel)]="selectCara2" 
                             bindValue="nombre" [items]="arrayCaracteristica2" bindLabel="nombre">
                             </ng-select>
                         </div>
                     </div>
                     <div class="col-md-3"  *ngIf="textCaract3">
                         <div class="from-group">
-                            <label for="">{{textCaract3}}</label>
-                            <ng-select (change)="filtraCat()" [(ngModel)]="selectCara3"
+                            <label class="form-control-label" for="">{{textCaract3}}</label>
+                            <ng-select (change)="filtraCat()" [(ngModel)]="selectCara3" 
                                 bindValue="nombre"[items]="arrayCaracteristica3" bindLabel="nombre">
                             </ng-select>
                         </div>
@@ -72,11 +72,13 @@
                         </div>
                     </div> -->
                     <div class="col-12 col-md-3">
-                        <div class="from-group">
-                            <label class="form-control-label">Destacados</label>
-                            <input type="checkbox" class="form-control form-control-sm" [(ngModel)]="activoCliente" 
-                             value="true" aria-controls="datatable" (click)="cambia()"/>
-                        </div>
+                        <!-- <div class="from-group"> -->
+                            <div class="mt-4">
+                                <label class="form-control-label"> Destacados </label>
+                                <input type="checkbox" [(ngModel)]="activoCliente" class="m-2 border-2"
+                                value="true" aria-controls="datatable" (click)="cambia()"/>
+                            </div>
+                        <!-- </div> -->
                     </div>
                     <div class="col-md-1 mt-3">
                         <button class="btn btn-danger" (click)="eliminar()"><i class="fas fa-times-circle"></i></button>

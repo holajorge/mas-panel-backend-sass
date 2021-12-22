@@ -397,7 +397,13 @@ export class ProductoComponent implements OnInit {
           return true;
         }
       }],
-      titulo: [titulo, d => d['titulo'].includes(titulo)],
+      titulo: [titulo, d =>{
+        let tituloCase = d['titulo'].toLowerCase();
+        if(tituloCase.includes(titulo.toLocaleLowerCase())){
+          return true;
+        }
+        // d['titulo'].includes(titulo);
+      }] 
     }
     // console.log(check);
     

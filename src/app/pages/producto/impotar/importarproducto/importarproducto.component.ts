@@ -42,8 +42,6 @@ export class ImportarproductoComponent implements OnInit {
   ];
   constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService,  public onboardingService:WalkthroughService) {
 
-    this.translate.addLangs(['en','es','pt']);
-    this.translate.setDefaultLang('es');
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
 
@@ -89,8 +87,10 @@ export class ImportarproductoComponent implements OnInit {
     Swal.showLoading()
 
     this.productoService.importProducto(this.file_data).then( (res:any) =>{    
-      console.log(res.response);
-      if(res.success == true){
+      
+      if(!res.success){
+        Swal.fire('error',res.response, 'error');
+      }else if(res.success){
         Swal.close();
         Swal.fire({
           // icon: "info",
@@ -119,8 +119,8 @@ export class ImportarproductoComponent implements OnInit {
 
         });        
       }else{
-        Swal.close()
-        Swal.fire('Error al importar los datos de los productos, intente de nuevo!', 'error')
+        Swal.close();
+        Swal.fire('Error al importar los datos de los productos, intente de nuevo!', 'error');
       }
 
     }).catch(err=>{

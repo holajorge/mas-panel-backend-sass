@@ -1,25 +1,27 @@
 
-      @media screen and (max-width: 800px) {
-        .desktop-hidden {
-          display: initial;
-        }
-        .mobile-hidden {
-          display: none;
-        }
-      }
-      @media screen and (min-width: 800px) {
-        .desktop-hidden {
-          display: none;
-        }
-        .mobile-hidden {
-          display: initial;
-        }
-      }
+@media screen and (max-width: 800px) {
+  .desktop-hidden {
+    display: initial;
+  }
+  .mobile-hidden {
+    display: none;
+  }
+}
+@media screen and (min-width: 800px) {
+  .desktop-hidden {
+    display: none;
+  }
+  .mobile-hidden {
+    display: initial;
+  }
+}
 
-      :host ::ng-deep .ngx-datatable .datatable-body .datatable-scroll {
-        display: inherit;
-      }
+:host ::ng-deep .ngx-datatable .datatable-body .datatable-scroll {
+  display: inherit;
+}
 .caracteristicas div div button{
     margin-left: 3px;
 }
-
+.form-control-sm{
+  height: calc( 1em + 1.25em + 5px) !important;
+}

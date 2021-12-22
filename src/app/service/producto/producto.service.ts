@@ -124,8 +124,13 @@ export class ProductoService {
   }
   importProducto(filedata){
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importProducts",filedata).toPromise().then((res) =>{     
-      return { success: true, response:res};
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importProducts",filedata).toPromise().then((res:any) =>{   
+      
+        if(res?.msg){
+          return {success: false, response: res.msg}
+        }else{
+          return { success: true, response:res};
+        }
     })
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
