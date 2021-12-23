@@ -7,7 +7,7 @@
                 {{ 'cuenta.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+            <a class=" btn btn-sm btn-primary" href="javascript:void(0)" (click)="solicitarBaja()" > {{ 'cuenta.datos.btnbaja' | translate }} </a>
           </div>
         </div>
       </div>
@@ -22,13 +22,13 @@
                     <div class="card-header"><h3 class="mb-0">{{ 'cuenta.subtitulo' | translate }}</h3></div>
                     <div class="card-body">
                                         
-                        <form [formGroup]="addForm" novalidate >
+                        <form [formGroup]="addForm" novalidate autocomplete="off">
                             <div class="row">
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group mr-1">
                                         <label for="email"
                                          class="form-control-label">{{ 'cuenta.datos.email' | translate }}</label>
-                                        <input type="text" 
+                                        <input type="text" autocomplete="off" 
                                             placeholder="{{ 'cuenta.datos.email' | translate }}" 
                                             formControlName="email"  class="form-control"> 
                                         <div class="alert  alert-danger" 
@@ -37,9 +37,14 @@
                                         </div>  
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-4">
+                                <!-- <div class="col-md-4 mt-4">
                                     <div class="form-group ">
                                         <button class="btn btn-primary" (click)="solicitarBaja()">{{ 'cuenta.datos.btnbaja' | translate }}</button>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group ">
+                                        <button class="btn btn-primary" (click)="cambiarCorreo()">Cambiar correo</button>
                                     </div>
                                 </div>
                             </div>
@@ -50,16 +55,16 @@
                                     <div class="form-group">
                                         <label for="lastpassword" 
                                             class="form-control-label">{{ 'cuenta.datos.lastpassword' | translate }}</label>
-                                        <input type="text" formControlName="lastpassword" 
+                                        <input type="text" formControlName="lastpassword" autocomplete="off"
                                             placeholder="{{ 'cuenta.datos.lastpassword' | translate }}" 
-                                             class="form-control" (keyup)="comprobarPassword($event)" > 
+                                             class="form-control" (blur)="comprobarPassword($event)" > 
                                     </div>
                                 </div>   
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="passoword" 
                                             class="form-control-label">{{ 'cuenta.datos.password' | translate }}</label>
-                                        <input type="password" [readonly]="flag"
+                                        <input type="password" autocomplete="off"
                                             placeholder="{{ 'cuenta.datos.password' | translate }}" 
                                             formControlName="password"  class="form-control" > 
                                         <div class="alert  alert-danger" 
@@ -72,7 +77,8 @@
                                     <div class="form-group">
                                         <label for="confirmPassword"  
                                             class="form-control-label">{{ 'cuenta.datos.confirmPassword' | translate }}</label>
-                                        <input type="password" [readonly]="flag" (keyup)="confirmPasswordNew($event)"
+                                        <input type="password" autocomplete="off"
+                                            (keyup)="confirmPasswordNew($event)" 
                                             placeholder="{{ 'cuenta.datos.confirmPassword' | translate }}" 
                                             class="form-control"> 
                                         

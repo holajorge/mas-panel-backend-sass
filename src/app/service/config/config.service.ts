@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,12 @@ export class ConfigService {
 
   public static DOMAIN() :string{
     return ".maspedidos.com.ar";
+  }
+
+  get headers(){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    return options;
   }
 
   saveConfig(data){
@@ -55,6 +63,31 @@ export class ConfigService {
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
+  }
+  validarExisteEmail(data){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/validaExisteCorreo",data, this.headers)
+      .pipe(
+        map( (res:any) => {
+          let {flag} = res['body'];
+          return flag;
+        }),
+        catchError( error => {
+          return of(false)
+        })
+      );
+  }
+  checkLastPass(data){
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/validLastPass",data, this.headers)
+      .pipe(
+        map( (res:any) => {
+          let {flag} = res['body'];
+          return flag;
+        }),
+        catchError( error => {
+          return of(false)
+        })
+      );
   }
   saveData(data){
     console.log(data);

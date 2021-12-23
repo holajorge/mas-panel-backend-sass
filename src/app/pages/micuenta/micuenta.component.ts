@@ -22,6 +22,7 @@ export class MicuentaComponent implements OnInit {
   empresaData:any;
   // lastpassword:String = "";
   flag:boolean = false;
+  
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder, 
@@ -32,12 +33,14 @@ export class MicuentaComponent implements OnInit {
     this.empresa.id = localStorage.getItem('usuario');
 
     this.addForm = this.fb.group({
-      email: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required],
       confirmpassword: [null, Validators.required],
       empresa: [null],
       lastpassword: [null]
     });
+    this.addForm.controls['password'].disable();
+    this.addForm.controls['confirmpassword'].disable();
   }
 
   ngOnInit() {
@@ -58,8 +61,58 @@ export class MicuentaComponent implements OnInit {
       Swal.close();
     });
   }
+  cambiarCorreo(){
+    if(this.validaEmail(this.addForm.get('email').value)){
+      let data = { 
+        email: this.addForm.get('email').value,
+        empresa:this.empresa.id
+      }
+      this.configService.validarExisteEmail(data).subscribe(
+        (res:any)=>{
+          if(res){
+            Swal.fire('error','correo ya existe, ingrese otro correo para hacer el cambio','error');
+          }else{
+            Swal.fire('Listo','Correo actualizado con exito','success');
+          }
+        },
+        (error) =>{
+          Swal.fire('error','Error inesperado, intente nuevamente','error');
+          console.log(error);
+        }
+      )
+
+    }else{
+      Swal.fire('error', 'Ingrese un correo valido','error');
+    }
+
+  }
+  validaEmail(email){
+    return String(email).toLowerCase().match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+  }
   comprobarPassword(event:any){
-    console.log(event.target.value);
+
+    let empresa = {
+      empresa: this.empresa.id,
+      last: event.target.value.trim()
+    }
+
+    this.configService.checkLastPass(empresa).subscribe(
+      (res:any)=>{
+        if(res){
+          this.addForm.controls['password'].enable();
+          this.addForm.controls['confirmpassword'].enable();
+        }else{
+          Swal.fire('error', 'La contraseña anterior no es correcta,porfavor ingrese correctamente su contraseña anterior','error');
+        }        
+      }, (error) =>{
+        Swal.fire('error', 'Error inesperado,porfavor intente nuevamente','error');
+
+        console.log(error);
+        
+      }
+    );
     /*
     const antes = event.target.value;
     if(antes == this.empresaData.clave){
@@ -133,8 +186,6 @@ export class MicuentaComponent implements OnInit {
             }else{
               Swal.fire('Error al guardar, intente de nuevo!', 'error')
             }
-            
-            
           }).catch(err=>{
             Swal.close();
             console.log(err);

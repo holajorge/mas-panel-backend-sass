@@ -38,7 +38,7 @@ export class DescuentoListaComponent implements OnInit {
   caract2:any;
   caract3:any;
   //caract4:any;
-
+  flagNewUpdate:boolean = true;
   constructor(
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
@@ -131,9 +131,10 @@ export class DescuentoListaComponent implements OnInit {
   }
 
   onSelectItem(modal, row){
-
+    this.addForm.reset();
+    this.flagNewUpdate = false;
     this.notificationModal = this.modalService.show(modal,this.notification);
-    console.log(row);
+    
     this.addForm.patchValue({
       id: row.id,
       empresa_id: row.empresa_id,
@@ -202,6 +203,7 @@ export class DescuentoListaComponent implements OnInit {
   }
 
   newDiscount(modalAddDiscount){
+    this.flagNewUpdate = true;
     this.addForm.reset();
 
     this.notificationModal = this.modalService.show(

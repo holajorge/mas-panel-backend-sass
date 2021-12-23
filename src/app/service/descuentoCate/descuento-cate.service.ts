@@ -35,7 +35,8 @@ export class DescuentoCateService {
     });
   }
   registrar(datos){
-
+    console.warn(datos);
+    
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -48,6 +49,7 @@ export class DescuentoCateService {
 
   }
   actualizar(datos){
+    console.warn(datos);
 
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
