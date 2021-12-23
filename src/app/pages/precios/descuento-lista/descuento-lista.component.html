@@ -7,7 +7,7 @@
                 {{'precios.descuento.lista.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-              <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newDiscount(modalEditDescuento)"> Nuevo </a>
+              <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newDiscount(modalAddDiscount)"> Nuevo </a>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                         <span>
                             <button class="btn btn-sm btn-primary" 
-                                (click)='onSelectItem(modalEditDescuento,row)' 
+                                (click)='onSelectItem(modalAddDiscount,row)' 
                                 title="{{ 'producto.tabla.editar' | translate}}">
                                 <span class="fas fa-pen-alt"></span> 
                             </button>
@@ -122,6 +122,7 @@
 </div>
 
 <ng-template #modalEditDescuento >
+    <form [formGroup]="addForm" novalidate >
     <div class="modal-header">    
         <h5 *ngIf="!flagNewUpdate" class="modal-title" >{{ 'cliente.comprobantes.tabla.actualizar' | translate}} </h5>
         <h5 *ngIf="flagNewUpdate" class="modal-title" >{{ 'precios.descuento.subtitulo' | translate }}</h5>
@@ -131,7 +132,7 @@
     </div>    
     <div class="modal-body pt-0">
         
-        <form [formGroup]="addForm" novalidate >
+       
 
             <div class="row">
                 <div class="col-md-4">
@@ -200,7 +201,7 @@
                     </div>
                 </div>
             </div>
-        </form>    
+       
 
     </div>
     <div class=" modal-footer">
@@ -210,7 +211,148 @@
       (click)="registrar()" >{{ 'cliente.add.guardar' | translate }} <span class="fas fa-save"></span></button>
       <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.comprobantes.tabla.cancelar' | translate}}</button>
     </div>
+</form>    
 </ng-template>
 
 
+<ng-template #modalAddDiscount >
+    <form [formGroup]="addForm" novalidate > 
+    <div class=" modal-header">
+        
+        <h5 *ngIf="!flagNewUpdate" class="modal-title" >{{ 'cliente.comprobantes.tabla.actualizar' | translate}} </h5>
+        <h5 *ngIf="flagNewUpdate" class="modal-title" >{{ 'precios.descuento.subtitulo' | translate }}</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body pt-0">
+        
 
+            <div class="card-wrapper bg-white">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Cliente/s que le corresponde este descuento</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="nombre_empresa"
+                                    class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                                    <ng-select formControlName="cliente"
+                                        [items]="clientes"
+                                        bindValue="nrocliente"
+                                        bindLabel="nombre">
+
+                                    </ng-select>
+                                    <div class="alert  alert-danger"
+                                        *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">
+                                        {{ 'cliente.add.cliente' | translate }} es obligatorio
+                                    </div>
+                            </div>
+                            <div class="col-lg-8"></div>
+                        </div>    
+                    </div>
+                </div>
+            </div>      
+            
+            <div class="card-wrapper bg-white">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Producto/s que va a afectar este descuento</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>Elegirlos varios productos según filtros</h3>
+                            </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mr-1">
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ textCaract1 }}</label>
+                                         <ng-select formControlName="caract1"
+                                            [items]="caract1"
+                                            bindValue="nombre"
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mr-1">
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ textCaract2 }}</label>
+                                         <ng-select formControlName="caract2"
+                                            [items]="caract2"
+                                            bindValue="nombre"
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mr-1">
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ textCaract3 }}</label>
+                                         <ng-select formControlName="caract3"
+                                            [items]="caract3"
+                                            bindValue="nombre"
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            
+                        </div>  
+                        
+                        <div class="row">
+                            <div class="col-12 mt-3 mb-2">
+                                <h3>Elegir un producto por código</h3>
+                            </div>   
+                            <div class="col-lg-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ 'precios.descuento.codigo' | translate}}</label>
+                                    <input formControlName="codigo_producto" class="form-control"
+                                        placeholder="{{ 'precios.descuento.codigo' | translate }}">
+                                </div>
+                                
+                            </div>
+                            <div class="col-lg-8"></div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            <div class="card-wrapper bg-white">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Descuento a aplicar</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="input-group mr-1">
+                                    
+                                    <input type="number" formControlName="descuento" class="form-control"
+                                        placeholder="{{ 'precios.descuento.descuento' | translate }}">
+                                        <span class="input-group-text bg-light rounded-end ml--1">%</span>
+
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+
+            
+       
+    </div>
+    <div class=" modal-footer">
+        <button *ngIf="!flagNewUpdate" class="btn btn-success" [disabled]='addForm.invalid'
+        (click)="update()">{{ 'cliente.add.guardar' | translate}}</button> 
+        <button *ngIf="flagNewUpdate" class="btn btn-success" [disabled]='addForm.invalid'  
+        (click)="registrar()" >{{ 'cliente.add.guardar' | translate }} <span class="fas fa-save"></span></button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.comprobantes.tabla.cancelar' | translate}}</button>
+        <!-- <button class="btn btn-success" [disabled]='addForm.invalid'  (click)="registrar()" >{{ 'cliente.add.guardar' | translate }} <span class="fas fa-save"></span></button> -->
+        <!-- <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.add.cancelar' | translate }}</button> -->
+    </div>
+</form>
+</ng-template>

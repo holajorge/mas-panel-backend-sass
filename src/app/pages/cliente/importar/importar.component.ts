@@ -162,7 +162,7 @@ export class ImportarComponent implements OnInit {
     
   }
   modelocliente(){
-    this.clienteService.exportAsExcelFile(this.modeloExcel, 'modelo_cliente');
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_clients?modelo=1&empresa="+this.empresaa.id, "_blank");
   }
   dataExcelClientes(){
     window.open(ConfigService.API_ENDPOINT()+"Backend/download_clients?empresa="+this.empresaa.id, "_blank");
