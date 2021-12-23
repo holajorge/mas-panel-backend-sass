@@ -22,7 +22,7 @@ export class MicuentaComponent implements OnInit {
   empresaData:any;
   // lastpassword:String = "";
   flag:boolean = false;
-  
+  confirm:string="";
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder, 
@@ -91,40 +91,36 @@ export class MicuentaComponent implements OnInit {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
   }
-  comprobarPassword(event:any){
-
+  comprobarPassword(){
+    
     let empresa = {
       empresa: this.empresa.id,
-      last: event.target.value.trim()
+      last: this.addForm.get('lastpassword').value.trim()
     }
 
-    this.configService.checkLastPass(empresa).subscribe(
+    return this.configService.checkLastPass(empresa).subscribe(
       (res:any)=>{
         if(res){
           this.addForm.controls['password'].enable();
           this.addForm.controls['confirmpassword'].enable();
+          return true;
         }else{
           Swal.fire('error', 'La contraseña anterior no es correcta,porfavor ingrese correctamente su contraseña anterior','error');
+          return false;
         }        
       }, (error) =>{
         Swal.fire('error', 'Error inesperado,porfavor intente nuevamente','error');
-
+        return false;
         console.log(error);
         
       }
     );
-    /*
-    const antes = event.target.value;
-    if(antes == this.empresaData.clave){
-      this.flag = false;
-    }else{
-        this.flag = true;
-    }*/
+    
   }
 
   confirmPasswordNew(event:any){
 
-    const confirm = event.target.value;
+    const confirm = event;
     console.log(confirm);
     if(confirm === this.addForm.get('password').value){
       console.log('si');
@@ -132,33 +128,54 @@ export class MicuentaComponent implements OnInit {
       this.addForm.patchValue({
         confirmpassword: confirm
       });
+      return true;
     }else{
       console.log('no');
-
+      this.addForm.controls['password'].reset(); 
+      this.addForm.controls['confirmpassword'].reset(); 
+      Swal.fire('error','contraseñas deben de ser iguales en ambos campos, porfavor intente de nuevo','error');
       this.addForm.patchValue({
         confirmpassword: null 
       });
+      return false;
+
     }
   }
   registrarData(){
-    Swal.showLoading();
-    
-    this.configService.saveData(this.addForm.value).then( (res:any) =>{
 
-      console.log(res);
-      if(res.response['body'].flag == true){
-        Swal.fire('Listo!','configuración guardada con exito!', 'success');
-        this.getConfig();
-        this.addForm.reset();
-      }else{
-        Swal.fire('Error al guardar, intente de nuevo!', 'error')
+    Swal.showLoading();
+    if(this.comprobarPassword()){
+      console.log('paso');
+
+      let confirm = this.addForm.get('confirmpassword').value;
+      if(!confirm){
+        Swal.fire('error','Ingrese la nueva contraseña en ambos campos','error');
+        return false;
       }
-      
-      
-    }).catch(err=>{
+
+      if( this.confirmPasswordNew(confirm.trim()) ){
+
+        this.configService.saveData(this.addForm.value).then( (res:any) =>{
+
+          console.log(res);
+          if(res.response['body'].flag == true){
+            Swal.fire('Listo!','configuración guardada con exito!', 'success');
+            this.getConfig();
+            this.addForm.reset();
+          }else{
+            Swal.fire('Error al guardar, intente de nuevo!', 'error')
+          }
+          
+          
+        }).catch(err=>{
+          Swal.close();
+          console.log(err);
+        });
+      }
+    }else{
       Swal.close();
-      console.log(err);
-    });
+
+    }
 
   }
   solicitarBaja(){

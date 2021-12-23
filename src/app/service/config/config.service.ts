@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, debounceTime, delay, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -68,10 +68,14 @@ export class ConfigService {
 
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/validaExisteCorreo",data, this.headers)
       .pipe(
+        // delay(2000),
+        
+
         map( (res:any) => {
           let {flag} = res['body'];
           return flag;
         }),
+        debounceTime(5000),
         catchError( error => {
           return of(false)
         })

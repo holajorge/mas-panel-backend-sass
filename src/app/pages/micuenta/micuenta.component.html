@@ -57,7 +57,7 @@
                                             class="form-control-label">{{ 'cuenta.datos.lastpassword' | translate }}</label>
                                         <input type="text" formControlName="lastpassword" autocomplete="off"
                                             placeholder="{{ 'cuenta.datos.lastpassword' | translate }}" 
-                                             class="form-control" (blur)="comprobarPassword($event)" > 
+                                             class="form-control" > 
                                     </div>
                                 </div>   
                                 <div class="col-md-4">
@@ -77,8 +77,7 @@
                                     <div class="form-group">
                                         <label for="confirmPassword"  
                                             class="form-control-label">{{ 'cuenta.datos.confirmPassword' | translate }}</label>
-                                        <input type="password" autocomplete="off"
-                                            (keyup)="confirmPasswordNew($event)" 
+                                        <input type="password" autocomplete="off" formControlName="confirmpassword"
                                             placeholder="{{ 'cuenta.datos.confirmPassword' | translate }}" 
                                             class="form-control"> 
                                         
