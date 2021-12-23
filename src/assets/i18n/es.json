@@ -187,7 +187,7 @@
         },
         "descuento": {
             "titulo" : "Configuración de descuento",
-            "subtitulo": "Ingrese los datos en los campos requeridos",
+            "subtitulo": "Ingrese los datos para crear el descuento",
             "descuento": "Descuento",
             "codigo": "Código de producto",
             "eliminar": "Eliminar",

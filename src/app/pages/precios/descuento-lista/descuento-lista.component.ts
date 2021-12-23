@@ -16,7 +16,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class DescuentoListaComponent implements OnInit {
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-xl static", 
+    class: "modal-dialog-centered modal-xl static modal-content-custom", 
   };
   notificationModal: BsModalRef;
   model: NgbDateStruct;
