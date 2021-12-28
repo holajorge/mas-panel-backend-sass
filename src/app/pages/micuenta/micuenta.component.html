@@ -78,8 +78,8 @@
                                         <label for="confirmPassword"  
                                             class="form-control-label">{{ 'cuenta.datos.confirmPassword' | translate }}</label>
                                         <input type="password" autocomplete="off" formControlName="confirmpassword"
-                                            placeholder="{{ 'cuenta.datos.confirmPassword' | translate }}" 
-                                            class="form-control"> 
+                                            placeholder="{{ 'cuenta.datos.confirmPassword' | translate }}" (blur)="confirmPasswordNew($event)"
+                                            class="form-control" > 
                                         
                                     </div>
                                 </div>    

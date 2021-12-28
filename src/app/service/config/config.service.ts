@@ -81,29 +81,42 @@ export class ConfigService {
         })
       );
   }
-  checkLastPass(data){
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/validLastPass",data, this.headers)
-      .pipe(
-        map( (res:any) => {
-          let {flag} = res['body'];
-          return flag;
-        }),
-        catchError( error => {
-          return of(false)
-        })
-      );
-  }
+  // checkLastPass(data){
+  //   return this._http.post(ConfigService.API_ENDPOINT()+"Backend/validLastPass",data, this.headers)
+  //     .pipe(
+  //       map( (res:any) => {
+  //         let {flag} = res['body'];
+  //         return flag;
+  //       }),
+  //       catchError( error => {
+  //         return of(false)
+  //       })
+  //     );
+  // }
   saveData(data){
-    console.log(data);
-    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    let options = { headers: headers };
     
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveDatosCuenta",data, options).toPromise().then((res) =>{     
-      return { success: true, response:res};
-    })
-    .catch( (err) =>{
-      return { success: false, msj:'Ocurrió un error en al traer los datos'};
-    });
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveDatosCuenta",data, this.headers)
+    .pipe(
+      map( (res:any) => {
+        let {response} = res['body'];
+        return response;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
+
+
+
+    // let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    // let options = { headers: headers };
+    
+    // return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveDatosCuenta",data, options).toPromise().then((res) =>{     
+    //   return { success: true, response:res};
+    // })
+    // .catch( (err) =>{
+    //   return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    // });
   }
   darBaja(data){
     console.log(data);
