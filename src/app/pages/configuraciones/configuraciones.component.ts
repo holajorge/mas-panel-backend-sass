@@ -115,6 +115,22 @@ export class ConfiguracionesComponent {
         if (this.configuraciones.size_foto == undefined || this.configuraciones.size_foto === undefined){
           this.mediano = true;
           this.configuraciones.size_foto = 2;
+        } 
+
+        if(this.configuraciones.direccion == "undefined"){
+          this.configuraciones.direccion = "";
+        }
+
+        if(this.configuraciones.telefono == "undefined"){
+          this.configuraciones.telefono = "";
+        }
+
+        if(this.configuraciones.hora == "undefined"){
+          this.configuraciones.hora = "";
+        }
+        
+        if(this.configuraciones.descripcion_empresa == "undefined"){
+          this.configuraciones.descripcion_empresa = "";
         }
 
         this.formConfig.patchValue({

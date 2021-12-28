@@ -12,8 +12,8 @@ export class ConfigService {
 
   public static API_ENDPOINT() :string{
   
-    return "http://localhost:8000/";
-    //  return "https://api.maspedidos.com.ar/";
+    //return "http://localhost:8000/";
+    return "https://api2.maspedidos.com.ar/";
   }
 
   public static DOMAIN() :string{

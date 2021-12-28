@@ -110,7 +110,7 @@ export class ImportarComponent implements OnInit {
   deshacerCambios(){
     this.clienteService.deshacerCambiosClientes(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        Swal.fire('Listo!','Se descartaron los cambios', 'success')
         this.getClientes();
 
       }else{
