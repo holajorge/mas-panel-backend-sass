@@ -530,6 +530,7 @@ export class ProductoComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getProductos();
+        this.myFiles = [];
         
         Swal.fire('Listo!','Producto Editado, con sucesso!', 'success')
         this.addTextCaract = false;
@@ -566,17 +567,17 @@ export class ProductoComponent implements OnInit {
     this.notificationModal.hide();
   }
   insertProduct(){
-    if(!this.flagProductList){
+    // if(!this.flagProductList){
     
-      if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
-        this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
-        Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ 
-                  '<strong>'
-                    + this.textCaract1  +', '+this.textCaract2 +', '+this.textCaract3 +', '+this.textCaract4
-                  + '<strong>', '','error');
-          return false;
-      } 
-    }
+    //   if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
+    //     this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
+    //     Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ 
+    //               '<strong>'
+    //                 + this.textCaract1  +', '+this.textCaract2 +', '+this.textCaract3 +', '+this.textCaract4
+    //               + '<strong>', '','error');
+    //       return false;
+    //   } 
+    // }
     
     let formData = new FormData();
 
@@ -633,6 +634,7 @@ export class ProductoComponent implements OnInit {
         this.editForm.reset();
         this.getProductos();
         this.filtraCat();
+        this.myFiles = [];
         Swal.fire('Listo!','Producto creado, con exito!', 'success')
       }else{
         Swal.fire('Editar Erro, intente nuevamente', 'error')

@@ -85,6 +85,8 @@ export class DescuentoListaComponent implements OnInit {
       this.caract1 = res.response['caracteristica1'];
       this.caract2 = res.response['caracteristica2'];
       this.caract3 = res.response['caracteristica3'];
+      console.log(this.caract2);
+      
       //this.caract4 = res.response['caracteristica4'];
 
       this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
