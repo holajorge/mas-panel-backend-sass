@@ -23,6 +23,7 @@ export class MicuentaComponent implements OnInit {
   // lastpassword:String = "";
   flag:boolean = false;
   confirm:string="";
+  response:boolean = false;
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder, 
@@ -39,8 +40,8 @@ export class MicuentaComponent implements OnInit {
       empresa: [null],
       lastpassword: [null]
     });
-    this.addForm.controls['password'].disable();
-    this.addForm.controls['confirmpassword'].disable();
+    // this.addForm.controls['password'].disable();
+    // this.addForm.controls['confirmpassword'].disable();
   }
 
   ngOnInit() {
@@ -91,91 +92,97 @@ export class MicuentaComponent implements OnInit {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
   }
-  comprobarPassword(){
+  // comprobarPassword(){
     
-    let empresa = {
-      empresa: this.empresa.id,
-      last: this.addForm.get('lastpassword').value.trim()
-    }
-
-    return this.configService.checkLastPass(empresa).subscribe(
-      (res:any)=>{
-        if(res){
-          this.addForm.controls['password'].enable();
-          this.addForm.controls['confirmpassword'].enable();
-          return true;
-        }else{
-          Swal.fire('error', 'La contraseña anterior no es correcta,porfavor ingrese correctamente su contraseña anterior','error');
-          return false;
-        }        
-      }, (error) =>{
-        Swal.fire('error', 'Error inesperado,porfavor intente nuevamente','error');
-        return false;
-        console.log(error);
+  //   let empresa = {
+  //     empresa: this.empresa.id,
+  //     last: this.addForm.get('lastpassword').value.trim()
+  //   }
+  //   let hola = false;
+  //   this.configService.checkLastPass(empresa).subscribe(
+  //     (res:any)=>{
+  //       if(res){
+  //         return true;
+  //       }else{
+  //         return false;
+  //       }        
+  //     }, (error) =>{
+  //       // Swal.fire('error', 'Error inesperado,porfavor intente nuevamente','error');
+  //       console.log(error);
+  //       return false;
         
-      }
-    );
+  //     }
+  //   );
     
-  }
+  // }
 
   confirmPasswordNew(event:any){
 
-    const confirm = event;
-    console.log(confirm);
+    const confirm = event.target.value;
+
     if(confirm === this.addForm.get('password').value){
       console.log('si');
 
-      this.addForm.patchValue({
-        confirmpassword: confirm
-      });
-      return true;
+      this.addForm.patchValue({confirmpassword: confirm});
+      this.addForm.valid;
     }else{
       console.log('no');
       this.addForm.controls['password'].reset(); 
       this.addForm.controls['confirmpassword'].reset(); 
-      Swal.fire('error','contraseñas deben de ser iguales en ambos campos, porfavor intente de nuevo','error');
-      this.addForm.patchValue({
-        confirmpassword: null 
-      });
-      return false;
+      this.addForm.invalid;
 
+      Swal.fire('error','contraseñas deben de ser iguales en ambos campos, porfavor intente de nuevo','error');
+      
     }
   }
   registrarData(){
 
     Swal.showLoading();
-    if(this.comprobarPassword()){
-      console.log('paso');
-
-      let confirm = this.addForm.get('confirmpassword').value;
-      if(!confirm){
-        Swal.fire('error','Ingrese la nueva contraseña en ambos campos','error');
-        return false;
-      }
-
-      if( this.confirmPasswordNew(confirm.trim()) ){
-
-        this.configService.saveData(this.addForm.value).then( (res:any) =>{
-
-          console.log(res);
-          if(res.response['body'].flag == true){
-            Swal.fire('Listo!','configuración guardada con exito!', 'success');
-            this.getConfig();
-            this.addForm.reset();
-          }else{
-            Swal.fire('Error al guardar, intente de nuevo!', 'error')
-          }
           
-          
-        }).catch(err=>{
-          Swal.close();
-          console.log(err);
-        });
-      }
-    }else{
-      Swal.close();
-
+    let confirm = this.addForm.get('confirmpassword').value;
+    if(!confirm){
+      Swal.fire('error','Ingrese la nueva contraseña en ambos campos','error');
+      return false;
     }
+
+    this.configService.saveData(this.addForm.value).subscribe( 
+      (res:any) => {
+        
+        switch(res.num){
+          case 1: 
+            this.addForm.reset();
+            this.getConfig();
+            
+            Swal.fire('Listo!',res.mgs, 'success');
+            break;
+          case 2:
+            Swal.fire('Error',res.mgs, 'error');
+            break;
+          case 3:
+            Swal.fire('Error',res.mgs, 'error');
+            break;
+          case 4:
+            Swal.fire('Error',res.mgs, 'error');
+            break;
+          default: 
+            Swal.fire('Error','Error al guardar, intente de nuevo', 'error');
+            break;
+        }
+        
+      },(error)=>{
+
+        Swal.fire('Error','Error al guardar, intente de nuevo', 'error');
+
+        console.log(error);
+      }
+      // if(res.response['body'].flag == true){
+      //   Swal.fire('Listo!','configuración guardada con exito!', 'success');
+      //   this.addForm.reset();
+      //   this.getConfig();
+      // }else{
+      //   Swal.fire('Error al guardar, intente de nuevo!', 'error')
+      // }
+    );
 
   }
   solicitarBaja(){
