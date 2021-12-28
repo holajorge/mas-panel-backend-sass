@@ -276,7 +276,7 @@ export class SidebarAdminComponent implements OnInit {
   public collapseAll(){
     for(let menuitem of this.menuItems){
         menuitem.isCollapsed = true;
-        console.log(menuitem);
+        //console.log(menuitem);
     }
   }
 

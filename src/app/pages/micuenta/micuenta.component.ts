@@ -52,7 +52,7 @@ export class MicuentaComponent implements OnInit {
   getConfig(){
     Swal.showLoading();
     this.configService.getConfigEmpresa(this.empresa).then( (res:any) =>{    
-      console.log(res.response['body']['empresa']);
+ 
       this.empresaData = res.response['body']['empresa'];
 
       this.addForm.patchValue({

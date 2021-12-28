@@ -30,7 +30,7 @@ export class ClaveComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       // console.log(params); 
       this.token = params.token;
-      console.log(this.token);
+     // console.log(this.token);
 
     })
 
@@ -47,7 +47,7 @@ export class ClaveComponent implements OnInit {
         
         this.continue = true;
         this.enterprice = data.body;
-        console.log(this.enterprice);
+       // console.log(this.enterprice);
       }
       ,(err)=>{
         console.log("error");
