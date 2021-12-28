@@ -59,7 +59,7 @@ export class BannerComponent implements OnInit {
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
         
-        console.log(this.configuraciones); //return false;
+        // console.log(this.configuraciones); //return false;
         if(this.configuraciones.escritorios == '' || this.configuraciones.escritorios == undefined){ 
         
           this.imageURLHeader = "";

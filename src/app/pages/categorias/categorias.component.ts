@@ -51,7 +51,6 @@ export class CategoriasComponent implements OnInit {
       
       this.categorias = res.response['caracteristica1'];
       this.categoriasRow = res.response['caracteristica1'];
-      console.log(this.categorias);
       
     }).catch(err=>{
       console.log(err);
@@ -85,7 +84,7 @@ export class CategoriasComponent implements OnInit {
   }
   onSelectItem(modalEdit,row) {
     Swal.showLoading();
-    console.log(row);
+    // console.log(row);
     let data = {
       categoria: row.nombre,
       empresa: this.empresa.id

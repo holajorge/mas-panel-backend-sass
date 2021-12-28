@@ -121,7 +121,7 @@ export class ImportarPreciosComponent implements OnInit {
   deshacerCambios(){
     this.preciosService.deshacerCambiosClientes(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        Swal.fire('Listo!','Se descartaron los cambios', 'success')
         // this.getPrecios();
 
       }else{

@@ -111,7 +111,7 @@ export class ImportarVendedorComponent implements OnInit {
   deshacerCambios(){
     this.vendedorService.deshacerCambiosVendedores(this.empresa).then( (res:any) =>{    
       if(res.flag == true){
-        Swal.fire('Listo!','se deshiso los cambios aplicados!', 'success')
+        Swal.fire('Listo!','Se descartaron los cambios', 'success')
         this.getDataVendedorExcel();
 
       }else{

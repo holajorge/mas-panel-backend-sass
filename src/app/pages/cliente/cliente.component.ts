@@ -94,8 +94,7 @@ export class ClienteComponent implements OnInit {
     if(val !== ''){
       // filter our data
       this.temRowDet = this.detalleRow.filter(function (item) {
-        console.log(item);
-        console.log(val);        
+        
         
         for (var key in item) {
           let hola = (item[key] != null) ? item[key].toLowerCase() : '';
@@ -128,7 +127,7 @@ export class ClienteComponent implements OnInit {
     this.pedido.vendedor = row.vendedor_id;
     this.pedido.nrocliente = row.nrocliente;
     this.clienteService.getPedidoCliente(this.pedido).then( (res:any) =>{    
-      console.log(res.pedidos);
+     
       Swal.close();
       this.detalleRow = res.pedidos.pedidos;
       this.tempRowDet = res.pedidos.pedidos;
@@ -274,7 +273,7 @@ export class ClienteComponent implements OnInit {
     })
   }
   onActiveClient(row){    
-    console.log(row);
+    
     Swal.fire({
       title: 'Seguro de Habilitar?',
       text: "Habilitar cliente!",
