@@ -17,6 +17,7 @@ export class NavbarAdminComponent implements OnInit {
   sidenavOpen: boolean = true;
   empresa: any = {id:''};
   nombre_empresa:string = "";
+  dominio:string = "";
   configuraciones:any;
   logo:string = "";
   truelogo:boolean = false;
@@ -56,7 +57,9 @@ export class NavbarAdminComponent implements OnInit {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
+        
         this.nombre_empresa = this.configuraciones.nombre_empresa;
+        this.dominio = this.configuraciones.dominio;
        
         if(this.configuraciones.logo == '' || this.configuraciones.logo == undefined){ 
           this.truelogo = false;
