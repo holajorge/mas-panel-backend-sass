@@ -66,6 +66,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group mr-1">
                                         <div class="custom-control custom-checkbox mt-4"  > 
+                                          
                                             <input id="invitado" 
                                                 class="custom-control-input" type="checkbox" formControlName="invitado">
                                             <label for="invitado" 
@@ -166,26 +167,34 @@
                     <div class="card-body">
                         <form [formGroup]="formConfig" novalidate >
                             <div class="row popup-info-custom">
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
+                                <div class="col-md-4  mt--1 mb--3">
+                                    <div class="form-group">
                                         <label for="numWhatsapp"
                                         class="form-control-label">{{ 'config.formConfig.numWhatsapp' | translate }}</label>
-                                        <input type="text" id="numWhatsapp" placeholder="Tel. Whatsapp" formControlName="num_whatsapp"  class="form-control">
+                                        <input type="text" id="numWhatsapp" placeholder="Tel. Whatsapp" 
+                                            formControlName="num_whatsapp"  class="form-control">
+                                        
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <label for="urlFacebook"
-                                        class="form-control-label">{{ 'config.formConfig.urlFacebook' | translate }}</label>
-                                        <input type="text" id="urlFacebook" placeholder="URL Facebook" formControlName="url_facebook"  class="form-control">
+                                <div class="col-md-4 mt-4">
+                                    <div class="input-group">
+                                        
+                                        <div class="input-group-prepend ">
+                                            <small class="input-group-text">facebook.com/</small>
+                                        </div>
+                                        <input type="text" id="urlFacebook" placeholder="URL Facebook" formControlName="url_facebook"  class=" form-control">
+                                        
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <label for="urlInstagram"
-                                        class="form-control-label">{{ 'config.formConfig.urlInstagram' | translate }}</label>
+                                <div class="col-md-4 mt-4  mb-3">
+                                    <div class="input-group" >
+                                        <div class="input-group-prepend">
+                                          <small class="input-group-text">instagram.com/</small>
+                                        </div>
                                         <input type="text" id="urlInstagram" placeholder="URL Instagram" formControlName="url_instagram"  class="form-control">
                                     </div>
+
+                                    
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group mr-1">
