@@ -49,7 +49,7 @@ export class ClientesComponent implements OnInit {
   ){ 
     this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
-    this.getPedidos();
+   
   }
 
   ngOnInit() {
@@ -64,6 +64,8 @@ export class ClientesComponent implements OnInit {
         this.lista_estados.push(element.estado);
         this.estado_to_id[element.estado] = element.estado_id;
       });
+
+      this.getPedidos();
 
     }).catch(err=>{
       console.log(err);
