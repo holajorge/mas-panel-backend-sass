@@ -34,11 +34,12 @@ export class DescuentoListaComponent implements OnInit {
   //textCaract4:any;
   
   clientes:any = [];
-  caract1:any;
-  caract2:any;
-  caract3:any;
+  caract1:any = [];
+  caract2:any = [];
+  caract3:any = [];
   //caract4:any;
   flagNewUpdate:boolean = true;
+  flagDisableSelect:boolean = false;
   constructor(
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
@@ -150,6 +151,21 @@ export class DescuentoListaComponent implements OnInit {
       codigo_producto: row.codigo_producto
     });
 
+    this.disabledInputCode();
+    
+    if(row.codigo_producto != ''){
+            
+      this.addForm.controls['caract3'].disable();
+      this.addForm.controls['caract2'].disable();
+      this.addForm.controls['caract1'].disable();
+    }
+    if(row.codigo_producto.length  == '' ){      
+      
+      this.addForm.controls['caract3'].enable();
+      this.addForm.controls['caract2'].enable();
+      this.addForm.controls['caract1'].enable();
+    }
+
   }
   update(){
 
@@ -214,6 +230,51 @@ export class DescuentoListaComponent implements OnInit {
     );
   }
 
+  disabledInputCode(){
+
+    let select1 = this.addForm.get('caract1').value;
+    let select2 = this.addForm.get('caract2').value;
+    let select3 = this.addForm.get('caract3').value;
+
+    console.log(select1);
+    console.log(select2);
+    console.log(select3);
+    
+    if(select1 != '' || select2 != '' || select3 != ''){
+      
+      this.addForm.controls['codigo_producto'].disable();
+
+    }
+    if( (select1 == null || select1 == '') && (select2 == null || select2 == '') &&(select3 == null || select3 == '')){
+      console.log('entra');
+      
+      this.addForm.controls['codigo_producto'].enable();
+    }
+
+   
+  }
+
+  disabledInputSelect(event){
+    let text = event.target.value; 
+    
+    if(text.length > 0 ){
+      
+      // this.flagDisableSelect = true;
+      this.addForm.controls['caract3'].disable();
+      this.addForm.controls['caract2'].disable();
+      this.addForm.controls['caract1'].disable();
+    }
+    if(text.length  == '' ){
+      
+      
+      // this.flagDisableSelect = false;
+
+      this.addForm.controls['caract3'].enable();
+      this.addForm.controls['caract2'].enable();
+      this.addForm.controls['caract1'].enable();
+    }
+
+  }
 
   getDataSelect(){
     Swal.showLoading();
