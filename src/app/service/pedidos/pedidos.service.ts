@@ -37,7 +37,6 @@ export class PedidosService {
     });
   }
   getDetalles(empresa){
-    console.log(empresa);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -94,6 +93,34 @@ export class PedidosService {
     })
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al actualizar estado'};
+    });
+  }
+
+  getPedidosClientePorFechas(idEmpresa, date_start, date_end){
+    idEmpresa["date_start"] = date_start;
+    idEmpresa["date_end"] = date_end;
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidosClientePorFechas",idEmpresa,options).toPromise().then((res) =>{
+      return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  getDatatablesFromRange(idEmpresa, date_start, date_end){
+    idEmpresa["date_start"] = date_start;
+    idEmpresa["date_end"] = date_end;
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getDatatablesFromRange",idEmpresa,options).toPromise().then((res) =>{
+      return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
 

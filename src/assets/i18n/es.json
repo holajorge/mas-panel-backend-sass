@@ -2,7 +2,7 @@
     "cuenta": {
         "titulo": "Mi Cuenta",
         "subtitulo": "Ingrese los datos de su cuenta",
-        "datos":{
+        "datos": {
             "email": "Correo",
             "password": "Nueva Contraseña",
             "lastpassword": "Contraseña Anterior",
@@ -11,14 +11,14 @@
         }
     },
     "config": {
-        "titulo" : "Configuraciones Generales",
+        "titulo": "Configuraciones Generales",
         "subtitulo": "Ingrese las datos de su empresa",
-        "dominio":"Ingrese las configuraciones de dominio",
-        "general":"Seleccione como desea que se comporte tu tienda",
+        "dominio": "Ingrese las configuraciones de dominio",
+        "general": "Seleccione como desea que se comporte tu tienda",
         "general_redes": "Redes Sociales",
         "general_afip": "Ingrese la url del QR de la AFIP",
-        "formConfig" : {
-            "general_limites":"Ingrese los límites de horario y monto mínimo para hacer pedidos",
+        "formConfig": {
+            "general_limites": "Ingrese los límites de horario y monto mínimo para hacer pedidos",
             "hora_limite_pedido": "Horario límite para hacer pedidos",
             "monto_limite_pedido": "Monto mínimo de dinero para hacer un pedido ",
             "nombre": "Nombre de la empresa",
@@ -30,16 +30,16 @@
             "subdominio": "subdominio",
             "logo": "Logo",
             "LogoMobile": "Logo Mobile",
-            "aprobarUsuario": "Aprobar usuario" ,
+            "aprobarUsuario": "Aprobar usuario",
             "permitirRegistro": "Permitir Registración",
             "envioWhatssap": "Enviar pedido por whatsapp al vendedor",
             "descripcionEmpresa": "Descripción Empresa",
             "guardar": "Guardar",
             "invitado": "Permitir entrar como Invitado",
             "textFoto": "Tamaño de las fotos",
-            "chico":"Pequeña",
-            "mediano":"Mediano",
-            "grande":"Grande",
+            "chico": "Pequeña",
+            "mediano": "Mediano",
+            "grande": "Grande",
             "descargaExcel": "Permitir descargar listas en excel",
             "markup": "Mostrar sección markup",
             "comprobantes": "Mostrar sección comprobantes",
@@ -53,8 +53,8 @@
             "leyendaMasIva": "Mostrar leyenda \"Más Iva\" en el carrito "
         }
     },
-    "categorias":{
-        "titulo" : "Configuración de categoria",
+    "categorias": {
+        "titulo": "Configuración de categoria",
         "nombre": "nombre",
         "restringir": "Restringir Cliente",
         "categoria": "Categoria",
@@ -71,19 +71,18 @@
             "guardar": "Guardar",
             "cancelar": "Cancelar"
         },
-        "footer":{
+        "footer": {
             "titulo": "Selecione banner para el Footer",
             "logo": " selecione archivo img",
             "guardar": "Guardar",
             "cancelar": "Cancelar"
         },
-        "swal":{
+        "swal": {
             "titulo": "Selecione banner para el Swal",
             "logo": " selecione archivo img",
             "guardar": "Guardar",
             "cancelar": "Cancelar"
         }
-        
     },
     "banners": {
         "titulo": "Configuración de banner",
@@ -100,25 +99,25 @@
             "caract4": "Caracteristica 4",
             "send": "Enviar"
         },
-        "titulo":"Lista Productos",
+        "titulo": "Lista Productos",
         "tituloEdit": "Editar Producto",
         "tituloAdd": "Nuevo Producto",
         "foto": {
             "titulo": "Importar Fotos",
             "text": "Seleccione un archivo ZIP con las fotos"
         },
-        "tabla":{
-            "codigo":"Codigo",
-            "titulo":"Titulo",
-            "caracteristica":"Característica",
-            "precio":"Precio",
+        "tabla": {
+            "codigo": "Codigo",
+            "titulo": "Titulo",
+            "caracteristica": "Característica",
+            "precio": "Precio",
             "activo": "Activo",
             "acciones": "Acciones",
             "editar": "Editar",
             "mostrar": "Mostrar",
             "buscar": "Buscar producto",
             "entradas": "resultados",
-            "total": "Total", 
+            "total": "Total",
             "habilitar": "Habilitar",
             "deshabilitar": "Deshabilitar",
             "foto": "Foto",
@@ -142,28 +141,28 @@
             "cancelar": "Cancelar",
             "foto": "Foto"
         },
-        "grid":{
+        "grid": {
             "titulo": "Grid de fotos"
         },
-        "importar":{
-            "titulo":"importar un archivo de productos",
+        "importar": {
+            "titulo": "importar un archivo de productos",
             "select": "Seleccione un archivo",
             "labelselect": "Seleccione"
         },
-        "destacado" : {
+        "destacado": {
             "titulo": "Productos destacados"
         }
     },
     "precios": {
-        "titulo" : "Lista de Precios",
-        "importar":{
-            "titulo":"importar un archivo de precios",
+        "titulo": "Lista de Precios",
+        "importar": {
+            "titulo": "importar un archivo de precios",
             "select": "Seleccione un archivo",
             "labelselect": "Seleccione"
         },
         "tabla": {
             "nrocliente": "Nro cliente",
-            "codigo" : "Codigo",
+            "codigo": "Codigo",
             "precio": "Precio",
             "descuento": "Descuento",
             "mostrar": "mostrar",
@@ -186,25 +185,23 @@
             "precio": "precio"
         },
         "descuento": {
-            "titulo" : "Configuración de descuento",
+            "titulo": "Configuración de descuento",
             "subtitulo": "Ingrese los datos para crear el descuento",
             "descuento": "Descuento",
             "codigo": "Código de producto",
             "eliminar": "Eliminar",
-            "lista" : {
-                "titulo" : "Lista de Descuentos aplicados",
+            "lista": {
+                "titulo": "Lista de Descuentos aplicados",
                 "nrocliente": "Nro Cliente"
             }
         }
-
-
     },
-    "vendedores":{
+    "vendedores": {
         "lista": "Lista de vendedores",
-        "tabla":{
-            "nombre":"nombre",
-            "email":"Email",
-            "clave":"Clave",
+        "tabla": {
+            "nombre": "nombre",
+            "email": "Email",
+            "clave": "Clave",
             "acciones": "Acciones",
             "editar": "Editar",
             "mostrar": "mostrar",
@@ -214,25 +211,23 @@
             "log": "registro",
             "asociar": "Asociar cliente",
             "telefono": "Telefono"
-
         },
-        "tablalog":{
+        "tablalog": {
             "lista": "Lista registros",
-            "buscar":"buscar registro",
-            "fecha":  "fecha",
+            "buscar": "buscar registro",
+            "fecha": "fecha",
             "coords": "coordenadas"
         },
-        "asociar":{
+        "asociar": {
             "lista": "Lista de clientes",
-            "nrocliente":"Nro Cliente",
+            "nrocliente": "Nro Cliente",
             "nombre": "Nombre",
             "buscar": "buscar Cliente",
             "desasociar": "Desasociar al vendedor",
             "asociar": "Asociar al Vendedor",
-            "vendedor" : "Vendedor"
-
+            "vendedor": "Vendedor"
         },
-        "newForm":{
+        "newForm": {
             "titulo": "Agregar vendedor",
             "nombre": "nombre",
             "email": "correo",
@@ -243,7 +238,7 @@
             "guardar": "Guardar",
             "cancelar": "cancelar"
         },
-        "updateForm":{
+        "updateForm": {
             "titulo": "Actualizar vendedor",
             "nombre": "Nombre",
             "email": "correo",
@@ -255,24 +250,22 @@
             "actaulizar": "actualizar",
             "cancelar": "cancelar"
         },
-        "importar":{
-            "titulo":"importar Vendedor",
+        "importar": {
+            "titulo": "importar Vendedor",
             "select": "Seleccione un archivo",
             "labelselect": "Selecione"
         }
-        
     },
-    "login":{
+    "login": {
         "bienvenido": "Bienvenido",
         "titulo": "Iniciar Sesion",
         "user": "Nombre de usuário",
         "pass": "Clave",
-        "ingresar":"Ingresar",
+        "ingresar": "Ingresar",
         "reset": "¿olvidaste tu contraseña?",
         "nueva": "crear cuenta"
-
     },
-    "registracion":{
+    "registracion": {
         "bienvenido": "Bienvenido",
         "titulo": "Nuevo registro",
         "nombre": "Nombre de la empresa",
@@ -280,20 +273,19 @@
         "pass": "Clave",
         "subdomain": "Subdominio",
         "errorCaracter": "Caracter inválido",
-        "ingresar":"Ingresar",
+        "ingresar": "Ingresar",
         "registrar": "Guardar",
         "nueva": "crear cuenta",
         "error_email": "Ya existe un registro con el mismo email.",
         "error_subdomain": "Ya existe un registro con el mismo subdominio."
-
     },
-    "pedidos":{
+    "pedidos": {
         "titulo": "Lista de Pedidos Vendedores",
         "tituloCliente": "Lista de Pedidos Clientes",
-        "tabla":{
-            "nombre":"Nombre",
-            "email":"Correo",
-            "clave":"Clave",
+        "tabla": {
+            "nombre": "Nombre",
+            "email": "Correo",
+            "clave": "Clave",
             "acciones": "Acciones",
             "detalle": "Detalle",
             "editar": "Editar",
@@ -303,24 +295,24 @@
             "total": "total",
             "fecha": "fecha",
             "cometario": "comentário",
-            "nocliente":"Nro Cliente",
+            "nocliente": "Nro Cliente",
             "status": "Status",
             "add": "Comente",
             "orcamento": "presupuesto",
             "estado": "Estado"
-        }, 
+        },
         "modalComentario": {
             "add": "Agregar Comentario",
             "text": "Comentario",
             "addText": "Texto aqui",
             "guardar": "Guardar",
             "cancelar": "Cancelar"
-        },    
-        "tabladetalle":{
+        },
+        "tabladetalle": {
             "titulotabla": "Detalle del Pedido",
-            "titulo":"Titulo",
-            "codigo":"código",
-            "precio":"precio",
+            "titulo": "Titulo",
+            "codigo": "código",
+            "precio": "precio",
             "acciones": "Acciones",
             "cantidad": "cantidad",
             "editar": "Editar",
@@ -331,11 +323,11 @@
             "precion_real": "Precio real"
         }
     },
-    "cliente":{
+    "cliente": {
         "titulo": "Lista de Clientes",
         "nuevo": "Nuevo Cliente",
-        "importar":{
-            "titulo":"importar archivo de cliente",
+        "importar": {
+            "titulo": "importar archivo de cliente",
             "select": "Seleccione un archivo",
             "labelselect": "Seleccione"
         },
@@ -347,15 +339,14 @@
             "documento": "Documento",
             "guardar": "Guardar",
             "cancelar": "Cancelar"
-
         },
         "comprobantes": {
             "titulo": "Lista de Comprobantes",
-            "tabla":{
+            "tabla": {
                 "nrocliente": "Nro cliente",
-                "nombre":"nombre de cliente",
-                "fecha":"fecha del comprobante",
-                "link":"link al documento cargado",
+                "nombre": "nombre de cliente",
+                "fecha": "fecha del comprobante",
+                "link": "link al documento cargado",
                 "activo": "Activo",
                 "eliminar": "Eliminar",
                 "acciones": "Acciones",
@@ -371,11 +362,11 @@
             }
         },
         "pedidos": "Lista de Pedidos",
-        "tabla":{
+        "tabla": {
             "nrocliente": "Nro cliente",
-            "nombre":"Nombre",
-            "email":"Correo",
-            "clave":"Clave",
+            "nombre": "Nombre",
+            "email": "Correo",
+            "clave": "Clave",
             "activo": "Activo",
             "usuario": "Nombre de usuário",
             "acciones": "Acciones",
@@ -387,7 +378,7 @@
             "total": "total",
             "fecha": "Fecha",
             "cometario": "Comentario",
-            "nocliente":"Nro Cliente",
+            "nocliente": "Nro Cliente",
             "status": "Status",
             "add": "Comente",
             "decuento": "Descuento General",
@@ -404,7 +395,7 @@
             "pedido": "Pedidos",
             "price_list": "Lista de precios"
         },
-        "tablaCliente":{
+        "tablaCliente": {
             "cliente": "Cliente",
             "nrocliente": "Nro Cliente",
             "estado": "Estado",
@@ -412,13 +403,27 @@
             "mostrar": "Mostrar",
             "buscar": "buscar pedido",
             "entradas": "resultados",
-            "comentario":"comentario"
+            "comentario": "comentario"
         },
         "formClient": {
             "new": "Nuevo cliente",
             "guardar": "Guardar",
             "cancelar": "Cancelar",
             "edit": "Editar Cliente"
+        }
+    },
+    "dashboard": {
+        "titulo": "Dashboard",
+        "total": {
+            "pedidos": {
+                "titulo": "Total de pedidos recibidos"
+            },
+            "clientes": {
+                "titulo": "Total de clientes"
+            },
+            "dinero": {
+                "titulo": "Total $ acumulada de pedidos"
+            }
         }
     }
 }
