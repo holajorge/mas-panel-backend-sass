@@ -190,7 +190,7 @@ export class ProductoComponent implements OnInit {
       solapa2:row.solapa2, 
       cantidad_minima:row.cantidad_minima, 
       precio_oferta:row.precio_oferta, 
-      destacado: (row.destacado === "0") ? false : true, 
+      destacado: (row.destacado == 1) ? true : false, 
       sync:row.sync, 
       fecha_sync: row.fecha_sync,
       stock_minimo: row.stock_minimo,
