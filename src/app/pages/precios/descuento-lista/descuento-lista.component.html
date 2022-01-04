@@ -142,7 +142,8 @@
                          <ng-select formControlName="cliente"
                             [items]="clientes" 
                             bindValue="nrocliente" 
-                            bindLabel="nombre">
+                            
+                            bindLabel="nombre + '(' + nrocliente + ')' ">
 
                         </ng-select>                                    
                         <div class="alert  alert-danger" 
@@ -155,7 +156,7 @@
                     <div class="form-group mr-1">
                         <label for="nombre_empresa"
                          class="form-control-label">{{ textCaract1 }}</label>
-                         <ng-select formControlName="caract1"
+                         <ng-select formControlName="caract1" (change)='disabledInputCode()'
                             [items]="caract1" 
                             bindValue="nombre" 
                             bindLabel="nombre">
@@ -166,7 +167,7 @@
                     <div class="form-group mr-1">
                         <label for="nombre_empresa"
                          class="form-control-label">{{ textCaract2 }}</label>
-                         <ng-select formControlName="caract2"
+                         <ng-select formControlName="caract2" (change)='disabledInputCode()'
                             [items]="caract2" 
                             bindValue="nombre" 
                             bindLabel="nombre">
@@ -177,7 +178,7 @@
                     <div class="form-group mr-1">
                         <label for="nombre_empresa"
                          class="form-control-label">{{ textCaract3 }}</label>
-                         <ng-select formControlName="caract3"
+                         <ng-select formControlName="caract3" (change)='disabledInputCode()'
                             [items]="caract3" 
                             bindValue="nombre" 
                             bindLabel="nombre">
@@ -197,6 +198,7 @@
                         <label
                          class="form-control-label">{{ 'precios.descuento.descuento' | translate}}</label>
                         <input type="number" formControlName="descuento" class="form-control"
+                            (keyup)="disabledInputSelect($event)"
                             placeholder="{{ 'precios.descuento.descuento' | translate }}">                                     
                     </div>
                 </div>
@@ -241,8 +243,11 @@
                                     <ng-select formControlName="cliente"
                                         [items]="clientes"
                                         bindValue="nrocliente"
-                                        bindLabel="nombre">
-
+                                        bindLabel="nombre"
+                                        >
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <small class="form-text text-muted"> {{item.nombre}} ( {{item.nrocliente}} )</small>
+                                        </ng-template>
                                     </ng-select>
                                     <div class="alert  alert-danger"
                                         *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">
@@ -269,8 +274,8 @@
                                     <div class="form-group mr-1">
                                         <label for="nombre_empresa"
                                          class="form-control-label">{{ textCaract1 }}</label>
-                                         <ng-select formControlName="caract1"
-                                            [items]="caract1"
+                                         <ng-select formControlName="caract1" 
+                                            [items]="caract1"  (change)='disabledInputCode()'
                                             bindValue="nombre"
                                             bindLabel="nombre">
                                         </ng-select>
@@ -310,6 +315,7 @@
                                     <label for="nombre_empresa"
                                      class="form-control-label">{{ 'precios.descuento.codigo' | translate}}</label>
                                     <input formControlName="codigo_producto" class="form-control"
+                                        (keyup)="disabledInputSelect($event)"
                                         placeholder="{{ 'precios.descuento.codigo' | translate }}">
                                 </div>
                                 
