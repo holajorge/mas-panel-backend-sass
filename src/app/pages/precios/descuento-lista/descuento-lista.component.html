@@ -86,8 +86,8 @@
                         <span>{{ 'precios.descuento.lista.nrocliente' | translate}}</span>
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <span *ngIf="value > 1" >{{value}} </span>
-                        <span *ngIf="value == 0" >Todos </span>
+                        <span *ngIf="value != '0'" >{{value}} </span>
+                        <span *ngIf="value == '0'" >Todos </span>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="porcentaje">
