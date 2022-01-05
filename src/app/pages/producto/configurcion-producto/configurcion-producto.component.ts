@@ -21,7 +21,7 @@ export class ConfigurcionProductoComponent implements OnInit {
     this.translate.use('es');
 
     this.addForm = this.formBuilder.group({    
-      empresa:  localStorage.getItem('usuario'),
+      empresa:  [''],
       caract1: [''],
       caract2: [''],
       caract3: [''],
@@ -63,6 +63,7 @@ export class ConfigurcionProductoComponent implements OnInit {
 
   senConfiguracionProduct(){
     Swal.showLoading();
+    this.addForm.patchValue({empresa: this.empresa.id })
     this.productoService.updateProductCaract(this.addForm.value).then( (res:any) =>{    
       if(res.productos){
         this.addForm.reset();

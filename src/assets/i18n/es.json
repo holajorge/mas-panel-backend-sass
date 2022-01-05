@@ -241,7 +241,9 @@
             "clave": "clave",
             "agencia": "agencia",
             "guardar": "Guardar",
-            "cancelar": "cancelar"
+            "cancelar": "cancelar",
+            "apellido":"Apellido",
+            "nroVendedor": "Nro Vendedor"
         },
         "updateForm":{
             "titulo": "Actualizar vendedor",

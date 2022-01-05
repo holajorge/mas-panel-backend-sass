@@ -80,28 +80,17 @@ export class VendedorComponent implements OnInit {
     this.addForm = this.formBuilder.group({
       id: [],
       nombre: ['',Validators.required],
-      email: ['', Validators.required],
-      telefono: [
-        '', 
-        Validators.required,
-        
-      ],
-
-      // clave: ['', Validators.required],
-      // usuario: ['',Validators.required],
-      // lista: [''],
-      // archivo: [''],
+      email: ['', [Validators.required,ValidationService.emailValidator]],      
+      nrovendedor: ['',Validators.required],
+      telefono: ['',  Validators.required,],
     });
 
     this.newFormVendedor = this.formBuilder.group({
       nombre: ['',Validators.required],
-      email: ['', [Validators.required, ValidationService.emailValidator]],
-      // clave: ['', Validators.required],
-      // usuario: ['',Validators.required],
+      email: ['', [Validators.required, ValidationService.emailValidator]],      
+      nrovendedor: ['',Validators.required],
       empresa_id: [''],
       telefono: ['', Validators.required],
-      // lista: [''],
-      // archivo: [''],
     });
   }
   getVendedor(){
@@ -150,7 +139,6 @@ export class VendedorComponent implements OnInit {
     
   }
   onSelectItem(modalEditVendedor,row) {
-    console.log(row);
     this.notificationModal = this.modalService.show(
       modalEditVendedor,
       this.notification
@@ -161,32 +149,42 @@ export class VendedorComponent implements OnInit {
     }else{
       hola = {baja:0,lista:0};
     }
-    this.addForm.setValue({
+    this.addForm.patchValue({
       id:row.id, 
       nombre:row.nombre, 
       email:row.email, 
       telefono:row.telefono, 
-      // usuario: row.usuario,
+      nrovendedor: row.vendedor
       // lista: hola['lista'], archivo:hola['baja']
     });
     this.btnvisibility = false;  
 
   }
   onUpdate(){
+
+    let flag = String(this.addForm.get('telefono').value).toLowerCase().match(/[+]{1}[0-9]{2}[0-9]{1}[0-9]{2}[0-9]{8}$/);
+
+    if(!flag){
+      Swal.fire('Error', 'Error es necesario agregar correctamente el numero de telefo ejemplo: +5492223334444','error');
+      return false;
+    }
     Swal.showLoading();
     this.vendedorService.updateVendedor(this.addForm.value).subscribe(data => {  
       if(data == true){
         Swal.fire('','Datos del vendedor actualizado, con exito!', 'success')
-        this.addForm.reset();
-        this.getVendedor();
+        // this.addForm.reset();    
+        this.addForm.patchValue({empresa_id: '',nombre:'', email:'', nrovendedor:'', telefono:''});        
+
         this.notificationModal.hide();
+        this.getVendedor();
        }else{
         Swal.fire('Error, intnente de nuevo', 'error')
        }
     },  
     error => {  
-      Swal.close();
-        alert(error);  
+      Swal.fire('Error, intnente de nuevo', 'error')
+        console.log(error);
+        
     });  
   }
   onActivate(event) {
@@ -212,7 +210,6 @@ export class VendedorComponent implements OnInit {
       console.log(err);
     });
   }
-
   filterTableLog(event) {
     const val = event.target.value.toLowerCase();
     
@@ -232,22 +229,32 @@ export class VendedorComponent implements OnInit {
       this.logRow = this.tempRowLog;
     }  
   }
-
   entriesChangeLog($event) {
     this.entrieslog = $event.target.value;
   }
-
   addVendedor(modalAdd){
     this.newFormVendedor.patchValue({empresa_id: this.empresa.id});
     this.notificationModal = this.modalService.show(modalAdd,this.notification);
   }
-  onCreateVendedor(){    
+  onCreateVendedor(){
+        
+
+    let flag = String(this.newFormVendedor.get('telefono').value).toLowerCase().match(/[+]{1}[0-9]{2}[0-9]{1}[0-9]{2}[0-9]{8}$/)//regex.test(telefono);
+    console.log(flag);
+    
+    if(!flag){
+      Swal.fire('Error', 'Error es necesario agregar correctamente el numero de telefono ejemplo: +5492223334444','error');
+      return false;
+    }
 
     Swal.showLoading();
     this.vendedorService.createVendedor(this.newFormVendedor.value).subscribe(data => {  
       if(data == true){
-        Swal.fire('','Datos del nuevo vendedor creado, con exito!', 'success')
-        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'',clave: '', usuario:''});        
+        Swal.fire('','Datos del nuevo vendedor creado, con exito!', 'success');
+
+        this.newFormVendedor.reset();//patchValue({nombre:null, email:null, nrovendedor:null,telefono:null});        
+        
+
         this.getVendedor();
 
         this.notificationModal.hide();
@@ -256,8 +263,8 @@ export class VendedorComponent implements OnInit {
        }
     },  
     error => {  
-        Swal.close();
-        alert(error);  
+      Swal.fire('Error, intnente de nuevo', 'error')
+        console.log(error);  
     });  
 
   }

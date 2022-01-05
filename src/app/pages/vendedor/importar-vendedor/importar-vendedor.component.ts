@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import {TranslateService} from '@ngx-translate/core';
@@ -23,11 +25,13 @@ export class ImportarVendedorComponent implements OnInit {
       nro_vendedor: '',
       nombre: '',
       apellido: '',
-      email: ''
+      email: '', 
+      telefono:''
     }
   ];
   dataExcel: any = [];
   constructor(
+    private router: Router,
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
     private vendedorService:VendedorService
@@ -64,10 +68,12 @@ export class ImportarVendedorComponent implements OnInit {
     
   }
   sendfile(){
+    this.router.navigateByUrl('/admin/vendedor/vendedores');
+
     Swal.showLoading()
 
     this.vendedorService.importVendedor(this.file_data).then( (res:any) =>{    
-      console.log(res.response);
+     
       if(res.success == true){
         Swal.close();
         Swal.fire({
@@ -128,6 +134,7 @@ export class ImportarVendedorComponent implements OnInit {
       if(res.flag == true){
          Swal.fire('Listo!','Se aplicaron los cambios!', 'success')
         this.getDataVendedorExcel();
+        this.router.navigateByUrl('/admin/vendedor/vendedores');
 
       }else{
         Swal.fire('Error de comunicación, intente de nuevo!', 'error')
