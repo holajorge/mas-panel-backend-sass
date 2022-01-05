@@ -77,6 +77,11 @@ export class ConfigurcionProductoComponent implements OnInit {
       this.addForm.controls['caract2'].enable();
     }else{
       this.addForm.controls['caract2'].disable();
+      this.addForm.controls['caract3'].disable();
+      this.addForm.controls['caract4'].disable();
+      this.addForm.patchValue({caract2:''});
+      this.addForm.patchValue({caract3:''});
+      this.addForm.patchValue({caract4:''});
     }
     
   }
@@ -88,6 +93,9 @@ export class ConfigurcionProductoComponent implements OnInit {
       this.addForm.controls['caract3'].enable();
     }else{
       this.addForm.controls['caract3'].disable();
+      this.addForm.controls['caract4'].disable();
+      this.addForm.patchValue({caract3:''});
+      this.addForm.patchValue({caract4:''});
     }
     
   }
@@ -98,6 +106,8 @@ export class ConfigurcionProductoComponent implements OnInit {
       this.addForm.controls['caract4'].enable();
     }else{
       this.addForm.controls['caract4'].disable();
+      this.addForm.patchValue({caract4:''});
+
     }
     
   }
