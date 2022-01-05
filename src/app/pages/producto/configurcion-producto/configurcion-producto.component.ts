@@ -41,15 +41,25 @@ export class ConfigurcionProductoComponent implements OnInit {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-          
-        if(this.configuraciones.caracteristica1 != undefined){
+        console.log(this.configuraciones);
+        
+        if(this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1 !== ''){
           this.addForm.patchValue({caract1: this.configuraciones.caracteristica1});
+        }else{
+          this.addForm.controls['caract2'].disable();
+          this.addForm.controls['caract3'].disable();
+          this.addForm.controls['caract4'].disable();
         }
-        if(this.configuraciones.caracteristica2 != undefined){
+        if(this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2 !== ''){
           this.addForm.patchValue({caract2: this.configuraciones.caracteristica2});
+        }else{          
+          this.addForm.controls['caract3'].disable();
+          this.addForm.controls['caract4'].disable();
         }
-        if(this.configuraciones.caracteristica3 != undefined){
+        if(this.configuraciones.caracteristica3 != undefined && this.configuraciones.caracteristica3 !== '' ){
           this.addForm.patchValue({caract3: this.configuraciones.caracteristica3});
+        }else{
+          this.addForm.controls['caract4'].disable();
         }
          if(this.configuraciones.caracteristica4 != undefined){
           this.addForm.patchValue({caract4: this.configuraciones.caracteristica4});
@@ -59,6 +69,37 @@ export class ConfigurcionProductoComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+  }
+  liberarCaract2(event){
+    let caract1 = event.target.value
+    
+    if(caract1.length > 0){
+      this.addForm.controls['caract2'].enable();
+    }else{
+      this.addForm.controls['caract2'].disable();
+    }
+    
+  }
+
+  liberarCaract3(event){
+    let caract2 = event.target.value
+    
+    if(caract2.length > 0){
+      this.addForm.controls['caract3'].enable();
+    }else{
+      this.addForm.controls['caract3'].disable();
+    }
+    
+  }
+  liberarCaract4(event){
+    let caract3 = event.target.value
+    
+    if(caract3.length > 0){
+      this.addForm.controls['caract4'].enable();
+    }else{
+      this.addForm.controls['caract4'].disable();
+    }
+    
   }
 
   senConfiguracionProduct(){
