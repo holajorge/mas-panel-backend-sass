@@ -70,6 +70,8 @@ export class DashboardComponent implements OnInit {
   loadingIndicatorClientsDatatable = true;
   datatableClientes = [];
   datatableProductos = [];
+  columnsProducts = [];
+  columnsClients = [];
 
   constructor(
     public translate: TranslateService,
@@ -85,6 +87,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(this.initRangeSelector, 1000, this);
+    this.columnsProducts = [
+       { name: 'TITULO', prop: 'titulo', resizeable: true},
+       { name: 'CANTIDAD', prop: 'cantidad', resizeable: true, width: 110, minWidth: 110, maxWidth: 110 }
+    ];
+    this.columnsClients = [
+       { name: 'CLIENTE', prop: 'cliente', resizeable: true},
+       { name: 'VENTAS', prop: 'ventas', resizeable: true, width: 110, minWidth: 110, maxWidth: 110 }
+    ];
+
   }
 
   initRangeSelector(that){
@@ -119,7 +130,6 @@ export class DashboardComponent implements OnInit {
         this.pedidosService.getDetalles(this.empresa).then( (response:any) =>{
             response["detalles"].forEach(element => {
                 this.price_total += parseFloat(element.precio) * parseInt(element.cantidad);
-                console.log(this.price_total);
             });
         });
       });
@@ -135,10 +145,6 @@ export class DashboardComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
-  }
-
-  onDateSelect(event){
-    console.log(event);
   }
 
   onDateSelection(date: NgbDateStruct) {
@@ -162,7 +168,6 @@ export class DashboardComponent implements OnInit {
     }
     this.requestDataFromRange();
     this.renderer.setProperty(this.myRangeInput.nativeElement, 'value', parsed);
-    console.log(parsed);
   }
 
   requestDataFromRange(){
@@ -170,7 +175,6 @@ export class DashboardComponent implements OnInit {
         let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
         let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
         this.pedidosService.getPedidosClientePorFechas(this.empresa, start_date, end_date).then( (res:any) =>{
-          console.log(res.pedidos["pedidos"]);
           this.plotLineChart(res.pedidos["pedidos"]);
         }).catch(err=>{
           console.log(err);

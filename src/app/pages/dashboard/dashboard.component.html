@@ -116,8 +116,8 @@
               <h5 class="h3 mb-0">Cantidad total por día</h5>
             </div>
             <div class="card-body">
-              <div class="chart">
-                <canvas class=" chart-canvas" id="chart-sales"> </canvas>
+              <div class="">
+                <canvas class="chart-canvas" id="chart-sales"> </canvas>
               </div>
             </div>
           </div>
@@ -125,63 +125,78 @@
     </div>
 
     <div class="row mt-6" *ngIf="fromDate && toDate">
-        <div class="col-6">
+        <div class="col-xl-6 col-md-12">
             <div class=" card">
                 <div class="dataTables_wrapper py-4 "  *ngIf="productsDatatableEmpty">
                     <div class="row">
-                        <div class="col-2" ></div>
-                        <div class="col-8" >
-                        <div class="text-center cabecera">
-                            <h1 >Ranking de los 15 productos más vendidos</h1>
-                            <img src="assets/img/2808165.jpg" width="30%">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 productos más vendidos</h3>
+                                <img src="assets/img/2808165.jpg" width="30%">
+                            </div>
                         </div>
-                        </div>
-                        <div class="col-2"></div>
                     </div>
                 </div>
                 <div class="dataTables_wrapper py-4" *ngIf="!productsDatatableEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 productos más vendidos</h3>
+                            </div>
+                        </div>
+                    </div>
                     <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                        class="bootstrap selection-cell" [columnMode]="'force'"
+                        [columnMode]="'force'"
+                        [columns]="columnsProducts"
                         [headerHeight]="50" [footerHeight]="50"
-                        [rowHeight]="70"
+                        [rowHeight]="40"
                         [limit]="entries != -1 ? entries : undefined" [rows]="datatableProductos"
                         [loadingIndicator]="loadingIndicatorProductsDatatable">
+                        <!--
                         <ngx-datatable-column name="titulo">
-                            <ng-template let-column="column" ngx-datatable-header-template>
+                            <ng-template ngx-datatable-header-template>
                                 <span>TITULO</span>
                             </ng-template>
                         </ngx-datatable-column>
                         <ngx-datatable-column name="cantidad">
-                            <ng-template let-column="column" ngx-datatable-header-template>
+                            <ng-template ngx-datatable-header-template>
                                 <span>CANTIDAD</span>
                             </ng-template>
                         </ngx-datatable-column>
+                        -->
                     </ngx-datatable>
                 </div>
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col-xl-6 col-md-12">
             <div class=" card">
                 <div class="dataTables_wrapper py-4 "  *ngIf="clientsDatatableEmpty">
                     <div class="row">
-                        <div class="col-2" ></div>
-                        <div class="col-8" >
-                        <div class="text-center cabecera">
-                            <h1 >Ranking de los 15 clientes con más dinero generado de las ventas</h1>
-                            <img src="assets/img/2808165.jpg" width="30%">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 clientes con más dinero generado de las ventas</h3>
+                                <img src="assets/img/2808165.jpg" width="30%">
+                            </div>
                         </div>
-                        </div>
-                        <div class="col-2"></div>
                     </div>
                 </div>
                 <div class="dataTables_wrapper py-4" *ngIf="!clientsDatatableEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 clientes con más dinero generado de las ventas</h3>
+                            </div>
+                        </div>
+                    </div>
                     <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
                         class="bootstrap selection-cell" [columnMode]="'force'"
+                        [columns]="columnsClients"
                         [headerHeight]="50" [footerHeight]="50"
-                        [rowHeight]="70"
+                        [rowHeight]="40"
                         [limit]="entries != -1 ? entries : undefined" [rows]="datatableClientes"
                         [loadingIndicator]="loadingIndicatorClientsDatatable">
+                        <!--
                         <ngx-datatable-column name="cliente">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>CLIENTE</span>
@@ -192,6 +207,7 @@
                                 <span>VENTAS</span>
                             </ng-template>
                         </ngx-datatable-column>
+                        -->
                     </ngx-datatable>
                 </div>
             </div>
