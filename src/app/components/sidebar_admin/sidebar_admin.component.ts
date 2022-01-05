@@ -61,7 +61,7 @@ export const ROUTES: RouteInfo[] = [
       { path: "general", title: "Configuración general ", type: "link" }
     ]
   },
- /* {
+ {
     path: "admin",
     title: "Dashboard",
     type: "sub",
@@ -70,7 +70,7 @@ export const ROUTES: RouteInfo[] = [
     children: [
       { path: "dashboard", title: "Dashboard", type: "link" },
     ]
-  }, */
+  },
   
   {
     path: "pedidos",

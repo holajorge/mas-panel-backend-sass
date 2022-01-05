@@ -28,6 +28,7 @@ import { ImportarCategoriaComponent } from './categorias/importar-categoria/impo
 import { MicuentaComponent } from './micuenta/micuenta.component';
 import { ListaPreciosComponent } from './precios/lista-precios/lista-precios/lista-precios.component';
 import { TareasComponent } from './tareas/tareas.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes:Routes = [
     {
@@ -74,7 +75,10 @@ const routes:Routes = [
             {path: 'precios/lista-precios',  component: ListaPreciosComponent},
 
             //tarea
-            {path: 'tareas', component:TareasComponent}
+            {path: 'tareas', component:TareasComponent},
+
+            // admin
+            {path: 'admin/dashboard', component: DashboardComponent}
             
         ]
     },

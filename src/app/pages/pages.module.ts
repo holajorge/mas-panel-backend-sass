@@ -45,6 +45,7 @@ import { MicuentaComponent } from './micuenta/micuenta.component';
 import {BdcWalkModule} from 'bdc-walkthrough';
 import { ListaPreciosComponent } from './precios/lista-precios/lista-precios/lista-precios.component';
 import { TareasComponent } from './tareas/tareas.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -82,6 +83,7 @@ imports: [
     MicuentaComponent,
     ListaPreciosComponent,
     TareasComponent,
+    DashboardComponent,
   ],
   imports: [
     DpDatePickerModule,
