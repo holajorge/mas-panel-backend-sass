@@ -62,14 +62,10 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
  {
-    path: "admin",
-    title: "Dashboard",
-    type: "sub",
-    icontype: "ni-shop text-primary",
-    isCollapsed: true,
-    children: [
-      { path: "dashboard", title: "Dashboard", type: "link" },
-    ]
+    path: "admin/dashboard",
+    title: "Reportes",
+    type: "link",
+    icontype: "ni ni-chart-bar-32 text-primary"
   },
   
   {
