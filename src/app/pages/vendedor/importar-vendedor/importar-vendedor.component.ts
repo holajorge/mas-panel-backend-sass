@@ -24,7 +24,6 @@ export class ImportarVendedorComponent implements OnInit {
     {
       nro_vendedor: '',
       nombre: '',
-      apellido: '',
       email: '', 
       telefono:''
     }
@@ -67,8 +66,7 @@ export class ImportarVendedorComponent implements OnInit {
     }
     
   }
-  sendfile(){
-    this.router.navigateByUrl('/admin/vendedor/vendedores');
+  sendfile(){    
 
     Swal.showLoading()
 
@@ -93,8 +91,7 @@ export class ImportarVendedorComponent implements OnInit {
           if (resul.value) {
 
           //  console.log("APLICAR");
-            this.aplayChange();
-            
+            this.aplayChange();           
 
           }
           if (resul.dismiss){
