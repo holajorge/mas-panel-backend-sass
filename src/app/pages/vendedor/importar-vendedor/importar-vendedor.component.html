@@ -27,7 +27,7 @@
                             <h3 class=" mb-0">{{'vendedores.importar.select'  | translate }}</h3>
                             <form [formGroup]="addForm" novalidate>
                                 <!-- <div class="custom-file"> -->
-                                    <input formControlName="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                    <input formControlName="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                             (change)="handleFile($event)"  
                                             class="form-control" id="customFileLang" type="file"  />
                                             
