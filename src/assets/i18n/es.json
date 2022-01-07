@@ -122,7 +122,8 @@
             "deshabilitar": "Deshabilitar",
             "foto": "Foto",
             "destacadoA": "Habilitar Destacado",
-            "destacadoD": "deshabilitar Destacado"
+            "destacadoD": "deshabilitar Destacado",
+            "delete": "Elininar producto"
         },
         "formEdit": {
             "titulo": "Titulo",
