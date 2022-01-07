@@ -1,0 +1,220 @@
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 d-inline-block mb-0">{{  'dashboard.titulo' | translate}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class=" container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-4 col-md-4">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">{{  'dashboard.total.pedidos.titulo' | translate}}</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ pedidos_count }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                    <i class="fa fa-shopping-cart ni"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-4">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">{{  'dashboard.total.clientes.titulo' | translate}}</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ clientes_count }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                    <i class="fa fa-user-friends ni"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-4">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">{{  'dashboard.total.dinero.titulo' | translate}}</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ price_total }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-12">
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                     #myRangeInput
+                    class="form-control"
+                    placeholder="mm/dd/yyyy - mm/dd/yyyy"
+                    name="dp"
+                    [(ngModel)]="model"
+                    ngbDatepicker
+                    [dayTemplate]="t"
+                    [autoClose]="false"
+                    [displayMonths]="2"
+                    [maxDate]="maxDate"
+                    [minDate]="minDate"
+                    #d="ngbDatepicker">
+
+                    <ng-template #t let-date="date" let-focused="focused">
+                        <span class="custom-day"
+                            [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                            [class.faded]="isHovered(date) || isInside(date)"
+                            (click)="onDateSelection(date)"
+                            (mouseenter)="hoveredDate = date"
+                            (mouseleave)="hoveredDate = null"
+                            >
+                        {{ date.day }}
+                        </span>
+                    </ng-template>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                        <i class="ni ni-calendar-grid-58"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-1" *ngIf="fromDate && toDate">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header">
+              <h6 class="surtitle">Pedidos</h6>
+              <h5 class="h3 mb-0">Cantidad total por día</h5>
+            </div>
+            <div class="card-body">
+              <div class="">
+                <canvas class="chart-canvas" id="chart-sales"> </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row mt-6" *ngIf="fromDate && toDate">
+        <div class="col-xl-6 col-md-12">
+            <div class=" card">
+                <div class="dataTables_wrapper py-4 "  *ngIf="productsDatatableEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 productos más vendidos</h3>
+                                <img src="assets/img/2808165.jpg" width="30%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dataTables_wrapper py-4" *ngIf="!productsDatatableEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 productos más vendidos</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                        [columnMode]="'force'"
+                        [columns]="columnsProducts"
+                        [headerHeight]="50" [footerHeight]="50"
+                        [rowHeight]="40"
+                        [limit]="entries != -1 ? entries : undefined" [rows]="datatableProductos"
+                        [loadingIndicator]="loadingIndicatorProductsDatatable">
+                        <!--
+                        <ngx-datatable-column name="titulo">
+                            <ng-template ngx-datatable-header-template>
+                                <span>TITULO</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="cantidad">
+                            <ng-template ngx-datatable-header-template>
+                                <span>CANTIDAD</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        -->
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+            <div class=" card">
+                <div class="dataTables_wrapper py-4 "  *ngIf="clientsDatatableEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 clientes con más dinero generado de las ventas</h3>
+                                <img src="assets/img/2808165.jpg" width="30%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dataTables_wrapper py-4" *ngIf="!clientsDatatableEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera">
+                                <h3>Ranking de los 15 clientes con más dinero generado de las ventas</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                        class="bootstrap selection-cell" [columnMode]="'force'"
+                        [columns]="columnsClients"
+                        [headerHeight]="50" [footerHeight]="50"
+                        [rowHeight]="40"
+                        [limit]="entries != -1 ? entries : undefined" [rows]="datatableClientes"
+                        [loadingIndicator]="loadingIndicatorClientsDatatable">
+                        <!--
+                        <ngx-datatable-column name="cliente">
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>CLIENTE</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="ventas">
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>VENTAS</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        -->
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>

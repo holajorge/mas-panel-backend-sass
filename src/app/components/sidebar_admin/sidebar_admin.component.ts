@@ -56,21 +56,17 @@ export const ROUTES: RouteInfo[] = [
     icontype: "fa fa-sliders-h text-primary",
     isCollapsed: true,
     children: [
-      { path: "empresa", title: "Configuración de la empresa", type: "link" },
+      { path: "empresa", title: "Datos de la empresa", type: "link" },
      /* { path: "dominios", title: "Configuración de dominios", type: "link" },*/
       { path: "general", title: "Configuración general ", type: "link" }
     ]
   },
- /* {
-    path: "admin",
-    title: "Dashboard",
-    type: "sub",
-    icontype: "ni-shop text-primary",
-    isCollapsed: true,
-    children: [
-      { path: "dashboard", title: "Dashboard", type: "link" },
-    ]
-  }, */
+ {
+    path: "admin/dashboard",
+    title: "Reportes",
+    type: "link",
+    icontype: "ni ni-chart-bar-32 text-primary"
+  },
   
   {
     path: "pedidos",
