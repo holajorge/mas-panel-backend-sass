@@ -24,7 +24,6 @@ export class ImportarVendedorComponent implements OnInit {
     {
       nro_vendedor: '',
       nombre: '',
-      apellido: '',
       email: '', 
       telefono:''
     }
