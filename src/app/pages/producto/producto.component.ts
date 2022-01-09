@@ -204,6 +204,137 @@ export class ProductoComponent implements OnInit {
     );
 
   }
+  deleteAll(){
+    let data = {all: true,id: this.empresa };
+    Swal.fire({
+      title: 'Seguro de Eliminar Todos?',
+      text: "se eliminaran Todos los producto permanentemente!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar todo!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+      if (result.value) {      
+        Swal.showLoading();
+        this.productoService.deleteProduct(data).subscribe(
+          (res) => {
+            console.log(res);
+            
+            if(res){
+              Swal.fire('listo','productos eliminado con exito','success');
+              this.getProductos();
+            }else{
+              Swal.fire('error','no fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
+            }        
+          },
+          (error) => {
+            Swal.fire('error','no fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
+          }
+        );
+      }
+    })
+  }
+  deleteProduct(idProduct){
+    let data = {one: true,_id: idProduct,id: this.empresa };
+    Swal.fire({
+      title: 'Seguro de Eliminar?',
+      text: "Eliminar el producto permanentemente!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+      if (result.value) {      
+        Swal.showLoading();
+        this.productoService.deleteProduct(data).subscribe(
+          (res) => {
+            console.log(res);
+            
+            if(res){
+              Swal.fire('listo','producto eliminado con exito','success');
+              this.getProductos();
+            }else{
+              Swal.fire('error','no fue posible eliminar el producto, verifique conexion e intente de nuevo','error');  
+            }        
+          },
+          (error) => {
+            Swal.fire('error','no fue posible eliminar el producto, verifique conexion e intente de nuevo','error');  
+          }
+        );
+      }
+    })
+  }
+
+  activeAll(){
+    let data = {id: this.empresa };
+    Swal.fire({
+      title: 'Seguro de activar todos los productos?',
+      text: "Se activaran todos los producto!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Activar todos!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+      if (result.value) {      
+        Swal.showLoading();
+        this.productoService.activeAllProduct(data).subscribe(
+          (res) => {
+            console.log(res);
+            
+            if(res){
+              Swal.fire('listo','se activaron todos los producto con exito','success');
+              this.getProductos();
+            }else{
+              Swal.fire('error','no fue posible activar todos los productos, verifique conexion e intente de nuevo','error');  
+            }        
+          },
+          (error) => {
+            Swal.fire('error','no fue posible activar todos los productos, verifique conexion e intente de nuevo','error');  
+          }
+        );
+      }
+    })
+  }
+  disableAll(){
+    let data = {id: this.empresa };
+    Swal.fire({
+      title: 'Seguro de deshactivar todos los productos?',
+      text: "Se deshactivar todos los producto!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, deshactivar todos!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+      if (result.value) {      
+        Swal.showLoading();
+
+        this.productoService.deshactivarAllProduct(data).subscribe(
+          (res) => {
+            console.log(res);
+            
+            if(res){
+              Swal.fire('listo','se deshactivaron todos los producto con exito','success');
+              this.getProductos();
+            }else{
+              Swal.fire('error','no fue posible deshactivar todos los productos, verifique conexion e intente de nuevo','error');  
+            }        
+          },
+          (error) => {
+            Swal.fire('error','no fue posible deshactivar todos los productos, verifique conexion e intente de nuevo','error');  
+          }
+        );
+      }
+    })
+  }
+
   getProductos(){ 
     Swal.showLoading();
     this.productoService.getProducto(this.empresa).then( (res:any) =>{    
@@ -215,6 +346,8 @@ export class ProductoComponent implements OnInit {
           this.bucket = res.productos['empresa'].bucket;
           
           this.rows = res.productos['productos'];
+          console.log(this.rows);
+          
           this.rowsTemp = res.productos['productos'];
           this.listaCop = res.productos['productos'];
           this.filtraCat();
@@ -566,18 +699,7 @@ export class ProductoComponent implements OnInit {
     this.myFiles = [];
     this.notificationModal.hide();
   }
-  insertProduct(){
-    // if(!this.flagProductList){
-    
-    //   if(this.editForm.get('caracteristica1').value == null && this.editForm.get('caracteristica2').value ==  null && 
-    //     this.editForm.get('caracteristica3').value ==  null && this.editForm.get('caracteristica4').value == null){
-    //     Swal.fire('Selecione al menos una opcion de las siguientes listas o agrege una nueva: '+ 
-    //               '<strong>'
-    //                 + this.textCaract1  +', '+this.textCaract2 +', '+this.textCaract3 +', '+this.textCaract4
-    //               + '<strong>', '','error');
-    //       return false;
-    //   } 
-    // }
+  insertProduct(){   
     
     let formData = new FormData();
 

@@ -3,6 +3,8 @@ import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpP
 import { ConfigService } from '../config/config.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -12,6 +14,10 @@ const EXCEL_EXTENSION = '.xlsx';
 export class ProductoService {
 
   constructor(private _http:HttpClient) { }
+  get headers(){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    return  { headers: headers };
+  }
   getProducto(idEmpresa){
     let empresa = {id: idEmpresa};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
@@ -200,6 +206,50 @@ export class ProductoService {
     });
 
   }
+  deleteProduct(data){
 
+    return this._http.post<boolean>(ConfigService.API_ENDPOINT()+"Backend/eliminarProducto", data,this.headers)
+      .pipe(
+        map( (res:any) => {
+          let {flag} = res;            
+            return flag;
+          }
+        ),            
+        catchError( error => {
+          console.log(error);          
+          return of(false)
+        })
+      );          
+  }
+  activeAllProduct(data){
+    return this._http
+      .post<boolean>(ConfigService.API_ENDPOINT()+"Backend/activarProductoTodos", data,this.headers)
+      .pipe(
+        map( (res:any) => {
+          let {flag} = res;            
+            return flag;
+          }
+        ),            
+        catchError( error => {
+          console.log(error);          
+          return of(false)
+        })
+      );    
+  }
+  deshactivarAllProduct(data){
+    return this._http
+      .post<boolean>(ConfigService.API_ENDPOINT()+"Backend/deshactivarProductoTodos", data,this.headers)
+      .pipe(
+        map( (res:any) => {
+          let {flag} = res;            
+            return flag;
+          }
+        ),            
+        catchError( error => {
+          console.log(error);          
+          return of(false)
+        })
+      );    
+  }
 
 }

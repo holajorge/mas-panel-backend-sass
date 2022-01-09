@@ -7,8 +7,21 @@
             
           </div>
           <div class=" col-lg-6 col-5 text-right">
-              <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="newProduct(modalEditProducto); onboardingService.submit('clickNewProduct')" [bdcWalkTriggerFor]="clickNewProduct"> Nuevo </a>
-              <a *ngIf="!onboardingService.on" class=" btn btn-success" href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo Producto</a>
+              <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" 
+                class=" btn btn-sm btn-neutral" href="javascript:void(0)" 
+                (click)="newProduct(modalEditProducto); onboardingService.submit('clickNewProduct')" 
+                [bdcWalkTriggerFor]="clickNewProduct"> Nuevo </a>
+
+              <a *ngIf="rows.length > 0" class=" btn btn-danger" 
+                href="javascript:void(0)" (click)="disableAll()"> Desactivar todos </a>
+
+              <a *ngIf="rows.length > 0" class=" btn btn-danger" 
+              href="javascript:void(0)" (click)="activeAll()"> Activar Todo</a>
+
+              <a *ngIf="!onboardingService.on" class=" btn btn-danger" 
+              href="javascript:void(0)" (click)="deleteAll()"> Eliminar Todo</a>
+              <a *ngIf="!onboardingService.on" class=" btn btn-success" 
+              href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo Producto</a>
           </div>
         </div>
       </div>
@@ -166,6 +179,9 @@
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                         <span>
+                            <button class="btn btn-sm btn-danger"  (click)='deleteProduct(row.id)'
+                                title="{{ 'producto.tabla.delete' | translate}}"><span class="fas fa-trash"></span>
+                            </button>
                             <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalEditProducto,row)'
                                 title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
                             <button class="btn btn-sm btn-success" (click)='onActiveClient(row)'
