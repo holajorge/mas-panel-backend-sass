@@ -273,7 +273,7 @@ export class ProductoComponent implements OnInit {
     let data = {id: this.empresa };
     Swal.fire({
       title: 'Seguro de activar todos los productos?',
-      text: "Se activaran todos los producto!",
+      text: "Se activaran todos los productos!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -305,7 +305,7 @@ export class ProductoComponent implements OnInit {
     let data = {id: this.empresa };
     Swal.fire({
       title: 'Seguro de deshactivar todos los productos?',
-      text: "Se deshactivar todos los producto!",
+      text: "Se deshactivar todos los productos!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,

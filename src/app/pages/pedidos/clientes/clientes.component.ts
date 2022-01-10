@@ -40,8 +40,10 @@ export class ClientesComponent implements OnInit {
   dateStar:any;
   dateEnd:any;
   lista_estados: any = [];
+  lista_estadosFiltros: any = [];
   estado_to_id: any = {};
   models: any = {};
+  estadoSelect:number;
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -59,7 +61,9 @@ export class ClientesComponent implements OnInit {
     });
 
     this.lista_estados = [];
+    this.lista_estadosFiltros = [];
     this.pedidosService.getDistinctEstadoPedidos(this.empresa).then( (res:any) =>{
+      this.lista_estadosFiltros = res.resultado;
       res.resultado.forEach(element => {
         this.lista_estados.push(element.estado);
         this.estado_to_id[element.estado] = element.estado_id;
@@ -98,17 +102,30 @@ export class ClientesComponent implements OnInit {
 
   }
   filters(){
-
+   
+    console.log(this.lista_estadosFiltros);
     
     const npedido = this.nroPedido;
     const ncliente = this.nroCliente;
     const star = this.dateStar;
     const end = this.dateEnd;
-    console.log(star);
-    console.log(end);
+    const estado = this.estadoSelect;
+    
     const filtros = {
-      id: [npedido, d => d['id'].includes(npedido)],
-      nrocliente: [ncliente, d => d['nrocliente'].includes(ncliente)],
+      estado: [estado, d => d['estado'].includes(estado)],
+
+      id: [npedido, d => {
+        let nroI = d['numeroInterno'].toLowerCase();
+        if(nroI.includes(npedido.toLocaleLowerCase()) ){
+          return true;
+        } 
+      }],
+      nrocliente: [ncliente, d => {
+        let nroC = d['nrocliente'].toLowerCase();
+        if(nroC.includes(ncliente.toLocaleLowerCase()) ){
+          return true;
+        }
+      }],
       star: [star, d => {
         if(d['fechafiltro'] >= star){
           return true;

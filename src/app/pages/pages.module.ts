@@ -11,6 +11,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {DpDatePickerModule} from 'ng2-date-picker';
+import {PipesModule} from '../pipes/pipes.module';
 
 import localeEs from '@angular/common/locales/es';
 import {registerLocaleData} from '@angular/common';
@@ -102,7 +103,8 @@ imports: [
       }
     }),
     AngularEditorModule,
-    BdcWalkModule
+    BdcWalkModule,
+    PipesModule
   ],
   exports: [
     AdminComponent,

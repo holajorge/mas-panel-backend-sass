@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {BdcWalkModule} from 'bdc-walkthrough';
 import {DpDatePickerModule} from 'ng2-date-picker';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }

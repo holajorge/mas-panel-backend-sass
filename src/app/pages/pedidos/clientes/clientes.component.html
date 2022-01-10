@@ -65,6 +65,15 @@
                                 <!-- <dp-date-picker theme="dp-material" [(ngModel)]="dateEnd" [config]="datePickerConfig" ></dp-date-picker>   -->
                             </div>
                         </div>
+
+                        <div class="col-md-3" >
+                            <div class="from-group">
+                                <label class="form-control-label" for="">Estado</label>
+                                <ng-select (change)="filters()" [(ngModel)]="estadoSelect" 
+                                    bindValue="estado" [items]="lista_estados" bindLabel="estado">
+                                </ng-select>
+                            </div>
+                        </div>
                     
                          <div class="col-md-12 mt-3">
                             <button class="btn btn-sm btn-primary" (click)="eliminar()">limpiar búsqueda</button>
@@ -100,7 +109,7 @@
                         [limit]="entries != -1 ? entries : undefined" [rows]="temp" 
                         [loadingIndicator]="loadingIndicator" 
                         (activate)="onActivate($event)">
-                        <ngx-datatable-column name="id">
+                        <ngx-datatable-column name="numeroInterno">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>ID</span>
                             </ng-template>
@@ -108,7 +117,7 @@
                         <ngx-datatable-column name="fecha">
                             
                             <ng-template let-value="value" ngx-datatable-cell-template>
-                                {{ value | date:'longDate' }}
+                                {{ value | fehaLarga }}
                             </ng-template>
 
                             <ng-template let-column="column" ngx-datatable-header-template>
@@ -124,6 +133,12 @@
                         <ngx-datatable-column name="cliente">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.nombre' | translate}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="total">
+                            
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>{{ 'pedidos.tabla.total' | translate}}</span>
                             </ng-template>
                         </ngx-datatable-column>
                         <ngx-datatable-column name="estado">
