@@ -82,6 +82,47 @@ export class ClienteComponent implements OnInit {
     this.getDistinctListPrice()
 
   }
+  validarNroCliente(tipo){
+    console.log(tipo);    
+    let data = {
+      nroInput: this.editForm.get('nrocliente').value,
+      usuario: this.editForm.get('usuario').value,
+      id: this.empresa.id,
+      tipo: tipo
+    }
+    Swal.showLoading();
+    this.clienteService.validNroClient(data).subscribe(
+      (res) => {
+        if(res){
+
+          if(tipo == 'nro'){
+            Swal.fire('Atencion','Nro de cliente ya existente, Ingrese uno diferente', 'warning');
+            this.editForm.patchValue({nrocliente:''});
+          }
+          if(tipo == 'usuario'){
+            Swal.fire('Atencion','nombre de usuario de cliente ya existente, Ingrese uno diferente', 'warning');
+
+            this.editForm.patchValue({usuario:''});
+          }
+          
+        }else{
+          Swal.close();
+        }
+      },
+      (error) => {
+        Swal.fire('error','Error de comunicacion, intende de nuevo', 'error');
+        if(tipo == 'nro'){
+          this.editForm.patchValue({nrocliente:''});
+        }
+        if(tipo == 'usuario'){
+          this.editForm.patchValue({usuario:''});
+        }
+        console.log(error);
+        
+      }
+    )
+  }
+  
   entriesChange($event) {
     this.entries = $event.target.value;
   }

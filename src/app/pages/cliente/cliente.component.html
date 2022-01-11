@@ -244,7 +244,8 @@
                 <div class="col-md-4">                    
                     <div class="form-group">
                         <label for="nrocliente" class="form-control-label">{{ 'cliente.tabla.nrocliente' | translate}}:</label>
-                        <input type="text" formControlName="nrocliente" placeholder="Nro cliente" name="nrocliente" class="form-control" id="nrocliente">
+                        <input type="text" formControlName="nrocliente" placeholder="Nro cliente" 
+                            (blur)="validarNroCliente('nro')" name="nrocliente" class="form-control" id="nrocliente">
                         <div class="alert  alert-danger" *ngIf="editForm.get('nrocliente').hasError('required') && editForm.get('nrocliente').touched">
                             {{ 'cliente.tabla.nrocliente' | translate}} es requerido
                         </div>  
@@ -263,7 +264,9 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label" for="usuario">{{ 'cliente.tabla.usuario' | translate}}:</label>
-                        <input type="text" formControlName="usuario" placeholder="Usuario" name="usuario" class="form-control" id="usuario">
+                        <input type="text" formControlName="usuario" 
+                            (blur)="validarNroCliente('usuario')"
+                            placeholder="Usuario" name="usuario" class="form-control" id="usuario">
                         <div class="alert  alert-danger" *ngIf="editForm.get('usuario').hasError('required') && editForm.get('usuario').touched">
                             {{ 'cliente.tabla.usuario' | translate}} es requerido
                         </div>  

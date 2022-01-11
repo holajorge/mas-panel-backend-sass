@@ -3,6 +3,8 @@ import { ConfigService } from '../config/config.service';
 import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -13,6 +15,26 @@ export class ClienteService {
 
   constructor(private _http:HttpClient) { }
 
+  get headers(){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    return options;
+  }
+
+  validNroClient(data){
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/validNroClient",data,this.headers ).pipe(
+      map( (res:any) => {
+        
+        let {flag} = res;
+        console.log(flag);
+        return flag;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
+  }
+ 
   getcliente(idEmpresa){
     
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
