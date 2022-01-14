@@ -2,24 +2,17 @@
     <div class=" container-fluid">
       <div class=" header-body">
         <div class=" row align-items-center py-4">
-          <div class=" col-lg-6 col-7">
+          <div class=" col-lg-4 col-7">
             <h6 class=" h2  d-inline-block mb-0 mr-1">{{  'producto.titulo' | translate}}</h6>
             
           </div>
-          <div class=" col-lg-6 col-5 text-right">
+          <div class=" col-lg-8 col-5 text-right">
               <a *ngIf="onboardingService.on" [enabled]="onboardingService.on" 
                 class=" btn btn-sm btn-neutral" href="javascript:void(0)" 
                 (click)="newProduct(modalEditProducto); onboardingService.submit('clickNewProduct')" 
                 [bdcWalkTriggerFor]="clickNewProduct"> Nuevo </a>
 
-              <a *ngIf="rows.length > 0" class=" btn btn-danger" 
-                href="javascript:void(0)" (click)="disableAll()"> Desactivar todos </a>
-
-              <a *ngIf="rows.length > 0" class=" btn btn-danger" 
-              href="javascript:void(0)" (click)="activeAll()"> Activar Todo</a>
-
-              <a *ngIf="!onboardingService.on" class=" btn btn-danger" 
-              href="javascript:void(0)" (click)="deleteAll()"> Eliminar Todo</a>
+              
               <a *ngIf="!onboardingService.on" class=" btn btn-success" 
               href="javascript:void(0)" (click)="newProduct(modalEditProducto)"> Nuevo Producto</a>
           </div>
@@ -100,18 +93,30 @@
             </div>
             <div class="dataTables_wrapper py-4">
             <div class="row">
-                <div class="col-sm-12 col-md-6">
-                <div class="dataTables_length" id="datatable_length">
-                    <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
-                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
-                        <option value="10" [selected]="entries == 10">10</option>
-                        <option value="25" [selected]="entries == 25">25</option>
-                        <option value="50" [selected]="entries == 50">50</option>
-                        <option value="-1" [selected]="entries == -1">All</option>
-                    </select>
-                    {{ 'producto.tabla.entradas' | translate}}
-                    </label>
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="dataTables_length" id="datatable_length">
+                        <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
+                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                            <option value="10" [selected]="entries == 10">10</option>
+                            <option value="25" [selected]="entries == 25">25</option>
+                            <option value="50" [selected]="entries == 50">50</option>
+                            <option value="-1" [selected]="entries == -1">All</option>
+                        </select>
+                        {{ 'producto.tabla.entradas' | translate}}
+                        </label>
+                    </div>
                 </div>
+                <div class="col-sm-12 col-md-6 col-lg-8 text-right">
+                    <a *ngIf="rows.length > 0" class="btn btn-sm btn-warning" 
+                        href="javascript:void(0)" (click)="disableAll()"> Desactivar todos <span class="fas fa-times-circle"></span>
+                    </a>
+        
+                      <a *ngIf="rows.length > 0" class="btn btn-sm btn-success" 
+                      href="javascript:void(0)" (click)="activeAll()"> Activar todos <span class="fas fa-check"></span></a>
+        
+                      <a *ngIf="!onboardingService.on" class="btn btn-sm btn-danger mr-3" 
+                      href="javascript:void(0)" (click)="deleteAll()"> Eliminar todos <span class="fas fa-trash"></span>
+                    </a>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div id="datatable_filter" class="dataTables_filter">
@@ -186,15 +191,15 @@
                                 title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
                             <button class="btn btn-sm btn-success" (click)='onActiveClient(row)'
                                 *ngIf="row.activo == 0" title="{{ 'producto.tabla.habilitar' | translate}}">
-                                <span class="fas fa-check-square"></span> </button>
-                            <button class="btn btn-sm btn-danger" *ngIf="row.activo == 1" 
+                                <span class="fas fa-check"></span> </button>
+                            <button class="btn btn-sm btn-warning" *ngIf="row.activo == 1" 
                                 (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}">
                                     <span class="fas fa-times-circle"></span> </button>
                                                    
                             <button class="btn btn-sm btn-info" *ngIf="row.destacado == 0" 
-                                (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-check-circle"></span> </button>
+                                (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-star"></span> </button>
                             <button class="btn btn-sm btn-neutral" *ngIf="row.destacado == 1" 
-                                (click)='deshabilitarDestacado(row)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-exclamation-triangle"></span> </button>
+                                (click)='deshabilitarDestacado(row)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-star"></span> </button>
                         </span>
                       </ng-template>
                 </ngx-datatable-column>
