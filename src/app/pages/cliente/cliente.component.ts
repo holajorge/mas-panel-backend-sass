@@ -279,23 +279,29 @@ export class ClienteComponent implements OnInit {
 
     this.editForm.controls['empresa_id'].setValue(this.empresa);
 
-    this.clienteService.postInsertCliente(this.editForm.value).then( (res:any) =>{
-      if(res.response == true){
-        this.editForm.reset();
-        this.notificationModal.hide();
-        this.loadingIndicator = true;
-        this.getClientes();
-       
-        Swal.fire('Listo!','Cliente creado con éxito!', 'success')
-      }else{
+    this.clienteService.postInsertCliente(this.editForm.value).subscribe( 
+      (res) =>{
+        if(res.flag == true){
+          this.editForm.reset();
+          this.notificationModal.hide();
+          this.loadingIndicator = true;
+          this.getClientes();
+          Swal.fire('Listo!',res.msg, 'success');
+        }else if(res.flag == 2){
+          Swal.fire('Upps!',res.msg, 'error')
+        }else if(res.flag == 3){
 
-        Swal.fire('Upps!','Error al crear el nuevo cliente,intente de nuevo!', 'error')
+          Swal.fire('Upps!',res.msg, 'error')
+        }
+      },
+      (error) => {
+        console.log(error);
+        
+        Swal.fire('Error!','Surgio un error inesperado, intenete de nuevo', 'error')
+
       }
-
-    }).catch(err=>{
-      console.log(err);
-    });
-
+    );
+    
   }
   onDisableActive(row){    
     Swal.fire({
