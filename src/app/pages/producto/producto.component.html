@@ -169,15 +169,7 @@
                         <span>{{ 'producto.tabla.precio' | translate}} </span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="activo">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'cliente.tabla.activo' | translate}}</span>
-                    </ng-template>
-                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <span *ngIf="value == 1" class="fas fa-eye"> </span>
-                        <span *ngIf="value == 0"  class="fas fa-eye-slash"> </span>
-                    </ng-template>
-                </ngx-datatable-column>
+              
                 <ngx-datatable-column name="Acción" >
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.acciones' | translate}}</span>

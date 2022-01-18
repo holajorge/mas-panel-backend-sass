@@ -236,9 +236,9 @@ export class ProductoService {
         })
       );    
   }
-  deshactivarAllProduct(data){
+  desactivarAllProduct(data){
     return this._http
-      .post<boolean>(ConfigService.API_ENDPOINT()+"Backend/deshactivarProductoTodos", data,this.headers)
+      .post<boolean>(ConfigService.API_ENDPOINT()+"Backend/desactivarProductoTodos", data,this.headers)
       .pipe(
         map( (res:any) => {
           let {flag} = res;            
