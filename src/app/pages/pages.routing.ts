@@ -57,7 +57,7 @@ const routes:Routes = [
             // clientes
             {path: 'cliente/clientes',  component: ClienteComponent},
             {path: 'cliente/importar',  component: ImportarComponent},
-            {path: 'cliente/agregar-comprobante',  component: AgregarComponent},
+            // {path: 'cliente/agregar-comprobante',  component: AgregarComponent},
             {path: 'cliente/lista-comprobante',  component: ListaComponent},
             //categorias
             {path: 'categorias/lista',  component: CategoriasComponent},

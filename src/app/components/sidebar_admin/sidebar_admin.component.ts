@@ -102,7 +102,7 @@ export const ROUTES: RouteInfo[] = [
     children: [
       { path: "clientes", title: "Lista clientes", type: "link" },
       { path: "importar", title: "Importar", type: "link" },    
-      { path: "agregar-comprobante", title: "Agregar comprobantes", type: "link" },    
+      // { path: "agregar-comprobante", title: "Agregar comprobantes", type: "link" },    
       { path: "lista-comprobante", title: "Listar comprobantes", type: "link" },    
     ]
   },

@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { ConfigService } from 'src/app/service/config/config.service';
 
 
+
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
@@ -180,7 +181,7 @@ export class ClientesComponent implements OnInit {
 
           }  
         }
-        return false;
+        // return false;
       });
       this.temp =this.temRow;
     }else{
@@ -190,34 +191,38 @@ export class ClientesComponent implements OnInit {
   filterTableDet(event){
     const val = event.target.value.toLowerCase();
     
-    if(val !== ''){
-      // filter our data
-      this.temRowDet = this.detalleRow.filter(function (item) {
-        console.log(item);
-        console.log(val);        
-        
-        for (var key in item) {
-          let hola = (item[key] != null) ? item[key].toLowerCase() : '';
+    
+    if(val.length > 0){    
+      
+      this.detalleRow = this.tempRowDet;
+      let temRowDet = this.detalleRow.filter(function (item) {          
+        for (var key in item) {                    
+          let hola = (item[key] != '') ? item[key].toLowerCase() : '';          
           if ( hola.indexOf(val) !== -1) {
             return true;
           }
-        }
-        return false;
+        }   
       });
-      this.detalleRow =this.temRowDet;
+     
+      this.detalleRow = temRowDet;
+      
     }else{
+      console.log('entra aqui else');
+
       this.detalleRow = this.tempRowDet;
     }
   }
   onSelectItem(modalEditVendedor,row) {
     this.detalleRow = [];
     this.empresa.pedido = row.id;
+    Swal.showLoading();
     this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{    
       this.detalleRow = res.detalles;
       this.tempRowDet = res.detalles;
       this.loadingIndicator = true;
-
+      Swal.close();
     }).catch(err=>{
+      Swal.close();
       console.log(err);
     });
 
