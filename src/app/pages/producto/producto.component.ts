@@ -304,31 +304,31 @@ export class ProductoComponent implements OnInit {
   disableAll(){
     let data = {id: this.empresa };
     Swal.fire({
-      title: 'Seguro de deshactivar todos los productos?',
-      text: "Se deshactivar todos los productos!",
+      title: 'Seguro de desactivar todos los productos?',
+      text: "Se desactivar todos los productos!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, deshactivar todos!',
+      confirmButtonText: 'si, desactivar todos!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
       if (result.value) {      
         Swal.showLoading();
 
-        this.productoService.deshactivarAllProduct(data).subscribe(
+        this.productoService.desactivarAllProduct(data).subscribe(
           (res) => {
             console.log(res);
             
             if(res){
-              Swal.fire('listo','se deshactivaron todos los producto con exito','success');
+              Swal.fire('listo','se desactivaron todos los producto con exito','success');
               this.getProductos();
             }else{
-              Swal.fire('error','no fue posible deshactivar todos los productos, verifique conexion e intente de nuevo','error');  
+              Swal.fire('error','no fue posible desactivar todos los productos, verifique conexion e intente de nuevo','error');  
             }        
           },
           (error) => {
-            Swal.fire('error','no fue posible deshactivar todos los productos, verifique conexion e intente de nuevo','error');  
+            Swal.fire('error','no fue posible desactivar todos los productos, verifique conexion e intente de nuevo','error');  
           }
         );
       }
