@@ -27,7 +27,7 @@ export class ListaComponent implements OnInit {
   form_dataConfig:any = [];
   entries: number = 10;
   activeRow:any;
-
+  flagAdd:boolean = false;
   constructor(
     public translate: TranslateService,  
     public fb: FormBuilder,
@@ -99,7 +99,7 @@ export class ListaComponent implements OnInit {
   }
   editar(modalEdit, row){
 
-    
+    this.flagAdd = false;
     this.notificationModal = this.modalService.show(
       modalEdit,
       this.notification
@@ -192,4 +192,42 @@ export class ListaComponent implements OnInit {
     this.activeRow = event.row;
   }
 
+  addComprobante(modal){
+    
+    this.formConfig.reset();
+    this.flagAdd = true;
+    this.notificationModal = this.modalService.show(modal,this.notification);
+    
+  }
+
+  registrar(){
+    Swal.showLoading();
+    let formData = new FormData();
+    if(Array.isArray(this.form_dataConfig)){      
+    }else{
+      formData.append('file', this.form_dataConfig.get('documento'));    
+    }    
+    formData.append('empresa_id',this.empresaData.id);
+    formData.append('nrocliente',  this.formConfig.get('cliente').value);
+    formData.append('fecha_comprobante',  this.formConfig.get('fecha').value);
+    
+    this.clienteService.saveComprobante(formData).then( (res:any) =>{    
+      Swal.close();
+      console.log(res);
+      if(res.response){
+        this.formConfig.reset();
+        this.form_dataConfig = [];
+        this.getComprobantes();
+        this.notificationModal.hide();
+
+        Swal.fire('Listo!','Comprobante agregado con exito!', 'success')
+      }else{
+        Swal.fire('Error al guardar, intente de nuevo!', 'error')
+      }
+    }).catch(err=>{
+      Swal.fire('Error al guardar, intente de nuevo!', 'error')
+      console.log(err);
+    });
+
+  }
 }

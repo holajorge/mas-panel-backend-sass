@@ -7,7 +7,7 @@
                 {{ 'cliente.comprobantes.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addComprobante(modalEdit)" > Nuevo Comprobante </a>
           </div>
         </div>
       </div>
@@ -100,7 +100,8 @@
 
 <ng-template #modalEdit >
     <div class="modal-header">    
-        <h5 class="modal-title" >{{ 'cliente.comprobantes.tabla.actualizar' | translate}} </h5>
+        <h5 class="modal-title" *ngIf="flagAdd">{{ 'cliente.add.titulo' | translate}} </h5>
+        <h5 class="modal-title" *ngIf="!flagAdd">{{ 'cliente.comprobantes.tabla.actualizar' | translate}} </h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
             <span aria-hidden="true"> × </span>
         </button>
@@ -149,7 +150,12 @@
         </form>    
     </div>
     <div class=" modal-footer">
-      <button class="btn btn-success" [disabled]='formConfig.invalid' *ngIf="!btnvisibilityAdd" (click)="update()">{{ 'cliente.add.guardar' | translate}}</button> 
+        <button *ngIf="flagAdd" [disabled]='formConfig.invalid' (click)="registrar()" class="btn btn-primary">
+            {{ 'cliente.add.guardar' | translate }} <span class="fas fa-save"></span>
+        </button>
+        <button *ngIf="!flagAdd" class="btn btn-success" [disabled]='formConfig.invalid' (click)="update()">
+          {{ 'cliente.comprobantes.tabla.actualizar' | translate}}
+        </button> 
       <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.comprobantes.tabla.cancelar' | translate}}</button>
     </div>
 </ng-template>
