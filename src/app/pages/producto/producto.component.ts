@@ -148,6 +148,7 @@ export class ProductoComponent implements OnInit {
       cantidad_minima: [''],
       precio_oferta: [''],
       destacado: [''],
+      status: [''],
       sync: [''],
       fecha_sync: [''],
       stock_minimo: [''],
@@ -155,7 +156,7 @@ export class ProductoComponent implements OnInit {
       logoo: [null],
       foto: [null],
       unit:['',null],
-      status:['',null]
+      
     });
     
   }
@@ -717,7 +718,10 @@ export class ProductoComponent implements OnInit {
       }
       formData.append('foto[]',this.form_dataConfig.get('foto'));
     }
-    // console.log(this.editForm.value); return false;
+    let status = this.editForm.get('status').value;
+    if(status == null){
+      status = false;
+    }
     let caract1 = this.editForm.get('caracteristica1').value;
     let caract2 = this.editForm.get('caracteristica2').value;
     let caract3 = this.editForm.get('caracteristica3').value;
@@ -745,7 +749,7 @@ export class ProductoComponent implements OnInit {
     // formData.append('id',this.editForm.get('id').value);
     // formData.append('logoo',this.editForm.get('logoo').value);
     formData.append('unit',this.editForm.get('unit').value);
-    formData.append('status',this.editForm.get('status').value);
+    formData.append('status',status);
     formData.append('precio',this.editForm.get('precio').value);
     formData.append('precio_oferta',this.editForm.get('precio_oferta').value);
     formData.append('solapa1',this.editForm.get('solapa1').value);
