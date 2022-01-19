@@ -7,7 +7,7 @@
                 {{ 'cliente.comprobantes.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addComprobante(modalEdit)" > Nuevo Comprobante </a>
+            <a class=" btn btn-success" href="javascript:void(0)" (click)="addComprobante(modalEdit)" > Nuevo Comprobante </a>
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@
                                     title="{{ 'cliente.comprobantes.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span>  </button>
                                 
                                 <button class="btn btn-sm btn-danger" (click)='delete(row)' 
-                                    title="{{ 'cliente.comprobantes.tabla.eliminar' | translate}}"><i class="fas fa-minus-circle"></i> </button>
+                                    title="{{ 'cliente.comprobantes.tabla.eliminar' | translate}}"><i class="fas fa-trash"></i> </button>
                                 
                             </span>
                         </ng-template>
