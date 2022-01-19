@@ -140,7 +140,9 @@
             "actualizar": "Actualizar",
             "guardar": "Guardar",
             "cancelar": "Cancelar",
-            "foto": "Foto"
+            "foto": "Foto",
+            "unit":"Unidad por bulto",
+            "status":"Activo/Inactivo"
         },
         "grid": {
             "titulo": "Grid de fotos"

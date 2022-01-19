@@ -154,6 +154,8 @@ export class ProductoComponent implements OnInit {
       descripcion: [''],
       logoo: [null],
       foto: [null],
+      unit:['',null],
+      status:['',null]
     });
     
   }
@@ -191,10 +193,12 @@ export class ProductoComponent implements OnInit {
       cantidad_minima:row.cantidad_minima, 
       precio_oferta:row.precio_oferta, 
       destacado: (row.destacado == 1) ? true : false, 
+      status: (row.activo == 1) ? true : false, 
       sync:row.sync, 
       fecha_sync: row.fecha_sync,
       stock_minimo: row.stock_minimo,
-      descripcion: row.descripcion      
+      descripcion: row.descripcion,
+      unit: row.unidad_bulto      
     });
     this.btnvisibility = false;  
     this.btnvisibilityIn = true;  
@@ -645,6 +649,8 @@ export class ProductoComponent implements OnInit {
     formData.append('codigo_producto',this.editForm.get('codigo_producto').value);
     formData.append('descripcion',this.editForm.get('descripcion').value);
     formData.append('destacado',this.editForm.get('destacado').value);
+    formData.append('unit',this.editForm.get('unit').value);
+    formData.append('status',this.editForm.get('status').value);
     formData.append('empresa_id',this.editForm.get('empresa_id').value);
     formData.append('fecha_sync',this.editForm.get('fecha_sync').value);
     formData.append('id',this.editForm.get('id').value);
@@ -738,6 +744,8 @@ export class ProductoComponent implements OnInit {
     formData.append('fecha_sync',this.editForm.get('fecha_sync').value);
     // formData.append('id',this.editForm.get('id').value);
     // formData.append('logoo',this.editForm.get('logoo').value);
+    formData.append('unit',this.editForm.get('unit').value);
+    formData.append('status',this.editForm.get('status').value);
     formData.append('precio',this.editForm.get('precio').value);
     formData.append('precio_oferta',this.editForm.get('precio_oferta').value);
     formData.append('solapa1',this.editForm.get('solapa1').value);
