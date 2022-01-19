@@ -258,11 +258,11 @@ export class ClientesComponent implements OnInit {
     this.pedidosService.getGuardarComentario(this.addForm.value).then( (res:any) =>{    
       console.log(res);
       if(res.resultado == true){
-        Swal.fire('Listo!','Comentario agregado, con exito!', 'success')
+        Swal.fire('Listo!','Comentario agregado con éxito!', 'success')
         this.notificationModal.hide();
         this.getPedidos();
        }else{
-        Swal.fire('Error!','el comento no fue guardado, tente novamente', 'error')
+        Swal.fire('Error!','El comento no fue guardado intente nuevamente', 'error')
        }
     }).catch(err=>{
       console.log(err);
@@ -280,13 +280,13 @@ export class ClientesComponent implements OnInit {
     row["pedido_estado_id"] = this.estado_to_id[row["estado"]];
     this.pedidosService.updateEstadoPedido(row).then( (res:any) =>{
       if(res.resultado == true){
-        Swal.fire('Listo!','Estado cambiado con exito!', 'success');
+        Swal.fire('Listo!','Estado cambiado con éxito!', 'success');
         this.notificationModal.hide();
         this.getPedidos();
        }else{
         this.models[row.id] = estado;
         row["estado"] = estado;
-        Swal.fire('Error!','el estado no fue modificado, intente nuevamente', 'error');
+        Swal.fire('Error!','El estado no fue modificado, intente nuevamente', 'error');
        }
     }).catch(err=>{
       console.log(err);

@@ -130,7 +130,7 @@ export class PreciosComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getPrecios();
-        Swal.fire('Listo!','Precio creado, con exito!', 'success')
+        Swal.fire('Listo!','Precio creado con éxito!', 'success')
       }else{
         Swal.fire('Editar Error, intente nuevamente', 'error')
       }
@@ -146,7 +146,7 @@ export class PreciosComponent implements OnInit {
         this.notificationModal.hide();
         this.editForm.reset();
         this.getPrecios();
-        Swal.fire('Listo!','Precio actualizado, con exito!', 'success')
+        Swal.fire('Listo!','Precio actualizado con éxito!', 'success')
       }else{
         Swal.fire('Editar Erro, intente novamente', 'error')
       }
@@ -191,7 +191,7 @@ export class PreciosComponent implements OnInit {
               // this.notificationModal.hide();
               // this.editForm.reset();
               this.getPrecios();
-              Swal.fire('Listo!','Precio eliminado, con exito!', 'success')
+              Swal.fire('Listo!','Precio eliminado con éxito!', 'success')
             }else{
               Swal.fire('Editar Error, intente nuevamente', 'error')
             }

@@ -60,7 +60,7 @@ export class ImportarFotosComponent implements OnInit {
           if(res.response['flag'] == true){
             this.addForm.reset();
             this.btnvisibilitybtn = false;
-            Swal.fire('Listo!','Archivo de fotos importado con exito!', 'success')
+            Swal.fire('Listo!','Archivo de fotos importado con éxito!', 'success')
           }
         }
 
