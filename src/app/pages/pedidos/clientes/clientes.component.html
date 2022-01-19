@@ -109,12 +109,12 @@
                         [limit]="entries != -1 ? entries : undefined" [rows]="temp" 
                         [loadingIndicator]="loadingIndicator" 
                         (activate)="onActivate($event)">
-                        <ngx-datatable-column name="numeroInterno">
+                        <ngx-datatable-column name="numeroInterno" [width]="45">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>ID</span>
                             </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="fecha">
+                        <ngx-datatable-column name="fecha" [width]="200">
                             
                             <ng-template let-value="value" ngx-datatable-cell-template>
                                 {{ value | fehaLarga }}
@@ -125,7 +125,7 @@
                             </ng-template>
                             
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="nrocliente">
+                        <ngx-datatable-column name="nrocliente" [width]="60">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.nocliente' | translate}}</span>
                             </ng-template>
@@ -135,7 +135,7 @@
                                 <span>{{ 'pedidos.tabla.nombre' | translate}}</span>
                             </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="total">
+                        <ngx-datatable-column name="total" [width]="60">
                             
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.total' | translate}}</span>
