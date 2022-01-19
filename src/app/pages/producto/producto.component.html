@@ -165,7 +165,7 @@
                     </ng-template>
                 </ngx-datatable-column>
               
-                <ngx-datatable-column name="Acción" >
+                <ngx-datatable-column name="Acción" [width]="200" >
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.acciones' | translate}}</span>
                     </ng-template>
@@ -173,15 +173,15 @@
                 
                             <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalEditProducto,row)'
                                 title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
-                            <!--    
-                                BOTONES DE ACTIVAR / DESACTIVAR
-                            <button class="btn btn-sm btn-success" (click)='onActiveClient(row)'
+                               
+                               
+                            <button class="btn btn-sm btn-warning" (click)='onActiveClient(row)'
                                 *ngIf="row.activo == 0" title="{{ 'producto.tabla.habilitar' | translate}}">
-                                <span class="fas fa-check"></span> </button>
-                            <button class="btn btn-sm btn-warning" *ngIf="row.activo == 1" 
+                                <span class="fas fa-eye-slash"></span> </button>
+                            <button class="btn btn-sm btn-success" *ngIf="row.activo == 1" 
                                 (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}">
-                                    <span class="fas fa-times-circle"></span> </button>
-                             -->                      
+                                    <span class="fas fa-eye"></span> </button>
+                                                   
                             <button class="btn btn-sm btn-light" *ngIf="row.destacado == 0" 
                                 (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-star"></span> </button>
                             <button class="btn btn-sm btn-gold" *ngIf="row.destacado == 1" 
