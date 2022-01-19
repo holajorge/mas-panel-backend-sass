@@ -196,8 +196,9 @@ export class ClientesComponent implements OnInit {
       
       this.detalleRow = this.tempRowDet;
       let temRowDet = this.detalleRow.filter(function (item) {          
-        for (var key in item) {                    
-          let hola = (item[key] != '') ? item[key].toLowerCase() : '';          
+        for (var key in item) {     
+                    
+          let hola = (item[key] != '' && item[key] != null) ? item[key].toLowerCase() : '';          
           if ( hola.indexOf(val) !== -1) {
             return true;
           }
@@ -207,8 +208,6 @@ export class ClientesComponent implements OnInit {
       this.detalleRow = temRowDet;
       
     }else{
-      console.log('entra aqui else');
-
       this.detalleRow = this.tempRowDet;
     }
   }
