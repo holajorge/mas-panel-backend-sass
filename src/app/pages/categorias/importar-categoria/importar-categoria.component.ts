@@ -78,7 +78,7 @@ export class ImportarCategoriaComponent implements OnInit {
       console.log(res.response);
       if(res.response){
         Swal.close();
-        Swal.fire('Listo!','lista importada con exito con exito!', 'success')
+        Swal.fire('Listo!','lista importada con éxito!', 'success')
        
       }else{
         Swal.close()

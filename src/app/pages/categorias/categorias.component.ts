@@ -123,7 +123,7 @@ export class CategoriasComponent implements OnInit {
           this.categoriaService.desactivar(datos).then( (res:any) =>{    
             
             if(res.response){
-              Swal.fire('Listo!','Desactivar correctamente, con exito!', 'success')
+              Swal.fire('Listo!','Desactivar correctamente, con éxito!', 'success')
               this.notificationModal.hide();
               this.getCategoria();
             }else{
@@ -162,7 +162,7 @@ export class CategoriasComponent implements OnInit {
           this.categoriaService.activar(datos).then( (res:any) =>{    
 
             if(res.response){
-              Swal.fire('Listo!','Activado correctamente, con exito!', 'success') 
+              Swal.fire('Listo!','Activado correctamente, con éxito!', 'success') 
               this.notificationModal.hide();
 
             }else{

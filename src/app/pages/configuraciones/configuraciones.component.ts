@@ -289,7 +289,7 @@ export class ConfiguracionesComponent {
         location.reload();
         // this.getConfig();
 
-        Swal.fire('Listo!','configuración guardada con exito!', 'success')
+        Swal.fire('Listo!','configuración guardada con éxito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
       }

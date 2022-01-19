@@ -71,9 +71,9 @@ export class MicuentaComponent implements OnInit {
       this.configService.validarExisteEmail(data).subscribe(
         (res:any)=>{
           if(res){
-            Swal.fire('error','correo ya existe, ingrese otro correo para hacer el cambio','error');
+            Swal.fire('error','Correo ya existe, ingrese otro correo para hacer el cambio','error');
           }else{
-            Swal.fire('Listo','Correo actualizado con exito','success');
+            Swal.fire('Listo','Correo actualizado con éxito','success');
           }
         },
         (error) =>{
@@ -83,7 +83,7 @@ export class MicuentaComponent implements OnInit {
       )
 
     }else{
-      Swal.fire('error', 'Ingrese un correo valido','error');
+      Swal.fire('error', 'Ingrese un correo válido','error');
     }
 
   }
@@ -176,7 +176,7 @@ export class MicuentaComponent implements OnInit {
         console.log(error);
       }
       // if(res.response['body'].flag == true){
-      //   Swal.fire('Listo!','configuración guardada con exito!', 'success');
+      //   Swal.fire('Listo!','configuración guardada con éxito!', 'success');
       //   this.addForm.reset();
       //   this.getConfig();
       // }else{

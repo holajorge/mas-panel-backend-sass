@@ -118,7 +118,7 @@ export class ConfigurcionProductoComponent implements OnInit {
     this.productoService.updateProductCaract(this.addForm.value).then( (res:any) =>{    
       if(res.productos){
         this.addForm.reset();
-        Swal.fire('Listo!','Configuración guardada, con exito!', 'success')
+        Swal.fire('Listo!','Configuración guardada con éxito!', 'success')
         this.getConfiguracion();
       }else{
         Swal.fire('error al guardar, intente nuevamente', 'error')

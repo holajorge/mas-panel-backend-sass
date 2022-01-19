@@ -108,7 +108,7 @@ export class BannerComponent implements OnInit {
   submitHeader() {
     this.bannerService.importBanner(this.file_dataHeader).then( (res:any) =>{    
       if(res.response.body.flag == true){
-        Swal.fire('Listo!','Banner de escritorio importado con exito!', 'success')
+        Swal.fire('Listo!','Banner de escritorio importado con éxito!', 'success')
       }else{
         Swal.fire('Erro al importar Banner de escritorio, intente de nuevo!', 'error')
       }
@@ -139,7 +139,7 @@ export class BannerComponent implements OnInit {
           // console.log(res); return false;
           if(res.response['body'].flag == true){
             this.imageURLHeader = "";
-            Swal.fire('Listo!','Banner de móviles importado con exito!', 'success')
+            Swal.fire('Listo!','Banner de móviles importado con éxito!', 'success')
           }else{
             Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
           }
@@ -185,7 +185,7 @@ export class BannerComponent implements OnInit {
     
     this.bannerService.importFooter(this.file_dataFooter).then( (res:any) =>{    
       if(res.response.body.flag == true){
-        Swal.fire('Listo!','Banner de móviles importado con exito!', 'success')
+        Swal.fire('Listo!','Banner de móviles importado con éxito!', 'success')
       }else{
         Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
       }
@@ -215,7 +215,7 @@ export class BannerComponent implements OnInit {
             if(res.response['body'].flag == true){
               this.imageURLFooter = "";
 
-              Swal.fire('Listo!','Banner de móviles importado con exito!', 'success')
+              Swal.fire('Listo!','Banner de móviles importado con éxito!', 'success')
             }else{
               Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
             }

@@ -173,12 +173,12 @@ export class DescuentoListaComponent implements OnInit {
     this.descuentoCateService.actualizar(this.addForm.value).then( (res:any) =>{    
       if(res.response){
         Swal.close();
-        Swal.fire('Listo','Descuento actualizado con exito','success');
+        Swal.fire('Listo','Descuento actualizado con éxito','success');
         this.addForm.reset();
         this.getListaDescuentos();
         this.notificationModal.hide();
       }else{
-        Swal.fire('','error de comuniación, intente de nuevo','error');
+        Swal.fire('','Error de comuniación, intente de nuevo','error');
         Swal.close();
       }
     }).catch(err=>{
@@ -207,7 +207,7 @@ export class DescuentoListaComponent implements OnInit {
               // this.notificationModal.hide();
               // this.editForm.reset();
               this.getListaDescuentos();
-              Swal.fire('Listo!','Descuento eliminado, con exito!', 'success')
+              Swal.fire('Listo!','Descuento eliminado con éxito!', 'success')
             }else{
               Swal.fire('Editar Error, intente nuevamente', 'error')
             }

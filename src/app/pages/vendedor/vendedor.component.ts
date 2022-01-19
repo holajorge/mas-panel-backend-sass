@@ -171,7 +171,7 @@ export class VendedorComponent implements OnInit {
     Swal.showLoading();
     this.vendedorService.updateVendedor(this.addForm.value).subscribe(data => {  
       if(data == true){
-        Swal.fire('','Datos del vendedor actualizado, con exito!', 'success')
+        Swal.fire('','Datos del vendedor actualizado con éxito!', 'success')
         // this.addForm.reset();    
         this.addForm.patchValue({empresa_id: '',nombre:'', email:'', nrovendedor:'', telefono:''});        
 
@@ -250,7 +250,7 @@ export class VendedorComponent implements OnInit {
     Swal.showLoading();
     this.vendedorService.createVendedor(this.newFormVendedor.value).subscribe(data => {  
       if(data == true){
-        Swal.fire('','Datos del nuevo vendedor creado, con exito!', 'success');
+        Swal.fire('','Datos del nuevo vendedor creado con éxito!', 'success');
 
         this.newFormVendedor.reset();//patchValue({nombre:null, email:null, nrovendedor:null,telefono:null});        
         
@@ -339,7 +339,7 @@ export class VendedorComponent implements OnInit {
           this.descuentoCateService.desasociar(datos).then( (res:any) =>{    
             
             if(res.response){
-              Swal.fire('Listo!','Desasociado correctamente, con exito!', 'success')
+              Swal.fire('Listo!','Desasociado correctamente con éxito!', 'success')
               this.notificationModal.hide();
             }else{
               Swal.fire('Error, intente nuevamente', 'error')
@@ -379,7 +379,7 @@ export class VendedorComponent implements OnInit {
           this.descuentoCateService.asociar(datos).then( (res:any) =>{    
 
             if(res.response){
-              Swal.fire('Listo!','Asociado correctamente, con exito!', 'success') 
+              Swal.fire('Listo!','Asociado correctamente con éxito!', 'success') 
               this.notificationModal.hide();
 
             }else{

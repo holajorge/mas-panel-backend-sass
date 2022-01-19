@@ -121,8 +121,8 @@
             "habilitar": "Habilitar",
             "deshabilitar": "Deshabilitar",
             "foto": "Foto",
-            "destacadoA": "Habilitar Destacado",
-            "destacadoD": "deshabilitar Destacado",
+            "destacadoA": "Agregar a destacados",
+            "destacadoD": "Quitar de destacados",
             "delete": "Elininar producto"
         },
         "formEdit": {

@@ -70,7 +70,7 @@ export class ListaComponent implements OnInit {
   delete(row){
 
     Swal.fire({
-      title: 'segurdo de Eliminar?',
+      title: 'Confirma que quiere eliminar el comprobante?',
       text: "Eliminar Comprobante!",
       type: 'warning',
       showCancelButton: true,
@@ -83,7 +83,7 @@ export class ListaComponent implements OnInit {
         this.clienteService.deleteComprobante(row).then( (res:any) =>{    
           
           if(res.response){
-            Swal.fire('Listo!','Comprobante eliminado con exito!', 'success')
+            Swal.fire('Listo!','Comprobante eliminado con éxito!', 'success')
             this.getComprobantes();
           }else{
             Swal.fire('Error al eliminar, intente de nuevo!', 'error')
@@ -150,7 +150,7 @@ export class ListaComponent implements OnInit {
     this.clienteService.updateComprobante(formData).then( (res:any) =>{    
       Swal.close();
       if(res.response){
-        Swal.fire('Listo!','Comprobante actualizado con exito!', 'success')
+        Swal.fire('Listo!','Comprobante actualizado con éxito!', 'success')
         this.getComprobantes();
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
@@ -220,7 +220,7 @@ export class ListaComponent implements OnInit {
         this.getComprobantes();
         this.notificationModal.hide();
 
-        Swal.fire('Listo!','Comprobante agregado con exito!', 'success')
+        Swal.fire('Listo!','Comprobante agregado con éxito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
       }

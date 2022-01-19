@@ -115,7 +115,7 @@ export class GeneralComponent implements OnInit {
       Swal.close();
       if(res.response.body.flag == true){
 
-        Swal.fire('Listo!','configuración de dominios guardada con exito!', 'success');
+        Swal.fire('Listo!','configuración de dominios guardada con éxito!', 'success');
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error');
       }

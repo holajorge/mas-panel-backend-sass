@@ -342,7 +342,7 @@ export class ClienteComponent implements OnInit {
 
     this.clienteService.postDeshabilitar({cliente:this.cliente_id, empresa:this.empresa }).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Cliente deshabilitado con exito!', 'success')
+        Swal.fire('Listo!','Cliente deshabilitado con éxito!', 'success')
         this.getClientes();
       }else{
         Swal.fire('Upps!','Error al deshabilitar al cliente, intente nuevamente!', 'error')
@@ -357,7 +357,7 @@ export class ClienteComponent implements OnInit {
     this.cliente_id.id = cliente.nrocliente;
     this.clienteService.postHabilitar({cliente:this.cliente_id, empresa:this.empresa }).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Cliente habilitado con exito!', 'success')
+        Swal.fire('Listo!','Cliente habilitado con éxito!', 'success')
         this.getClientes();
       }else{
         Swal.fire('Upps!','Error al habilitar al cliente, intente nuevamente!', 'error')

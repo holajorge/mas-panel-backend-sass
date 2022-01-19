@@ -227,7 +227,7 @@ export class ProductoComponent implements OnInit {
             console.log(res);
             
             if(res){
-              Swal.fire('listo','productos eliminado con exito','success');
+              Swal.fire('listo','Productos eliminado con éxito','success');
               this.getProductos();
             }else{
               Swal.fire('error','no fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
@@ -259,14 +259,14 @@ export class ProductoComponent implements OnInit {
             console.log(res);
             
             if(res){
-              Swal.fire('listo','producto eliminado con exito','success');
+              Swal.fire('listo','Producto eliminado con éxito','success');
               this.getProductos();
             }else{
-              Swal.fire('error','no fue posible eliminar el producto, verifique conexion e intente de nuevo','error');  
+              Swal.fire('error','No fue posible eliminar el producto, verifique conexion e intente de nuevo','error');  
             }        
           },
           (error) => {
-            Swal.fire('error','no fue posible eliminar el producto, verifique conexion e intente de nuevo','error');  
+            Swal.fire('error','No fue posible eliminar el producto, verifique conexion e intente de nuevo','error');  
           }
         );
       }
@@ -292,14 +292,14 @@ export class ProductoComponent implements OnInit {
             console.log(res);
             
             if(res){
-              Swal.fire('listo','se activaron todos los producto con exito','success');
+              Swal.fire('listo','Se activaron todos los producto con éxito','success');
               this.getProductos();
             }else{
-              Swal.fire('error','no fue posible activar todos los productos, verifique conexion e intente de nuevo','error');  
+              Swal.fire('error','No fue posible activar todos los productos, verifique conexion e intente de nuevo','error');  
             }        
           },
           (error) => {
-            Swal.fire('error','no fue posible activar todos los productos, verifique conexion e intente de nuevo','error');  
+            Swal.fire('error','No fue posible activar todos los productos, verifique conexion e intente de nuevo','error');  
           }
         );
       }
@@ -325,7 +325,7 @@ export class ProductoComponent implements OnInit {
             console.log(res);
             
             if(res){
-              Swal.fire('listo','se desactivaron todos los producto con exito','success');
+              Swal.fire('listo','Se desactivaron todos los producto con éxito','success');
               this.getProductos();
             }else{
               Swal.fire('error','no fue posible desactivar todos los productos, verifique conexion e intente de nuevo','error');  
@@ -765,7 +765,7 @@ export class ProductoComponent implements OnInit {
         this.getProductos();
         this.filtraCat();
         this.myFiles = [];
-        Swal.fire('Listo!','Producto creado, con exito!', 'success')
+        Swal.fire('Listo!','Producto creado con éxito!', 'success')
       }else{
         Swal.fire('Editar Erro, intente nuevamente', 'error')
       }
@@ -825,7 +825,7 @@ export class ProductoComponent implements OnInit {
 
     this.productoService.productoHabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Producto habilitado con exito!', 'success')
+        Swal.fire('Listo!','Producto habilitado con éxito!', 'success')
         this.getProductos();
       }else{
         Swal.fire('Upps!','Erro al habilitar al Producto, intente nuevamente!', 'error')
@@ -859,7 +859,7 @@ export class ProductoComponent implements OnInit {
 
     this.productoService.deshabilitar(this.producto).then( (res:any) =>{    
       if(res.response == true){
-        Swal.fire('Listo!','Producto deshabilitado con exito!', 'success')
+        Swal.fire('Listo!','Producto deshabilitado con éxito!', 'success')
         this.getProductos();
       }else{
         Swal.fire('Upps!','Error al deshabilitar al producto, intente nuevamente!', 'error')
@@ -911,7 +911,7 @@ export class ProductoComponent implements OnInit {
           this.productoService.destacar(this.producto).then( (res:any) =>{    
             if(res.response == true){
               this.cambios = true;
-              Swal.fire('Listo!','Producto destacado con exito!', 'success')
+              Swal.fire('Listo!','Producto destacado con éxito!', 'success')
               this.getProductos();
             }else{
               Swal.fire('Upps!','Error al habilitar producto como destacado, intente nuevamente!', 'error')
@@ -959,7 +959,7 @@ export class ProductoComponent implements OnInit {
     this.productoService.guardarcambios(this.empresa).then( (res:any) =>{    
       console.log(res);
       if(res.success == true){
-        Swal.fire('Listo!','cambios ejecutados con exito!', 'success');
+        Swal.fire('Listo!','Cambios ejecutados con éxito!', 'success');
       }else{
         Swal.fire('Upps!','Error al guardar los cambios, intente nuevamente!', 'error');
       }
@@ -988,7 +988,7 @@ export class ProductoComponent implements OnInit {
           this.productoService.deleteFotoProducto(foto).then( (res:any) =>{    
             if(res.success == true){
               this.cambios = true;
-              Swal.fire('Listo!','Foto eliminado con exito!', 'success')
+              Swal.fire('Listo!','Foto eliminada con éxito!', 'success')
               this.getProductos();
               this.fotos.splice(index,1);
 

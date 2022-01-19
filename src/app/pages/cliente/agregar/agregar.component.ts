@@ -79,7 +79,7 @@ export class AgregarComponent implements OnInit {
       if(res.response){
         this.formConfig.reset();
         this.form_dataConfig = [];
-        Swal.fire('Listo!','Comprobante agregado con exito!', 'success')
+        Swal.fire('Listo!','Comprobante agregado con éxito!', 'success')
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error')
       }
