@@ -64,7 +64,7 @@ export class ClaveComponent implements OnInit {
       this.loginService.resetpasswordfinal(this.pass.trim(), this.enterprice ).subscribe(
         (data:any) => {
           if(data.body == true){
-            Swal.fire('Listo','Password cambiada con existo','success');
+            Swal.fire('Listo','Password modificada con éxito','success');
             this.router.navigate(['login']);
           }
           // console.log(data);

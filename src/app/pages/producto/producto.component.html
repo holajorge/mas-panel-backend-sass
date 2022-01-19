@@ -87,7 +87,7 @@
                         <!-- </div> -->
                     </div>
                     <div class="col-md-12 mt-3">
-                        <button class="btn btn-sm btn-primary" (click)="eliminar()">limpiar búsqueda</button>
+                        <button class="btn btn-sm btn-primary" (click)="eliminar()">Limpiar búsqueda</button>
                      </div>
                 </div>
             </div>
@@ -107,24 +107,19 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-8 text-right">
-                    <a *ngIf="rows.length > 0" class="btn btn-sm btn-warning" 
+
+                        <a *ngIf="rows.length > 0" class="btn btn-sm btn-warning" 
                         href="javascript:void(0)" (click)="disableAll()"> Desactivar todos <span class="fas fa-times-circle"></span>
-                    </a>
-        
-                      <a *ngIf="rows.length > 0" class="btn btn-sm btn-success" 
-                      href="javascript:void(0)" (click)="activeAll()"> Activar todos <span class="fas fa-check"></span></a>
-        
-                      <a *ngIf="!onboardingService.on" class="btn btn-sm btn-danger mr-3" 
-                      href="javascript:void(0)" (click)="deleteAll()"> Eliminar todos <span class="fas fa-trash"></span>
-                    </a>
+                        </a>
+
+                        <a *ngIf="rows.length > 0" class="btn btn-sm btn-success" 
+                        href="javascript:void(0)" (click)="activeAll()"> Activar todos <span class="fas fa-check"></span></a>
+
+                        <a *ngIf="!onboardingService.on" class="btn btn-sm btn-danger mr-3" 
+                        href="javascript:void(0)" (click)="deleteAll()"> Eliminar todos <span class="fas fa-trash"></span>
+                        </a>
                 </div>
-                <div class="col-sm-12 col-md-6">
-                    <div id="datatable_filter" class="dataTables_filter">
-                        <label class="form-control-label">
-                        <input type="hidden" class="form-control form-control-sm" 
-                            placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
-                    </div>
-                </div>
+                
             </div>
     
             <ngx-datatable 
@@ -175,24 +170,27 @@
                         <span>{{ 'producto.tabla.acciones' | translate}}</span>
                     </ng-template>
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <span>
-                            <button class="btn btn-sm btn-danger"  (click)='deleteProduct(row.id)'
-                                title="{{ 'producto.tabla.delete' | translate}}"><span class="fas fa-trash"></span>
-                            </button>
+                
                             <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalEditProducto,row)'
                                 title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
+                            <!--    
+                                BOTONES DE ACTIVAR / DESACTIVAR
                             <button class="btn btn-sm btn-success" (click)='onActiveClient(row)'
                                 *ngIf="row.activo == 0" title="{{ 'producto.tabla.habilitar' | translate}}">
                                 <span class="fas fa-check"></span> </button>
                             <button class="btn btn-sm btn-warning" *ngIf="row.activo == 1" 
                                 (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}">
                                     <span class="fas fa-times-circle"></span> </button>
-                                                   
-                            <button class="btn btn-sm btn-info" *ngIf="row.destacado == 0" 
+                             -->                      
+                            <button class="btn btn-sm btn-light" *ngIf="row.destacado == 0" 
                                 (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-star"></span> </button>
-                            <button class="btn btn-sm btn-neutral" *ngIf="row.destacado == 1" 
+                            <button class="btn btn-sm btn-gold" *ngIf="row.destacado == 1" 
                                 (click)='deshabilitarDestacado(row)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-star"></span> </button>
-                        </span>
+                             
+
+                            <button class="btn btn-sm btn-danger"  (click)='deleteProduct(row.id)'
+                                title="{{ 'producto.tabla.delete' | translate}}"><span class="fas fa-trash"></span>
+                            </button>
                       </ng-template>
                 </ngx-datatable-column>
 

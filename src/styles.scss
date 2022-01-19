@@ -45,6 +45,14 @@ $argon-dashboard-pro-angular-theme: mat-light-theme($argon-dashboard-pro-angular
     border: 1px solid #cdcdcd;
     padding: 19px;
 }
+
+.btn-gold {
+    color: #fff !important;
+    background-color: #f3db30 !important;
+    border-color: #f3db30 !important;
+    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
 @import "~@ng-select/ng-select/themes/default.theme.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
