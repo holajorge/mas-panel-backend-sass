@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
 import { catchError, debounceTime, delay, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,15 @@ export class ConfigService {
 
   public static API_ENDPOINT() :string{
   
-   return "http://localhost:8000/";
-   //  return "https://api.maspedidos.com.ar/";
+    if(!environment.production){
+
+      return "http://localhost:8000/";
+    //  return "https://api.maspedidos.com.ar/";
+    }
+    else{
+      return "https://api.maspedidos.com.ar/";
+    }
+
   }
 
   public static DOMAIN() :string{
