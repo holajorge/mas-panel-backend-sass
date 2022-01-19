@@ -7,9 +7,8 @@ import { DatePipe } from '@angular/common';
 export class FehaLargaPipe extends DatePipe implements PipeTransform {
 
   transform(value: any, ...args: any[]): any {
-    console.log(value);
     
-    return super.transform(value, "EEEE d MMMM y h:mm a");
+    return super.transform(value, "EEEE d MMMM '\''yy H:mm");
   }
 
 }
