@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BannerService } from '../../service/banner/banner.service';
 import Swal from "sweetalert2";
 import { ConfigService } from 'src/app/service/config/config.service';
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { Banner } from 'src/app/models/banner.model';
 
 @Component({
   selector: 'app-banner',
@@ -14,6 +16,11 @@ import { ConfigService } from 'src/app/service/config/config.service';
 
 })
 export class BannerComponent implements OnInit {
+  notificationModal: BsModalRef;
+  notification = {
+    keyboard: true,
+    class: "modal-dialog-centered modal-xl static", 
+  };
   empresa:any = "";
   imageURLHeader: string;
   imageURLFooter: string;
@@ -26,10 +33,22 @@ export class BannerComponent implements OnInit {
   file_dataSwal:any = [];
   configuraciones:any;
   empresa_idd: any = {id:''};
-  
+  bannerForm:FormGroup;
+  flagAdd:boolean = false;
+  listaTipo:any = [{nombre:' Banner'}, {nombre:'Aviso'}];
+  file_dataDesktop:any = [];
+  file_dataMovil:any = [];
+  listBanners:Banner[] = [];
+  entries: number = 10;
+  bucket:string;
+  columns = [{name: 'ruta Escritorio',prop: 'rutaescritorio'}, 
+    { name: 'ruta movil',prop: 'rutamovil' },{ name: 'Tipo', }];
+
   constructor(public translate: TranslateService, public fb: FormBuilder,
     public bannerService: BannerService,
    public configService: ConfigService,
+   private modalService: BsModalService,
+
 
   ) { 
     this.translate.use('es');
@@ -50,15 +69,28 @@ export class BannerComponent implements OnInit {
       empresa_id: this.empresa,
 
     });
+    this.bannerForm = this.fb.group({
+      escritorio: [null,Validators.required],
+      movil: [null],
+      tipo: [''],
+      id: ['']
+    });
+    
   }
 
   ngOnInit() {
+    
     Swal.showLoading();
+    this.getConfig();
+    this.getDataBanners();
+  }
+  getConfig(){
     this.configService.getConfigEmpresa(this.empresa_idd).then( (res:any) =>{    
       Swal.close();
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        
+        console.log(this.configuraciones);
+        this.bucket = res.response.body['bucket'];
         // console.log(this.configuraciones); //return false;
         if(this.configuraciones.escritorios == '' || this.configuraciones.escritorios == undefined){ 
         
@@ -77,7 +109,21 @@ export class BannerComponent implements OnInit {
       console.log(err);
     });
   }
-
+  getDataBanners(){
+    Swal.showLoading();
+    let data = {id:this.empresa};
+    this.bannerService.getDataBannes(data).subscribe( 
+      banners => {        
+        Swal.close();
+        this.listBanners = banners;           
+      },
+      (error) => {
+        console.log(error);        
+        Swal.fire('Error', 'Error inesperado, intente de nuevo','error');        
+      }
+    )
+    console.log(this.listBanners);
+  }
   showPreviewHeader(event) {
     const file = (event.target as HTMLInputElement).files[0];
     const files:FileList = event.target.files;  
@@ -104,6 +150,36 @@ export class BannerComponent implements OnInit {
       this.imageURLHeader = reader.result as string;
     }
     reader.readAsDataURL(file)
+  }
+  showPreviewHeaderEscritorio(event){
+    const file = (event.target as HTMLInputElement).files[0];
+    const files:FileList = event.target.files;  
+    if(files.length > 0){
+      const file = files[0];
+      if((file.size/1048576)<=4){
+        let formData = new FormData();
+        formData.append('logo', file);
+        this.file_dataDesktop=formData;
+      }else{
+        Swal.fire('Error al importar el archivo excede el limite de tamaño permitido, intente de nuevo!', 'error')
+        return false;
+      }
+    }    
+  }
+  showPreviewHeaderMovil(event){
+    const file = (event.target as HTMLInputElement).files[0];
+    const files:FileList = event.target.files;  
+    if(files.length > 0){
+      const file = files[0];
+      if((file.size/1048576)<=4){
+        let formData = new FormData();
+        formData.append('logo', file);
+        this.file_dataMovil=formData;
+      }else{
+        Swal.fire('Error al importar el archivo excede el limite de tamaño permitido, intente de nuevo!', 'error')
+        return false;
+      }
+    }    
   }
   submitHeader() {
     this.bannerService.importBanner(this.file_dataHeader).then( (res:any) =>{    
@@ -181,18 +257,18 @@ export class BannerComponent implements OnInit {
     }
     reader.readAsDataURL(file)
   }
-  submitFooter() {
+  // submitFooter() {
     
-    this.bannerService.importFooter(this.file_dataFooter).then( (res:any) =>{    
-      if(res.response.body.flag == true){
-        Swal.fire('Listo!','Banner de móviles importado con éxito!', 'success')
-      }else{
-        Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
-      }
-    }).catch(err=>{
-      console.log(err);
-    });
-  }
+  //   this.bannerService.banner(this.file_dataFooter).then( (res:any) =>{    
+  //     if(res.response.body.flag == true){
+  //       Swal.fire('Listo!','Banner de móviles importado con éxito!', 'success')
+  //     }else{
+  //       Swal.fire('Erro al importar Banner de móviles, intente de nuevo!', 'error')
+  //     }
+  //   }).catch(err=>{
+  //     console.log(err);
+  //   });
+  // }
   deleteImageFooter(url:any){
     Swal.fire({
       title: 'Seguro de Eliminar?',
@@ -225,6 +301,117 @@ export class BannerComponent implements OnInit {
         }
     })
   }
-  
-  
+ 
+  addBannerModal(modal){
+    this.bannerForm.reset();
+
+    this.notificationModal = this.modalService.show(
+      modal,
+      this.notification
+    );
+    this.flagAdd = true;
+
+  }
+  onSelectItem(modal,row){
+    this.bannerForm.reset();
+
+    this.notificationModal = this.modalService.show(
+      modal,
+      this.notification
+    );
+    this.flagAdd = false;       
+    this.bannerForm.patchValue({id:row.id});
+    this.bannerForm.patchValue({tipo:row.tipo});
+
+  }
+  addBanner(){
+    let formData = new FormData();
+    Swal.showLoading();
+    formData.append('escritorio',this.file_dataDesktop.get('logo'));
+    if(Array.isArray(this.file_dataMovil)){}else{
+      formData.append('movil', this.file_dataMovil.get('logo'));
+    }
+    formData.append('tipo',this.bannerForm.get('tipo').value);
+    formData.append('id',this.empresa);
+    this.bannerService.banner(formData).subscribe(
+      (flag) => {
+        console.log(flag);
+        
+        if(flag){
+          Swal.fire('Listo', 'Banners guardados con exito', 'success');
+          this.getDataBanners();
+          this.notificationModal.hide();
+        }else{
+          Swal.fire('error', 'No fue posible guardar los Banners, porfavor intente de nuevo', 'error');          
+        }
+      },
+      (error)=> {
+        console.log(error);        
+        Swal.fire('error', 'No fue posible guardar los Banners, porfavor intente de nuevo', 'error');          
+      }
+    )
+  }
+
+  updateBanner(){
+    let formData = new FormData();
+    Swal.showLoading();
+    formData.append('escritorio',this.file_dataDesktop.get('logo'));
+    if(Array.isArray(this.file_dataMovil)){}else{
+      formData.append('movil', this.file_dataMovil.get('logo'));
+    }
+    formData.append('tipo',this.bannerForm.get('tipo').value);
+    formData.append('banner_id',this.bannerForm.get('id').value);
+    formData.append('id',this.empresa);
+    this.bannerService.updateBanners(formData).subscribe(
+      (flag) => {
+        console.log(flag);
+        
+        if(flag){
+          Swal.fire('Listo', 'Banners actualizados con exito', 'success');
+          this.getDataBanners();
+          this.notificationModal.hide();
+        }else{
+          Swal.fire('error', 'No fue posible actualizar los Banners, porfavor intente de nuevo', 'error');          
+        }
+      },
+      (error)=> {
+        console.log(error);        
+        Swal.fire('error', 'No fue posible actualizar los Banners, porfavor intente de nuevo', 'error');          
+      }
+    )
+  }
+  deleteBanner(id){
+    Swal.fire({
+      title: 'Seguro de eliminar los Bannes?',
+      text: "Eliminar Bannes!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          let data = {banner:id, id:this.empresa};
+          Swal.showLoading();
+          this.bannerService.eliminarBanner(data).subscribe(
+            (flag) => {
+              console.log(flag);
+              
+              if(flag){
+                Swal.fire('Listo', 'Banners Eliminado con exito', 'success');
+                this.getDataBanners();
+                this.notificationModal.hide();
+              }else{
+                Swal.fire('error', 'No fue posible Eliminar los Banners, porfavor intente de nuevo', 'error');          
+              }
+            },
+            (error)=> {
+              console.log(error);        
+              Swal.fire('error', 'No fue posible Eliminar los Banners, porfavor intente de nuevo', 'error');          
+            }
+          )
+        }
+    }) 
+  }
 }

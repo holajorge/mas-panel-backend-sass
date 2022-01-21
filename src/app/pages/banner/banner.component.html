@@ -7,14 +7,14 @@
                 {{ 'banners.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addCliente(modalAdd)" > Nuevo Cliente </a> -->
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="addBannerModal(modalBanner)" > Nuevo Cliente </a>
           </div>
         </div>
       </div>
     </div>
 </div>
 
-<div class=" container-fluid mt--6">
+<div class=" container-fluid mt--6" style="display: none;">
     <div class=" row">
         <div class=" col">
             <div class=" card">
@@ -118,3 +118,131 @@
         </div>
     </div>
 </div>
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+            <div class=" card">
+
+                <div class=" card-header">
+                    <h3 class="catd-text">Banners</h3>
+                </div>
+                <div class="dataTables_wrapper py-4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            <div class="dataTables_length" id="datatable_length">
+                                <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
+                                <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                                    <option value="10" [selected]="entries == 10">10</option>
+                                    <option value="25" [selected]="entries == 25">25</option>
+                                    <option value="50" [selected]="entries == 50">50</option>
+                                    <option value="-1" [selected]="entries == -1">All</option>
+                                </select>
+                                {{ 'producto.tabla.entradas' | translate}}
+                                </label>
+                            </div>
+                        </div>                
+                    </div>
+                    <ngx-datatable 
+                    [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                    class="bootstrap selection-cell" [columnMode]="'force'"
+                    [columns]="columns" [headerHeight]="50" [footerHeight]="50"
+                    [rowHeight]="60" [limit]="entries != -1 ? entries : undefined"
+                    [rows]="listBanners" >
+                        <ngx-datatable-column name="rutaescritorio" headerClass="w100">
+                            <ng-template let-column="column" ngx-datatable-header-template >
+                                <span>Ruta Escritorio</span>
+                            </ng-template>
+                            <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
+                                <span class="w100">
+                                    <img  class="avatar cursor"
+                                    [src]="row.rutaescritorio | bannersImg:bucket" [alt]="row.rutaescritorio">
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="rutamovil" >
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>ruta movil</span>
+                            </ng-template>
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <span>
+                                    <img  class="avatar cursor"
+                                    [src]="row.rutamovil | bannersImg:bucket" [alt]="row.rutamovil">
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="tipo">
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>Tipo</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Acción" >
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>{{ 'producto.tabla.acciones' | translate}}</span>
+                            </ng-template>
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalBanner,row)'
+                                title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
+                                <button class="btn btn-sm btn-danger"  (click)='deleteBanner(row.id)'
+                                title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-trash"></span> </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalBanner >
+    <div class="modal-header">    
+        <h5 class="modal-title" *ngIf="!flagAdd">Actualizar Banner</h5>
+        <h5 class="modal-title" *ngIf="flagAdd">Nuevo Banner</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    <div class="modal-body pt-0">
+        <form [formGroup]="bannerForm" novalidate>
+            <div class="row mb-3">                
+                <div class="col-md-12">                    
+                    
+                    <div class="custom-file">
+                        <label class="custom-file-label" for="customFileLang"> {{'banner.desktop'  | translate }} </label>
+                        <input formControlName="escritorio" type="file" accept=".jpg" class="custom-file-input" 
+                        (change)="showPreviewHeaderEscritorio($event)" />
+                        <div class="alert  alert-danger" *ngIf="bannerForm.get('escritorio').hasError('required') && bannerForm.get('escritorio').touched">
+                            {{'banner.desktop'  | translate }} es requerido
+                        </div>  
+                    </div>                    
+                </div>
+            </div>
+            <div class="row mb-3">         
+                <div class="col-md-12">
+                    <div class="custom-file">
+                        <label class="custom-file-label" for="customFileLang"> {{'banner.movile'  | translate }} </label>
+                        <input formControlName="movil" type="file" accept="image/*" (change)="showPreviewHeaderMovil($event)" class="custom-file-input" />
+                        
+                    </div>                        
+                </div>
+            </div>
+            <div class="row">                
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="usuario">{{ 'banner.type' | translate}}:</label>
+                        <ng-select formControlName="tipo" bindValue="nombre" bindLabel="nombre" [items]="listaTipo" ></ng-select>
+                    </div>
+                </div>                
+            </div>                
+           
+                        
+        </form>
+    </div>
+    <div class=" modal-footer">
+        <button *ngIf="!flagAdd" class="btn btn-success" [disabled]='bannerForm.invalid'  (click)="updateBanner()">{{ 'banner.update' | translate}}</button>
+        <button *ngIf="flagAdd" class="btn btn-success" [disabled]='bannerForm.invalid' (click)="addBanner()">{{ 'banner.save' | translate}}</button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'banner.cancel' | translate}}</button>
+    </div>
+</ng-template>

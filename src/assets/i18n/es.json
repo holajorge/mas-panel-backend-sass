@@ -82,7 +82,11 @@
             "logo": " selecione archivo img",
             "guardar": "Guardar",
             "cancelar": "Cancelar"
-        }
+        },
+        "type": "Tipo Banner",
+        "update": "Actualizar",
+        "save": "Guardar",
+        "cancel":"Cancelar"
     },
     "banners": {
         "titulo": "Configuración de banner",
