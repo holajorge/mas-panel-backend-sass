@@ -30,7 +30,7 @@
                                     <input formControlName="file"
                                         (change)="handleFile($event)"
                                         class="form-control-label"
-                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                         id="customFileLang" lang="pt" type="file"  />
                                     <div class="alert  alert-danger" *ngIf="addForm.get('file').hasError('required') && addForm.get('file').touched">
                                         Archivo es requerido
