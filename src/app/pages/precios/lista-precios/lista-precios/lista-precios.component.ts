@@ -23,7 +23,8 @@ export class ListaPreciosComponent implements OnInit {
   modeloExcel: any = [ {
       'LISTA DE PRECIO': '',
       'CODIGO PRODUCTO': '',
-      'PRECIO': ''
+      'PRECIO': '',
+      'PRECIO OFERTA': ''
     }
   ];
   constructor(public translate: TranslateService,private formBuilder: FormBuilder, public preciosService:PreciosService) {
