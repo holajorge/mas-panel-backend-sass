@@ -35,7 +35,7 @@ export class BannerComponent implements OnInit {
   empresa_idd: any = {id:''};
   bannerForm:FormGroup;
   flagAdd:boolean = false;
-  listaTipo:any = [{nombre:' Banner'}, {nombre:'Aviso'}];
+  listaTipo:any = [{nombre:'Banner',selected:true}, {nombre:'Aviso',selected:false}];
   file_dataDesktop:any = [];
   file_dataMovil:any = [];
   listBanners:Banner[] = [];
@@ -72,7 +72,7 @@ export class BannerComponent implements OnInit {
     this.bannerForm = this.fb.group({
       escritorio: [null,Validators.required],
       movil: [null],
-      tipo: [''],
+      tipo: ['', Validators.required],
       id: ['']
     });
     

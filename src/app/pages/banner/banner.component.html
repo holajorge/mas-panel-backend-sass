@@ -232,7 +232,10 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label" for="usuario">{{ 'banner.type' | translate}}:</label>
-                        <ng-select formControlName="tipo" bindValue="nombre" bindLabel="nombre" [items]="listaTipo" ></ng-select>
+                        
+                        <ng-select formControlName="tipo" >
+                            <ng-option *ngFor="let item of listaTipo" [value]="item.nombre" [selected]="item.selected==true">{{item.nombre}}</ng-option>
+                        </ng-select>
                     </div>
                 </div>                
             </div>                
