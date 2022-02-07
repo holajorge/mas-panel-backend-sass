@@ -45,6 +45,7 @@ export class ClientesComponent implements OnInit {
   estado_to_id: any = {};
   models: any = {};
   estadoSelect:number;
+
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -219,6 +220,21 @@ export class ClientesComponent implements OnInit {
       this.detalleRow = res.detalles;
       this.tempRowDet = res.detalles;
       this.loadingIndicator = true;
+
+      this.detalleRow.forEach((row) => {
+        if("variaciones" in row && row["variaciones"]){
+            row["cantidad"] = "";
+            row["variaciones"].forEach((variacion) => {
+                row["cantidad"] += variacion.cantidad.toString() + " x ";
+                variacion.attributes.forEach((attr) => {
+                    row["cantidad"] += "<strong>" + attr[0] + ": </strong>" + attr[1] + " / ";
+                })
+                row["cantidad"] = row["cantidad"].substring(0, row["cantidad"].length - 3) + "<br>";
+
+            })
+        }
+      })
+
       Swal.close();
     }).catch(err=>{
       Swal.close();
