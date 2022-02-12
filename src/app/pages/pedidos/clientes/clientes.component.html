@@ -231,7 +231,7 @@
                             <span>{{ 'pedidos.tabladetalle.precio' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="cantidad">
+                    <ngx-datatable-column name="cantidad" [width]="500">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.cantidad' | translate}}</span>
                         </ng-template>
