@@ -46,6 +46,7 @@ export class BannerComponent implements OnInit {
     { name: 'ruta movil',prop: 'rutamovil' },{ name: 'Tipo', }];
   show:boolean = false;
   flagBanners:boolean = false;
+  flagBannersAviso:boolean = false;
   constructor(
     public translate: TranslateService, public fb: FormBuilder,
     public bannerService: BannerService,
@@ -72,7 +73,7 @@ export class BannerComponent implements OnInit {
       escritorio: [null,Validators.required],
       movil: [null],
       tipo: ['', Validators.required],
-      id: ['']
+      id: [''],
     });    
   }
   ngOnInit() {
@@ -310,18 +311,28 @@ export class BannerComponent implements OnInit {
   }
   chekTypeBanner(){
     
-    
+    this.imageURLMobil = "";
+    this.imageURLHeader = "";
+
+    this.bannerForm.patchValue({escritorio: null});
+    this.bannerForm.patchValue({movil: null});
+    this.file_dataMovil = [];
+    this.file_dataDesktop = [];
+
     if(this.bannerForm.get('tipo').value == "Banner"){
       this.show = true;
       this.flagBanners = true;
-      this.file_dataMovil = [];
-      this.file_dataDesktop = [];
+      this.flagBannersAviso = false;
+
     }else{
+      //tipo aviso 
       this.show = true;
       this.flagBanners = false;
-      this.imageURLMobil = "";
-      this.bannerForm.patchValue( {movil: ''} ); 
-      this.file_dataMovil = [];
+      this.flagBannersAviso = true;
+      // this.imageURLMobil = "";
+      // this.file_dataMovil = [];
+      // this.bannerForm.patchValue( {movil: ''} ); 
+
     }
 
     if(this.bannerForm.get('tipo').value == null){
@@ -340,6 +351,10 @@ export class BannerComponent implements OnInit {
       this.notification
     );
     this.flagAdd = true;
+    this.flagBanners = false;
+    this.flagBannersAviso = false;
+    this.imageURLHeader = '';
+    this.imageURLMobil = '';
 
   }
   onSelectItem(modal,row){
@@ -355,6 +370,8 @@ export class BannerComponent implements OnInit {
     if(row.tipo == "Banner"){
       this.show = true;
       this.flagBanners = true;
+      this.flagBannersAviso = false;
+
       this.file_dataMovil = [];
       this.file_dataDesktop = [];
       
@@ -365,16 +382,13 @@ export class BannerComponent implements OnInit {
     }else{
       this.show = true;
       this.flagBanners = false;
+      this.flagBannersAviso = true;
       this.imageURLMobil = "";
       
       this.file_dataMovil = [];
       this.imageURLHeader = (row.rutaescritorio) ? `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${row.rutaescritorio}` : '';
-
       // this.imageURLMobil = (row.rutamovil) ? `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${row.rutamovil}` : '';
-
-
     }
-
 
   }
   addBanner(){
@@ -410,7 +424,7 @@ export class BannerComponent implements OnInit {
     Swal.showLoading();
     // formData.append('escritorio',this.file_dataDesktop.get('logo'));
     if(Array.isArray(this.file_dataDesktop)){}else{
-      formData.append('logo', this.file_dataDesktop.get('logo'));
+      formData.append('escritorio', this.file_dataDesktop.get('logo'));
     }
     if(Array.isArray(this.file_dataMovil)){}else{
       formData.append('movil', this.file_dataMovil.get('logo'));
@@ -438,8 +452,8 @@ export class BannerComponent implements OnInit {
   }
   deleteBanner(id){
     Swal.fire({
-      title: 'Seguro de eliminar los Eliminners?',
-      text: "Eliminar Eliminners!",
+      title: 'Seguro de eliminar los Banners?',
+      text: "Eliminar Banners!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -448,8 +462,9 @@ export class BannerComponent implements OnInit {
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
-          let data = {banner:id, id:this.empresa};
           Swal.showLoading();
+          let data = {banner:id, id:this.empresa};
+          
           this.bannerService.eliminarBanner(data).subscribe(
             (flag) => {
               console.log(flag);

@@ -7,7 +7,7 @@
                 {{ 'banners.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
-            <a class=" btn btn-sm btn btn-success" href="javascript:void(0)" (click)="addBannerModal(modalBanner)" > Nuevo Banner </a>
+            <a class=" btn btn btn-success" href="javascript:void(0)" (click)="addBannerModal(modalBanner)" > Nuevo Banner </a>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@
                             </ng-template>
                             <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
                                 <span class="w100">
-                                    <img  class="avatar cursor"
+                                    <img  class="avatar cursor border-0"
                                     [src]="row.rutaescritorio | bannersImg:bucket" [alt]="row.rutaescritorio">
                                 </span>
                             </ng-template>
@@ -166,7 +166,7 @@
                             </ng-template>
                             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                                 <span>
-                                    <img  class="avatar cursor"
+                                    <img  class="avatar cursor border-0"
                                     [src]="row.rutamovil | bannersImg:bucket" [alt]="row.rutamovil">
                                 </span>
                             </ng-template>
@@ -218,7 +218,7 @@
             </div>           
             <div class="row" style="display: flex;" *ngIf="show">
                                             
-                <div class="col-md-6">                                        
+                <div class="col-md-6" *ngIf="flagBanners">                                        
                     <div class="custom-file">
                         <label class="custom-file-label" for="customFileLang"> {{'banner.desktop'  | translate }} </label>
                         <input formControlName="escritorio" type="file" accept=".jpg, .png" class="custom-file-input" 
@@ -236,15 +236,31 @@
                 <div class="col-md-6" *ngIf="flagBanners">
                     <div class="custom-file">
                         <label class="custom-file-label" for="customFileLang"> {{'banner.movile'  | translate }} </label>
-                        <input formControlName="movil" type="file" accept="image/*" (change)="showPreviewHeaderMovil($event)" class="custom-file-input" />                        
+                        <input formControlName="movil" type="file" accept=".jpg, .png" (change)="showPreviewHeaderMovil($event)" class="custom-file-input" />                        
                     </div>       
                     <div class="imagePreview" *ngIf="imageURLMobil && imageURLMobil !== ''">
                         <img class="ard-img-top" [src]="imageURLMobil" 
                            alt="movil" style="width:100%;">
                     </div>                    
                 </div>
-                
+
+                <div class="col-md-6" *ngIf="flagBannersAviso">                      
+                    
+                    <div class="custom-file">
+                        <label class="custom-file-label" for="customFileLang">  </label>
+                        <input formControlName="escritorio" type="file" accept=".jpg, .png" class="custom-file-input" 
+                        (change)="showPreviewHeaderEscritorio($event)" />
+                        <div class="alert  alert-danger" *ngIf="bannerForm.get('escritorio').hasError('required') && bannerForm.get('escritorio').touched">
+                            imagen es requerido
+                        </div>  
+                    </div>    
+                    <div class="imagePreview" *ngIf="imageURLHeader && imageURLHeader !== ''">
+                        <img class="ard-img-top" [src]="imageURLHeader" 
+                           alt="movil" style="width:100%;">
+                    </div>    
+                </div>
             </div>   
+            
             
         </form>
     </div>
