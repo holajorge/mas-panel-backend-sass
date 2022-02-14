@@ -123,15 +123,10 @@ export class DashboardComponent implements OnInit {
     this.price_total = 0;
     this.pedidos_count = 0;
     this.empresa.pedido = "";
-    this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{
+    this.pedidosService.getPedidosyDetallesCliente(this.empresa).then( (res:any) =>{
       this.pedidos_count = res.pedidos["pedidos"].length;
       res.pedidos['pedidos'].forEach(element => {
-        this.empresa.pedido = element.id;
-        this.pedidosService.getDetalles(this.empresa).then( (response:any) =>{
-            response["detalles"].forEach(element => {
-                this.price_total += parseFloat(element.precio) * parseInt(element.cantidad);
-            });
-        });
+        this.price_total += parseFloat(element.precio) * parseInt(element.cantidad);
       });
     }).catch(err=>{
       console.log(err);
