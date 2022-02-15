@@ -23,98 +23,99 @@
             <!-- <h3 class=" mb-0">Lista de Vendedores</h3> -->
             </div>
             <div class="dataTables_wrapper py-4">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                <div class="dataTables_length" id="datatable_length">
-                    <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
-                    <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
-                        <option value="10" [selected]="entries == 10">10</option>
-                        <option value="25" [selected]="entries == 25">25</option>
-                        <option value="50" [selected]="entries == 50">50</option>
-                        <option value="-1" [selected]="entries == -1">All</option>
-                    </select>
-                    {{ 'producto.tabla.entradas' | translate}}
-                    </label>
+                <!-- filtro -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                        <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
+                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                            <option value="10" [selected]="entries == 10">10</option>
+                            <option value="25" [selected]="entries == 25">25</option>
+                            <option value="50" [selected]="entries == 50">50</option>
+                            <option value="-1" [selected]="entries == -1">All</option>
+                        </select>
+                        {{ 'producto.tabla.entradas' | translate}}
+                        </label>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                    <div id="datatable_filter" class="dataTables_filter">
+                        <label class="form-control-label"><input type="text" class="form-control form-control-sm" placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
+                    </div>
+                    </div>
                 </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                <div id="datatable_filter" class="dataTables_filter">
-                    <label class="form-control-label"><input type="text" class="form-control form-control-sm" placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
-                </div>
-                </div>
-            </div>
     
-            <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                class="bootstrap selection-cell" 
-                [columnMode]="'force'" 
-                [headerHeight]="50" 
-                [footerHeight]="50" 
-                [rowHeight]="70" 
-                [limit]="entries != -1 ? entries : undefined" [rows]="descuentos"  
-                (activate)="onActivate($event)">
-                
-                <ngx-datatable-column name="caracteristica1">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{textCaract1}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica2">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{textCaract2}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica3">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{textCaract3}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
+                <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                    class="bootstrap selection-cell" 
+                    [columnMode]="'force'" 
+                    [headerHeight]="50" 
+                    [footerHeight]="50" 
+                    [rowHeight]="70" 
+                    [limit]="entries != -1 ? entries : undefined" [rows]="descuentos"  
+                    (activate)="onActivate($event)">
+                    
+                    <ngx-datatable-column name="caracteristica1">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{textCaract1}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="caracteristica2">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{textCaract2}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="caracteristica3">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{textCaract3}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
 
-                <ngx-datatable-column name="codigoProducto">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'precios.descuento.codigo' | translate}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <!--
-                <ngx-datatable-column name="caracteristica4">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{textCaract4}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                -->
-                <ngx-datatable-column name="nrocliente">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'precios.descuento.lista.nrocliente' | translate}}</span>
-                    </ng-template>
-                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <span *ngIf="value != '0'" >{{value}} </span>
-                        <span *ngIf="value == '0'" >Todos </span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="porcentaje">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'precios.descuento.descuento' | translate}} %</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Acción" >
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.acciones' | translate}}</span>
-                    </ng-template>
-                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <span>
-                            <button class="btn btn-sm btn-primary" 
-                                (click)='onSelectItem(modalAddDiscount,row)' 
-                                title="{{ 'producto.tabla.editar' | translate}}">
-                                <span class="fas fa-pen-alt"></span> 
-                            </button>
-                            <button class="btn btn-sm btn-danger" 
-                                (click)='eliminarDecuento(row)' 
-                                title="{{ 'precios.descuento.eliminar' | translate}}">
-                                <span class="fa fa-trash"></span> 
-                            </button>
-                        </span>
-                      </ng-template>
-                </ngx-datatable-column>
-            </ngx-datatable>
+                    <ngx-datatable-column name="codigoProducto">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'precios.descuento.codigo' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!--
+                    <ngx-datatable-column name="caracteristica4">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{textCaract4}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    -->
+                    <ngx-datatable-column name="nrocliente">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'precios.descuento.lista.nrocliente' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <span *ngIf="value != '0'" >{{value}} </span>
+                            <span *ngIf="value == '0'" >Todos </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="porcentaje">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'precios.descuento.descuento' | translate}} %</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Acción" >
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'producto.tabla.acciones' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <span>
+                                <button class="btn btn-sm btn-primary" 
+                                    (click)='onSelectItem(modalAddDiscount,row)' 
+                                    title="{{ 'producto.tabla.editar' | translate}}">
+                                    <span class="fas fa-pen-alt"></span> 
+                                </button>
+                                <button class="btn btn-sm btn-danger" 
+                                    (click)='eliminarDecuento(row)' 
+                                    title="{{ 'precios.descuento.eliminar' | translate}}">
+                                    <span class="fa fa-trash"></span> 
+                                </button>
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
             </div>
         </div>
         </div>

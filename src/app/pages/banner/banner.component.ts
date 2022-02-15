@@ -23,6 +23,7 @@ export class BannerComponent implements OnInit {
   };
   empresa:any = "";
   imageURLHeader: string;
+  imageURLMobil: string;
   imageURLFooter: string;
   imageURLSwal: string;
   uploadFormSwal: FormGroup;
@@ -43,19 +44,18 @@ export class BannerComponent implements OnInit {
   bucket:string;
   columns = [{name: 'ruta Escritorio',prop: 'rutaescritorio'}, 
     { name: 'ruta movil',prop: 'rutamovil' },{ name: 'Tipo', }];
-
-  constructor(public translate: TranslateService, public fb: FormBuilder,
+  show:boolean = false;
+  flagBanners:boolean = false;
+  flagBannersAviso:boolean = false;
+  constructor(
+    public translate: TranslateService, public fb: FormBuilder,
     public bannerService: BannerService,
-   public configService: ConfigService,
-   private modalService: BsModalService,
-
-
+    public configService: ConfigService,
+    private modalService: BsModalService,
   ) { 
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
-    this.empresa_idd.id = localStorage.getItem('usuario');
-
-    
+    this.empresa_idd.id = localStorage.getItem('usuario');    
     this.uploadFormFooter = this.fb.group({
       bannerr: [null,Validators.required],
       banner: [null],
@@ -73,11 +73,9 @@ export class BannerComponent implements OnInit {
       escritorio: [null,Validators.required],
       movil: [null],
       tipo: ['', Validators.required],
-      id: ['']
-    });
-    
+      id: [''],
+    });    
   }
-
   ngOnInit() {
     
     Swal.showLoading();
@@ -165,6 +163,11 @@ export class BannerComponent implements OnInit {
         return false;
       }
     }    
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURLHeader = reader.result as string;
+    }
+    reader.readAsDataURL(file)
   }
   showPreviewHeaderMovil(event){
     const file = (event.target as HTMLInputElement).files[0];
@@ -180,6 +183,11 @@ export class BannerComponent implements OnInit {
         return false;
       }
     }    
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURLMobil = reader.result as string;
+    }
+    reader.readAsDataURL(file)
   }
   submitHeader() {
     this.bannerService.importBanner(this.file_dataHeader).then( (res:any) =>{    
@@ -301,7 +309,40 @@ export class BannerComponent implements OnInit {
         }
     })
   }
- 
+  chekTypeBanner(){
+    
+    this.imageURLMobil = "";
+    this.imageURLHeader = "";
+
+    this.bannerForm.patchValue({escritorio: null});
+    this.bannerForm.patchValue({movil: null});
+    this.file_dataMovil = [];
+    this.file_dataDesktop = [];
+
+    if(this.bannerForm.get('tipo').value == "Banner"){
+      this.show = true;
+      this.flagBanners = true;
+      this.flagBannersAviso = false;
+
+    }else{
+      //tipo aviso 
+      this.show = true;
+      this.flagBanners = false;
+      this.flagBannersAviso = true;
+      // this.imageURLMobil = "";
+      // this.file_dataMovil = [];
+      // this.bannerForm.patchValue( {movil: ''} ); 
+
+    }
+
+    if(this.bannerForm.get('tipo').value == null){
+      this.show = false;
+      this.bannerForm.invalid;
+      this.imageURLMobil = "";
+      this.imageURLHeader = "";
+
+    }
+  }
   addBannerModal(modal){
     this.bannerForm.reset();
 
@@ -310,18 +351,44 @@ export class BannerComponent implements OnInit {
       this.notification
     );
     this.flagAdd = true;
+    this.flagBanners = false;
+    this.flagBannersAviso = false;
+    this.imageURLHeader = '';
+    this.imageURLMobil = '';
 
   }
   onSelectItem(modal,row){
+
     this.bannerForm.reset();
 
-    this.notificationModal = this.modalService.show(
-      modal,
-      this.notification
-    );
-    this.flagAdd = false;       
+    this.notificationModal = this.modalService.show( modal,this.notification);
+    this.flagAdd = false;
     this.bannerForm.patchValue({id:row.id});
     this.bannerForm.patchValue({tipo:row.tipo});
+    this.bannerForm.controls['escritorio'].setValidators([Validators.nullValidator]);
+
+    if(row.tipo == "Banner"){
+      this.show = true;
+      this.flagBanners = true;
+      this.flagBannersAviso = false;
+
+      this.file_dataMovil = [];
+      this.file_dataDesktop = [];
+      
+      this.imageURLHeader = (row.rutaescritorio) ? `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${row.rutaescritorio}` : '';
+      this.imageURLMobil = (row.rutamovil) ? `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${row.rutamovil}` : '';
+      //falta poner el img en el form data
+
+    }else{
+      this.show = true;
+      this.flagBanners = false;
+      this.flagBannersAviso = true;
+      this.imageURLMobil = "";
+      
+      this.file_dataMovil = [];
+      this.imageURLHeader = (row.rutaescritorio) ? `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${row.rutaescritorio}` : '';
+      // this.imageURLMobil = (row.rutamovil) ? `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${row.rutamovil}` : '';
+    }
 
   }
   addBanner(){
@@ -355,7 +422,10 @@ export class BannerComponent implements OnInit {
   updateBanner(){
     let formData = new FormData();
     Swal.showLoading();
-    formData.append('escritorio',this.file_dataDesktop.get('logo'));
+    // formData.append('escritorio',this.file_dataDesktop.get('logo'));
+    if(Array.isArray(this.file_dataDesktop)){}else{
+      formData.append('escritorio', this.file_dataDesktop.get('logo'));
+    }
     if(Array.isArray(this.file_dataMovil)){}else{
       formData.append('movil', this.file_dataMovil.get('logo'));
     }
@@ -382,8 +452,8 @@ export class BannerComponent implements OnInit {
   }
   deleteBanner(id){
     Swal.fire({
-      title: 'Seguro de eliminar los Bannes?',
-      text: "Eliminar Bannes!",
+      title: 'Seguro de eliminar los Banners?',
+      text: "Eliminar Banners!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -392,8 +462,9 @@ export class BannerComponent implements OnInit {
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
-          let data = {banner:id, id:this.empresa};
           Swal.showLoading();
+          let data = {banner:id, id:this.empresa};
+          
           this.bannerService.eliminarBanner(data).subscribe(
             (flag) => {
               console.log(flag);
