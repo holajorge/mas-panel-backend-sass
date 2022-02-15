@@ -472,8 +472,13 @@ export class BannerComponent implements OnInit {
       confirmButtonText: 'si, Eliminar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
+      console.log(result);
+
+      setTimeout( () => {
+
         if (result.value) {
           Swal.showLoading();
+
           let data = {banner:id, id:this.empresa};
           
           this.bannerService.eliminarBanner(data).subscribe(
@@ -494,6 +499,8 @@ export class BannerComponent implements OnInit {
             }
           )
         }
+      }, 1000);
     }) 
   }
+ 
 }
