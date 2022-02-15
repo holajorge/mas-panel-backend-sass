@@ -55,7 +55,7 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">{{  'dashboard.total.dinero.titulo' | translate}}</h5>
-                  <span class="h2 font-weight-bold mb-0">{{ price_total }}</span>
+                  <span class="h2 font-weight-bold mb-0"> ${{ price_total | number : '1.2-2' }}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -152,18 +152,6 @@
                         [rowHeight]="40"
                         [limit]="entries != -1 ? entries : undefined" [rows]="datatableProductos"
                         [loadingIndicator]="loadingIndicatorProductsDatatable">
-                        <!--
-                        <ngx-datatable-column name="titulo">
-                            <ng-template ngx-datatable-header-template>
-                                <span>TITULO</span>
-                            </ng-template>
-                        </ngx-datatable-column>
-                        <ngx-datatable-column name="cantidad">
-                            <ng-template ngx-datatable-header-template>
-                                <span>CANTIDAD</span>
-                            </ng-template>
-                        </ngx-datatable-column>
-                        -->
                     </ngx-datatable>
                 </div>
             </div>
@@ -196,19 +184,18 @@
                         [rowHeight]="40"
                         [limit]="entries != -1 ? entries : undefined" [rows]="datatableClientes"
                         [loadingIndicator]="loadingIndicatorClientsDatatable">
-                        <!--
-                        <ngx-datatable-column name="cliente">
-                            <ng-template let-column="column" ngx-datatable-header-template>
-                                <span>CLIENTE</span>
-                            </ng-template>
+                        <ngx-datatable-column name="cliente" [width]="110" >
+                          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                             {{ value }}
+                          </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="ventas">
-                            <ng-template let-column="column" ngx-datatable-header-template>
-                                <span>VENTAS</span>
-                            </ng-template>
-                        </ngx-datatable-column>
-                        -->
+                        <ngx-datatable-column name="ventas" [width]="20" [resizeable]="false">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-expanded="expanded" let-row="row">
+                                ${{ value | number : '1.2-2' }}
+                          </ng-template>
+                          </ngx-datatable-column>
                     </ngx-datatable>
+
                 </div>
             </div>
         </div>
