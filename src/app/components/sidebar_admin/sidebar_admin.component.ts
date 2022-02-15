@@ -32,12 +32,12 @@ export interface ChildrenItems2 {
 }
 //Menu Items
 export const ROUTES: RouteInfo[] = [
- /* {
+  {
     path: "tareas",
-    title: "Tareas",
+    title: "Inicio",
     type: "link",
     icontype: "fas fa-sitemap text-primary",
-  }, */
+  }, 
   {
     path: "cuenta",
     title: "Mi cuenta",
