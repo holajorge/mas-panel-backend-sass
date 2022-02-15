@@ -365,7 +365,7 @@ export class BannerComponent implements OnInit {
     this.flagAdd = false;
     this.bannerForm.patchValue({id:row.id});
     this.bannerForm.patchValue({tipo:row.tipo});
-    // this.bannerForm.controls['escritorio'].setValidators([Validators.nullValidator]);
+    this.bannerForm.controls['escritorio'].setValidators([Validators.nullValidator]);
 
     if(row.tipo == "Banner"){
       this.show = true;
@@ -393,13 +393,21 @@ export class BannerComponent implements OnInit {
   }
   addBanner(){
     let formData = new FormData();
-    Swal.showLoading();
-    formData.append('escritorio',this.file_dataDesktop.get('logo'));
-    if(Array.isArray(this.file_dataMovil)){}else{
+    // formData.append('escritorio',this.file_dataDesktop.get('logo'));
+    if(Array.isArray(this.file_dataDesktop)){
+      Swal.fire('Upps', 'Es necesario el banner de escritorio', 'warning');
+      return false;
+    }else{
+      formData.append('escritorio', this.file_dataDesktop.get('logo'));
+    }
+    if(Array.isArray(this.file_dataMovil)){
+    }else{
       formData.append('movil', this.file_dataMovil.get('logo'));
     }
     formData.append('tipo',this.bannerForm.get('tipo').value);
     formData.append('id',this.empresa);
+    Swal.showLoading();
+
     this.bannerService.banner(formData).subscribe(
       (flag) => {
         console.log(flag);
@@ -425,6 +433,7 @@ export class BannerComponent implements OnInit {
     // formData.append('escritorio',this.file_dataDesktop.get('logo'));
     if(Array.isArray(this.file_dataDesktop)){
       Swal.fire('Upps', 'Es necesario el banner de escritorio', 'warning');
+      return false;
     }else{
       formData.append('escritorio', this.file_dataDesktop.get('logo'));
     }
