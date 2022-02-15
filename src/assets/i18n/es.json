@@ -30,7 +30,7 @@
             "subdominio": "subdominio",
             "logo": "Logo",
             "LogoMobile": "Logo Mobile",
-            "aprobarUsuario": "Aprobar usuario Automáticamente",
+            "aprobarUsuario": "Aprobar usuario automáticamente",
             "permitirRegistro": "Permitir Registración",
             "envioWhatssap": "Enviar pedido por whatsapp al vendedor",
             "descripcionEmpresa": "Descripción Empresa",
@@ -130,23 +130,23 @@
             "delete": "Elininar producto"
         },
         "formEdit": {
-            "titulo": "Titulo",
+            "titulo": "Título",
             "codigo": "Codigo",
             "precio": "Precio",
             "stock": "Stock",
             "stockMin": "Stock mínimo",
             "cantidadMin": "Cantidad mínima",
             "precioOferta": "Precio oferta",
-            "caracteristica": "Caracteristica",
+            "caracteristica": "Característica",
             "solapa": "Solapa",
             "destacado": "Destacado",
-            "descripcion": "Descripcion",
+            "descripcion": "Descripción",
             "actualizar": "Actualizar",
             "guardar": "Guardar",
             "cancelar": "Cancelar",
             "foto": "Foto",
-            "unit":"Unidad por bulto",
-            "status":"Activo/Inactivo"
+            "unit":"Unidades por bulto",
+            "status":"Activo"
         },
         "grid": {
             "titulo": "Grid de fotos"
