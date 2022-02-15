@@ -365,7 +365,7 @@ export class BannerComponent implements OnInit {
     this.flagAdd = false;
     this.bannerForm.patchValue({id:row.id});
     this.bannerForm.patchValue({tipo:row.tipo});
-    this.bannerForm.controls['escritorio'].setValidators([Validators.nullValidator]);
+    // this.bannerForm.controls['escritorio'].setValidators([Validators.nullValidator]);
 
     if(row.tipo == "Banner"){
       this.show = true;
@@ -423,7 +423,9 @@ export class BannerComponent implements OnInit {
     let formData = new FormData();
     Swal.showLoading();
     // formData.append('escritorio',this.file_dataDesktop.get('logo'));
-    if(Array.isArray(this.file_dataDesktop)){}else{
+    if(Array.isArray(this.file_dataDesktop)){
+      Swal.fire('Upps', 'Es necesario el banner de escritorio', 'warning');
+    }else{
       formData.append('escritorio', this.file_dataDesktop.get('logo'));
     }
     if(Array.isArray(this.file_dataMovil)){}else{
