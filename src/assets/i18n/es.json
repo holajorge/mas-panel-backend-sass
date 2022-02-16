@@ -146,7 +146,8 @@
             "cancelar": "Cancelar",
             "foto": "Foto",
             "unit":"Unidades por bulto",
-            "status":"Activo"
+            "status":"Activo",
+            "multiplo":"Múltiplo"
         },
         "grid": {
             "titulo": "Grid de fotos"
