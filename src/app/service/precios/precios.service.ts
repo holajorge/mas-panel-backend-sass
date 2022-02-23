@@ -59,6 +59,15 @@ export class PreciosService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  importarDescuento(formdata){
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importDescuento",formdata).toPromise().then((res) =>{      
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
   deshacerCambiosClientes(empresaa){
     let empresa = {id: empresaa};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});

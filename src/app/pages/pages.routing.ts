@@ -29,6 +29,7 @@ import { MicuentaComponent } from './micuenta/micuenta.component';
 import { ListaPreciosComponent } from './precios/lista-precios/lista-precios/lista-precios.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 
 const routes:Routes = [
     {
@@ -70,6 +71,7 @@ const routes:Routes = [
             //precios
             {path: 'precios/lista',  component: PreciosComponent},
             {path: 'precios/importar-precios',  component: ImportarPreciosComponent},
+            {path: 'precios/importar-descuentos',  component: ImportarDescuentoComponent},
             {path: 'precios/descuento-categorias',  component: DescuentoComponent},
             {path: 'precios/descuento-lista',  component: DescuentoListaComponent},
             {path: 'precios/lista-precios',  component: ListaPreciosComponent},

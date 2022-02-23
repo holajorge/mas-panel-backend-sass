@@ -167,6 +167,11 @@
             "select": "Seleccione un archivo",
             "labelselect": "Seleccione"
         },
+        "importar-descuento": {
+            "titulo": "Importar un archivo de descuentos",
+            "select": "Seleccione un archivo",
+            "labelselect": "Seleccione"
+        },
         "tabla": {
             "nrocliente": "Nro cliente",
             "codigo": "Codigo",

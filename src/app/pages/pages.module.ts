@@ -47,6 +47,7 @@ import {BdcWalkModule} from 'bdc-walkthrough';
 import { ListaPreciosComponent } from './precios/lista-precios/lista-precios/lista-precios.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -85,6 +86,7 @@ imports: [
     ListaPreciosComponent,
     TareasComponent,
     DashboardComponent,
+    ImportarDescuentoComponent,
   ],
   imports: [
     DpDatePickerModule,
