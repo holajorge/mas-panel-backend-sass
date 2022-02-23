@@ -262,8 +262,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-control-label" for="precio">{{ 'producto.formEdit.precio' | translate }}  ( * requerido ):</label>
                                 <input type="text" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
@@ -272,12 +271,18 @@
                                 </div>  
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-control-label" for="precio_oferta">{{ 'producto.formEdit.precioOferta' | translate }}:</label>
                                 <input type="text" formControlName="precio_oferta" placeholder="precio oferta" name="precio_oferta" class="form-control" id="precio_oferta">
                             </div>
-                        </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="cantidad_minima">{{ 'producto.formEdit.cantidadMin' | translate }}:</label>
+                                <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -289,18 +294,16 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-control-label" for="cantidad_minima">{{ 'producto.formEdit.cantidadMin' | translate }}:</label>
-                                <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
-                            </div>
-                        </div> 
-
-                        <div class="col-md-4">
-                            <div class="form-group">
                                 <label class="form-control-label" for="stock_minimo">{{ 'producto.formEdit.stockMin' | translate }}:</label>
                                 <input type="text" formControlName="stock_minimo" placeholder="stock minimo" name="stock_minimo" class="form-control" id="stock_minimo">
                             </div>
                         </div> 
-
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="multiplo">{{ 'producto.formEdit.multiplo' | translate }}:</label>
+                                <input type="text" formControlName="multiplo" placeholder="Múltiplo" name="multiplo" class="form-control" id="multiplo">
+                            </div>
+                        </div>
                         
                     </div>
                 </div>

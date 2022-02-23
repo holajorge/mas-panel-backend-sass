@@ -156,6 +156,7 @@ export class ProductoComponent implements OnInit {
       logoo: [null],
       foto: [null],
       unit:['',null],
+      multiplo:['1']
       
     });
     
@@ -199,7 +200,8 @@ export class ProductoComponent implements OnInit {
       fecha_sync: row.fecha_sync,
       stock_minimo: row.stock_minimo,
       descripcion: row.descripcion,
-      unit: row.unidad_bulto      
+      unit: row.unidad_bulto,
+      multiplo: row.multiplo
     });
     this.btnvisibility = false;  
     this.btnvisibilityIn = true;  
@@ -664,6 +666,7 @@ export class ProductoComponent implements OnInit {
     formData.append('stock_minimo',this.editForm.get('stock_minimo').value);
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
+    formData.append('multiplo',this.editForm.get('multiplo').value);
     Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{    
       if(res.success == true){
@@ -758,6 +761,7 @@ export class ProductoComponent implements OnInit {
     formData.append('stock_minimo',this.editForm.get('stock_minimo').value);
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
+    formData.append('multiplo',this.editForm.get('multiplo').value);
 
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{    
