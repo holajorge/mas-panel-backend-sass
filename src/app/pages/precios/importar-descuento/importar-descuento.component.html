@@ -7,6 +7,9 @@
                 {{  'precios.importar-descuento.titulo' | translate}}</h6>
           </div>
           <div class=" col-lg-6 col-5 text-right">
+            <a *ngIf="onboardingService.on == false" class=" btn btn-sm btn-neutral" 
+                href="javascript:void(0)" (click)="modeloDescuento();"> Descargar Modelo </a>
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" (click)="dataExcelDescuentos()"> Exportar Excel</a>
            
           </div>
         </div>
