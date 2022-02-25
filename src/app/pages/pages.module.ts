@@ -48,6 +48,7 @@ import { ListaPreciosComponent } from './precios/lista-precios/lista-precios/lis
 import { TareasComponent } from './tareas/tareas.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
+import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -87,6 +88,7 @@ imports: [
     TareasComponent,
     DashboardComponent,
     ImportarDescuentoComponent,
+    ImportarSucursalesComponent,
   ],
   imports: [
     DpDatePickerModule,

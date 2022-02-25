@@ -101,7 +101,8 @@ export const ROUTES: RouteInfo[] = [
     isCollapsed: true,
     children: [
       { path: "clientes", title: "Lista clientes", type: "link" },
-      { path: "importar", title: "Importar", type: "link" },    
+      { path: "importar", title: "Importar clientes", type: "link" },    
+      { path: "importar-sucursales", title: "Importar sucursales de clientes", type: "link" },    
       // { path: "agregar-comprobante", title: "Agregar comprobantes", type: "link" },    
       { path: "lista-comprobante", title: "Listar comprobantes", type: "link" },    
     ]

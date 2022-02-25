@@ -341,6 +341,9 @@
     "cliente": {
         "titulo": "Lista de Clientes",
         "nuevo": "Nuevo Cliente",
+        "sucursales":{
+            "titulo": "Importar archivo de sucursales"
+        },
         "importar": {
             "titulo": "importar archivo de cliente",
             "select": "Seleccione un archivo",
