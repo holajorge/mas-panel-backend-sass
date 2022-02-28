@@ -126,6 +126,10 @@
                         </ng-template>
                         <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                             <span>
+                                <button class="btn btn-sm btn-neutral"  
+                                    (click)='openSucursal(modalSucursal,row)' title="sucursales">
+                                    <span class="fas fa-store"></span>  
+                                </button>
                                 <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEdit,row)' title="{{ 'cliente.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span>  </button>
                                 <button class="btn btn-sm btn-info" (click)='pedidos(modalPedidos,row)' title="{{ 'cliente.tabla.pedido' | translate}}"><span class="fas fa-truck"></span>  </button>
                                 <button *ngIf="row.activo == 1" class="btn btn-sm btn-danger" (click)='onDisableActive(row)' title="Deshabilitar"><span class="fas fa-user-slash"></span> </button>
@@ -376,135 +380,68 @@
         <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
     </div>
 </ng-template>
-               
-<!--
-<ng-template #modalEdit >
-    <div class=" modal-header">    
-        <h5 class="modal-title" >{{ 'cliente.formClient.edit' | translate}}</h5>
+
+<ng-template #modalSucursal >
+    <div class="modal-header">    
+        <h5 class="modal-title" >lista de sucursales</h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
             <span aria-hidden="true"> × </span>
         </button>
-    </div>
+    </div>    
     <div class="modal-body pt-0">
-        <form [formGroup]="addForm" novalidate>
+        <form [formGroup]="editFormSucursal" novalidate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="nombre">{{ 'cliente.tabla.nombre' | translate}}:</label>
-                        <input type="text" formControlName="nombre" placeholder="Nro cliente" name="nombre" class="form-control" id="nombre">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('nombre').hasError('required') && addForm.get('nombre').touched">  
-                            {{ 'cliente.tabla.nombre' | translate}} es requerido
+                        <label for="nombre" class="form-control-label">Nombre de sucursal:</label>
+                        <input type="text" formControlName="nombre" placeholder="Nombre de sucursal" class="form-control" >
+                        <div class="alert  alert-danger" *ngIf="editFormSucursal.get('nombre').hasError('required') && editFormSucursal.get('nombre').touched">
+                            Nombre de sucursal es requerido
                         </div>  
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="usuario"> {{ 'cliente.tabla.usuario' | translate}}:</label>
-                        <input type="text" formControlName="usuario" placeholder="{{ 'cliente.tabla.usuario' | translate}}" name="usuario" class="form-control" id="usuario">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('usuario').hasError('required') && addForm.get('usuario').touched">  
-                            {{ 'cliente.tabla.usuario' | translate}} requerido
+                        <label for="direccion" class="form-control-label">Direccion:</label>
+                        <input type="text" formControlName="direccion" placeholder="Direccion" class="form-control">
+                        <div class="alert alert-danger" *ngIf="editFormSucursal.get('direccion').hasError('required') && editFormSucursal.get('direccion').touched">
+                            Direccion es requerido
                         </div>  
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="clave"> {{ 'cliente.tabla.clave' | translate}}:</label>
-                        <input type="text" formControlName="clave" placeholder="{{ 'cliente.tabla.clave' | translate}}" name="clave" class="form-control" id="clave">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('clave').hasError('required') && addForm.get('clave').touched">  
-                            {{ 'cliente.tabla.clave' | translate}} requerido
+                        <label class="form-control-label" for="telefono">Telefono:</label>
+                        <input type="text" formControlName="telefono" placeholder="Telefono" class="form-control">
+                        <div class="alert  alert-danger" *ngIf="editFormSucursal.get('telefono').hasError('required') && editFormSucursal.get('telefono').touched">
+                            Telefono es requerido
                         </div>  
                     </div>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 float-right">
                     <div class="form-group">
-                        <label class="form-control-label" for="email"> {{ 'cliente.tabla.email' | translate}}:</label>
-                        <input type="text" formControlName="email" placeholder="{{ 'cliente.tabla.email' | translate}}" name="email" class="form-control" id="email">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('email').hasError('required') && addForm.get('email').touched">  
-                            {{ 'cliente.tabla.email' | translate}} Cliente es requerido
-                        </div>  
+                        <button class="btn btn-primary" [disabled]='editFormSucursal.invalid' type="button"  (click)="createSucursal()">Guardar</button> 
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="descuento_general">{{ 'cliente.tabla.decuento' | translate}}:</label>
-                        <input type="text" formControlName="descuento_general" placeholder="{{ 'cliente.tabla.decuento' | translate}}" name="descuento_general" class="form-control" id="descuento_general">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('descuento_general').hasError('required') && addForm.get('descuento_general').touched">  
-                            {{ 'cliente.tabla.decuento' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="cuit">{{ 'cliente.tabla.cuit' | translate}}:</label>
-                        <input type="text" formControlName="cuit" placeholder="{{ 'cliente.tabla.cuit' | translate}}" name="cuit" class="form-control" id="cuit">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('cuit').hasError('required') && addForm.get('cuit').touched">  
-                            {{ 'cliente.tabla.cuit' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-                
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="telefono">{{ 'cliente.tabla.telefono' | translate}}:</label>
-                        <input type="text" formControlName="telefono" placeholder="{{ 'cliente.tabla.telefono' | translate}}" name="telefono" class="form-control" id="telefono">
-                        <div class="alert  alert-danger" *ngIf="addForm.get('telefono').hasError('required') && addForm.get('telefono').touched">  
-                            {{ 'cliente.tabla.telefono' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="encargado_compras">{{ 'cliente.tabla.encargado' | translate}}:</label>
-                        <input type="text" formControlName="encargado_compras" placeholder="{{ 'cliente.tabla.encargado' | translate}}" name="encargado_compras" class="form-control" id="encargado_compras">
-                        
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="encargado_pagos">{{ 'cliente.tabla.pagos' | translate}}:</label>
-                        <input type="text" formControlName="encargado_pagos" placeholder="{{ 'cliente.tabla.pagos' | translate}}" name="encargado_pagos" class="form-control" id="encargado_pagos">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="provincia">{{ 'cliente.tabla.provincia' | translate}}:</label>
-                        <input type="text" formControlName="provincia" placeholder="{{ 'cliente.tabla.provincia' | translate}}" name="provincia" class="form-control" id="provincia">
-                       
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="localidad">{{ 'cliente.tabla.localidad' | translate}}:</label>
-                        <input type="text" formControlName="localidad" placeholder="{{ 'cliente.tabla.localidad' | translate}}" name="localidad" class="form-control" id="localidad">
-                        
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="direccion">{{ 'cliente.tabla.direccion' | translate}}:</label>
-                        <input type="text" formControlName="direccion" placeholder="{{ 'cliente.tabla.direccion' | translate}}" name="direccion" class="form-control" id="direccion">
-                        
-                    </div>
-                </div>
-                
             </div>
         </form>
-    </div>
-    <div class=" modal-footer">
-      <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="updateCliente()">{{ 'cliente.tabla.actualizar' | translate}}</button> 
-      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.tabla.cancelar' | translate}}</button>
-    </div>
 
+        <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+            class="bootstrap selection-cell" 
+            [columnMode]="'force'" [headerHeight]="50" 
+            [footerHeight]="50" [rowHeight]="70" 
+            [columns]="columnSucursal"
+            [limit]="entries != -1 ? entries : undefined" 
+            [rows]="dataSucursal" >
+        </ngx-datatable>
+    </div>
+    <div class=" modal-footer">        
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
+    </div>
 </ng-template>
--->
+               
+
 
 <bdc-walk-popup #newClient name="newClient"
   [mustCompleted]="{clickListClients: true}" [showCloseButton]="false" header="Paso 8" xPosition="after">

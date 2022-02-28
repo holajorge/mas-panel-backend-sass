@@ -61,7 +61,7 @@ export class ClientesComponent implements OnInit {
       pedido_id: ['', Validators.required],
       comentario: ['', Validators.required],
     });
-
+    
     this.lista_estados = [];
     this.lista_estadosFiltros = [];
     this.pedidosService.getDistinctEstadoPedidos(this.empresa).then( (res:any) =>{
@@ -240,17 +240,11 @@ export class ClientesComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
-
-    // this.detalleRow = row.pedido_id;
-    // this.tempRowDet = row;
     console.log(row);
     this.notificationModal = this.modalService.show(
       modalEditVendedor,
       this.notification
     );
-    
-    // this.addForm.setValue({id:row.id, nombre:row.nombre, email:row.email, clave:row.clave, lista: hola['lista'], archivo:hola['baja']});
-    // this.btnvisibility = false;  
 
   }
   onaddComente(modalComent,row){

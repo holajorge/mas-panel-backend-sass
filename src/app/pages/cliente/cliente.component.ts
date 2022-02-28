@@ -33,6 +33,8 @@ export class ClienteComponent implements OnInit {
   entries: number = 10;
   entriesDet: number = 10;
   editForm: FormGroup;
+  editFormSucursal: FormGroup;
+
   btnvisibility: boolean = true;
   btnvisibilityIn:boolean = true;
   activeRow: any;
@@ -46,6 +48,15 @@ export class ClienteComponent implements OnInit {
   nombreCliente:any = '';
   mailCliente:any = '';
   activoCliente:boolean = false;
+
+  //sucursales
+  dataSucursal:any = [];
+  tempDataSucursal:any = [];
+  columnSucursal = [ 
+    {prop:'nombre_sucursal',name:'Nombre sucursal'}, 
+    {prop:'direccion_sucursal', name: 'Direccion'}, 
+    {prop:'telefono_sucursal',name: 'Telefono'} 
+  ]
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -77,6 +88,14 @@ export class ClienteComponent implements OnInit {
       direccion: [''],
       lista: [''],
       nroclientLast:[''] 
+    });
+    this.editFormSucursal = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      direccion: ['', Validators.required],
+      telefono: ['', Validators.required],
+      cliente: ['', Validators.required],
+      empresa_id: [''],
+      
     });
 
     this.getDistinctListPrice()
@@ -474,4 +493,64 @@ export class ClienteComponent implements OnInit {
     this.temp = this.tempRow;
   }
 
+  openSucursal(modalSucursal, row){
+  
+    this.notificationModal = this.modalService.show(
+      modalSucursal,
+      this.notification
+    );
+    let data = {
+      cliente: row.nrocliente, 
+      empresa: this.empresa.id
+    }
+
+    this.editFormSucursal.controls['cliente'].setValue(row.nrocliente);
+    this.getSucursales(data);
+
+  } 
+  getSucursales(data){
+    Swal.showLoading();
+
+    this.clienteService.getSucursalClient(data).subscribe(
+      (res:any) =>{
+        this.dataSucursal = res;
+        this.tempDataSucursal = res;
+        Swal.close();
+      },
+      (error) => {
+        Swal.close();
+        console.log(error);        
+      }
+    )
+
+  }
+  createSucursal(){
+    Swal.showLoading();
+    this.editFormSucursal.controls['empresa_id'].setValue(this.empresa.id);
+
+    this.clienteService.postInsertClienteSucursal(this.editFormSucursal.value).subscribe( 
+      (res) =>{
+        console.log(res);
+        
+        if(res){
+          let data = {
+            cliente: this.editFormSucursal.get('cliente').value, 
+            empresa: this.empresa.id
+          }
+          this.editFormSucursal.reset();
+          this.getSucursales(data);
+          // this.notificationModal.hide();
+          Swal.fire('Listo!',res.msg, 'success');
+        }else {
+          Swal.fire('Upps!',res.msg, 'error')
+        }
+      },
+      (error) => {
+        console.log(error);
+        
+        Swal.fire('Error!','Surgio un error inesperado, intenete de nuevo', 'error')
+
+      }
+    );
+  }
 }
