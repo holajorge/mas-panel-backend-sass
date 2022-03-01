@@ -766,7 +766,7 @@ export class ProductoComponent implements OnInit {
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{    
       if(res.productos.body.usuario == 2){
-        Swal.fire('Error', 'Codigo producto ya existe', 'error');      
+        Swal.fire('Error', 'Código producto ya existe', 'error');      
       }else if(res.productos.body.usuario == 1){
         this.notificationModal.hide();
         this.editForm.reset();

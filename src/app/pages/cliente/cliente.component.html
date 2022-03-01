@@ -402,7 +402,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="direccion" class="form-control-label">Direccion:</label>
+                        <label for="direccion" class="form-control-label">Dirección:</label>
                         <input type="text" formControlName="direccion" placeholder="Direccion" class="form-control">
                         <div class="alert alert-danger" *ngIf="editFormSucursal.get('direccion').hasError('required') && editFormSucursal.get('direccion').touched">
                             Direccion es requerido
@@ -411,10 +411,10 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="telefono">Telefono:</label>
+                        <label class="form-control-label" for="telefono">Teléfono:</label>
                         <input type="text" formControlName="telefono" placeholder="Telefono" class="form-control">
                         <div class="alert  alert-danger" *ngIf="editFormSucursal.get('telefono').hasError('required') && editFormSucursal.get('telefono').touched">
-                            Telefono es requerido
+                            Teléfono es requerido
                         </div>  
                     </div>
                 </div>
