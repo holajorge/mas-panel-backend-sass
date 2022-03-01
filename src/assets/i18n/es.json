@@ -50,7 +50,9 @@
             "stock_descontar": "Descontar stock de productos al efectuarse pedidos",
             "stock_permitir": "Permitir pedir producto sin stock",
             "urlWeb": "Pagina Web",
-            "leyendaMasIva": "Mostrar leyenda \"Más Iva\" en el carrito "
+            "leyendaMasIva": "Mostrar leyenda \"Más Iva\" en el carrito ",
+            "sin_precio": "No mostrar el precio en pantalla ",
+            "sin_codigo": "No mostrar el código del producto en pantalla "
         }
     },
     "categorias": {
