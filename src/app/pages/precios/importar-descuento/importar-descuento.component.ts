@@ -42,7 +42,7 @@ export class ImportarDescuentoComponent implements OnInit {
         
         let formData = new FormData();
         
-        console.log(this.addForm.get('empresa_id').value);
+        //console.log(this.addForm.get('empresa_id').value);
         formData.append('file', file, file.name);
         formData.append('id',this.empresa);
         
@@ -60,10 +60,10 @@ export class ImportarDescuentoComponent implements OnInit {
     this.preciosService.importarDescuento(this.file_data).then( (res:any) =>{    
       console.log(res.response);
       if(res.response.flag){
-        Swal.fire('Listo!','Datos registrados con existo', 'success');
+        Swal.fire('Listo!','Datos registrados con éxito', 'success');
         this.addForm.reset();
       }else{
-        Swal.fire('Error revice sus datos si estan correctos, intente de nuevo!', 'error')
+        Swal.fire('Error revise sus datos si estan correctos, intente de nuevo!', 'error')
       }
     }).catch(err=>{
       Swal.fire('Error de comunicación, intente de nuevo!', 'error')

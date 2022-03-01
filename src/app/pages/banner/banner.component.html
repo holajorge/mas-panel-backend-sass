@@ -76,7 +76,7 @@
                                 <!-- Image Preview -->
                                 
                                 <div class="card-body">
-                                    <form [formGroup]="uploadFormFooter" (ngSubmit)="submitFooter()">
+                                    <form [formGroup]="uploadFormFooter" >
                                         <div class="imagePreview" *ngIf="imageURLFooter && imageURLFooter !== ''">
                                             <img class="ard-img-top" [src]="imageURLFooter" [alt]="uploadFormFooter.value.name" style="width:100%;">
                                         </div>
@@ -132,7 +132,7 @@
                         <div class="col-sm-12 col-md-6 col-lg-4">
                             <div class="dataTables_length" id="datatable_length">
                                 <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
-                                <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                                <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" >
                                     <option value="10" [selected]="entries == 10">10</option>
                                     <option value="25" [selected]="entries == 25">25</option>
                                     <option value="50" [selected]="entries == 50">50</option>
