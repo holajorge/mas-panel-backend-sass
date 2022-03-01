@@ -113,17 +113,17 @@ export const ROUTES: RouteInfo[] = [
   //   type: "link",
   //   icontype: "ni-map-big text-primary",
   // },
-  {
+  /*{
     path: "categorias",
     title: "Categorias",
     type: "sub",
     icontype: "fa fa-folder text-primary",
     isCollapsed: true,
     children: [
-      { path: "lista", title: "Lista Categoria", type: "link" },
-      { path: "importar", title: "importar Categoria", type: "link" },
+      { path: "lista", title: "Lista de categorías", type: "link" },
+      { path: "importar", title: "Importar categoría", type: "link" },
     ]
-  },
+  }, */
   {
     path: "producto",
     title: "Productos",
@@ -132,9 +132,11 @@ export const ROUTES: RouteInfo[] = [
     isCollapsed: true,
     children: [
       { path: "configuracion", title: "Configuración de productos", type: "link" },
-      { path: "productos", title: "Lista Productos", type: "link" },
+      { path: "productos", title: "Lista de productos", type: "link" },
       { path: "importarproducto", title: "Importar Productos", type: "link" },
       { path: "importarfotos", title: "Importar Fotos", type: "link" },
+      { path: "permisos", title: "Permisos de clientes", type: "link" },
+      { path: "importar-permisos", title: "Importar permisos de clientes", type: "link" },
     ]
   },
   {

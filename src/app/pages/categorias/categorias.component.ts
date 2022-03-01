@@ -109,13 +109,13 @@ export class CategoriasComponent implements OnInit {
       nrocliente: row.nrocliente
     };
     Swal.fire({
-      title: 'Seguro de Desactivar?',
-      text: "Se restringira el acceso al cliente!",
+      title: 'Confirma que quiere quitar el acceso?',
+      text: "Se restringirá el acceso al cliente",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Desactivar!',
+      confirmButtonText: 'Si, quitar acceso',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
@@ -123,7 +123,7 @@ export class CategoriasComponent implements OnInit {
           this.categoriaService.desactivar(datos).then( (res:any) =>{    
             
             if(res.response){
-              Swal.fire('Listo!','Desactivar correctamente, con éxito!', 'success')
+              Swal.fire('Listo!','Acceso quitado con éxito!', 'success')
               this.notificationModal.hide();
               this.getCategoria();
             }else{
@@ -148,13 +148,13 @@ export class CategoriasComponent implements OnInit {
       nrocliente: row.nrocliente
     };
     Swal.fire({
-      title: 'Seguro de Activar?',
-      text: "Se podra ver la categoria restringida!",
+      title: 'Seguro de habilitar el acceso?',
+      text: "El cliente podrá ver los productos",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Activar!',
+      confirmButtonText: 'Si, activar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {  
@@ -162,7 +162,7 @@ export class CategoriasComponent implements OnInit {
           this.categoriaService.activar(datos).then( (res:any) =>{    
 
             if(res.response){
-              Swal.fire('Listo!','Activado correctamente, con éxito!', 'success') 
+              Swal.fire('Listo!','Habilitado correctamente', 'success') 
               this.notificationModal.hide();
 
             }else{

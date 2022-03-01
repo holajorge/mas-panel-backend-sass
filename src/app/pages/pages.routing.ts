@@ -63,8 +63,8 @@ const routes:Routes = [
             // {path: 'cliente/agregar-comprobante',  component: AgregarComponent},
             {path: 'cliente/lista-comprobante',  component: ListaComponent},
             //categorias
-            {path: 'categorias/lista',  component: CategoriasComponent},
-            {path: 'categorias/importar',  component: ImportarCategoriaComponent},
+            {path: 'producto/permisos',  component: CategoriasComponent},
+            {path: 'producto/importar-permisos',  component: ImportarCategoriaComponent},
             //productos
             {path: 'producto/configuracion',  component: ConfigurcionProductoComponent},
             {path: 'producto/productos',  component: ProductoComponent},

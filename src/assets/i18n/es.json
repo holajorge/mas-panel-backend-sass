@@ -56,10 +56,10 @@
         }
     },
     "categorias": {
-        "titulo": "Configuración de categoria",
+        "titulo": "Configuración de permisos",
         "nombre": "nombre",
-        "restringir": "Restringir Cliente",
-        "categoria": "Categoria",
+        "restringir": "Restringir cliente",
+        "categoria": "Característica",
         "desactivar": "Desactivar",
         "activar": "Activar",
         "titulo-import": "Importar un archivo de clientes"
@@ -237,7 +237,7 @@
             "lista": "Lista de clientes",
             "nrocliente": "Nro Cliente",
             "nombre": "Nombre",
-            "buscar": "buscar Cliente",
+            "buscar": "Buscar cliente",
             "desasociar": "Desasociar al vendedor",
             "asociar": "Asociar al Vendedor",
             "vendedor": "Vendedor"
@@ -393,7 +393,7 @@
             "detalle": "Detalle",
             "editar": "Editar",
             "mostrar": "Mostrar",
-            "buscar": "buscar cliente",
+            "buscar": "Buscar cliente",
             "entradas": "resultados",
             "total": "total",
             "fecha": "Fecha",

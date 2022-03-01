@@ -214,13 +214,13 @@ export class ProductoComponent implements OnInit {
   deleteAll(){
     let data = {all: true,id: this.empresa };
     Swal.fire({
-      title: 'Seguro de Eliminar Todos?',
-      text: "se eliminaran Todos los producto permanentemente!",
+      title: 'Confirma eliminar todos los productos?',
+      text: "Se eliminarán todos los productos permanentemente",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Eliminar todo!',
+      confirmButtonText: 'si, eliminar todo',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
       if (result.value) {      
@@ -233,11 +233,11 @@ export class ProductoComponent implements OnInit {
               Swal.fire('listo','Productos eliminado con éxito','success');
               this.getProductos();
             }else{
-              Swal.fire('error','no fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
+              Swal.fire('error','No fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
             }        
           },
           (error) => {
-            Swal.fire('error','no fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
+            Swal.fire('error','No fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
           }
         );
       }
@@ -246,13 +246,13 @@ export class ProductoComponent implements OnInit {
   deleteProduct(idProduct){
     let data = {one: true,_id: idProduct,id: this.empresa };
     Swal.fire({
-      title: 'Seguro de Eliminar?',
-      text: "Eliminar el producto permanentemente!",
+      title: 'Seguro de eliminar?',
+      text: "El producto se eliminará permanentemente",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Eliminar!',
+      confirmButtonText: 'si, eliminar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
       if (result.value) {      
@@ -280,7 +280,7 @@ export class ProductoComponent implements OnInit {
     let data = {id: this.empresa };
     Swal.fire({
       title: 'Seguro de activar todos los productos?',
-      text: "Se activaran todos los productos!",
+      text: "Se activarán todos los productos!",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
@@ -311,13 +311,13 @@ export class ProductoComponent implements OnInit {
   disableAll(){
     let data = {id: this.empresa };
     Swal.fire({
-      title: 'Seguro de desactivar todos los productos?',
-      text: "Se desactivar todos los productos!",
+      title: 'Confirma desactivar todos los productos?',
+      text: "Se desactivarán todos los productos",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, desactivar todos!',
+      confirmButtonText: 'Si, desactivar todos!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
       if (result.value) {      
@@ -766,7 +766,7 @@ export class ProductoComponent implements OnInit {
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{    
       if(res.productos.body.usuario == 2){
-        Swal.fire('Error', 'Código producto ya existe', 'error');      
+        Swal.fire('Error', 'Código de producto ya existe', 'error');      
       }else if(res.productos.body.usuario == 1){
         this.notificationModal.hide();
         this.editForm.reset();
@@ -813,7 +813,7 @@ export class ProductoComponent implements OnInit {
   onActiveClient(row){    
     console.log(row);
     Swal.fire({
-      title: 'Seguro de Habilitar?',
+      title: 'Seguro de habilitar el producto?',
       text: "Habilitar producto!",
       type: 'warning',
       showCancelButton: true,
@@ -846,7 +846,7 @@ export class ProductoComponent implements OnInit {
 
   onDisableActive(row){    
     Swal.fire({
-      title: 'Seguro de deshabilitar?',
+      title: 'Seguro de deshabilitar el producto?',
       text: "Deshabilitará al producto!",
       type: 'warning',
       showCancelButton: true,
