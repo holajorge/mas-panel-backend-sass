@@ -247,7 +247,7 @@
             "nombre": "nombre",
             "email": "correo",
             "usuario": "nombre de usuario",
-            "telefono": "Telefono",
+            "telefono": "Teléfono",
             "clave": "clave",
             "agencia": "agencia",
             "guardar": "Guardar",
@@ -275,7 +275,7 @@
     },
     "login": {
         "bienvenido": "Bienvenido",
-        "titulo": "Iniciar Sesion",
+        "titulo": "Iniciar Sesión",
         "user": "Nombre de usuário",
         "pass": "Clave",
         "ingresar": "Ingresar",

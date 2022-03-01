@@ -95,10 +95,10 @@ export class ImportarproductoComponent implements OnInit {
         Swal.close();
         Swal.fire({
           // icon: "info",
-          title: "Cantidad de Producto afectado",
+          title: "Cantidad de producto afectados",
           // text: "Cantidad productos eliminados: "+ 40 +"<br>" + "productos Nuevos:" + 50, 
           html: 'Productos eliminados: '+ '<b>' + res.response.antes[0].cantidad +'</b><br>'+
-            'Productos Nuevos:' + '<b>' + res.response.nuevos +'</b>',         
+            'Productos insertados: ' + '<b>' + res.response.nuevos +'</b>',         
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
