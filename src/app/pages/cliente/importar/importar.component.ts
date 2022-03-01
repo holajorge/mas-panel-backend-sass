@@ -141,17 +141,15 @@ export class ImportarComponent implements OnInit {
   handleFile(event) {
 
     const files:FileList = event.target.files;
-    console.log(files);
+    
     if(files.length > 0){
 
       const file = files[0];
       if((file.size/1048576)<=4){
-        console.log("hola");
+    
         let formData = new FormData();
-        let info={id:2,name:'raja'}
-        console.log(this.addForm.get('empresa_id').value);
         formData.append('file', file, file.name);
-        formData.append('id',this.addForm.get('empresa_id').value);
+        formData.append('id',this.empresa);
         
         this.file_data=formData;
         this.addForm.patchValue({filesource: files});

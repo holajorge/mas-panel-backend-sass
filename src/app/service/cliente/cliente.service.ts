@@ -34,6 +34,21 @@ export class ClienteService {
       })
     );
   }
+
+  getSucursalClient(data){
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/getSucursalClient",data,this.headers ).pipe(
+      map( (res:any) => {
+        console.log(res);
+        
+        let {data} = res;
+        console.log(data);
+        return data;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
+  }
  
   getcliente(idEmpresa){
     
@@ -81,17 +96,17 @@ export class ClienteService {
         return of(false)
       })
     );
-
-    // return false; 
-    // let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
-    // let options = { headers: headers };
-    
-    // return this._http.post(ConfigService.API_ENDPOINT()+"Backend/insertNewCliente",newCliente,options).toPromise().then((res) =>{      
-    //   return { success: true, response:res};
-    // })
-    // .catch( (err) =>{
-    //   return { success: false, msj:'Ocurrió un error en al traer los datos'};
-    // });
+  }
+  postInsertClienteSucursal(newSucursal){
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/insertNewSucursal",newSucursal,this.headers ).pipe(
+      map( (res:any) => {      
+        let {flag} = res;        
+        return flag;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
   }
   postDeshabilitar(cliente){
     
@@ -120,6 +135,15 @@ export class ClienteService {
   importClient(formdata){
     
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importCliente",formdata).toPromise().then((res) =>{      
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  importarSucursales(formdata){
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importSucursales",formdata).toPromise().then((res) =>{      
       return { success: true, response:res};
     })
     .catch( (err) =>{

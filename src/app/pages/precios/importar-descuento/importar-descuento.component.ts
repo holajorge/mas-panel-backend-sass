@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PreciosService } from 'src/app/service/precios/precios.service';
 import { ConfigService } from 'src/app/service/config/config.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { WalkthroughService } from 'src/app/service/walkthrough/walkthrough.service';
+
 
 @Component({
   selector: 'app-importar-descuento',
@@ -18,7 +20,8 @@ export class ImportarDescuentoComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
-    public preciosService:PreciosService
+    public preciosService:PreciosService,
+    public onboardingService:WalkthroughService
   ){ 
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
@@ -69,5 +72,13 @@ export class ImportarDescuentoComponent implements OnInit {
       Swal.fire('Error de comunicación, intente de nuevo!', 'error')
       console.log(err);
     });
+  }
+  modeloDescuento(){
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_descuentos?modelo=1&empresa="+this.empresa,"_blank");
+
+  }
+  dataExcelDescuentos(){
+    window.open(ConfigService.API_ENDPOINT()+"Backend/download_descuentos?empresa="+this.empresa,"_blank");
+    
   }
 }

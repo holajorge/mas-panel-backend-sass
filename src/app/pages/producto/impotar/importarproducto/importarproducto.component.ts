@@ -40,7 +40,8 @@ export class ImportarproductoComponent implements OnInit {
 
     }
   ];
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder, public productoService:ProductoService,  public onboardingService:WalkthroughService) {
+  constructor(public translate: TranslateService,private formBuilder: FormBuilder, 
+    public productoService:ProductoService,  public onboardingService:WalkthroughService) {
 
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
