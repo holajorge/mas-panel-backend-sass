@@ -675,7 +675,7 @@ export class ProductoComponent implements OnInit {
         this.getProductos();
         this.myFiles = [];
         
-        Swal.fire('Listo!','Producto Editado, con sucesso!', 'success')
+        Swal.fire('Listo!','Producto editado con éxito!', 'success')
         this.addTextCaract = false;
         this.addTextCaract2 = false;
         this.addTextCaract3 = false;
