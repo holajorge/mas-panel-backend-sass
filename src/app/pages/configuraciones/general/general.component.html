@@ -35,8 +35,6 @@
                                             </label>                                                                                            
                                            
                                         </div>
-                                        <!-- <label for="aprobar_usuario">Aprobar Usuario</label>
-                                        <input type="checkbox" placeholder="aprobar_usuario" formControlName="aprobar_usuario"  class="form-control">  -->
                                     </div>
                                 </div>                            
                                 <div class="col-md-4">
@@ -48,8 +46,7 @@
                                                 class="custom-control-label" >{{ 'config.formConfig.permitirRegistro' | translate }} </label>
                                            
                                         </div>
-                                        <!-- <label for="permitir_registracion">Permitir Registración</label>
-                                        <input type="checkbox" placeholder="permitir_registracion" formControlName="permitir_registracion"  class="form-control">  -->
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -159,6 +156,70 @@
                         </form>       
                     </div>                 
                 </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">Usar MasPedidos sin mostrar precio</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row popup-info-custom">
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  >
+                                            <input id="sin_precio"
+                                                class="custom-control-input" type="checkbox" formControlName="sin_precio">
+                                            <label for="sin_precio"
+                                                class="custom-control-label" >{{ 'config.formConfig.sin_precio' | translate }}</label>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>    
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">Usar MasPedidos sin mostrar código de producto</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row popup-info-custom">
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  >
+                                            <input id="sin_codigo"
+                                                class="custom-control-input" type="checkbox" formControlName="sin_codigo">
+                                            <label for="sin_codigo"
+                                                class="custom-control-label" >{{ 'config.formConfig.sin_codigo' | translate }}</label>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>    
             </div>
         
             <div class="card-wrapper">

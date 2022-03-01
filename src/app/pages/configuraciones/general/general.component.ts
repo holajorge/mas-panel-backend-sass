@@ -45,7 +45,9 @@ export class GeneralComponent implements OnInit {
       stock_descontar: [null],
       stock_permitir: [null],
       url_web: [null],
-      leyenda_mas_iva: [null]
+      leyenda_mas_iva: [null],
+      sin_precio: [null],
+      sin_codigo: [null]
     });
     this.empresaData.id = this.empresa;
   }
@@ -77,7 +79,9 @@ export class GeneralComponent implements OnInit {
           qr_afip: (this.configuraciones.qr_afip=="" || this.configuraciones.qr_afip=="undefined" || this.configuraciones.qr_afip==undefined) ? "" : this.configuraciones.qr_afip,
           stock_permitir: (this.configuraciones.stock_permitir=="true" || this.configuraciones.stock_permitir=="1" ) ? 1 : 0,
           stock_descontar: (this.configuraciones.stock_descontar=="true" || this.configuraciones.stock_descontar=="1" ) ? 1 : 0,
-          leyenda_mas_iva: (this.configuraciones.leyenda_mas_iva=="true" || this.configuraciones.leyenda_mas_iva=="1" ) ? 1 : 0
+          leyenda_mas_iva: (this.configuraciones.leyenda_mas_iva=="true" || this.configuraciones.leyenda_mas_iva=="1" ) ? 1 : 0,
+          sin_precio: (this.configuraciones.sin_precio=="true" || this.configuraciones.sin_precio=="1" ) ? 1 : 0,
+          sin_codigo: (this.configuraciones.sin_codigo=="true" || this.configuraciones.sin_codigo=="1" ) ? 1 : 0
 
           // nombre_empresa: this.configuraciones.nombre_empresa,
           // direccion: this.configuraciones.direccion,
@@ -111,6 +115,8 @@ export class GeneralComponent implements OnInit {
     formData.append('stock_permitir',  this.formConfig.get('stock_permitir').value);
     formData.append('stock_descontar',  this.formConfig.get('stock_descontar').value);
     formData.append('leyenda_mas_iva',  this.formConfig.get('leyenda_mas_iva').value);
+    formData.append('sin_codigo',  this.formConfig.get('sin_codigo').value);
+    formData.append('sin_precio',  this.formConfig.get('sin_precio').value);
     this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){
