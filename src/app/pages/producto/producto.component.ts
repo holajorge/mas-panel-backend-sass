@@ -246,13 +246,13 @@ export class ProductoComponent implements OnInit {
   deleteProduct(idProduct){
     let data = {one: true,_id: idProduct,id: this.empresa };
     Swal.fire({
-      title: 'Seguro de eliminar?',
+      title: 'Seguro que quiere eliminar el producto?',
       text: "El producto se eliminará permanentemente",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
       if (result.value) {      
