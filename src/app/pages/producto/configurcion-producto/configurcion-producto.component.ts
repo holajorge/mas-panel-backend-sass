@@ -41,7 +41,6 @@ export class ConfigurcionProductoComponent implements OnInit {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        console.log(this.configuraciones);
         
         if(this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1 !== ''){
           this.addForm.patchValue({caract1: this.configuraciones.caracteristica1});

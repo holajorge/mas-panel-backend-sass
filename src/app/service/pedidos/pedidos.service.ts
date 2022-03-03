@@ -13,7 +13,6 @@ export class PedidosService {
   constructor(private _http:HttpClient) { }
 
   getPedidos(idEmpresa){
-    console.log(idEmpresa);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -25,7 +24,6 @@ export class PedidosService {
     });
   }
   getPedidosCliente(idEmpresa){
-    console.log(idEmpresa);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     

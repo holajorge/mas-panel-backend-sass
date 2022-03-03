@@ -75,7 +75,6 @@ export class AgregarComponent implements OnInit {
     
     this.clienteService.saveComprobante(formData).then( (res:any) =>{    
       Swal.close();
-      console.log(res);
       if(res.response){
         this.formConfig.reset();
         this.form_dataConfig = [];

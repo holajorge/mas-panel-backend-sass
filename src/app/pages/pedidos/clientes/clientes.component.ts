@@ -104,9 +104,7 @@ export class ClientesComponent implements OnInit {
 
   }
   filters(){
-   
-    console.log(this.lista_estadosFiltros);
-    
+       
     const npedido = this.nroPedido;
     const ncliente = this.nroCliente;
     const star = this.dateStar;

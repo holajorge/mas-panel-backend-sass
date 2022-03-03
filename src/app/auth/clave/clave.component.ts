@@ -67,7 +67,6 @@ export class ClaveComponent implements OnInit {
             Swal.fire('Listo','Password modificada con éxito','success');
             this.router.navigate(['login']);
           }
-          // console.log(data);
           
         }
         ,(err)=>{

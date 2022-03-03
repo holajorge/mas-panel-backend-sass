@@ -48,8 +48,6 @@ export class ImportarFotosComponent implements OnInit {
         Swal.fire('error','Error máximo de tamaño permitido es de 300MB, intente de nuevo!')
       }
     }
-
-    console.log(this.addForm.value);
     
   }
   sendfile(){

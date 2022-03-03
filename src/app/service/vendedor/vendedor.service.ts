@@ -15,7 +15,6 @@ export class VendedorService {
 
   constructor(private _http:HttpClient) { }
   getVendedores(idEmpresa){
-    console.log(idEmpresa);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -38,7 +37,6 @@ export class VendedorService {
     return this._http.post(ConfigService.API_ENDPOINT()+'/Backend/createVendedor', vendedor, {headers: header});
   }
   getLog(vendedor){
-    console.log(vendedor);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     

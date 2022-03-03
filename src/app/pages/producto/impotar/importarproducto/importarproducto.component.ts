@@ -112,7 +112,6 @@ export class ImportarproductoComponent implements OnInit {
 
           }
           if (resul.dismiss){
-           // console.log("ya chale");
             
             this.deshacerCambios();
 

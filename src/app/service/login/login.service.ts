@@ -14,7 +14,6 @@ export class LoginService {
     
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
-    console.log(usuario);
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/loginAdmin",usuario,options);
   }
 
@@ -22,7 +21,6 @@ export class LoginService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     this.user.id = localStorage.getItem('usuario');
-    console.log(this.user);
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/authlogin",this.user,options).pipe( map( resp => true), catchError(error => of(false) ) );
     
   }
@@ -31,7 +29,6 @@ export class LoginService {
     let options = { headers: headers };
     let data = {email:email}
 
-    console.log(email);
     return this._http.post(ConfigService.API_ENDPOINT() + "Backend/sendemailEmpresaResetPass",JSON.stringify(data),options).pipe(map(
       res => res,
       error => {

@@ -156,7 +156,6 @@ export class PreciosComponent implements OnInit {
     });
   }
   onSelectItem(modalEditPrecios,row) {
-    console.log(row);
     this.editForm.patchValue({
       id: row.id,
       empresa_id: row.empresa_id,

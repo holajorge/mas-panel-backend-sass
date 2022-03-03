@@ -26,7 +26,6 @@ export class ClienteService {
       map( (res:any) => {
         
         let {flag} = res;
-        console.log(flag);
         return flag;
       }),
       catchError( error => {
@@ -38,10 +37,9 @@ export class ClienteService {
   getSucursalClient(data){
     return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/getSucursalClient",data,this.headers ).pipe(
       map( (res:any) => {
-        console.log(res);
-        
+       
         let {data} = res;
-        console.log(data);
+        
         return data;
       }),
       catchError( error => {

@@ -165,7 +165,6 @@ export class ProductoComponent implements OnInit {
     this.textAddOrEdit = true;
     
     let fotosArray = JSON.parse(row.fotos);
-    console.log(fotosArray);
     if(!fotosArray){
       this.fotos = [];
     }else{
@@ -227,7 +226,6 @@ export class ProductoComponent implements OnInit {
         Swal.showLoading();
         this.productoService.deleteProduct(data).subscribe(
           (res) => {
-            console.log(res);
             
             if(res){
               Swal.fire('listo','Productos eliminado con éxito','success');
@@ -259,7 +257,6 @@ export class ProductoComponent implements OnInit {
         Swal.showLoading();
         this.productoService.deleteProduct(data).subscribe(
           (res) => {
-            console.log(res);
             
             if(res){
               Swal.fire('listo','Producto eliminado con éxito','success');
@@ -292,7 +289,6 @@ export class ProductoComponent implements OnInit {
         Swal.showLoading();
         this.productoService.activeAllProduct(data).subscribe(
           (res) => {
-            console.log(res);
             
             if(res){
               Swal.fire('listo','Se activaron todos los producto con éxito','success');
@@ -325,7 +321,6 @@ export class ProductoComponent implements OnInit {
 
         this.productoService.desactivarAllProduct(data).subscribe(
           (res) => {
-            console.log(res);
             
             if(res){
               Swal.fire('listo','Se desactivaron todos los producto con éxito','success');
@@ -353,7 +348,6 @@ export class ProductoComponent implements OnInit {
           this.bucket = res.productos['empresa'].bucket;
           
           this.rows = res.productos['productos'];
-          console.log(this.rows);
           
           this.rowsTemp = res.productos['productos'];
           this.listaCop = res.productos['productos'];
@@ -394,7 +388,6 @@ export class ProductoComponent implements OnInit {
 
   }
   addNewCarat1(){
-    console.log("entra aqui");
     this.ver_agregar_1 = !this.ver_agregar_1;
     this.addTextCaract =! this.addTextCaract;
     const car1 = this.editForm.get('caracteristica1').value;    
@@ -484,7 +477,6 @@ export class ProductoComponent implements OnInit {
 
           for(var key in d){       
             let buscar = "";    
-            console.log("pasa aqui");    
             if(key === "codigo" || key === "caracteristica1" || key === "caracteristica2" || key === "caracteristica3"){          
 
               if(typeof d[key] ){
@@ -557,12 +549,9 @@ export class ProductoComponent implements OnInit {
   }
   cambia(){
     this.cont++;
-    console.log('input chek esta en:', this.activoCliente);
 
-    console.log('contador vale:', this.cont);
     this.activoCliente = (this.activoCliente == true) ? false : true;
 
-    console.log('check esta en:', this.activoCliente);
     this.filtraCat();
   }
   eliminar(){
@@ -812,7 +801,6 @@ export class ProductoComponent implements OnInit {
 
   }
   onActiveClient(row){    
-    console.log(row);
     Swal.fire({
       title: 'Seguro de habilitar el producto?',
       text: "Habilitar producto!",
@@ -904,7 +892,6 @@ export class ProductoComponent implements OnInit {
   habilitarDestacado(row){
     this.producto.id = row.id;
     this.producto.empresa_id = this.empresa;
-    console.log(row);
     Swal.fire({
       title: 'Seguro de Habilitar producto como Destacado?',
       text: "Destacar producto!",
@@ -934,7 +921,6 @@ export class ProductoComponent implements OnInit {
   deshabilitarDestacado(row){
     this.producto.id = row.id;
     this.producto.empresa_id = this.empresa;
-    console.log(row);
     Swal.fire({
       title: 'Seguro de deshabilitar el producto como destacado?',
       text: "Deshabilitar producto como destacado!",
@@ -966,7 +952,6 @@ export class ProductoComponent implements OnInit {
 
     Swal.showLoading();
     this.productoService.guardarcambios(this.empresa).then( (res:any) =>{    
-      console.log(res);
       if(res.success == true){
         Swal.fire('Listo!','Cambios ejecutados con éxito!', 'success');
       }else{
@@ -978,9 +963,6 @@ export class ProductoComponent implements OnInit {
 
   }
   eliminarFoto(foto, index){
-
-    console.log(index);
-    console.log(this.fotos);
 
     Swal.fire({
       title: 'Seguro de eliminar esta '+foto.nombre+' foto del producto?',

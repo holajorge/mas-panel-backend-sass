@@ -83,9 +83,7 @@ export class RegistracionComponent implements OnInit {
         });
     },
       error => {
-        console.log(JSON.parse(error.error.message));
         var msg_error = JSON.parse(error.error.message)["msg"];
-        console.log(msg_error)
         Swal.fire({
           title: "Hubo un error",
           text: msg_error,

@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
 
             this.loginService.sendemailresetpassword(result.value).subscribe(
               (data:any) => {
-                console.log(data);
+                //console.log(data);
                 if(data.body == true){
                   Swal.fire('Listo!','correo enviado!', 'success')
                 }

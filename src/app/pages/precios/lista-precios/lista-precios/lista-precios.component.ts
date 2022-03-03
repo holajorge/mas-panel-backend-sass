@@ -76,7 +76,6 @@ export class ListaPreciosComponent implements OnInit {
     Swal.showLoading()
 
     this.preciosService.importListaPrecios(this.file_data).then( (res:any) =>{
-      console.log(res.response);
       if(res.success == true){
         Swal.close();
         Swal.fire({
@@ -93,7 +92,6 @@ export class ListaPreciosComponent implements OnInit {
 
           let resul = result;
           if (!(resul.dismiss)){
-            console.log("ya chale");
           }
 
         });

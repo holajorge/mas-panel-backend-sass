@@ -104,7 +104,6 @@ export class ListaComponent implements OnInit {
       modalEdit,
       this.notification
     );
-    console.log(row);
     this.formConfig.setValue({
       cliente:row.nrocliente, 
       fecha:moment(row.fechacomprobante).format('YYYY-MM-DDTkk:mm'), 
@@ -162,7 +161,6 @@ export class ListaComponent implements OnInit {
 
   }
   viewCourseTrainings(row){
-    console.log(row);
     window.open(row.link, "_blank");
   }
   filterTable(event) {
@@ -213,7 +211,6 @@ export class ListaComponent implements OnInit {
     
     this.clienteService.saveComprobante(formData).then( (res:any) =>{    
       Swal.close();
-      console.log(res);
       if(res.response){
         this.formConfig.reset();
         this.form_dataConfig = [];

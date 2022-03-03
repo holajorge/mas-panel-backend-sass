@@ -87,7 +87,7 @@ export class BannerComponent implements OnInit {
       Swal.close();
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        console.log(this.configuraciones);
+        
         this.bucket = res.response.body['bucket'];
         // console.log(this.configuraciones); //return false;
         if(this.configuraciones.escritorios == '' || this.configuraciones.escritorios == undefined){ 
@@ -120,7 +120,7 @@ export class BannerComponent implements OnInit {
         Swal.fire('Error', 'Error inesperado, intente de nuevo','error');        
       }
     )
-    console.log(this.listBanners);
+    
   }
   showPreviewHeader(event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -472,7 +472,7 @@ export class BannerComponent implements OnInit {
       confirmButtonText: 'si, Eliminar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
-      console.log(result);
+      //console.log(result);
 
       setTimeout( () => {
 
@@ -483,7 +483,7 @@ export class BannerComponent implements OnInit {
           
           this.bannerService.eliminarBanner(data).subscribe(
             (flag) => {
-              console.log(flag);
+              //console.log(flag);
               
               if(flag){
                 Swal.fire('Listo', 'Banners Eliminado con exito', 'success');

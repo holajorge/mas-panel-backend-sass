@@ -37,7 +37,6 @@ export class ImportarDescuentoComponent implements OnInit {
   handleFile(event) {
 
     const files:FileList = event.target.files;
-    console.log(files);
     if(files.length > 0){
 
       const file = files[0];
@@ -61,7 +60,6 @@ export class ImportarDescuentoComponent implements OnInit {
     Swal.showLoading()
 
     this.preciosService.importarDescuento(this.file_data).then( (res:any) =>{    
-      console.log(res.response);
       if(res.response.flag){
         Swal.fire('Listo!','Datos registrados con éxito', 'success');
         this.addForm.reset();

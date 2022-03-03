@@ -86,16 +86,13 @@ export class ImportarVendedorComponent implements OnInit {
           confirmButtonText: 'Continuar',
           cancelButtonText: 'Deshacer'
         }).then((result) => {
-          console.log(result);
           let resul = result;
           if (resul.value) {
 
-          //  console.log("APLICAR");
             this.aplayChange();           
 
           }
           if (resul.dismiss){
-          //  console.log("DESHACER");
             this.deshacerCambios();
 
           }

@@ -112,9 +112,7 @@ export class PedidosComponent implements OnInit {
     
     if(val !== ''){
       // filter our data
-      this.temRowDet = this.detalleRow.filter(function (item) {
-        console.log(item);
-        console.log(val);        
+      this.temRowDet = this.detalleRow.filter(function (item) {      
         
         for (var key in item) {
           let hola = (item[key] != null) ? item[key].toLowerCase() : '';
@@ -143,7 +141,6 @@ export class PedidosComponent implements OnInit {
 
     // this.detalleRow = row.pedido_id;
     // this.tempRowDet = row;
-    console.log(row);
     this.notificationModal = this.modalService.show(
       modalEditVendedor,
       this.notification

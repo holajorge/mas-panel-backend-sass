@@ -36,15 +36,12 @@ export class ImportarSucursalesComponent implements OnInit {
   handleFile(event) {
 
     const files:FileList = event.target.files;
-    console.log(files);
     if(files.length > 0){
 
       const file = files[0];
       if((file.size/1048576)<=4){
-        console.log("hola");
         let formData = new FormData();
         let info={id:2,name:'raja'}
-        console.log(this.addForm.get('empresa_id').value);
         formData.append('file', file, file.name);
         formData.append('id',this.empresa);
         
@@ -60,7 +57,6 @@ export class ImportarSucursalesComponent implements OnInit {
     Swal.showLoading()
 
     this.clienteService.importarSucursales(this.file_data).then( (res:any) =>{    
-      console.log(res.response);
       if(res.response.flag){
         Swal.fire('Listo!','Datos registrados con existo', 'success');
         this.addForm.reset();

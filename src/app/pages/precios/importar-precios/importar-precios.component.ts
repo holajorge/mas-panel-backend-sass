@@ -57,7 +57,6 @@ export class ImportarPreciosComponent implements OnInit {
   handleFile(event) {
 
     const files:FileList = event.target.files;
-    console.log(files);
     if(files.length > 0){
 
       const file = files[0];
@@ -65,7 +64,6 @@ export class ImportarPreciosComponent implements OnInit {
         
         let formData = new FormData();
         
-        console.log(this.addForm.get('empresa_id').value);
         formData.append('file', file, file.name);
         formData.append('id',this.addForm.get('empresa_id').value);
         
@@ -81,7 +79,6 @@ export class ImportarPreciosComponent implements OnInit {
     
     Swal.showLoading()
     this.preciosService.importPrecios(this.file_data).then( (res:any) =>{    
-      console.log(res.response);
       if(res.success == true){
         Swal.close();
         Swal.fire({

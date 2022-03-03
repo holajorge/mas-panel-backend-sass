@@ -86,7 +86,6 @@ export class DescuentoListaComponent implements OnInit {
       this.caract1 = res.response['caracteristica1'];
       this.caract2 = res.response['caracteristica2'];
       this.caract3 = res.response['caracteristica3'];
-      console.log(this.caract2);
       
       //this.caract4 = res.response['caracteristica4'];
 
@@ -94,8 +93,6 @@ export class DescuentoListaComponent implements OnInit {
       this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
       this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
       //this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
-
-      console.log(res);
 
     }).catch(err=>{
       Swal.close();
@@ -235,10 +232,6 @@ export class DescuentoListaComponent implements OnInit {
     let select1 = this.addForm.get('caract1').value;
     let select2 = this.addForm.get('caract2').value;
     let select3 = this.addForm.get('caract3').value;
-
-    console.log(select1);
-    console.log(select2);
-    console.log(select3);
     
     if(select1 != '' || select2 != '' || select3 != ''){
       

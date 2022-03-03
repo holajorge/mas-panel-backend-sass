@@ -121,12 +121,10 @@ export class MicuentaComponent implements OnInit {
     const confirm = event.target.value;
 
     if(confirm === this.addForm.get('password').value){
-      console.log('si');
 
       this.addForm.patchValue({confirmpassword: confirm});
       this.addForm.valid;
     }else{
-      console.log('no');
       this.addForm.controls['password'].reset(); 
       this.addForm.controls['confirmpassword'].reset(); 
       this.addForm.invalid;
@@ -202,7 +200,6 @@ export class MicuentaComponent implements OnInit {
 
           this.configService.darBaja(this.empresa).then( (res:any) =>{
 
-            console.log(res);
             if(res.response['body'].flag == true){
               Swal.fire('Listo!','Baja solicitada con éxito!', 'success');
               this.getConfig();

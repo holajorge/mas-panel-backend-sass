@@ -105,7 +105,6 @@ export class VendedorComponent implements OnInit {
     });
   }
   telInputObject(obj) {
-    console.log(obj);
     // obj.setCountry('ar');
     // obj.intlTelInput('setNumber');
 
@@ -240,7 +239,6 @@ export class VendedorComponent implements OnInit {
         
 
     let flag = String(this.newFormVendedor.get('telefono').value).toLowerCase().match(/[+]{1}[0-9]{2}[0-9]{1}[0-9]{2}[0-9]{8}$/)//regex.test(telefono);
-    console.log(flag);
     
     if(!flag){
       Swal.fire('Error', 'Error es necesario agregar correctamente el numero de telefono ejemplo: +5492223334444','error');
@@ -316,9 +314,6 @@ export class VendedorComponent implements OnInit {
 
   desasociar(row){
 
-    console.log(this.empresa);
-    console.log(row);
-
     let datos = {
       empresa_id: this.empresa.id,
       vendedor:this.empresa.vendedor,
@@ -355,9 +350,6 @@ export class VendedorComponent implements OnInit {
       })
   }
   asociar(row){
-
-    console.log(this.empresa);
-    console.log(row);
 
     let datos = {
       empresa_id: this.empresa.id,

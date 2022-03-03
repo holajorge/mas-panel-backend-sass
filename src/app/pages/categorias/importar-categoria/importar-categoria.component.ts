@@ -75,7 +75,7 @@ export class ImportarCategoriaComponent implements OnInit {
     
     Swal.showLoading()
     this.categoriaService.importCategoria(this.file_data).then( (res:any) =>{    
-      console.log(res.response);
+      //console.log(res.response);
       if(res.response){
         Swal.close();
         Swal.fire('Listo!','lista importada con éxito!', 'success')

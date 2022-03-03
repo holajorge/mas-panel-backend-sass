@@ -476,12 +476,9 @@ export class ClienteComponent implements OnInit {
   }
   cambia(){
     this.cont++;
-    console.log('input chek esta en:', this.activoCliente);
 
-    console.log('contador vale:', this.cont);
     this.activoCliente = (this.activoCliente == true) ? false : true;
 
-    console.log('check esta en:', this.activoCliente);
     this.filters();
   }
 
@@ -533,7 +530,6 @@ export class ClienteComponent implements OnInit {
 
     this.clienteService.postInsertClienteSucursal(this.editFormSucursal.value).subscribe( 
       (res) =>{
-        console.log(res);
         
         if(res){
           let data = {
@@ -559,16 +555,15 @@ export class ClienteComponent implements OnInit {
     );
   }
   eliminarSucursal(row){
-    console.log(row);
 
     Swal.fire({
-      title: 'Seguro de Eliminar la Sucursal?',
-      text: "Eliminar sucursal!",
+      title: 'Seguro de eliminar la sucursal?',
+      text: "El dato se borrá permanentemente",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
@@ -586,9 +581,9 @@ export class ClienteComponent implements OnInit {
                 }
                 this.getSucursales(data);
 
-                Swal.fire('Listo!','Sucursal eliminado con existo', 'success');
+                Swal.fire('Listo!','Sucursal eliminada con éxito', 'success');
               }else{
-                Swal.fire('Upps!','hubo un error al eliminar sucursal', 'error')
+                Swal.fire('Upps!','Hubo un error al eliminar sucursal', 'error')
               }
            },
            (error) => {
