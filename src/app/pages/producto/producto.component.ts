@@ -795,6 +795,7 @@ export class ProductoComponent implements OnInit {
     this.textAddOrEdit = false;
     this.fotos = [];
     this.editForm.reset();
+    this.editForm.patchValue({status:true});
  
     this.notificationModal = this.modalService.show(
       modalEditProducto,

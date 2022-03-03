@@ -376,7 +376,8 @@
 <ng-template #modalSucursal >
     <div class="modal-header">    
         <h5 class="modal-title" >lista de sucursales</h5>
-        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" 
+        (click)="notificationModal.hide(); editFormSucursal.reset()">
             <span aria-hidden="true"> × </span>
         </button>
     </div>    
@@ -426,10 +427,41 @@
             [columns]="columnSucursal"
             [limit]="entries != -1 ? entries : undefined" 
             [rows]="dataSucursal" >
+            <ngx-datatable-column prop="nombre_sucursal">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span>Nombre sucursal</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="direccion_sucursal">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span>Direccion</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="telefono_sucursal">
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span>Telefono</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="Acción" >
+                <ng-template let-column="column" ngx-datatable-header-template>
+                    <span>Acciones</span>
+                </ng-template>
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <span>                    
+                        <button class="btn btn-sm btn-danger" (click)='eliminarSucursal(row)' 
+                            title="exportar"><span class="fas fa-trash"></span> 
+                        </button>
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
         </ngx-datatable>
+        
     </div>
     <div class=" modal-footer">        
-        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
+        <button class="btn bg-danger ml-auto text-white" 
+        data-dismiss="modal" type="button" (click)="notificationModal.hide(); editFormSucursal.reset() ">
+         <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}
+        </button>
     </div>
 </ng-template>
                
