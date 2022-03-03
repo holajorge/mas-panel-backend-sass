@@ -108,6 +108,19 @@ export class ClienteService {
       })
     );
   }
+  postEliminarClienteSucursal(data){
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/eliminarSucursalCliente",data,this.headers )
+    .pipe(
+      map( (res:any) => {      
+        let {flag} = res;        
+        return flag;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
+
+  }
   postDeshabilitar(cliente){
     
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});

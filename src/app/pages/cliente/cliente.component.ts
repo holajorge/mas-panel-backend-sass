@@ -57,6 +57,7 @@ export class ClienteComponent implements OnInit {
     {prop:'direccion_sucursal', name: 'Direccion'}, 
     {prop:'telefono_sucursal',name: 'Telefono'} 
   ]
+  cliente:string = '';
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -494,7 +495,9 @@ export class ClienteComponent implements OnInit {
   }
 
   openSucursal(modalSucursal, row){
-  
+
+    this.editFormSucursal.reset();
+    
     this.notificationModal = this.modalService.show(
       modalSucursal,
       this.notification
@@ -503,7 +506,7 @@ export class ClienteComponent implements OnInit {
       cliente: row.nrocliente, 
       empresa: this.empresa.id
     }
-
+    this.cliente = row.nrocliente;
     this.editFormSucursal.controls['cliente'].setValue(row.nrocliente);
     this.getSucursales(data);
 
@@ -538,6 +541,8 @@ export class ClienteComponent implements OnInit {
             empresa: this.empresa.id
           }
           this.editFormSucursal.reset();
+          this.editFormSucursal.controls['cliente'].setValue(this.cliente);
+
           this.getSucursales(data);
           // this.notificationModal.hide();
           Swal.fire('Listo!',res.msg, 'success');
@@ -552,5 +557,50 @@ export class ClienteComponent implements OnInit {
 
       }
     );
+  }
+  eliminarSucursal(row){
+    console.log(row);
+
+    Swal.fire({
+      title: 'Seguro de Eliminar la Sucursal?',
+      text: "Eliminar sucursal!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+         let data = {
+           id: row.id,
+           empresa_id: this.empresa.id
+         };
+         this.clienteService.postEliminarClienteSucursal(data)
+         .subscribe(
+           (res) => {
+              if(res){
+                let data = {
+                  cliente: this.editFormSucursal.get('cliente').value, 
+                  empresa: this.empresa.id
+                }
+                this.getSucursales(data);
+
+                Swal.fire('Listo!','Sucursal eliminado con existo', 'success');
+              }else{
+                Swal.fire('Upps!','hubo un error al eliminar sucursal', 'error')
+              }
+           },
+           (error) => {
+              console.log(error);
+           }
+         )
+        }
+    })
+
+
+  }
+  closeModal(modal){
+    
   }
 }
