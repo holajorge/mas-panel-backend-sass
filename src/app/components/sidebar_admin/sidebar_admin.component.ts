@@ -45,8 +45,8 @@ export const ROUTES: RouteInfo[] = [
     icontype: "ni-map-big text-primary",
     isCollapsed: true,
     children: [
-      { path: "datos", title: "Datos", type: "link" },
-      { path: "pagos", title: "Pagos", type: "link" },
+      { path: "datos", title: "Datos", type: "link" }
+    //  { path: "pagos", title: "Pagos", type: "link" },
     ]
   },
   {
