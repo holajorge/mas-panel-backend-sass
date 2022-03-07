@@ -272,7 +272,7 @@ export class ProductoComponent implements OnInit {
       }
     })
   }
-
+  
   activeAll(){
     let data = {id: this.empresa };
     Swal.fire({
@@ -812,11 +812,17 @@ export class ProductoComponent implements OnInit {
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
-          this.available(row);
+          
+          setTimeout(()=>{
+            this.available(row);
+          },1000)
+          
         }
     })
   }
   available(row){
+    Swal.showLoading();          
+
     this.producto.id = row.id;
     this.producto.empresa_id = this.empresa;
 
@@ -832,7 +838,7 @@ export class ProductoComponent implements OnInit {
     });
 
   }
-
+  
   onDisableActive(row){    
     Swal.fire({
       title: 'Seguro de deshabilitar el producto?',
@@ -845,12 +851,16 @@ export class ProductoComponent implements OnInit {
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
-          this.disable(row);
+          
+          setTimeout(()=>{
+            this.disable(row);
+          },1000)
         }
     })
   }
 
   disable(row){
+    Swal.showLoading();      
     this.producto.id = row.id;
     this.producto.empresa_id = this.empresa;
 
@@ -903,18 +913,20 @@ export class ProductoComponent implements OnInit {
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
-          
-          this.productoService.destacar(this.producto).then( (res:any) =>{    
-            if(res.response == true){
-              this.cambios = true;
-              Swal.fire('Listo!','Producto destacado con éxito!', 'success')
-              this.getProductos();
-            }else{
-              Swal.fire('Upps!','Error al habilitar producto como destacado, intente nuevamente!', 'error')
-            }
-          }).catch(err=>{
-            console.log(err);
-          });
+          setTimeout(()=>{
+            Swal.showLoading();      
+            this.productoService.destacar(this.producto).then( (res:any) =>{    
+              if(res.response == true){
+                this.cambios = true;
+                Swal.fire('Listo!','Producto destacado con éxito!', 'success')
+                this.getProductos();
+              }else{
+                Swal.fire('Upps!','Error al habilitar producto como destacado, intente nuevamente!', 'error')
+              }
+            }).catch(err=>{
+              console.log(err);
+            });
+          },1000);
         }
     }) 
   }
@@ -932,18 +944,20 @@ export class ProductoComponent implements OnInit {
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
-          
-          this.productoService.deshalitarDestacado(this.producto).then( (res:any) =>{    
-            if(res.response == true){
-              this.cambios = true;
-              Swal.fire('Listo!','Producto no destacado con éxito!', 'success')
-              this.getProductos();
-            }else{
-              Swal.fire('Upps!','Error al deshabilitar producto como no destacado, intente nuevamente!', 'error')
-            }
-          }).catch(err=>{
-            console.log(err);
-          });
+          setTimeout(()=>{
+            Swal.showLoading();      
+            this.productoService.deshalitarDestacado(this.producto).then( (res:any) =>{    
+              if(res.response == true){
+                this.cambios = true;
+                Swal.fire('Listo!','Producto no destacado con éxito!', 'success')
+                this.getProductos();
+              }else{
+                Swal.fire('Upps!','Error al deshabilitar producto como no destacado, intente nuevamente!', 'error')
+              }
+            }).catch(err=>{
+              console.log(err);
+            });
+          },1000);
         }
     })
     
