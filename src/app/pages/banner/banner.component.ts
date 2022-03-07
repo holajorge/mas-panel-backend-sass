@@ -502,5 +502,24 @@ export class BannerComponent implements OnInit {
       }, 1000);
     }) 
   }
- 
+  openImg(imgName){
+    console.log(imgName);
+    let ruta = '';
+    if(imgName != ''){
+      ruta = `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${imgName}`;
+      
+    }else{
+      ruta = '/assets/img/pordefecto.png';
+    }
+
+    Swal.fire({
+      title: 'Sweet!',
+      // text: 'Modal with a custom image.',
+      imageUrl: ruta,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+    })
+    
+  }
 }

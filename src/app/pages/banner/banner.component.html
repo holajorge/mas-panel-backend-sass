@@ -151,22 +151,22 @@
                     [rows]="listBanners" >
                         <ngx-datatable-column name="rutaescritorio" headerClass="w100">
                             <ng-template let-column="column" ngx-datatable-header-template >
-                                <span>Ruta Escritorio</span>
+                                <span>Escritorio</span>
                             </ng-template>
                             <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
                                 <span class="w100">
-                                    <img  class="avatar cursor border-0"
+                                    <img  class="avatar cursor border-0" (click)="openImg(row.rutaescritorio)"
                                     [src]="row.rutaescritorio | bannersImg:bucket" [alt]="row.rutaescritorio">
                                 </span>
                             </ng-template>
                         </ngx-datatable-column>
                         <ngx-datatable-column name="rutamovil" >
                             <ng-template let-column="column" ngx-datatable-header-template>
-                                <span>ruta movil</span>
+                                <span>Celular</span>
                             </ng-template>
                             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                                 <span>
-                                    <img  class="avatar cursor border-0"
+                                    <img  class="avatar cursor border-0" (click)="openImg(row.rutamovil)"
                                     [src]="row.rutamovil | bannersImg:bucket" [alt]="row.rutamovil">
                                 </span>
                             </ng-template>

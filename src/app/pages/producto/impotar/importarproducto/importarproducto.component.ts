@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 // import Swal from 'sweetalert2/dist/sweetalert2.js'
 // import 'sweetalert2/src/sweetalert2.scss'
 import {TranslateService} from '@ngx-translate/core';
@@ -40,7 +41,7 @@ export class ImportarproductoComponent implements OnInit {
 
     }
   ];
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder, 
+  constructor(public translate: TranslateService,private formBuilder: FormBuilder, private router: Router,
     public productoService:ProductoService,  public onboardingService:WalkthroughService) {
 
     this.translate.use('es');
@@ -149,6 +150,7 @@ export class ImportarproductoComponent implements OnInit {
       if(res.flag == true){
        Swal.fire('Listo!','Se ejectuaron los cambios!', 'success')
         this.getProductos();
+        this.router.navigate(['/admin/producto/productos']);
 
       }else{
         Swal.fire('Error de comunicación, intente de nuevo!', 'error')

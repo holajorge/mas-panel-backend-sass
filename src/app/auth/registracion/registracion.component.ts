@@ -21,6 +21,7 @@ export class RegistracionComponent implements OnInit {
   errorForm = false;
   flag:boolean = false;
   fieldTextType: boolean;
+  flagSend:boolean = false;
   constructor(private registracionService:RegistracionService, private router: Router, public translate: TranslateService, private loginService:LoginService, public onboardingService:WalkthroughService) {
     
     this.translate.use('es');
@@ -52,16 +53,22 @@ export class RegistracionComponent implements OnInit {
         });
         return;
     }
-        
+    this.disableButton = true;
+    
+    Swal.showLoading();
+
     this.registracionService.save(form.value).subscribe((data:any) => {
         var data_login = {"usuario": form.value["email"], "password": form.value["password"]}
         this.loginService.auth(data_login).subscribe((data:any) => {
+          this.disableButton = false;
           if(data.body.perfil != null){
             localStorage.setItem('usuario', data.body.id);
             form.reset();
-        //    this.onboardingService.turn_on();
-        //    this.onboardingService.reset();
+            Swal.close();
+            //    this.onboardingService.turn_on();
+            //    this.onboardingService.reset();
             this.router.navigate(['/admin/configuraciones/empresa']);
+            
            }else{
             Swal.fire({
               title: "Hubo un error",
@@ -83,6 +90,7 @@ export class RegistracionComponent implements OnInit {
         });
     },
       error => {
+        this.disableButton = false;
         var msg_error = JSON.parse(error.error.message)["msg"];
         Swal.fire({
           title: "Hubo un error",
