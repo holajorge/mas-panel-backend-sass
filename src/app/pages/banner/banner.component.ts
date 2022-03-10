@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { ConfigService } from 'src/app/service/config/config.service';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { Banner } from 'src/app/models/banner.model';
+import 'sweetalert2/src/sweetalert2.scss'
 
 @Component({
   selector: 'app-banner',
@@ -47,6 +48,7 @@ export class BannerComponent implements OnInit {
   show:boolean = false;
   flagBanners:boolean = false;
   flagBannersAviso:boolean = false;
+  ruta:string = '';
   constructor(
     public translate: TranslateService, public fb: FormBuilder,
     public bannerService: BannerService,
@@ -502,24 +504,30 @@ export class BannerComponent implements OnInit {
       }, 1000);
     }) 
   }
-  openImg(imgName){
+  openImg(modalBannerImg,imgName){
     console.log(imgName);
-    let ruta = '';
+    this.notificationModal = this.modalService.show(
+      modalBannerImg,
+      this.notification
+    );
     if(imgName != ''){
-      ruta = `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${imgName}`;
+
+      this.ruta = `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${this.bucket}/fotos/${imgName}`;
       
     }else{
-      ruta = '/assets/img/pordefecto.png';
+      this.ruta = '/assets/img/pordefecto.png';
+
+      // Swal.fire({
+      //   // title: 'Sweet!',
+      //   // text: 'Modal with a custom image.',
+      //   imageUrl: this.ruta,
+      //   imageWidth: 340,
+      //   imageHeight: 166,
+      //   imageAlt: 'Custom image',
+      // })
     }
 
-    Swal.fire({
-      title: 'Sweet!',
-      // text: 'Modal with a custom image.',
-      imageUrl: ruta,
-      imageWidth: 400,
-      imageHeight: 200,
-      imageAlt: 'Custom image',
-    })
+    
     
   }
 }
