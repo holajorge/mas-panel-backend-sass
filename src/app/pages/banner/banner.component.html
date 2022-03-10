@@ -155,7 +155,7 @@
                             </ng-template>
                             <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
                                 <span class="w100">
-                                    <img  class="avatar cursor border-0" (click)="openImg(row.rutaescritorio)"
+                                    <img  class="avatar cursor border-0" (click)="openImg(modalBannerImg,row.rutaescritorio)"
                                     [src]="row.rutaescritorio | bannersImg:bucket" [alt]="row.rutaescritorio">
                                 </span>
                             </ng-template>
@@ -166,7 +166,7 @@
                             </ng-template>
                             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                                 <span>
-                                    <img  class="avatar cursor border-0" (click)="openImg(row.rutamovil)"
+                                    <img  class="avatar cursor border-0" (click)="openImg(modalBannerImg,row.rutamovil)"
                                     [src]="row.rutamovil | bannersImg:bucket" [alt]="row.rutamovil">
                                 </span>
                             </ng-template>
@@ -269,5 +269,27 @@
         <button *ngIf="!flagAdd" class="btn btn-success" [disabled]='bannerForm.invalid'  (click)="updateBanner()">{{ 'banner.update' | translate}}</button>
         <button *ngIf="flagAdd" class="btn btn-success" [disabled]='bannerForm.invalid' (click)="addBanner()">{{ 'banner.save' | translate}}</button>
         <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'banner.cancel' | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #modalBannerImg >
+    <div class="modal-header">    
+        <h5 class="modal-title" >Banners</h5>
+        
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    <div class="modal-body ">    
+        <div class="row" style="display: flex;">                      
+            <div class="col-md-12" >                
+                <div class="imagePreview" >
+                    <img class="ard-img-top" [src]="ruta" alt="movil" style="width:100%;">
+                </div>                        
+            </div>
+        </div>   
+    </div>
+    <div class=" modal-footer">
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i> Cerrar</button>
     </div>
 </ng-template>
