@@ -261,6 +261,7 @@ export class ClienteComponent implements OnInit {
 
     this.btnvisibility = false;
     this.btnvisibilityIn = true;
+    this.editForm.get('nrocliente').disable();
 
   }
   
@@ -274,6 +275,9 @@ export class ClienteComponent implements OnInit {
 
     this.btnvisibility = true;
     this.btnvisibilityIn = false;
+
+    this.editForm.get('nrocliente').enable();
+
 
   }
   updateCliente(){
