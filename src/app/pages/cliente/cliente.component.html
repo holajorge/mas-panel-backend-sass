@@ -59,7 +59,7 @@
             </div>
             <div class="dataTables_wrapper py-4">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-10">
                     <div class="dataTables_length" id="datatable_length">
                         <label class="form-control-label"> {{ 'cliente.tabla.mostrar' | translate}}
                         <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
@@ -72,7 +72,10 @@
                         </label>
                     </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-2">
+                        <a class="btn btn-sm btn-warning" href="javascript:void(0)" (click)="invitarTodos()"> Invitar a Todos 
+                            <span class="fas fa-envelope-square"></span>
+                        </a>
                         <div id="datatable_filter" class="dataTables_filter">
                             <label class="form-control-label"><input type="hidden" class="form-control form-control-sm" placeholder="{{ 'cliente.tabla.buscar' | translate}}" aria-controls="datatable" (keyup)="filterTable($event)"/></label>
                         </div>
@@ -118,6 +121,12 @@
                         </ng-template>
                         <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                             <span>
+
+                                <button class="btn btn-sm btn-primary"  
+                                    (click)='invitarCliente(row)' title="invitacion">
+                                    <span class="fas fa-envelope-square"></span>  
+                                </button>
+
                                 <button class="btn btn-sm btn-neutral"  
                                     (click)='openSucursal(modalSucursal,row)' title="sucursales">
                                     <span class="fas fa-store"></span>  
@@ -229,7 +238,8 @@
 
 <ng-template #modalEdit >
     <div class="modal-header">    
-        <h5 class="modal-title" >{{ 'cliente.formClient.edit' | translate}}</h5>
+        <h5 *ngIf="!flagNew" class="modal-title" >{{ 'cliente.formClient.edit' | translate}}</h5>
+        <h5 *ngIf="flagNew" class="modal-title" >{{ 'cliente.formClient.new' | translate}}</h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
             <span aria-hidden="true"> × </span>
         </button>
@@ -361,8 +371,16 @@
                           [multiple]="false" name="lista" id="lista">
                   </ng-select>
                 </div>
-
             </div>
+            <div *ngIf="flagSendEmail" class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label class="form-control-label" for="send">Enviar invitacio:</label>
+                        <input type="checkbox" formControlName="send" name="send" class="form-control" id="send">
+                    </div>
+                </div>
+            </div>
+
         </form>
     </div>
     <div class=" modal-footer">

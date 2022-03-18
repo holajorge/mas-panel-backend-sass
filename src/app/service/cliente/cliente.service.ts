@@ -33,6 +33,31 @@ export class ClienteService {
       })
     );
   }
+  sendEmailInvitacion(data){
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/sendEmailUser",data,this.headers ).pipe(
+      map( (res:any) => {
+        
+        let {flag} = res;
+        return flag;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
+  }
+  sendEmailInvitacionTodos(data){
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/sendEmailTodos",data,this.headers ).pipe(
+      map( (res:any) => {
+        
+        let {flag} = res;
+        return flag;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
+  }
+
 
   getSucursalClient(data){
     return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/getSucursalClient",data,this.headers ).pipe(
