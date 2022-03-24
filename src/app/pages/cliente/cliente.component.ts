@@ -96,7 +96,7 @@ export class ClienteComponent implements OnInit {
     this.editFormSucursal = this.formBuilder.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
-      telefono: ['', Validators.required],
+      telefono: [''],
       cliente: ['', Validators.required],
       empresa_id: [''],
       
