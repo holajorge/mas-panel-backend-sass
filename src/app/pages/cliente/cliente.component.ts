@@ -58,6 +58,8 @@ export class ClienteComponent implements OnInit {
     {prop:'telefono_sucursal',name: 'Telefono'} 
   ]
   cliente:string = '';
+  flagSendEmail:boolean = false;
+  flagNew:boolean = false;
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -88,7 +90,8 @@ export class ClienteComponent implements OnInit {
       localidad: [''],
       direccion: [''],
       lista: [''],
-      nroclientLast:[''] 
+      nroclientLast:[''] ,
+      send:[''],
     });
     this.editFormSucursal = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -142,7 +145,88 @@ export class ClienteComponent implements OnInit {
       }
     )
   }
+  invitarCliente(row){
+    console.log(row);    
+    Swal.fire({
+      title: `Seguro de enviar invitacion al cliente ${row.nombre} ?`,
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Enviar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+
+          setTimeout( ()=>{
+              this. sendEmail(row);
+          } ,1000);
+          
+        }
+    })
+  }
+  sendEmail(row){
+    Swal.showLoading();
+
+    this.clienteService.sendEmailInvitacion({empresa:row.empresa_id, nroCliente:row.nrocliente}).subscribe(
+      (res) => {
+        console.log(res);
+        if(res){
+          Swal.fire('Listo!','Invitacion enviada con éxito!', 'success')
+        }else{
+          Swal.fire('Error!','no fue posible enviar la invitacion con exito, intente de nuevo!', 'error')
+
+        }
+      },
+      (error)=> {
+        console.log(error);
+        Swal.fire('Upps!','Error de comunicion, intente nuevamente!', 'error')
+
+      }
+    );
+      
+  }
+  invitarTodos(){
+    Swal.fire({
+      title: `Seguro de enviar invitacion a todos los clientes?`,
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Enviar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+
+          setTimeout( ()=>{
+            this.sendEmailTodos()
+          } ,1000);
+          
+        }
+    })
   
+  }
+  sendEmailTodos(){
+    Swal.showLoading();
+
+    this.clienteService.sendEmailInvitacionTodos({empresa:this.empresa.id }).subscribe(
+      (res) => {
+        console.log(res);
+        if(res){
+          Swal.fire('Listo!','Invitaciones enviada con éxito!', 'success')
+        }else{
+          Swal.fire('Error!','no fue posible enviar las invitaciones con exito, intente de nuevo!', 'error')
+
+        }
+      },
+      (error)=> {
+        console.log(error);
+        Swal.fire('Upps!','Error de comunicion, intente nuevamente!', 'error')
+
+      }
+    );
+  }
+
   entriesChange($event) {
     this.entries = $event.target.value;
   }
@@ -233,6 +317,8 @@ export class ClienteComponent implements OnInit {
     }    
   }
   onSelectItem(modalEdit,row) {
+    this.flagNew = false;
+
     this.empresa.cliente = row.nrocliente;
     this.notificationModal = this.modalService.show(
       modalEdit,
@@ -262,10 +348,12 @@ export class ClienteComponent implements OnInit {
     this.btnvisibility = false;
     this.btnvisibilityIn = true;
     this.editForm.get('nrocliente').disable();
+    this.flagSendEmail = false;
 
   }
   
   addCliente(modalEdit){
+    this.flagNew = true;
     this.editForm.reset();
 
     this.notificationModal = this.modalService.show(
@@ -278,10 +366,11 @@ export class ClienteComponent implements OnInit {
 
     this.editForm.get('nrocliente').enable();
 
+    this.flagSendEmail = true;
 
   }
   updateCliente(){
-    
+    Swal.showLoading();
     this.clienteService.postCliente(this.editForm.value).then( (res:any) =>{
       if(res.response == true){
         this.editForm.reset();
@@ -296,12 +385,15 @@ export class ClienteComponent implements OnInit {
 
     }).catch(err=>{
       console.log(err);
+      Swal.fire('error, intente nuevamente', 'error')
+
     });
 
   }
   insertNewClient(){
 
     this.editForm.controls['empresa_id'].setValue(this.empresa);
+    Swal.showLoading();
 
     this.clienteService.postInsertCliente(this.editForm.value).subscribe( 
       (res) =>{
@@ -317,6 +409,7 @@ export class ClienteComponent implements OnInit {
 
           Swal.fire('Upps!',res.msg, 'error')
         }
+        // Swal.close();
       },
       (error) => {
         console.log(error);
