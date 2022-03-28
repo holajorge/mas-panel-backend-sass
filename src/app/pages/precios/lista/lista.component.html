@@ -1,0 +1,94 @@
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2  d-inline-block mb-0">Lista Precios</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-success" href="javascript:void(0)" (click)="addComprobante(modalEdit)" > Nuevo Comprobante </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+            <div class=" card">
+              <div class=" card-header">
+                <h3 class="catd-text">Filtros</h3>
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="from-group">
+                            <label class="form-control-label">Nombre de lista</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="listaFilter"
+                                placeholder="Nombre de lista" aria-controls="datatable" (keyup)="filterTable()"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                      <div class="from-group">
+                          <label class="form-control-label">Código de producto</label>
+                          <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoProductFilter"
+                              placeholder="Código de producto" aria-controls="datatable" (keyup)="filterTable()"/>
+                      </div>
+                  </div>
+
+                    <div class="col-md-12 mt-3">
+                        <button class="btn btn-sm btn-primary" (click)="eliminar()">limpiar búsqueda</button>
+                    </div>
+                </div>
+            </div>
+
+                <div class="dataTables_wrapper py-4">
+                    
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                          <div class="dataTables_length" id="datatable_length">
+                              <label class="form-control-label"> mostrar
+                              <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                                  <option value="10" [selected]="entries == 10">10</option>
+                                  <option value="25" [selected]="entries == 25">25</option>
+                                  <option value="50" [selected]="entries == 50">50</option>
+                                  <option value="-1" [selected]="entries == -1">All</option>
+                              </select>
+                              entradas
+                              </label>
+                          </div>
+                        </div>
+                    </div>
+
+                    <ngx-datatable class="bootstrap selection-cell" 
+                      [columnMode]="'force'" [headerHeight]="50" 
+                      [footerHeight]="50" [rowHeight]="70" 
+                      [limit]="entries != -1 ? entries : undefined" [rows]="listaPrecios" > 
+                      <ngx-datatable-column name="lista">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span> Lista</span>
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="codigoProducto">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span> Producto</span>
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="precio">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span> Precio</span>
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="precioOferta">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span> Precio oferta</span>
+                        </ng-template>
+                      </ngx-datatable-column>
+
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
