@@ -265,7 +265,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-control-label" for="precio">{{ 'producto.formEdit.precio' | translate }}  ( * requerido ):</label>
-                                <input type="text" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
+                                <input type="number" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
                                 <div class="alert  alert-danger" *ngIf="editForm.get('precio').hasError('required') && editForm.get('precio').touched">  
                                     {{ 'producto.formEdit.precio' | translate }} es obrigatório
                                 </div>  
@@ -329,13 +329,13 @@
                                 <input *ngIf="addTextCaract"  type="text" 
                                     formControlName="caracteristica1" placeholder="{{ 'producto.formEdit.caracteristica' | translate }} 1" 
                                     name="caracteristica1" class="form-control" id="caracteristica1">
-                                    <button *ngIf="!ver_agregar_1" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewCarat1()"> 
-                                        <span class="fas fa-plus"></span> Agregar nueva
-                                    </button>
-                                   
-                                    <button *ngIf="ver_agregar_1" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewCarat1()"> 
-                                        <span class="fas fa-times"></span> Cancelar
-                                    </button>
+                                <button *ngIf="!ver_agregar_1" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewCarat1()"> 
+                                    <span class="fas fa-plus"></span> Agregar nueva
+                                </button>
+                                
+                                <button *ngIf="ver_agregar_1" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewCarat1()"> 
+                                    <span class="fas fa-times"></span> Cancelar
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-3 col-xs-12">

@@ -388,7 +388,7 @@ export class ProductoComponent implements OnInit {
 
   }
   addNewCarat1(){
-    this.ver_agregar_1 = !this.ver_agregar_1;
+    this.ver_agregar_1 =! this.ver_agregar_1;
     this.addTextCaract =! this.addTextCaract;
     const car1 = this.editForm.get('caracteristica1').value;    
     if(typeof  car1){
@@ -657,7 +657,8 @@ export class ProductoComponent implements OnInit {
     formData.append('titulo',this.editForm.get('titulo').value);
     formData.append('multiplo',this.editForm.get('multiplo').value);
     Swal.showLoading();
-    this.productoService.updateProducto(formData).then( (res:any) =>{    
+    this.productoService.updateProducto(formData).then( (res:any) =>{ 
+
       if(res.success == true){
         this.notificationModal.hide();
         this.editForm.reset();
@@ -665,9 +666,8 @@ export class ProductoComponent implements OnInit {
         this.myFiles = [];
         
         Swal.fire('Listo!','Producto editado con éxito!', 'success')
-        this.addTextCaract = false;
-        this.addTextCaract2 = false;
-        this.addTextCaract3 = false;
+        
+        this.reiniciarCaracteristicas();
 
       }else{
         Swal.fire('Editar Error, intente nuevamente', 'error')
@@ -698,6 +698,17 @@ export class ProductoComponent implements OnInit {
     this.myFiles = [];
     this.notificationModal.hide();
   }
+  reiniciarCaracteristicas(){
+    this.addTextCaract = false;
+    this.addTextCaract2 = false;
+    this.addTextCaract3 = false;
+    this.addTextCaract4 = false;
+
+    this.ver_agregar_1 = false;
+    this.ver_agregar_2 = false;
+    this.ver_agregar_3 = false;
+    this.ver_agregar_4 = false;
+  }
   insertProduct(){   
     
     let formData = new FormData();
@@ -717,7 +728,7 @@ export class ProductoComponent implements OnInit {
     let caract1 = this.editForm.get('caracteristica1').value;
     let caract2 = this.editForm.get('caracteristica2').value;
     let caract3 = this.editForm.get('caracteristica3').value;
-    let caract4 = this.editForm.get('caracteristica3').value;
+    let caract4 = this.editForm.get('caracteristica4').value;
 
     let ca1 = "";
     let ca2 = "";
@@ -753,7 +764,9 @@ export class ProductoComponent implements OnInit {
     formData.append('multiplo',this.editForm.get('multiplo').value);
 
     Swal.showLoading();
-    this.productoService.createProducto(formData).then( (res:any) =>{    
+    this.productoService.createProducto(formData).then( (res:any) =>{  
+      
+
       if(res.productos.body.usuario == 2){
         Swal.fire('Error', 'Código de producto ya existe', 'error');      
       }else if(res.productos.body.usuario == 1){
@@ -763,7 +776,9 @@ export class ProductoComponent implements OnInit {
         this.filtraCat();
         this.myFiles = [];
         Swal.fire('Listo!','Producto creado con éxito!', 'success')
-      }else{
+        this.reiniciarCaracteristicas();
+
+      }else{        
         Swal.fire('Editar Erro, intente nuevamente', 'error')
       }
       
