@@ -54,7 +54,7 @@ export class PedidosComponent implements OnInit {
   getPedidos(){ 
 
     this.pedidosService.getPedidos(this.empresa).then( (res:any) =>{    
-      console.log(res.pedidos);
+      ///console.log(res.pedidos);
       
       
       if(res.pedidos.length > 0){

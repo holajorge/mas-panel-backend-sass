@@ -27,6 +27,8 @@ export class ClientesComponent implements OnInit {
   temRowDet:any = [];
   temp = [];
   detalleRow = [];
+  detalleSucursal;
+  detalleId;
   tempRow = [];
   tempRowDet:any = [];
   loadingIndicator = true;
@@ -156,7 +158,8 @@ export class ClientesComponent implements OnInit {
     this.temp = this.tempRow;
   }
   dataExcelClientes(row){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id, "_blank");
+    
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id+"&token="+this.empresa.id, "_blank");
   }
   entriesChange($event) {
     this.entries = $event.target.value;
@@ -214,9 +217,13 @@ export class ClientesComponent implements OnInit {
     this.detalleRow = [];
     this.empresa.pedido = row.id;
     Swal.showLoading();
+
+    this.detalleId = row.numeroInterno;
     this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{    
-      this.detalleRow = res.detalles;
-      this.tempRowDet = res.detalles;
+
+      this.detalleSucursal = res.detalles.sucursal;
+      this.detalleRow = res.detalles.detalle;
+      this.tempRowDet = res.detalles.detalle;
       this.loadingIndicator = true;
 
       this.detalleRow.forEach((row) => {
@@ -238,7 +245,7 @@ export class ClientesComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
-    console.log(row);
+    
     this.notificationModal = this.modalService.show(
       modalEditVendedor,
       this.notification

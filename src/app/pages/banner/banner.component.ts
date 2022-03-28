@@ -465,13 +465,13 @@ export class BannerComponent implements OnInit {
   }
   deleteBanner(id){
     Swal.fire({
-      title: 'Seguro de eliminar los Banners?',
-      text: "Eliminar Banners!",
+      title: 'Confirma que quiere eliminar el banner?',
+      text: "",
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
       //console.log(result);
@@ -488,16 +488,16 @@ export class BannerComponent implements OnInit {
               //console.log(flag);
               
               if(flag){
-                Swal.fire('Listo', 'Banners Eliminado con exito', 'success');
+                Swal.fire('Listo', 'Banner eliminado con éxito', 'success');
                 this.getDataBanners();
                 this.notificationModal.hide();
               }else{
-                Swal.fire('error', 'No fue posible Eliminar los Banners, porfavor intente de nuevo', 'error');          
+                Swal.fire('error', 'No fue posible eliminar el Banner, por favor intente de nuevo', 'error');          
               }
             },
             (error)=> {
               console.log(error);        
-              Swal.fire('error', 'No fue posible Eliminar los Banners, porfavor intente de nuevo', 'error');          
+              Swal.fire('error', 'No fue posible eliminar el Banner, por favor intente de nuevo', 'error');          
             }
           )
         }

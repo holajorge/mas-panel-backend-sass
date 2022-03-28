@@ -155,7 +155,7 @@
                             </ng-template>
                             <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
                                 <span class="w100">
-                                    <img  class="avatar cursor border-0" (click)="openImg(modalBannerImg,row.rutaescritorio)"
+                                    <img  class="avatar cursor border-0 rounded-0" (click)="openImg(modalBannerImg,row.rutaescritorio)"
                                     [src]="row.rutaescritorio | bannersImg:bucket" [alt]="row.rutaescritorio">
                                 </span>
                             </ng-template>
@@ -166,7 +166,7 @@
                             </ng-template>
                             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                                 <span>
-                                    <img  class="avatar cursor border-0" (click)="openImg(modalBannerImg,row.rutamovil)"
+                                    <img  class="avatar cursor border-0 rounded-0" (click)="openImg(modalBannerImg,row.rutamovil)"
                                     [src]="row.rutamovil | bannersImg:bucket" [alt]="row.rutamovil">
                                 </span>
                             </ng-template>
