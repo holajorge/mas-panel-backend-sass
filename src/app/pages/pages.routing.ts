@@ -21,6 +21,7 @@ import { GeneralComponent } from './configuraciones/general/general.component';
 import { ClientesComponent } from './pedidos/clientes/clientes.component';
 import { AgregarComponent } from './cliente/agregar/agregar.component'
 import { ListaComponent } from './cliente/lista/lista.component'
+import { ListaPComponent } from './precios/lista/listap.component'
 import { DescuentoComponent } from './precios/descuento/descuento.component';
 import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lista.component';
 import { CategoriasComponent } from './categorias/categorias.component';
@@ -71,12 +72,12 @@ const routes:Routes = [
             {path: 'producto/importarproducto',  component: ImportarproductoComponent},
             {path: 'producto/importarfotos',  component: ImportarFotosComponent},
             //precios
-            {path: 'precios/lista',  component: PreciosComponent},
+            {path: 'precios/lista-precios',  component: ListaPComponent},
             {path: 'precios/importar-precios',  component: ImportarPreciosComponent},
             {path: 'precios/importar-descuentos',  component: ImportarDescuentoComponent},
             {path: 'precios/descuento-categorias',  component: DescuentoComponent},
             {path: 'precios/descuento-lista',  component: DescuentoListaComponent},
-            {path: 'precios/lista-precios',  component: ListaPreciosComponent},
+            {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent},
 
             //tarea
             {path: 'tareas', component:TareasComponent},

@@ -96,7 +96,7 @@ export class ClienteComponent implements OnInit {
     this.editFormSucursal = this.formBuilder.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
-      telefono: ['', Validators.required],
+      telefono: [''],
       cliente: ['', Validators.required],
       empresa_id: [''],
       
@@ -148,12 +148,12 @@ export class ClienteComponent implements OnInit {
   invitarCliente(row){
     console.log(row);    
     Swal.fire({
-      title: `Seguro de enviar invitacion al cliente ${row.nombre} ?`,
+      title: `Seguro de enviar invitación al cliente ${row.nombre} ?`,
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Enviar!',
+      confirmButtonText: 'Si, enviar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
@@ -172,7 +172,7 @@ export class ClienteComponent implements OnInit {
       (res) => {
         console.log(res);
         if(res){
-          Swal.fire('Listo!','Invitacion enviada con éxito!', 'success')
+          Swal.fire('Listo!','Invitación enviada con éxito!', 'success')
         }else{
           Swal.fire('Error!','no fue posible enviar la invitacion con exito, intente de nuevo!', 'error')
 
@@ -188,12 +188,12 @@ export class ClienteComponent implements OnInit {
   }
   invitarTodos(){
     Swal.fire({
-      title: `Seguro de enviar invitacion a todos los clientes?`,
+      title: `Seguro de enviar una invitación a todos los clientes?`,
       type: 'warning',
       showCancelButton: true,
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Enviar!',
+      confirmButtonText: 'Si, enviar!',
       cancelButtonClass: 'btn btn-secondary'
     }).then((result) => {
         if (result.value) {
@@ -213,7 +213,7 @@ export class ClienteComponent implements OnInit {
       (res) => {
         console.log(res);
         if(res){
-          Swal.fire('Listo!','Invitaciones enviada con éxito!', 'success')
+          Swal.fire('Listo!','Invitaciones enviadas con éxito!', 'success')
         }else{
           Swal.fire('Error!','no fue posible enviar las invitaciones con exito, intente de nuevo!', 'error')
 
