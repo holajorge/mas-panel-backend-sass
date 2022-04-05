@@ -78,7 +78,7 @@ export class ClienteComponent implements OnInit {
       empresa_id:  this.empresa.id,
       nrocliente: ['', Validators.required],
       nombre: ['', Validators.required],
-      email: ['', Validators.required],
+      email: [''],
       usuario: ['', Validators.required],
       clave: ['', Validators.required],
       descuento_general: [''],
