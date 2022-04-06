@@ -379,7 +379,30 @@
                         <input type="checkbox" formControlName="send" name="send" class="form-control d-inline-block  check-invitacion" id="send">
                     </div>
                 </div>
+                
             </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label class="form-control-label" for="caracteristica1">Forma de pago:</label> 
+                        
+                        <ng-select *ngIf="!flagPago" formControlName="pago"
+                            [items]="arrayPagos" 
+                            bindLabel="nombre">
+                        </ng-select>
+                        <input *ngIf="flagPago"  type="text" formControlName="pago" placeholder="Forma de pago" class="form-control" id="pago">
+                        <button *ngIf="!ver_agregar_pago" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewPago()"> 
+                            <span class="fas fa-plus"></span> Agregar nueva
+                        </button>
+                        
+                        <button *ngIf="ver_agregar_pago" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewPago()"> 
+                            <span class="fas fa-times"></span> Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
 
         </form>
     </div>
