@@ -131,6 +131,17 @@ export class ClienteService {
       })
     );
   }
+  postEditClienteSucursal(newSucursal){
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/editSucursal",newSucursal,this.headers ).pipe(
+      map( (res:any) => {      
+        let {flag} = res;        
+        return flag;
+      }),
+      catchError( error => {
+        return of(false)
+      })
+    );
+  }
   postEliminarClienteSucursal(data){
     return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/eliminarSucursalCliente",data,this.headers )
     .pipe(

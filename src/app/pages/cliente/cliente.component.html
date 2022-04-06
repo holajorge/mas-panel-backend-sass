@@ -432,7 +432,8 @@
 
                 <div class="col-md-4 float-right">
                     <div class="form-group">
-                        <button class="btn btn-primary" [disabled]='editFormSucursal.invalid' type="button"  (click)="createSucursal()">Guardar</button> 
+                        <button *ngIf="!flagEdit" class="btn btn-primary" [disabled]='editFormSucursal.invalid' type="button"  (click)="createSucursal()">Guardar</button> 
+                        <button *ngIf="flagEdit" class="btn btn-primary" [disabled]='editFormSucursal.invalid' type="button"  (click)="saveEditSucursal()">Editar</button> 
                     </div>
                 </div>
             </div>
@@ -469,6 +470,11 @@
                         <button class="btn btn-sm btn-danger" (click)='eliminarSucursal(row)' 
                             title="exportar"><span class="fas fa-trash"></span> 
                         </button>
+
+                        <button class="btn btn-sm btn-primary" (click)='editSucursales(row)' 
+                            title="exportar"><span class="fas fa-pen-alt"></span>
+                        </button>
+                        
                     </span>
                 </ng-template>
             </ngx-datatable-column>
