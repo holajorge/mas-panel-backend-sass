@@ -708,7 +708,16 @@ export class ClienteComponent implements OnInit {
       id:row.id
     });
   }
+  cancelarSucursal(){
 
+
+    this.editFormSucursal.reset(); 
+    this.editFormSucursal.patchValue({
+      cliente:this.cliente
+    })
+    this.flagEdit = false;
+
+  }
   saveEditSucursal(){
     Swal.showLoading();
 
