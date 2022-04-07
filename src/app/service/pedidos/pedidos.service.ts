@@ -86,6 +86,8 @@ export class PedidosService {
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
 
+    let id = localStorage.getItem('usuario');
+    row.id = id;
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateEstadoPedido",row,options).toPromise().then((res) =>{
       return { success: true, resultado:res};
     })

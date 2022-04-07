@@ -284,7 +284,7 @@ export class ClientesComponent implements OnInit {
   }
 
   change_state(row){
-    console.log(row);
+   
     if(this.models[row.id] == null){
         this.models[row.id] = row["estado"];
         return;
@@ -294,7 +294,7 @@ export class ClientesComponent implements OnInit {
     row["pedido_estado_id"] = this.estado_to_id[row["estado"]];
     this.pedidosService.updateEstadoPedido(row).then( (res:any) =>{
       if(res.resultado == true){
-        Swal.fire('Listo!','Estado cambiado con éxito!', 'success');
+        Swal.fire('Listo!','Estado modificado con éxito!', 'success');
         this.notificationModal.hide();
         this.getPedidos();
        }else{
