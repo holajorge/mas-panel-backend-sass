@@ -60,6 +60,14 @@ export class ClienteComponent implements OnInit {
   cliente:string = '';
   flagSendEmail:boolean = false;
   flagNew:boolean = false;
+
+  //pago
+  formadePago:any = [];
+  flagPago: boolean = false;
+  ver_agregar_pago: boolean = false;
+  addTextPago: boolean = false;
+  arrayPagos:any = [];
+
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -92,6 +100,7 @@ export class ClienteComponent implements OnInit {
       lista: [''],
       nroclientLast:[''] ,
       send:[''],
+      pago: ['']
     });
     this.editFormSucursal = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -259,6 +268,9 @@ export class ClienteComponent implements OnInit {
       
       this.temp = res.pedidos['clientes'];
       this.tempRow = res.pedidos['clientes'];
+      this.arrayPagos = res.pedidos['pagos'];
+      console.log(this.arrayPagos);
+      
       this.loadingIndicator = true;
     }).catch(err=>{
       console.log(err);
@@ -341,7 +353,8 @@ export class ClienteComponent implements OnInit {
       localidad:row.localidad,
       direccion:row.direccion,
       lista: row.lista,
-      nroclientLast: row.nrocliente
+      nroclientLast: row.nrocliente,
+      pago: row.forma_pago
     });
     // console.log(this.editForm.value);
 
@@ -349,7 +362,8 @@ export class ClienteComponent implements OnInit {
     this.btnvisibilityIn = true;
     this.editForm.get('nrocliente').disable();
     this.flagSendEmail = false;
-
+    this.flagPago = false;
+    this.ver_agregar_pago = false;
   }
   
   addCliente(modalEdit){
@@ -367,6 +381,9 @@ export class ClienteComponent implements OnInit {
     this.editForm.get('nrocliente').enable();
 
     this.flagSendEmail = true;
+
+    this.flagPago = false;
+    this.ver_agregar_pago = false;
 
   }
   updateCliente(){
@@ -694,5 +711,9 @@ export class ClienteComponent implements OnInit {
   }
   closeModal(modal){
     
+  }
+  addNewPago(){
+    this.flagPago =! this.flagPago;
+    this.ver_agregar_pago =! this.ver_agregar_pago;
   }
 }
