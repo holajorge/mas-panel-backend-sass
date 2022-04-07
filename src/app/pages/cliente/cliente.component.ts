@@ -68,6 +68,7 @@ export class ClienteComponent implements OnInit {
   addTextPago: boolean = false;
   arrayPagos:any = [];
 
+  flagEdit:boolean = false;
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -108,7 +109,7 @@ export class ClienteComponent implements OnInit {
       telefono: [''],
       cliente: ['', Validators.required],
       empresa_id: [''],
-      
+      id:['']
     });
 
     this.getDistinctListPrice()
@@ -715,5 +716,56 @@ export class ClienteComponent implements OnInit {
   addNewPago(){
     this.flagPago =! this.flagPago;
     this.ver_agregar_pago =! this.ver_agregar_pago;
+  }
+  editSucursales(row){
+    this.flagEdit = true;
+    
+    this.editFormSucursal.patchValue({
+      nombre: row.nombre_sucursal,
+      direccion:row.direccion_sucursal,
+      telefono:row.telefono_sucursal,
+      cliente: row.nrocliente,
+      empresa_id:row.empresa_id,
+      id:row.id
+    });
+  }
+  cancelarSucursal(){
+
+
+    this.editFormSucursal.reset(); 
+    this.editFormSucursal.patchValue({
+      cliente:this.cliente
+    })
+    this.flagEdit = false;
+
+  }
+  saveEditSucursal(){
+    Swal.showLoading();
+
+    this.clienteService.postEditClienteSucursal(this.editFormSucursal.value).subscribe( 
+      (res) =>{
+        
+        if(res){
+          let data = {
+            cliente: this.editFormSucursal.get('cliente').value, 
+            empresa: this.empresa.id
+          }
+          this.editFormSucursal.reset();
+          this.editFormSucursal.controls['cliente'].setValue(this.cliente);
+          this.flagEdit = false;
+          this.getSucursales(data);
+          // this.notificationModal.hide();
+          Swal.fire('Listo!',res.msg, 'success');
+        }else {
+          Swal.fire('Upps!',res.msg, 'error')
+        }
+      },
+      (error) => {
+        console.log(error);
+        
+        Swal.fire('Error!','Surgio un error inesperado, intenete de nuevo', 'error')
+
+      }
+    );
   }
 }
