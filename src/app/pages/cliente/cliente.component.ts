@@ -69,6 +69,7 @@ export class ClienteComponent implements OnInit {
   arrayPagos:any = [];
 
   flagEdit:boolean = false;
+  dataCliente:{} = {};
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -607,6 +608,9 @@ export class ClienteComponent implements OnInit {
   }
 
   openSucursal(modalSucursal, row){
+    console.log(row);
+    
+    this.dataCliente = {cliente: row.nombre, nroCliente: row.nrocliente};
 
     this.editFormSucursal.reset();
     
