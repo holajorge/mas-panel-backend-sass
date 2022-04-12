@@ -153,7 +153,8 @@ export const ROUTES: RouteInfo[] = [
       { path: "descuento-lista", title: "Descuentos", type: "link" },
       /* { path: "descuento-categorias", title: "Descuentos por Categorias", type: "link" }, */
        
-      { path: "importar-descuentos", title: "Importar descuentos", type: "link" }
+      { path: "importar-descuentos", title: "Importar descuentos", type: "link" },
+      { path: "stock-precio", title: "Actualizar Precios y Stock", type: "link" }
 
     ]
   },

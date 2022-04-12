@@ -32,6 +32,7 @@ import { TareasComponent } from './tareas/tareas.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
+import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
 
 const routes:Routes = [
     {
@@ -78,6 +79,7 @@ const routes:Routes = [
             {path: 'precios/descuento-categorias',  component: DescuentoComponent},
             {path: 'precios/descuento-lista',  component: DescuentoListaComponent},
             {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent},
+            {path: 'precios/stock-precio',  component: StockPrecioComponent},
 
             //tarea
             {path: 'tareas', component:TareasComponent},
