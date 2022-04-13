@@ -68,6 +68,17 @@ export class PedidosService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  getGuardarNota(comentario){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/guardarNotaPedido",comentario,options).toPromise().then((res) =>{      
+      return { success: true, resultado:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
   exportAsExcelFile(data){
     // console.log(data);
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});

@@ -338,6 +338,13 @@
             "entradas": "resultados",
             "status": "Status",
             "precion_real": "Precio real"
+        },
+        "note":{
+            "titulo": "Nota",
+            "add": "Agregar nota",
+            "edit": "Editar nota",
+            "addText": "Agregar una nota para el pedido", 
+            "textRequired": "Texto nota es requerido"
         }
     },
     "cliente": {

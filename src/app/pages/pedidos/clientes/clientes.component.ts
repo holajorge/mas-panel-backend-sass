@@ -47,6 +47,7 @@ export class ClientesComponent implements OnInit {
   estado_to_id: any = {};
   models: any = {};
   estadoSelect:number;
+  noteForm:FormGroup;
 
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
@@ -62,6 +63,11 @@ export class ClientesComponent implements OnInit {
     this.addForm = this.formBuilder.group({
       pedido_id: ['', Validators.required],
       comentario: ['', Validators.required],
+    });
+
+    this.noteForm = this.formBuilder.group({
+      pedido_id: ['', Validators.required],
+      notas: ['', Validators.required],
     });
     
     this.lista_estados = [];
@@ -261,6 +267,19 @@ export class ClientesComponent implements OnInit {
       this.notification
     );
   }
+  addNote(modalNote,row){
+    console.log(row);
+    if(row.notas){
+      this.noteForm.patchValue({notas:row.notas});
+    }
+    this.noteForm.patchValue({pedido_id: row.id});
+    
+    // this.btnvisibility = false;
+    this.notificationModal = this.modalService.show(
+      modalNote,
+      this.notification
+    );
+  }
   onActivate(event) {
     this.activeRow = event.row;
   }
@@ -274,6 +293,21 @@ export class ClientesComponent implements OnInit {
       if(res.resultado == true){
         Swal.fire('Listo!','Comentario agregado con éxito!', 'success')
         this.notificationModal.hide();
+        this.getPedidos();
+       }else{
+        Swal.fire('Error!','El comento no fue guardado intente nuevamente', 'error')
+       }
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+  guardarNotaPedido(){
+    this.pedidosService.getGuardarNota(this.noteForm.value).then( (res:any) =>{    
+      console.log(res);
+      if(res.resultado == true){
+        Swal.fire('Listo!','Nota agregado con éxito!', 'success')
+        this.notificationModal.hide();
+        this.noteForm.reset();
         this.getPedidos();
        }else{
         Swal.fire('Error!','El comento no fue guardado intente nuevamente', 'error')
