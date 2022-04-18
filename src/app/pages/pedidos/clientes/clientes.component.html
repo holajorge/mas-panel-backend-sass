@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-12 col-md-3">
                             <div class="form-group">
-                                <label for="" class="form-control-label">Fecha Inico</label>
+                                <label for="" class="form-control-label">Fecha Inicio</label>
                                 <input type="date" class="form-control form-control-sm" [(ngModel)]="dateStar"  (change)="filters()" >
                                 <!-- <dp-date-picker theme="dp-material" (onChange)="filters($event)"
                                     [(ngModel)]="dateStar" [config]="datePickerConfig" ></dp-date-picker>   -->
@@ -158,7 +158,7 @@
                             </ng-template>
                             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                                 <span>
-                                    <button class="btn btn-sm btn-primary" (click)='addNote(modalNote,row)'><span class="fas fa-clipboard"></span> {{ 'pedidos.note.titulo' | translate}}</button>
+                                    <button class="btn btn-sm btn-primary" (click)='addNote(modalNote,row)'><span class="fas fa-clipboard"></span></button>
                                     <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
                                     <button *ngIf="row.comentario != ''" class="btn btn-sm btn-info" (click)='onaddComente(modalComent,row)' title="comentar"><span class="fas fa-eye"></span> </button>
                                     <button class="btn btn-sm btn-success" (click)='dataExcelClientes(row)' title="exportar"><span class="fas fa-file-import"></span> </button>

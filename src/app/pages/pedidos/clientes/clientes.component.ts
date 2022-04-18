@@ -295,7 +295,7 @@ export class ClientesComponent implements OnInit {
         this.notificationModal.hide();
         this.getPedidos();
        }else{
-        Swal.fire('Error!','El comento no fue guardado intente nuevamente', 'error')
+        Swal.fire('Error!','El comentario no fué guardado intente nuevamente', 'error')
        }
     }).catch(err=>{
       console.log(err);
@@ -305,12 +305,12 @@ export class ClientesComponent implements OnInit {
     this.pedidosService.getGuardarNota(this.noteForm.value).then( (res:any) =>{    
       console.log(res);
       if(res.resultado == true){
-        Swal.fire('Listo!','Nota agregado con éxito!', 'success')
+        Swal.fire('Listo!','Nota agregada con éxito!', 'success')
         this.notificationModal.hide();
         this.noteForm.reset();
         this.getPedidos();
        }else{
-        Swal.fire('Error!','El comento no fue guardado intente nuevamente', 'error')
+        Swal.fire('Error!','La nota no fué guardada intente nuevamente', 'error')
        }
     }).catch(err=>{
       console.log(err);
