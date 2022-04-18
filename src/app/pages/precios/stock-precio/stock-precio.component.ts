@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PreciosService } from 'src/app/service/precios/precios.service';
 import { ConfigService } from 'src/app/service/config/config.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { Router } from '@angular/router'; //para redireccionar las vistas
 
 @Component({
   selector: 'app-stock-precio',
@@ -19,7 +20,8 @@ export class StockPrecioComponent implements OnInit {
   constructor(   
     public translate: TranslateService,
     private formBuilder: FormBuilder, 
-    public preciosService:PreciosService
+    public preciosService:PreciosService,
+    private router: Router, 
   ){ 
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
@@ -59,7 +61,9 @@ export class StockPrecioComponent implements OnInit {
     this.preciosService.importarStockPrecio(this.file_data).then( (res:any) =>{    
       if(res.response.flag){
         Swal.fire('Listo!','Datos registrados con éxito', 'success');
+        Swal.close();
         this.addForm.reset();
+        this.router.navigate(['/admin/producto/productos']);
       }else{
         Swal.fire('Error revise sus datos si estan correctos, intente de nuevo!', 'error')
       }
