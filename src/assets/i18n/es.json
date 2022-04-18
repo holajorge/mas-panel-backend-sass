@@ -175,6 +175,11 @@
             "select": "Seleccione un archivo",
             "labelselect": "Seleccione"
         },
+        "importar-stock-precio": {
+            "titulo": "Importar un archivo de precios y stock",
+            "select": "Seleccione un archivo",
+            "labelselect": "Seleccione"
+        },
         "tabla": {
             "nrocliente": "Nro cliente",
             "codigo": "Codigo",
