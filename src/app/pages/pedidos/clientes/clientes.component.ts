@@ -326,10 +326,10 @@ export class ClientesComponent implements OnInit {
     let estado = row["estado"];
     row["estado"] = this.models[row.id];
     row["pedido_estado_id"] = this.estado_to_id[row["estado"]];
+
     this.pedidosService.updateEstadoPedido(row).then( (res:any) =>{
       if(res.resultado == true){
         Swal.fire('Listo!','Estado modificado con éxito!', 'success');
-        this.notificationModal.hide();
         this.getPedidos();
        }else{
         this.models[row.id] = estado;

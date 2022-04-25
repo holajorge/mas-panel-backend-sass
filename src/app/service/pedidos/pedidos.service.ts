@@ -98,7 +98,7 @@ export class PedidosService {
     let options = { headers: headers };
 
     let id = localStorage.getItem('usuario');
-    row.id = id;
+   // row.id = id;
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/updateEstadoPedido",row,options).toPromise().then((res) =>{
       return { success: true, resultado:res};
     })
