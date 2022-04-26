@@ -21,7 +21,7 @@ import { GeneralComponent } from './configuraciones/general/general.component';
 import { ClientesComponent } from './pedidos/clientes/clientes.component';
 import { AgregarComponent } from './cliente/agregar/agregar.component'
 import { ListaComponent } from './cliente/lista/lista.component'
-import { ListaPComponent } from './precios/lista/listap.component'
+import { ListaPComponent } from './precios/lista/listaP.component'
 import { DescuentoComponent } from './precios/descuento/descuento.component';
 import { DescuentoListaComponent } from './precios/descuento-lista/descuento-lista.component';
 import { CategoriasComponent } from './categorias/categorias.component';

@@ -52,7 +52,8 @@
             "urlWeb": "Pagina Web",
             "leyendaMasIva": "Mostrar leyenda \"Más Iva\" en el carrito ",
             "sin_precio": "No mostrar el precio en pantalla ",
-            "sin_codigo": "No mostrar el código del producto en pantalla "
+            "sin_codigo": "No mostrar el código del producto en pantalla ",
+            "pedido_firebase": "Activar mismo usuario puede hacer pedidos distintos"
         }
     },
     "categorias": {
