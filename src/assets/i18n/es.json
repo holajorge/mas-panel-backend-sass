@@ -23,7 +23,7 @@
             "monto_limite_pedido": "Monto mínimo de dinero para hacer un pedido ",
             "nombre": "Nombre de la empresa",
             "direccion": "Dirección",
-            "telefono": "Telefono",
+            "telefono": "Teléfono",
             "correo": "Email de Contacto",
             "colorButton": "Color Botones",
             "dominio": "Dominio",
@@ -230,7 +230,7 @@
             "total": "total",
             "log": "registro",
             "asociar": "Asociar cliente",
-            "telefono": "Telefono"
+            "telefono": "Teléfono"
         },
         "tablalog": {
             "lista": "Lista registros",
@@ -281,7 +281,7 @@
     "login": {
         "bienvenido": "Bienvenido",
         "titulo": "Iniciar Sesión",
-        "user": "Nombre de usuário",
+        "user": "Nombre de usuario",
         "pass": "Clave",
         "ingresar": "Ingresar",
         "reset": "¿olvidaste tu contraseña?",
@@ -400,7 +400,7 @@
             "email": "Correo",
             "clave": "Clave",
             "activo": "Activo",
-            "usuario": "Nombre de usuário",
+            "usuario": "Nombre de usuario",
             "acciones": "Acciones",
             "detalle": "Detalle",
             "editar": "Editar",
@@ -415,7 +415,7 @@
             "add": "Comente",
             "decuento": "Descuento General",
             "cuit": "Cuit",
-            "telefono": "Telefono",
+            "telefono": "Teléfono",
             "encargado": "Encargado Compras",
             "pagos": "Encargado Pagos",
             "coeficiente": "Coeficiente",
