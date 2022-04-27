@@ -3,6 +3,8 @@ import { NgModule } from "@angular/core";
 import { AuthGuard } from '../guards/auth.guard';
 
 import { AdminComponent } from '../layouts/admin/admin.component';
+import { SuperComponent } from '../layouts/super/super.component';
+
 import { VendedorComponent } from './vendedor/vendedor.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { BannerComponent } from './banner/banner.component';
@@ -33,13 +35,19 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
 import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
+//super admin
+import { LoginSuperComponent } from './super-admin/login-super/login-super.component';
+import { SuperGuard } from '../guards/super.guard';
+import { HomeSuperComponent } from './super-admin/home-super/home-super.component';
+import { EmpresasComponent } from './super-admin/empresas/empresas.component';
+
 
 const routes:Routes = [
     {
         path: 'admin', 
         component: AdminComponent,
         canActivate: [AuthGuard],
-        children: [            
+        children: [ 
             {path:'', component: ClientesComponent},
             //MI CUENTA
             // empresa
@@ -89,6 +97,16 @@ const routes:Routes = [
             
         ]
     },
+    {
+        path: 'back', 
+        component: SuperComponent,
+        canActivate: [SuperGuard],
+        children: [
+            {path:'', component: HomeSuperComponent},
+            {path:'empresas', component: EmpresasComponent},
+        ]
+    }       
+
 ];
 
 @NgModule({

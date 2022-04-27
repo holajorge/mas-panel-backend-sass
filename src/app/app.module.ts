@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {BdcWalkModule} from 'bdc-walkthrough';
 import {DpDatePickerModule} from 'ng2-date-picker';
+import { SuperComponent } from './layouts/super/super.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -58,6 +59,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   declarations: [
     AppComponent,
+    SuperComponent,
+    
   ],
   providers: [{ provide: NgbDateParserFormatter, useClass: DateFormatterService }],
   bootstrap: [AppComponent]

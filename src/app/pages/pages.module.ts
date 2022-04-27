@@ -50,7 +50,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
 import { ListaPComponent } from './precios/lista/listap.component';
-import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component'
+import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
+import { LoginSuperComponent } from './super-admin/login-super/login-super.component';
+import { HomeSuperComponent } from './super-admin/home-super/home-super.component';
+import { EmpresasComponent } from './super-admin/empresas/empresas.component'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -92,6 +95,9 @@ imports: [
     ImportarDescuentoComponent,
     ImportarSucursalesComponent,
     StockPrecioComponent,
+    LoginSuperComponent,
+    HomeSuperComponent,
+    EmpresasComponent,
   ],
   imports: [
     DpDatePickerModule,
