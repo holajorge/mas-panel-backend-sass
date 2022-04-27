@@ -54,7 +54,9 @@ import { StockPrecioComponent } from './precios/stock-precio/stock-precio.compon
 import { LoginSuperComponent } from './super-admin/login-super/login-super.component';
 import { HomeSuperComponent } from './super-admin/home-super/home-super.component';
 import { EmpresasComponent } from './super-admin/empresas/empresas.component'
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon'
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -100,7 +102,7 @@ imports: [
     EmpresasComponent,
   ],
   imports: [
-    DpDatePickerModule,
+    DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,
     FormsModule,ReactiveFormsModule,NgSelectModule,
     NgbModule,
     CommonModule,

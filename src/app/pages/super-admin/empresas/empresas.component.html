@@ -1,1 +1,75 @@
-<p>empresas works!</p>
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-4 col-7">
+            <h6 class=" h2  d-inline-block mb-0 mr-1 text-uppercase">Lista</h6>
+            
+          </div>
+          <div class=" col-lg-8 col-5 text-right">
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" 
+            (click)="newCompany()"> Nuevo </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class=" container-fluid mt--6">
+    
+    <div class="row">
+        <div class="col-12" *ngFor="let empresa of empresas">
+            <div class="card overflow-hidden">
+                <div class="card-content">
+                    <div class="card-body ">
+                        <div class="media align-items-stretch">
+                            <!-- <div class="align-self-center">
+                                <i class="icon-pencil primary font-large-2 mr-2"></i>
+                            </div> -->
+                            <div class="media-body">
+                                <h4>{{empresa.nombre}}</h4>
+                                <span class="d-block" *ngIf="empresa.contacto">{{empresa.contacto}}</span>
+                                <span class="d-block" *ngIf="empresa.fecha_registro">{{empresa.fecha_registro}}</span>
+                                <span class="d-block" *ngIf="empresa.telefono">{{empresa.telefono}}</span>
+                                
+                            </div>
+                            <div class="desktop align-self-center">
+                                <button class="btn btn-sm ">
+                                    <i class="icon-cup success font-large-2 float-right"></i>
+                                </button>
+                                <button class="btn btn-sm ">
+                                    <i class="icon-heart danger font-large-2"></i>
+                                </button>
+                                <button class="btn btn-sm ">
+                                    <i class="icon-pencil primary font-large-2 mr-2"></i>
+                                </button>
+                            </div>
+                            <div class="movil align-self-center">
+                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                  </button>
+                                  <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>
+                                      <mat-icon>dialpad</mat-icon>
+                                      <span>Redial</span>
+                                    </button>
+                                    <button mat-menu-item disabled>
+                                      <mat-icon>voicemail</mat-icon>
+                                      <span>Check voice mail</span>
+                                    </button>
+                                    <button mat-menu-item>
+                                      <mat-icon>notifications_off</mat-icon>
+                                      <span>Disable alerts</span>
+                                    </button>
+                                  </mat-menu>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
