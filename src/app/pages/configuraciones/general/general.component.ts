@@ -83,7 +83,8 @@ export class GeneralComponent implements OnInit {
           leyenda_mas_iva: (this.configuraciones.leyenda_mas_iva=="true" || this.configuraciones.leyenda_mas_iva=="1" ) ? 1 : 0,
           sin_precio: (this.configuraciones.sin_precio=="true" || this.configuraciones.sin_precio=="1" ) ? 1 : 0,
           sin_codigo: (this.configuraciones.sin_codigo=="true" || this.configuraciones.sin_codigo=="1" ) ? 1 : 0,
-          pedido_firebase: (this.configuraciones.pedido_firebase=="true" || this.configuraciones.pedido_firebase=="1" ) ? 0 : 1
+          pedido_firebase: (this.configuraciones.pedido_firebase=="true" || this.configuraciones.pedido_firebase=="1" ) ? 1 : 0
+
 
           // nombre_empresa: this.configuraciones.nombre_empresa,
           // direccion: this.configuraciones.direccion,
