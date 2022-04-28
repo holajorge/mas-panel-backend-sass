@@ -49,7 +49,7 @@ import { TareasComponent } from './tareas/tareas.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
-import { ListaPComponent } from './precios/lista/listap.component';
+import { ListaPComponent } from './precios/lista/listaP.component';
 import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component'
 
 export function createTranslateLoader(http: HttpClient) {
