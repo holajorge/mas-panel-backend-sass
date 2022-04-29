@@ -430,6 +430,7 @@
         },
         "tablaCliente": {
             "cliente": "Cliente",
+            "numInterno": "Nro interno",
             "nrocliente": "Nro Cliente",
             "estado": "Estado",
             "fecha": "Fecha",

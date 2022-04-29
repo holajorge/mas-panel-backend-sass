@@ -194,6 +194,11 @@
                         <span>{{ 'cliente.tablaCliente.nrocliente' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
+                <ngx-datatable-column name="nrointerno">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'cliente.tablaCliente.numInterno' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
                 <ngx-datatable-column prop="estado">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.estado' | translate}}</span>
