@@ -19,7 +19,31 @@
     <div class=" row">
         <div class=" col">
         <div class=" card">
-            
+            <div class=" card-header">
+                <h3 class="catd-text">Filtros</h3>
+                <div class="row">
+                    
+
+                    <div class="col-12 col-md-3">
+                        <div class="from-group">
+                            <label class="form-control-label">Nombre Cliente</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="nombreCliente"
+                                placeholder="Nombre Cliente" aria-controls="datatable" (keyup)="filters()"/>
+                        </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-3">
+                        <div class="from-group">
+                            <label class="form-control-label">Fecha</label>
+                            <input type="date" class="form-control form-control-sm" [(ngModel)]="fechaFilter"
+                                placeholder="fecha" aria-controls="datatable" (change)="filters()"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <button class="btn btn-sm btn-primary" >limpiar búsqueda</button>
+                     </div>
+                </div>
+            </div>
             <div class="dataTables_wrapper py-4">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
