@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { EmpresaService } from 'src/app/service/empresa/empresa.service';
 import Swal from 'sweetalert2';
+// import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router'; //para redireccionar las vistas
 
 @Component({
   selector: 'app-empresas',
@@ -20,7 +22,8 @@ export class EmpresasComponent implements OnInit {
     class: "modal-dialog-centered modal-xl static", 
   };
     
-    constructor(public empresaService:EmpresaService,private modalService: BsModalService) { }
+    constructor(private router: Router,
+      public empresaService:EmpresaService,private modalService: BsModalService) { }
 
   ngOnInit() {
     this.getEmpresas();
@@ -101,5 +104,21 @@ export class EmpresasComponent implements OnInit {
       modalEmpresa,
       this.notification
     );
+  }
+  viewAdminPanel(empresa){
+    Swal.showLoading(); 
+    this.empresaService.getTokenEmpresa(empresa).subscribe(
+      (datos) => {
+        Swal.close();
+        console.log(datos);
+        localStorage.setItem('usuario', datos);
+        this.router.navigate(['/admin']);
+      },
+      (error) => {
+        Swal.close();
+        console.log(error);
+      }
+      
+    )
   }
 }

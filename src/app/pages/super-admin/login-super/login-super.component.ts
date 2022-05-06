@@ -18,9 +18,11 @@ export class LoginSuperComponent implements OnInit {
   focus1;
   constructor(private loginService:LoginService, private router: Router, public translate: TranslateService, public onboardingService:WalkthroughService) {
     this.translate.use('es');
+    
    }
 
   ngOnInit() {
+   
   }
   login(form:NgForm){
     Swal.showLoading();
@@ -28,7 +30,7 @@ export class LoginSuperComponent implements OnInit {
       // console.log(data); return false;
       if(data.body.perfil != null){
         
-        localStorage.setItem('usuario', data.body.id);
+        localStorage.setItem('admin', data.body.id);
         Swal.close();
         form.reset();
 

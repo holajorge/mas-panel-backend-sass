@@ -24,4 +24,16 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
+  getTokenEmpresa(empresa){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getTokenEmpresa", empresa, this.header)
+    .pipe( 
+      map( (res) => { 
+        let {datos} = res['body'];
+        console.log(datos);
+        
+        return datos;
+      }),
+      catchError( error => error )
+    )
+  }
 }

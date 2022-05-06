@@ -11,6 +11,7 @@ export class SuperGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot,state: RouterStateSnapshot) {
 
+    
     return this.loginService.isAuthenticatedSuper().pipe(
       tap( estaAutenticado => {
         if(!estaAutenticado){

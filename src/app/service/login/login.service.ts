@@ -33,7 +33,7 @@ export class LoginService {
   isAuthenticatedSuper():Observable<boolean>{
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
-    this.user.id = localStorage.getItem('usuario');
+    this.user.id = localStorage.getItem('admin');
     return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/authloginSuper",this.user,options).pipe( map( resp => true), catchError(error => of(false) ) );
     
   }
