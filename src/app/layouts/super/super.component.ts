@@ -17,6 +17,7 @@ export class SuperComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.removeItem('usuario');
   }
   @HostListener("window:resize", ["$event"])
 

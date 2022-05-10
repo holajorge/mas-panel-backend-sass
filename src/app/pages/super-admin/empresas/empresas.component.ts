@@ -112,7 +112,8 @@ export class EmpresasComponent implements OnInit {
         Swal.close();
         console.log(datos);
         localStorage.setItem('usuario', datos);
-        this.router.navigate(['/admin']);
+        window.location.href = "";
+        // this.router.navigate(['/admin']);
       },
       (error) => {
         Swal.close();

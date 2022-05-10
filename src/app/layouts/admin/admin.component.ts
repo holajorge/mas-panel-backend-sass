@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { WalkthroughService } from '../../service/walkthrough/walkthrough.servic
 })
 export class AdminComponent implements OnInit {
   isMobileResolution: boolean;
-  constructor(public onboardingService:WalkthroughService) {
+  admin:boolean = false;
+  constructor(public onboardingService:WalkthroughService, private router: Router,) {
     if (window.innerWidth < 1200) {
       this.isMobileResolution = true;
     } else {
@@ -25,6 +27,19 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    let flag = localStorage.getItem('admin');
+    if(flag){
+      this.admin = true;
+    }else{
+      this.admin = false;
+    }
+    console.log(this.admin);
+    
+  }
+
+  volver(){
+    localStorage.removeItem('usuario');
+    this.router.navigate(['/back']);
   }
 
 }
