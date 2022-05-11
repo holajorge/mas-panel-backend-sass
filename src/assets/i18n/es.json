@@ -106,7 +106,7 @@
             "caract4": "Caracteristica 4",
             "send": "Enviar"
         },
-        "titulo": "Lista Productos",
+        "titulo": "Lista de Productos",
         "tituloEdit": "Editar Producto",
         "tituloAdd": "Nuevo Producto",
         "foto": {
@@ -304,7 +304,7 @@
     },
     "pedidos": {
         "titulo": "Lista de Pedidos Vendedores",
-        "tituloCliente": "Lista de Pedidos Clientes",
+        "tituloCliente": "Lista de Pedidos",
         "tabla": {
             "nombre": "Nombre",
             "email": "Correo",
