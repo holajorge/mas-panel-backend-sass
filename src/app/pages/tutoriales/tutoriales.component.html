@@ -1,0 +1,71 @@
+<!-- <p>tutoriales works!</p> -->
+
+<div class=" header pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-12 col-12">
+            <h1 class="text-center text-primary">Intructivos</h1>
+          </div>         
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12 col-12">
+                <table class="table">
+                    <tr class="mitad">
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[0])">{{lista[0].titulo}}</h3></td>
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[1])">{{lista[1].titulo}}</h3></td>
+                    </tr>
+                    <tr class="mitad">
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[2])"> {{lista[2].titulo}} </h3></td>
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[3])">{{lista[3].titulo}}</h3></td>
+                    </tr>
+                    <tr class="mitad">
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[4])">{{lista[4].titulo}}</h3></td>
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[5])">{{lista[5].titulo}}</h3></td>
+                    </tr>
+                    <tr class="mitad">
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[6])">{{lista[6].titulo}}</h3></td>
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[7])">{{lista[7].titulo}}</h3></td>
+                    </tr>
+                    <tr class="mitad">
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[8])">{{lista[8].titulo}}</h3></td>
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[9])">{{lista[9].titulo}}</h3></td>
+                    </tr>
+                    <tr class="mitad">
+                        <td><h3 class="text-uppercase cursor" (click)="modalOpen(modalVideo,lista[10])">{{lista[10].titulo}}</h3></td>
+                    </tr>
+                </table>            
+            </div>                   
+        </div>
+
+      </div>
+    </div>
+</div>
+
+<ng-template #modalVideo >
+    <div class="modal-header">    
+        <h5 class="modal-title" >{{titulo}}</h5>
+        
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    <div class="modal-body ">    
+        <div class="row" style="display: flex;">                      
+            <div class="col-md-12" >                
+                <div class="imagePreview text-center" >
+                    <!-- <video class="ard-img-top" [src]="ruta" alt="movil" style="max-width: 100%;" ></video> -->
+                    <iframe width="904" height="411" [src]="ruta | videos" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+
+                </div>                        
+            </div>
+        </div>   
+    </div>
+    <div class=" modal-footer">
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i> Cerrar</button>
+    </div>
+</ng-template>

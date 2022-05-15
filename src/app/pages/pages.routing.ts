@@ -33,6 +33,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
 import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
+import { TutorialesComponent } from './tutoriales/tutoriales.component';
 
 const routes:Routes = [
     {
@@ -80,6 +81,9 @@ const routes:Routes = [
             {path: 'precios/descuento-lista',  component: DescuentoListaComponent},
             {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent},
             {path: 'precios/stock-precio',  component: StockPrecioComponent},
+
+            //tutoriales
+            {path:'tutoriales', component: TutorialesComponent},
 
             //tarea
             {path: 'tareas', component:TareasComponent},
