@@ -33,11 +33,9 @@ export class TutorialesComponent implements OnInit {
     ];
   }
   modalOpen(modalVideo,item){
-    console.log(item);
+    
     this.titulo = item.titulo
     this.ruta = item.link
-    console.log(this.ruta);
-    
     this.notificationModal = this.modalService.show(modalVideo,this.notification);
   }
 }
