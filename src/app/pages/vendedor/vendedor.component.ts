@@ -272,7 +272,9 @@ export class VendedorComponent implements OnInit {
     Swal.showLoading();
     this.empresa.vendedor = row.id;
     this.notificationModal = this.modalService.show(modalAsociar,this.notification);
-
+    this.getCliente();
+  }
+  getCliente(){
     this.descuentoCateService.getClienteAsociado(this.empresa).then( (res:any) =>{    
       Swal.close();
       this.clientes = res.response['clientes'];
@@ -283,7 +285,6 @@ export class VendedorComponent implements OnInit {
       console.log(err);
     });
   }
-
   entriesChangeCliente($event){
     this.entriesCliente = $event.target.value;
   }
@@ -372,7 +373,8 @@ export class VendedorComponent implements OnInit {
 
             if(res.response){
               Swal.fire('Listo!','Asociado correctamente con éxito!', 'success') 
-              this.notificationModal.hide();
+              // this.notificationModal.hide();
+              this.getCliente();
 
             }else{
               Swal.fire('Error, intente nuevamente', 'error')
