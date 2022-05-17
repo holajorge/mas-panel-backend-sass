@@ -50,8 +50,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
 import { ListaPComponent } from './precios/lista/listaP.component';
-import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component'
-
+import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
+import { LoginSuperComponent } from './super-admin/login-super/login-super.component';
+import { HomeSuperComponent } from './super-admin/home-super/home-super.component';
+import { EmpresasComponent } from './super-admin/empresas/empresas.component'
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon'
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -92,9 +97,12 @@ imports: [
     ImportarDescuentoComponent,
     ImportarSucursalesComponent,
     StockPrecioComponent,
+    LoginSuperComponent,
+    HomeSuperComponent,
+    EmpresasComponent,
   ],
   imports: [
-    DpDatePickerModule,
+    DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,
     FormsModule,ReactiveFormsModule,NgSelectModule,
     NgbModule,
     CommonModule,

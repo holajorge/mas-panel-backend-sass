@@ -23,14 +23,15 @@ import { environment } from '../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {BdcWalkModule} from 'bdc-walkthrough';
 import {DpDatePickerModule} from 'ng2-date-picker';
-
+import { SuperComponent } from './layouts/super/super.component';
+import { MatMenuModule } from '@angular/material/menu';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
   imports: [
-    DpDatePickerModule,
+    DpDatePickerModule,MatMenuModule,
     NgbModule,NgSelectModule,
     ModalModule.forRoot(),
     NgxDatatableModule,
@@ -58,6 +59,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   declarations: [
     AppComponent,
+    SuperComponent,
+    
   ],
   providers: [{ provide: NgbDateParserFormatter, useClass: DateFormatterService }],
   bootstrap: [AppComponent]

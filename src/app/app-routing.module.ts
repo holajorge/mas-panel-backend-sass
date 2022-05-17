@@ -8,6 +8,7 @@ import { PagesRoutingModule } from "./pages/pages.routing";
 
 const routes: Routes = [
   {path: "",redirectTo: "admin",pathMatch: "full"},  
+  {path: "back",redirectTo: "back",pathMatch: "full"},  
   // {path: "**",redirectTo: "dashboard"}
 ];
 
