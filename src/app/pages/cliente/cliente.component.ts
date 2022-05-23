@@ -279,7 +279,7 @@ export class ClienteComponent implements OnInit {
     });
   }
   pedidos(modalPedido,row){
-    // console.log(row);
+    console.log(row);
     Swal.showLoading();
     this.detalleRow = [];
     this.pedido.empresa = row.empresa_id;
@@ -303,7 +303,7 @@ export class ClienteComponent implements OnInit {
   }
   dataExcelClientes(row){
 
-    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id, "_blank");
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id+"&token="+this.empresa.id, "_blank");
 
   }
   
