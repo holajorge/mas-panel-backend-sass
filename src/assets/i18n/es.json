@@ -300,7 +300,8 @@
         "registrar": "Guardar",
         "nueva": "crear cuenta",
         "error_email": "Ya existe un registro con el mismo email.",
-        "error_subdomain": "Ya existe un registro con el mismo subdominio."
+        "error_subdomain": "Ya existe un registro con el mismo subdominio.",
+        "error_subdomain_empty": "El subdominio no puede ser vacío."
     },
     "pedidos": {
         "titulo": "Lista de Pedidos Vendedores",
