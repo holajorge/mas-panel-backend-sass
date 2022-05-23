@@ -29,7 +29,8 @@ export class ListaComponent implements OnInit {
   activeRow:any;
   flagAdd:boolean = false;
   nombreCliente:string = '';
-  fechaFilter:string;
+  fechaFilter:string = '';
+  fechahasta:string = '';
   constructor(
     public translate: TranslateService,  
     public fb: FormBuilder,
@@ -93,8 +94,8 @@ comprobarTexto(itemBusqueda, textoInput ){
 filters(){
 
   const fecha = this.fechaFilter;
+  const fechaHasta = this.fechahasta;
   const nomCliente = this.nombreCliente;
-  console.log(fecha);
   
   const filtros = {
     nombre: [nomCliente, d => {
@@ -104,7 +105,13 @@ filters(){
     }],
     fechacomprobante: [fecha, d => {
       let fechaData = d['fechacomprobante'].split(' ');
-      if(fechaData[0] == fecha){
+      if(fechaData[0] >= fecha){
+        return true;
+      }
+    }],
+    fechahasta: [fechaHasta, d => {
+      let fechaData = d['fechacomprobante'].split(' ');
+      if(fechaData[0] <= fechaHasta){
         return true;
       }
     }],
@@ -277,5 +284,11 @@ filters(){
       console.log(err);
     });
 
+  }
+  cleanFilters(){
+    this.nombreCliente = '';
+    this.fechaFilter = '';
+    this.fechahasta = '';
+    this.comprobantes = this.tempRow;
   }
 }
