@@ -193,6 +193,37 @@
                         <h3> Pedido a sucursal: {{ detalleSucursal }}</h3>
                     </div>
                 </div>    
+                <h5 class="">Lista de Archivos</h5>
+                <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                    class="bootstrap selection-cell" 
+                    [columnMode]="'force'" [headerHeight]="50" 
+                    [footerHeight]="50" [rowHeight]="'auto'" 
+                    [limit]="fileEntries != -1 ? fileEntries : undefined" 
+                    [rows]="files" >
+                    <ngx-datatable-column name="archivo">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Archivo</span>
+                        </ng-template>
+                        <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
+                            <span class="w100">
+                                <a [href]="row.archivo | bannersImg:bucket:2">{{row.archivo}}</a>
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="fecha">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Fecha</span>
+                        </ng-template>
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{ value | fehaLarga }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                  
+                </ngx-datatable>
+
+
+
+
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="datatable_length">
@@ -220,7 +251,7 @@
                     class="bootstrap selection-cell" 
                     [columnMode]="'force'" [headerHeight]="50" 
                     [footerHeight]="50" [rowHeight]="'auto'" 
-                    [limit]="entriesDet != -1 ? entries : undefined" 
+                    [limit]="entriesDet != -1 ? entriesDet : undefined" 
                     [rows]="detalleRow" (activate)="onActivateDet($event)">
                     <ngx-datatable-column name="titulo">
                         <ng-template let-column="column" ngx-datatable-header-template>

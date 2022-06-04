@@ -4,8 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class BannersImgPipe implements PipeTransform {
 
-  transform(img: any, bucket:string): any {
+  transform(img: string, bucket:string, type:number=1): any {
     
+    if(type == 2){
+      return `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${bucket}/adjuntos/${img}`;
+    }
     if(img!=''){
       return `https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/${bucket}/fotos/${img}`;
     }else{
