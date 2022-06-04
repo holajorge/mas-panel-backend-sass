@@ -194,6 +194,11 @@
                         <span>{{ 'cliente.tablaCliente.nrocliente' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
+                <ngx-datatable-column name="nrointerno">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'cliente.tablaCliente.numInterno' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
                 <ngx-datatable-column prop="estado">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.estado' | translate}}</span>
@@ -464,7 +469,7 @@
         </form>
 
         <p class="text-primary">{{ dataCliente.cliente}} ( {{dataCliente.nroCliente}} )</p>
-        <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+        <ngx-datatable *ngIf="dataSucursal.length > 0" [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
             class="bootstrap selection-cell" 
             [columnMode]="'force'" [headerHeight]="50" 
             [footerHeight]="50" [rowHeight]="70" 

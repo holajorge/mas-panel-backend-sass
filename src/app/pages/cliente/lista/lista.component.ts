@@ -28,6 +28,9 @@ export class ListaComponent implements OnInit {
   entries: number = 10;
   activeRow:any;
   flagAdd:boolean = false;
+  nombreCliente:string = '';
+  fechaFilter:string = '';
+  fechahasta:string = '';
   constructor(
     public translate: TranslateService,  
     public fb: FormBuilder,
@@ -67,6 +70,61 @@ export class ListaComponent implements OnInit {
       console.log(err);
     });
   }
+  esMayuscula(letra){
+    return letra === letra.toUpperCase();
+}
+comprobarTexto(itemBusqueda, textoInput ){
+
+  if(this.esMayuscula(textoInput)){
+    textoInput = textoInput.toUpperCase();
+    itemBusqueda = itemBusqueda.toUpperCase();
+    
+  }else{
+    textoInput = textoInput.toLowerCase()
+    itemBusqueda = itemBusqueda.toLowerCase();
+    
+  }
+  if(itemBusqueda.includes(textoInput)){
+    return true;
+  }else{
+    return false;
+  }
+
+}
+filters(){
+
+  const fecha = this.fechaFilter;
+  const fechaHasta = this.fechahasta;
+  const nomCliente = this.nombreCliente;
+  
+  const filtros = {
+    nombre: [nomCliente, d => {
+      if(this.comprobarTexto(d['nombre'],nomCliente)){        
+        return true;
+      }
+    }],
+    fechacomprobante: [fecha, d => {
+      let fechaData = d['fechacomprobante'].split(' ');
+      if(fechaData[0] >= fecha){
+        return true;
+      }
+    }],
+    fechahasta: [fechaHasta, d => {
+      let fechaData = d['fechacomprobante'].split(' ');
+      if(fechaData[0] <= fechaHasta){
+        return true;
+      }
+    }],
+
+  }
+  let comprobantes = this.tempRow;
+  for (const filtro in filtros) {
+    if(filtros[filtro][0]){
+      comprobantes = comprobantes.filter( filtros[filtro][1])
+    }
+  }
+  this.comprobantes = comprobantes;
+}
   delete(row){
 
     Swal.fire({
@@ -226,5 +284,11 @@ export class ListaComponent implements OnInit {
       console.log(err);
     });
 
+  }
+  cleanFilters(){
+    this.nombreCliente = '';
+    this.fechaFilter = '';
+    this.fechahasta = '';
+    this.comprobantes = this.tempRow;
   }
 }

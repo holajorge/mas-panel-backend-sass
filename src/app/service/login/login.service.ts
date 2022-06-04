@@ -16,12 +16,25 @@ export class LoginService {
     let options = { headers: headers };
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/loginAdmin",usuario,options);
   }
+  authSuper(usuario){
+    
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/loginSuper",usuario,options);
+  }
 
   isAuthenticated():Observable<boolean>{
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     this.user.id = localStorage.getItem('usuario');
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/authlogin",this.user,options).pipe( map( resp => true), catchError(error => of(false) ) );
+    
+  }
+  isAuthenticatedSuper():Observable<boolean>{
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    this.user.id = localStorage.getItem('admin');
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/authloginSuper",this.user,options).pipe( map( resp => true), catchError(error => of(false) ) );
     
   }
   sendemailresetpassword(email){

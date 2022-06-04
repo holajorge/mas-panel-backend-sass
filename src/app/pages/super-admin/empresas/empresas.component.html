@@ -1,0 +1,148 @@
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-4 col-7">
+            <h6 class=" h2  d-inline-block mb-0 mr-1 text-uppercase">Lista</h6>
+            
+          </div>
+          <div class=" col-lg-8 col-5 text-right">
+            <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" 
+            (click)="newCompany()"> Nuevo </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class=" container-fluid mt--6">
+    <div class=" card">
+      <div class="card-header">
+        <h3 class="catd-text">Filtros</h3>
+        <div class="row">
+          <div class="col-12 col-md-3">
+              <div class="from-group">
+                <label class="form-control-label">Nombre empresa</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="nombreEmpresa"
+                      placeholder="ingrese nombre" aria-controls="datatable" (keyup)="filters()" />
+              </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <button class="btn btn-sm btn-primary" (click)="eliminar()">limpiar búsqueda</button>
+         </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-12" *ngFor="let empresa of empresas">
+            <div class="card overflow-hidden">
+                <div class="card-content">
+                    <div class="card-body ">
+                        <div class="media align-items-stretch">
+                            <!-- <div class="align-self-center">
+                                <i class="icon-pencil primary font-large-2 mr-2"></i>
+                            </div> -->
+                            <div class="media-body">
+                                <h4>{{empresa.nombre}}</h4>
+                                <span class="d-block" *ngIf="empresa.contacto">{{empresa.contacto}}</span>
+                                <span class="d-block" *ngIf="empresa.fecha_registro">{{empresa.fecha_registro}}</span>
+                                <span class="d-block" *ngIf="empresa.telefono">{{empresa.telefono}}</span>
+                                
+                            </div>
+                            <div class="desktop align-self-center">
+                                <button class="btn btn-md btn-info " (click)="openInfo(modalEmpresa,empresa)" title="Detalles" >
+                                    <i class="icon-info success font-large-2 "></i>
+                                </button>
+                                <a href="http://{{empresa.dominio}}" title="ir a tienda" target="blanck" class="btn btn-md btn-primary">
+                                  <i class="icon-direction danger font-large-2"></i>
+                                </a>
+                                <button class="btn btn-sm " (click)="viewAdminPanel(empresa)">
+                                    <i class="icon-heart danger font-large-2"></i>
+                                </button>
+                                <!-- <button class="btn btn-sm ">
+                                    <i class="icon-pencil primary font-large-2 mr-2"></i>
+                                </button> -->
+                            </div>
+                            <div class="movil align-self-center">
+                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                  </button>
+                                  <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="openInfo(modalEmpresa,empresa)">
+                                      <mat-icon>info</mat-icon>
+                                      <span>Detalles</span>
+                                    </button>
+                                    <!-- <button mat-menu-item disabled>
+                                      <mat-icon>voicemail</mat-icon>
+                                      <span>Check voice mail</span>
+                                    </button> -->
+                                    <a href="http://{{empresa.dominio}}" target="blanck" mat-menu-item>
+                                      <mat-icon>link</mat-icon>
+                                      <span>ir a tienda</span>
+                                    </a>
+                                  </mat-menu>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+</div>
+
+<ng-template #modalEmpresa >
+  <div class="modal-header">    
+      <h2 class="" >{{empresa}}</h2>
+      <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+          <span aria-hidden="true"> × </span>
+      </button>
+  </div>    
+  <div class="modal-body">
+    <table class="col-12 ">
+      <tbody>
+          <tr>
+              <td class="h4 text-right"><strong>Contacto:</strong></td>
+              <td> </td>
+              
+              <td class="h3">{{empresaDetails.contacto}}</td>
+          </tr>
+          
+          <tr>
+              <td class="h4 text-right"><strong>Telefono:</strong></td>
+              <td> </td>
+              <td class="h3">{{empresaDetails.telefono}}</td>
+          </tr>
+          
+          <tr>
+              <td class="h4 text-right"><strong>Correo:</strong></td>
+              <td> </td>
+              <td class="h3">{{empresaDetails.email}}</td>
+          </tr>
+          
+          <tr>
+              <td class="h4 text-right"><strong>Usuario:</strong></td>
+              <td> </td>
+              <td class="h3">{{empresaDetails.usuario}}</td>
+          </tr>
+          
+          <tr>
+              <td class="h4 text-right"><strong>Bucket:</strong></td>
+              <td> </td>
+              <td class="h3">{{empresaDetails.bucket}}</td>
+          </tr>    
+
+      </tbody>
+    </table>
+          
+    <!-- <div class="col-2 "> 
+        <img src="assets/img/pordefecto.png" alt="teste" class="img-thumbnail">  
+    </div>      -->
+
+  </div>
+  <div class=" modal-footer">
+    <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> 
+      <i class="fa fa-times-circle" ></i> Cerrar</button>
+  </div>
+</ng-template>

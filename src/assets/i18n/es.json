@@ -106,7 +106,7 @@
             "caract4": "Caracteristica 4",
             "send": "Enviar"
         },
-        "titulo": "Lista Productos",
+        "titulo": "Listado de productos",
         "tituloEdit": "Editar Producto",
         "tituloAdd": "Nuevo Producto",
         "foto": {
@@ -300,11 +300,12 @@
         "registrar": "Guardar",
         "nueva": "crear cuenta",
         "error_email": "Ya existe un registro con el mismo email.",
-        "error_subdomain": "Ya existe un registro con el mismo subdominio."
+        "error_subdomain": "Ya existe un registro con el mismo subdominio.",
+        "error_subdomain_empty": "El subdominio no puede ser vacío."
     },
     "pedidos": {
         "titulo": "Lista de Pedidos Vendedores",
-        "tituloCliente": "Lista de Pedidos Clientes",
+        "tituloCliente": "Lista de Pedidos",
         "tabla": {
             "nombre": "Nombre",
             "email": "Correo",
@@ -430,6 +431,7 @@
         },
         "tablaCliente": {
             "cliente": "Cliente",
+            "numInterno": "Nro interno",
             "nrocliente": "Nro Cliente",
             "estado": "Estado",
             "fecha": "Fecha",

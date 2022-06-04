@@ -9,7 +9,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 import { SidebarAdminComponent } from "./sidebar_admin/sidebar_admin.component";
+import { SidebarSuperComponent } from "./sidebar_super/sidebar_super.component";
 import { NavbarAdminComponent } from "./navbar_admin/navbar_admin.component";
+import { NavbarSuperComponent } from "./navbar_super/navbar_super.component";
 import { FooterAdminComponent } from "./footer_admin/footer_admin.component";
 import { VectorMapComponent1 } from "./vector-map/vector-map.component";
 
@@ -32,15 +34,15 @@ import { TaskmanagerComponent } from './taskmanager/taskmanager.component';
   ],
   declarations: [
     VectorMapComponent1,
-    SidebarAdminComponent,
-    NavbarAdminComponent,
+    SidebarAdminComponent,SidebarSuperComponent,
+    NavbarAdminComponent,NavbarSuperComponent,
     FooterAdminComponent,
     TaskmanagerComponent
   ],
   exports: [
     VectorMapComponent1,
-    SidebarAdminComponent,
-    NavbarAdminComponent,
+    SidebarAdminComponent,SidebarSuperComponent,
+    NavbarAdminComponent,NavbarSuperComponent,
     FooterAdminComponent,
     TaskmanagerComponent
   ],
