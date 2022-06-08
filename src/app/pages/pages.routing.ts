@@ -85,7 +85,7 @@ const routes:Routes = [
             {path: 'precios/importar-precios',  component: ImportarPreciosComponent},
             {path: 'precios/importar-descuentos',  component: ImportarDescuentoComponent},
             {path: 'precios/descuento-categorias',  component: DescuentoComponent},
-            {path: 'precios/descuento-lista',  component: DescuentoListaComponent},
+            {path: 'precios/descuento-lista/:type',  component: DescuentoListaComponent},
             {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent},
             {path: 'precios/stock-precio',  component: StockPrecioComponent},
 

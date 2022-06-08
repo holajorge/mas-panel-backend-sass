@@ -23,12 +23,14 @@ export interface ChildrenItems {
   collapse?: string;
   children?: ChildrenItems2[];
   isCollapsed?: boolean;
+  param?: string;
   
 }
 export interface ChildrenItems2 {
   path?: string;
   title?: string;
   type?: string;
+  param?: string;
 }
 //Menu Items
 export const ROUTES: RouteInfo[] = [
@@ -150,7 +152,8 @@ export const ROUTES: RouteInfo[] = [
       { path: "importar-precios", title: "Importar precios", type: "link" }, */
       { path: "lista-precios", title: "Lista Precios", type: "link" },
       { path: "importar-lista-precios", title: " Importar Listas de Precios", type: "link" },
-      { path: "descuento-lista", title: "Descuentos", type: "link" },
+      { path: "descuento-lista", title: "Descuentos", type: "link", param: 'simple'},
+      { path: "descuento-lista", title: "Descuento por volumen", type: "link", param: 'volumen'},
       /* { path: "descuento-categorias", title: "Descuentos por Categorias", type: "link" }, */
        
       { path: "importar-descuentos", title: "Importar descuentos", type: "link" },
