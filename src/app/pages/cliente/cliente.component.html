@@ -83,39 +83,40 @@
                 </div>
     
                 <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                    class="bootstrap selection-cell" 
+                    class="bootstrap selection-cell fullscreen"
                     [columnMode]="'force'" [headerHeight]="50" 
                     [footerHeight]="50" [rowHeight]="70" 
                     [limit]="entries != -1 ? entries : undefined" [rows]="temp" 
-                    [loadingIndicator]="loadingIndicator" 
+                    [loadingIndicator]="loadingIndicator"
+                    [scrollbarH]="true"
                     (activate)="onActivate($event)">
-                    <ngx-datatable-column name="nrocliente">
+                    <ngx-datatable-column name="nrocliente" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'cliente.tabla.nrocliente' | translate}} </span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="nombre">
+                    <ngx-datatable-column name="nombre" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'cliente.tabla.nombre' | translate}}</span>
                         </ng-template>email
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="email">
+                    <ngx-datatable-column name="email" [width]="220">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'cliente.tabla.email' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="usuario">
+                    <ngx-datatable-column name="usuario" [width]="150">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'cliente.tabla.usuario' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="clave">
+                    <ngx-datatable-column name="clave" [width]="150">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'cliente.tabla.clave' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
                     
-                    <ngx-datatable-column name="Acción" >
+                    <ngx-datatable-column name="Acción" [width]="250">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'cliente.tabla.acciones' | translate}}</span>
                         </ng-template>
@@ -178,44 +179,45 @@
             </div>
     
             <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                class="bootstrap selection-cell" 
+                class="bootstrap selection-cell fullscreen"
                 [columnMode]="'force'" [headerHeight]="50" 
                 [footerHeight]="50" [rowHeight]="70" 
-                [limit]="entriesDet != -1 ? entries : undefined" 
+                [limit]="entriesDet != -1 ? entries : undefined"
+                [scrollbarH]="true"
                 [rows]="detalleRow" (activate)="onActivateDet($event)">
 
-                <ngx-datatable-column name="cliente">
+                <ngx-datatable-column name="cliente" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.cliente' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="nrocliente">
+                <ngx-datatable-column name="nrocliente" [width]="100">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.nrocliente' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="nrointerno">
+                <ngx-datatable-column name="nrointerno" [width]="100">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.numInterno' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="estado">
+                <ngx-datatable-column prop="estado" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.estado' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="fecha">
+                <ngx-datatable-column prop="fecha" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.fecha' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="comentario">
+                <ngx-datatable-column name="comentario" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tablaCliente.comentario' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="Acción" >
+                <ngx-datatable-column name="Acción" [width]="250">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tabla.acciones' | translate}}</span>
                     </ng-template>
@@ -470,11 +472,12 @@
 
         <p class="text-primary">{{ dataCliente.cliente}} ( {{dataCliente.nroCliente}} )</p>
         <ngx-datatable *ngIf="dataSucursal.length > 0" [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-            class="bootstrap selection-cell" 
+            class="bootstrap selection-cell fullscreen"
             [columnMode]="'force'" [headerHeight]="50" 
             [footerHeight]="50" [rowHeight]="70" 
             [columns]="columnSucursal"
-            [limit]="entries != -1 ? entries : undefined" 
+            [limit]="entries != -1 ? entries : undefined"
+            [scrollbarH]="true"
             [rows]="dataSucursal" >
             <ngx-datatable-column prop="nombre_sucursal">
                 <ng-template let-column="column" ngx-datatable-header-template>

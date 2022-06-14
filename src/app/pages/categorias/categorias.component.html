@@ -47,11 +47,12 @@
                 </div>
     
                 <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                    class="bootstrap selection-cell" 
+                    class="bootstrap selection-cell fullscreen"
                     [columnMode]="'force'" [headerHeight]="50" 
                     [footerHeight]="50" [rowHeight]="70" 
                     [limit]="entries != -1 ? entries : undefined" 
-                    [rows]="categorias" 
+                    [rows]="categorias"
+                    [scrollbarH]="true"
                     (activate)="onActivate($event)">
                     <ngx-datatable-column name="nombre">
                         <ng-template let-column="column" ngx-datatable-header-template>
@@ -112,22 +113,22 @@
             </div>
 
             <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="70" 
-                [limit]="entriesCliente != -1 ? entries : undefined" [rows]="clientes" 
+                class="bootstrap selection-cell fullscreen" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="70"
+                [limit]="entriesCliente != -1 ? entries : undefined" [rows]="clientes" [scrollbarH]="true"
                 (activate)="onActivateCliente($event)">
 
-                <ngx-datatable-column name="nombre">
+                <ngx-datatable-column name="nombre" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'vendedores.asociar.nombre' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="nrocliente">
+                <ngx-datatable-column name="nrocliente" [width]="100">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'vendedores.asociar.nrocliente' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
                     
-                <ngx-datatable-column name="Acción" >
+                <ngx-datatable-column name="Acción" [width]="250">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'vendedores.tabla.acciones' | translate}}</span>
                     </ng-template>

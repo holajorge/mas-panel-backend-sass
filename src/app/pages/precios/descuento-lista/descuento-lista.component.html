@@ -46,31 +46,32 @@
                 </div>
     
                 <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                    class="bootstrap selection-cell" 
+                    class="bootstrap selection-cell fullscreen"
                     [columnMode]="'force'" 
                     [headerHeight]="50" 
                     [footerHeight]="50" 
                     [rowHeight]="70" 
-                    [limit]="entries != -1 ? entries : undefined" [rows]="descuentos"  
+                    [limit]="entries != -1 ? entries : undefined" [rows]="descuentos"
+                    [scrollbarH]="true"
                     (activate)="onActivate($event)">
                     
-                    <ngx-datatable-column name="caracteristica1">
+                    <ngx-datatable-column name="caracteristica1" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{textCaract1}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="caracteristica2">
+                    <ngx-datatable-column name="caracteristica2" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{textCaract2}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="caracteristica3">
+                    <ngx-datatable-column name="caracteristica3" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{textCaract3}}</span>
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="codigoProducto">
+                    <ngx-datatable-column name="codigoProducto" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'precios.descuento.codigo' | translate}}</span>
                         </ng-template>
@@ -82,7 +83,7 @@
                         </ng-template>
                     </ngx-datatable-column>
                     -->
-                    <ngx-datatable-column name="nrocliente">
+                    <ngx-datatable-column name="nrocliente" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'precios.descuento.lista.nrocliente' | translate}}</span>
                         </ng-template>
@@ -91,12 +92,12 @@
                             <span *ngIf="value == '0'" >Todos </span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="porcentaje">
+                    <ngx-datatable-column name="porcentaje" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'precios.descuento.descuento' | translate}} %</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Acción" >
+                    <ngx-datatable-column name="Acción" [width]="250">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'producto.tabla.acciones' | translate}}</span>
                         </ng-template>

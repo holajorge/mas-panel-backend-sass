@@ -61,26 +61,27 @@
                         </div>
                     </div>
 
-                    <ngx-datatable class="bootstrap selection-cell" 
+                    <ngx-datatable class="bootstrap selection-cell fullscreen"
                       [columnMode]="'force'" [headerHeight]="50" 
-                      [footerHeight]="50" [rowHeight]="70" 
+                      [footerHeight]="50" [rowHeight]="70"
+                      [scrollbarH]="true"
                       [limit]="entries != -1 ? entries : undefined" [rows]="listaPrecios" > 
-                      <ngx-datatable-column name="lista">
+                      <ngx-datatable-column name="lista" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span> Lista</span>
                         </ng-template>
                       </ngx-datatable-column>
-                      <ngx-datatable-column name="codigoProducto">
+                      <ngx-datatable-column name="codigoProducto" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span> Producto</span>
                         </ng-template>
                       </ngx-datatable-column>
-                      <ngx-datatable-column name="precio">
+                      <ngx-datatable-column name="precio" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span> Precio</span>
                         </ng-template>
                       </ngx-datatable-column>
-                      <ngx-datatable-column name="precioOferta">
+                      <ngx-datatable-column name="precioOferta" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span> Precio oferta</span>
                         </ng-template>
