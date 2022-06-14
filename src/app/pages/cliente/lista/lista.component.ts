@@ -203,6 +203,8 @@ filters(){
     formData.append('id',this.formConfig.get('id').value);
     formData.append('nrocliente',  this.formConfig.get('cliente').value);
     formData.append('fecha_comprobante',  this.formConfig.get('fecha').value);
+    let id = localStorage.getItem('usuario');
+    formData.append('empresa', id);
     
     this.clienteService.updateComprobante(formData).then( (res:any) =>{    
       Swal.close();
