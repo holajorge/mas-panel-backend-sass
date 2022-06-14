@@ -48,11 +48,14 @@ export class ClientesComponent implements OnInit {
   models: any = {};
   estadoSelect:number;
   noteForm:FormGroup;
-
+  files:[] = [];
+  fileEntries:number = 5;
+  bucket:string;
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public configService: ConfigService,
   ){ 
     this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
@@ -85,7 +88,34 @@ export class ClientesComponent implements OnInit {
       console.log(err);
     });
 
+    this.getConfig()
+
   }
+  getConfig(){
+    this.configService.getConfigEmpresa({id:this.empresa.id}).then( (res:any) =>{    
+      Swal.close();
+      if(res.response.body['configuraciones'] != ""){
+        this.bucket = res.response.body['bucket'];
+      }
+      
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+  getFilesOrders(){
+
+    this.pedidosService.getFileOrder({'npedido':this.empresa.pedido, 'token': this.empresa.id}).subscribe(
+      (files) => {
+        this.files = files;
+      },
+      (error) => {
+        console.log(error);
+
+      }
+    )
+  }
+
   getPedidos(){ 
 
     this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{    
@@ -256,7 +286,7 @@ export class ClientesComponent implements OnInit {
       modalEditVendedor,
       this.notification
     );
-
+    this.getFilesOrders();
   }
   onaddComente(modalComent,row){
     

@@ -3,6 +3,7 @@ import { HttpClient,HttpHeaders, HttpClientModule, HttpRequest, HttpEvent, HttpP
 import { ConfigService } from '../config/config.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { catchError, map } from 'rxjs/operators';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 @Injectable({
@@ -11,7 +12,11 @@ const EXCEL_EXTENSION = '.xlsx';
 export class PedidosService {
 
   constructor(private _http:HttpClient) { }
-
+  get headers(){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    return options;
+  }
   getPedidos(idEmpresa){
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
@@ -117,6 +122,17 @@ export class PedidosService {
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al actualizar estado'};
     });
+  }
+  getFileOrder(data){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Api/getFilesOrder",data,this.headers )
+      .pipe(
+        map( (res:any) => {      
+          let {files} = res;        
+          return files;
+        }),
+        catchError( error => error)
+      );
   }
 
   getPedidosClientePorFechas(idEmpresa, date_start, date_end){
