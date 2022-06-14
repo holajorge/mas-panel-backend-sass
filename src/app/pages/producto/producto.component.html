@@ -124,11 +124,12 @@
     
             <ngx-datatable 
                 [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                class="bootstrap selection-cell" 
+                class="bootstrap selection-cell fullscreen"
                 [columnMode]="'force'" 
                 [headerHeight]="50" 
                 [footerHeight]="50" 
                 [rowHeight]="60"
+                [scrollbarH]="true"
                 [limit]="entries != -1 ? entries : undefined" [rows]="rows" 
                 (activate)="onActivate($event)" [rowHeight]="getRowHeight"
                 >
@@ -139,33 +140,33 @@
                     </ng-template>
                     
                 </ngx-datatable-column>
-                <ngx-datatable-column name="codigo">
+                <ngx-datatable-column name="codigo" [width]="100">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.codigo' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica1" *ngIf="textCaract1">
+                <ngx-datatable-column name="caracteristica1" *ngIf="textCaract1" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract1}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica2" *ngIf="textCaract2">
+                <ngx-datatable-column name="caracteristica2" *ngIf="textCaract2" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract2}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica3" *ngIf="textCaract3">
+                <ngx-datatable-column name="caracteristica3" *ngIf="textCaract3" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract3}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="precio">
+                <ngx-datatable-column name="precio" [width]="100">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.precio' | translate}} </span>
                     </ng-template>
                 </ngx-datatable-column>
               
-                <ngx-datatable-column name="Acción" [width]="200" >
+                <ngx-datatable-column name="Acción" [width]="250" >
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.acciones' | translate}}</span>
                     </ng-template>
@@ -577,43 +578,44 @@
             </div>
     
             <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                class="bootstrap selection-cell" 
+                class="bootstrap selection-cell fullscreen"
                 [columnMode]="'force'" 
                 [headerHeight]="50" [footerHeight]="50" 
-                [rowHeight]="'auto'" 
+                [rowHeight]="'auto'"
+                [scrollbarH]="true"
                 [limit]="entries != -1 ? entries : undefined" [rows]="destacados"  
                 (activate)="onActivate($event)">                
-                <ngx-datatable-column name="titulo">
+                <ngx-datatable-column name="titulo" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.titulo' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="codigo">
+                <ngx-datatable-column name="codigo" [width]="100">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.codigo' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica1">
+                <ngx-datatable-column name="caracteristica1" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract1}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica2">
+                <ngx-datatable-column name="caracteristica2" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract2}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica3">
+                <ngx-datatable-column name="caracteristica3" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{textCaract3}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="precio">
+                <ngx-datatable-column name="precio" [width]="100">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'producto.tabla.precio' | translate}} </span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="activo">
+                <ngx-datatable-column name="activo" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'cliente.tabla.activo' | translate}}</span>
                     </ng-template>

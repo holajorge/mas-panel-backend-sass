@@ -43,35 +43,36 @@
                 </div>
         
                 <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                    class="bootstrap selection-cell" 
+                    class="bootstrap selection-cell fullscreen"
                     [columnMode]="'force'" 
                     [headerHeight]="50" 
                     [footerHeight]="50" 
-                    [rowHeight]="70" 
+                    [rowHeight]="70"
+                    [scrollbarH]="true"
                     [limit]="entries != -1 ? entries : undefined" [rows]="rows"  
                     (activate)="onActivate($event)">
                     
-                    <ngx-datatable-column name="nrocliente">
+                    <ngx-datatable-column name="nrocliente" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'precios.tabla.nrocliente' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="codigo">
+                    <ngx-datatable-column name="codigo" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'precios.tabla.codigo' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="precio">
+                    <ngx-datatable-column name="precio" [width]="100">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'precios.tabla.precio' | translate}} </span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="porcentaje">
-                        <ng-template let-column="column" ngx-datatable-header-template>
+                    <ngx-datatable-column name="porcentaje" [width]="100">
+                        <ng-template let-column="column" ngx-datatableheader-template>
                             <span>{{ 'precios.tabla.descuento' | translate}} </span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="Acción" >
+                    <ngx-datatable-column name="Acción" [width]="250">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'precios.tabla.acciones' | translate}}</span>
                         </ng-template>

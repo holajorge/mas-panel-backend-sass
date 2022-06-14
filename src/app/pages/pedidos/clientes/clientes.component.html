@@ -104,10 +104,11 @@
                     </div>
             
                     <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                        class="bootstrap selection-cell" [columnMode]="'force'" 
+                        class="bootstrap selection-cell fullscreen" [columnMode]="'force'"
                         [footerHeight]="50" [rowHeight]="70" 
                         [limit]="entries != -1 ? entries : undefined" [rows]="temp" 
-                        [loadingIndicator]="loadingIndicator" 
+                        [loadingIndicator]="loadingIndicator"
+                        [scrollbarH]="true"
                         (activate)="onActivate($event)">
 
                         <ngx-datatable-column name="numeroInterno" [width]="10">
@@ -126,23 +127,23 @@
                             </ng-template>
                             
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="nrocliente"  [width]="50">
+                        <ngx-datatable-column name="nrocliente"  [width]="100">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.nocliente' | translate}}</span>
                             </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="cliente" [width]="220">
+                        <ngx-datatable-column name="cliente" [width]="200">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.nombre' | translate}}</span>
                             </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="total" [width]="50">
+                        <ngx-datatable-column name="total" [width]="100">
                             
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.total' | translate}}</span>
                             </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="estado" [width]="100">
+                        <ngx-datatable-column name="estado" [width]="200">
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'pedidos.tabla.estado' | translate}}</span>
                             </ng-template>
@@ -196,12 +197,13 @@
                 </div>    
                 <h5 class="">Lista de Archivos</h5>
                 <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                    class="bootstrap selection-cell" 
+                    class="bootstrap selection-cell fullscreen"
                     [columnMode]="'force'" [headerHeight]="50" 
                     [footerHeight]="50" [rowHeight]="'auto'" 
-                    [limit]="fileEntries != -1 ? fileEntries : undefined" 
+                    [limit]="fileEntries != -1 ? fileEntries : undefined"
+                    [scrollbarH]="true"
                     [rows]="files" >
-                    <ngx-datatable-column name="archivo">
+                    <ngx-datatable-column name="archivo" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>Archivo</span>
                         </ng-template>
@@ -211,7 +213,7 @@
                             </span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="fecha">
+                    <ngx-datatable-column name="fecha" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>Fecha</span>
                         </ng-template>
@@ -249,17 +251,18 @@
                 </div>
         
                 <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                    class="bootstrap selection-cell" 
+                    class="bootstrap selection-cell fullscreen"
                     [columnMode]="'force'" [headerHeight]="50" 
                     [footerHeight]="50" [rowHeight]="'auto'" 
-                    [limit]="entriesDet != -1 ? entriesDet : undefined" 
+                    [limit]="entriesDet != -1 ? entriesDet : undefined"
+                    [scrollbarH]="true"
                     [rows]="detalleRow" (activate)="onActivateDet($event)">
-                    <ngx-datatable-column name="titulo">
+                    <ngx-datatable-column name="titulo" [width]="250">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.titulo' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="codigo">
+                    <ngx-datatable-column name="codigo" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.codigo' | translate}}</span>
                         </ng-template>
@@ -269,12 +272,12 @@
                             <span>{{ 'pedidos.tabladetalle.precion_real' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column> -->
-                    <ngx-datatable-column prop="precio">
+                    <ngx-datatable-column prop="precio" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.precio' | translate}}</span>
                         </ng-template>
                     </ngx-datatable-column>
-                    <ngx-datatable-column name="cantidad" [width]="500">
+                    <ngx-datatable-column name="cantidad" [width]="200">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.cantidad' | translate}}</span>
                         </ng-template>
