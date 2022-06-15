@@ -16,20 +16,25 @@ export class TutorialesComponent implements OnInit {
   ruta:string = '';
   titulo:string = '';
   constructor(private modalService: BsModalService) { }
-
+  
   ngOnInit() {
     this.lista = [
-      {'titulo': '1. Cómo ingresar al catálogo.', 'link': 'https://www.youtube.com/embed/qEGrku-S8mc'},
-      {'titulo': '2. Cómo realizar búsquedas.', 'link': 'https://www.youtube.com/embed/-T7GNo8-G8g'},
-      {'titulo': '3. Cómo buscar por código de barras.', 'link': ''},
-      {'titulo': '4. Cómo agregar un producto al pedido.', 'link': ''},
-      {'titulo': '5. Cómo pedir un combo.', 'link': ''},
-      {'titulo': '6. Cómo enviar el pedido.', 'link': ''},
-      {'titulo': '7. Cómo consultar pedidos anteriores.', 'link': ''},
-      {'titulo': '8. Cómo definir el markup.', 'link': ''},
-      {'titulo': '9. Cómo imprimir un listado.', 'link': ''},
-      {'titulo': '10. Cómo visualizar la pantalla de ventas.', 'link': ''},
-      {'titulo': '11. Cómo ocultar los costos.', 'link': ''}
+      {'titulo': '1. Introducción al Panel Administrador.', 'link': 'https://www.youtube.com/embed/xmldV692sw8?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '2. Alta Manual de Clientes.', 'link': 'https://www.youtube.com/embed/efDd4IsgSho?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '3. Configuración de productos.', 'link': 'https://www.youtube.com/embed/rpglmOXwngw?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '4. Alta Manual de Productos.', 'link': 'https://www.youtube.com/embed/kkKZCAEWx4M?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '5. Listado de Pedidos.', 'link': 'https://www.youtube.com/embed/lJznQeP4fwI?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '6. Alta Masiva de Productos.', 'link': 'https://www.youtube.com/embed/6blJnFnhz0A?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '7. Alta Masiva de Clientes.', 'link': 'https://www.youtube.com/embed/JM_optrNN00?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '8. Listado de Productos.', 'link': 'https://www.youtube.com/embed/6k_0uZzYcBI?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '9. Importar Sucursales.', 'link': 'https://www.youtube.com/embed/DQHnHLzKcI0?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '10. Administrar Comprobantes.', 'link': 'https://www.youtube.com/embed/HzQTM4vpUiU?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '11. Administrar Vendedores.', 'link': 'https://www.youtube.com/embed/R8uQ6Xz4og4?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '12. Configurar Datos de mi Cuenta.', 'link': 'https://www.youtube.com/embed/7-dvVLpLCGI?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '13. Configuración General.', 'link': 'https://www.youtube.com/embed/vB93z82KR3M?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '14. Configuración de Datos de la Empresa.', 'link': 'https://www.youtube.com/embed/gPCPjWIT0J8?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '15. Administrar Sucursales de Clientes.', 'link': 'https://www.youtube.com/embed/WRL6JTHGc_Y?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
+      {'titulo': '16. Administrar Clientes.', 'link': 'https://www.youtube.com/embed/mBKSOBlvHnY?list=PL8h-Lqa5zFGDVWNmqhkRNPkpvvrXefNLw'},
     ];
   }
   modalOpen(modalVideo,item){
