@@ -195,7 +195,7 @@
                     </div>
                 </div>    
                 <h5 class="">Lista de Archivos</h5>
-                <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                <ngx-datatable [messages]="{emptyMessage: 'El cliente aún no adjuntó ningún archivo al pedido!'}"
                     class="bootstrap selection-cell" 
                     [columnMode]="'force'" [headerHeight]="50" 
                     [footerHeight]="50" [rowHeight]="'auto'" 
@@ -207,7 +207,8 @@
                         </ng-template>
                         <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
                             <span class="w100">
-                                <a [href]="row.archivo | bannersImg:bucket:2">{{row.archivo}}</a>
+                                <a [href]="row.archivo | bannersImg:bucket:2">
+                                    {{row.archivo}}</a>
                             </span>
                         </ng-template>
                     </ngx-datatable-column>
