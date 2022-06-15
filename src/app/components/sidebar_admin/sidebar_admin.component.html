@@ -74,7 +74,12 @@
                     {{ childitems.title }}
                   </a>
                   <!--If it hasn't a task -->
-                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path]" class="nav-link" *ngIf="childitems.type === 'link' && (checkTask(childitems, 'nothing') || !onboardingService.on)">
+                  <!-- If it has param query -->
+                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path, childitems.param]" class="nav-link" *ngIf="childitems.type === 'link' && (checkTask(childitems, 'nothing') || !onboardingService.on) && childitems.param">
+                    {{ childitems.title }}
+                  </a>
+                  <!-- If it NOT has param query -->
+                  <a routerLinkActive="active" [routerLink]="[menuitem.path, childitems.path]" class="nav-link" *ngIf="childitems.type === 'link' && (checkTask(childitems, 'nothing') || !onboardingService.on) && !childitems.param">
                     {{ childitems.title }}
                   </a>
                   <!--If it have a submenu-->
