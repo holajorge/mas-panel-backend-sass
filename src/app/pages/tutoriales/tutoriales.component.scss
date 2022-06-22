@@ -1,0 +1,10 @@
+@media (max-width: 400px) {
+    .mitad {
+        display: flex;
+        flex-flow: column;
+    }
+}
+ 
+.table th, .table td{
+    border-top: none !important;
+}

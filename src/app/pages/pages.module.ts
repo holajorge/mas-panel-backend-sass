@@ -57,6 +57,8 @@ import { EmpresasComponent } from './super-admin/empresas/empresas.component'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon'
+import { TutorialesComponent } from './tutoriales/tutoriales.component'
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -100,6 +102,7 @@ imports: [
     LoginSuperComponent,
     HomeSuperComponent,
     EmpresasComponent,
+    TutorialesComponent,
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,

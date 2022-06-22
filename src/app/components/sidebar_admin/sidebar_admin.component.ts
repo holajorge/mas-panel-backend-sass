@@ -167,6 +167,12 @@ export const ROUTES: RouteInfo[] = [
     type: "link",
     icontype: "fa fa-images text-primary",
   },
+  {
+    path: "tutoriales",
+    title: "Tutoriales",
+    type: "link",
+    icontype: "fa fa-link text-primary",
+  },
 ];
 
 @Component({
