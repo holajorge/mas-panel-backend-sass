@@ -40,6 +40,7 @@ import { LoginSuperComponent } from './super-admin/login-super/login-super.compo
 import { SuperGuard } from '../guards/super.guard';
 import { HomeSuperComponent } from './super-admin/home-super/home-super.component';
 import { EmpresasComponent } from './super-admin/empresas/empresas.component';
+import { TapiceComponent } from './tapice/tapice.component';
 
 
 const routes:Routes = [
@@ -88,6 +89,7 @@ const routes:Routes = [
             {path: 'precios/descuento-lista',  component: DescuentoListaComponent},
             {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent},
             {path: 'precios/stock-precio',  component: StockPrecioComponent},
+            {path: 'tapice',  component: TapiceComponent},
 
             //tarea
             {path: 'tareas', component:TareasComponent},

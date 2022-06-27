@@ -56,7 +56,8 @@ import { HomeSuperComponent } from './super-admin/home-super/home-super.componen
 import { EmpresasComponent } from './super-admin/empresas/empresas.component'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon'
+import {MatIconModule} from '@angular/material/icon';
+import { TapiceComponent } from './tapice/tapice.component'
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -100,6 +101,7 @@ imports: [
     LoginSuperComponent,
     HomeSuperComponent,
     EmpresasComponent,
+    TapiceComponent,
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,
