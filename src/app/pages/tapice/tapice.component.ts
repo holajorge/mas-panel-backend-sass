@@ -44,7 +44,7 @@ export class TapiceComponent implements OnInit {
       // icon: "warning",
       title: "Remplazar productos",
       // text: "Cantidad productos eliminados: "+ 40 +"<br>" + "productos Nuevos:" + 50, 
-      html: '<h2>Esta accion remplazara todos los producto por los que contiene el archivo .CVS</h2>',
+      html: '<h2>Esta acción remplazará todos los producto por los que contiene el archivo .csv</h2>',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
