@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { ConfigService } from 'src/app/service/config/config.service';
 
 var misc: any = {
   sidebar_mini_active: true
@@ -162,6 +163,12 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
+    path: "tapice",
+    title: "Tapicé",
+    type: "link",
+    icontype: "fa fa-images text-primary",
+  },
+  {
     path: "banners",
     title: "Banners",
     type: "link",
@@ -184,13 +191,46 @@ export class SidebarAdminComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
   public optionModal: BsModalRef;
-  constructor(private router: Router, public onboardingService:WalkthroughService, private modalService: BsModalService) { }
+  empresa: any = {id:''};
+  flag:boolean;
+  constructor(private router: Router, public onboardingService:WalkthroughService, private modalService: BsModalService, public configService: ConfigService,) { }
 
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+  async ngOnInit(): Promise<void>  {
+    await this.getTapiceEmpresa();
+    // console.log(this.flag);
+    // await this.itemsMenu();
+    // this.menuItems = ROUTES.filter(menuItem => menuItem);
+
     this.router.events.subscribe(event => {
       this.isCollapsed = true;
     });
+  }
+  getTapiceEmpresa = async() =>  {
+    this.empresa.token = localStorage.getItem('usuario');
+    await this.configService.getEmpresaTapice(this.empresa).subscribe( 
+      (flag:boolean) =>{
+        this.itemsMenu(flag);
+      },
+      (error) => {
+        console.log(error);
+        this.itemsMenu(false);
+      }
+    )
+  }
+  itemsMenu = (flag) => {
+    
+    if(!flag){
+      let menu = [];
+      ROUTES.map( (item) => {      
+        if(item.path != 'tapice'){
+          menu.push(item);
+        }
+      });
+      this.menuItems = menu;
+    }else{
+      this.menuItems = ROUTES.filter(menuItem => menuItem);
+    }
+
   }
   onLogout(){
     localStorage.removeItem('usuario');

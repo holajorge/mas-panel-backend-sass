@@ -55,6 +55,21 @@ export class ConfigService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+  getEmpresaTapice(empresa){
+    
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getConfigTapiceEmpresa",empresa,options).pipe(
+      map( (resp:any) => {
+        let {flag} = resp;
+        return flag;
+      }),
+      catchError( error => {
+          return of(false)
+      })
+    )
+  }
   saveDominio(data){
 
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveDominio",data).toPromise().then((res) =>{     
