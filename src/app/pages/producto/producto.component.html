@@ -25,180 +25,205 @@
 <div class=" container-fluid mt--6">
     <div class=" row">
         <div class=" col">
-        <div class=" card">
-            <div class=" card-header">
-                <h3 class="catd-text">Filtros</h3>
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <div class="from-group">
-                            <label class="form-control-label">{{ 'producto.formEdit.codigo' | translate }}</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoP"
-                                    placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" 
-                                    (keyup)="filtraCat()"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="from-group">
-                            <label class="form-control-label">Titulo</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="tituloP"
-                                    placeholder="{{ 'producto.tabla.titulo' | translate}}" aria-controls="datatable" 
-                                    (keyup)="filtraCat()"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3" *ngIf="textCaract1">
-                        <div class="from-group">
-                            <label class="form-control-label" for="">{{textCaract1}}</label>
-                            <ng-select  [items]="arrayCaracteristica1" [(ngModel)]="selectCara1" class="custom"
-                            bindValue="nombre"  (change)="filtraCat()" bindLabel="nombre"
-                            [clearSearchOnAdd]="true"></ng-select>
-                        </div>
-                    </div>
-                    <div class="col-md-3"  *ngIf="textCaract2">
-                        <div class="from-group">
-                            <label class="form-control-label" for="">{{textCaract2}}</label>
-                            <ng-select (change)="filtraCat()"[(ngModel)]="selectCara2" 
-                            bindValue="nombre" [items]="arrayCaracteristica2" bindLabel="nombre">
-                            </ng-select>
-                        </div>
-                    </div>
-                    <div class="col-md-3"  *ngIf="textCaract3">
-                        <div class="from-group">
-                            <label class="form-control-label" for="">{{textCaract3}}</label>
-                            <ng-select (change)="filtraCat()" [(ngModel)]="selectCara3" 
-                                bindValue="nombre"[items]="arrayCaracteristica3" bindLabel="nombre">
-                            </ng-select>
-                        </div>
-                    </div>
-                    <!-- <div class="col-md-3">
-                        <div class="from-group">
-                            <label for="">Destacados </label>
-                            <ng-select  (change)="filtraCat()" [(ngModel)]="selectDest"
-                                bindValue="id" [items]="arrayDestacados" bindLabel="nombre">
-                            </ng-select>                      
-                        </div>
-                    </div> -->
-                    <div class="col-12 col-md-3">
-                        <!-- <div class="from-group"> -->
-                            <div class="mt-4">
-                                <label class="form-control-label"> Destacados </label>
-                                <input type="checkbox" [(ngModel)]="activoCliente" class="m-2 border-2"
-                                value="true" aria-controls="datatable" (click)="cambia()"/>
+            <div class=" card">
+                <div class=" card-header">
+                    <h3 class="catd-text">Filtros</h3>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <div class="from-group">
+                                <label class="form-control-label">{{ 'producto.formEdit.codigo' | translate }}</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoP"
+                                        placeholder="{{ 'producto.tabla.buscar' | translate}}" aria-controls="datatable" 
+                                        (keyup)="filtraCat()"/>
                             </div>
-                        <!-- </div> -->
+                        </div>
+                        <div class="col-md-3">
+                            <div class="from-group">
+                                <label class="form-control-label">Titulo</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="tituloP"
+                                        placeholder="{{ 'producto.tabla.titulo' | translate}}" aria-controls="datatable" 
+                                        (keyup)="filtraCat()"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="textCaract1">
+                            <div class="from-group">
+                                <label class="form-control-label" for="">{{textCaract1}}</label>
+                                <ng-select  [items]="arrayCaracteristica1" [(ngModel)]="selectCara1" class="custom"
+                                bindValue="nombre"  (change)="filtraCat()" bindLabel="nombre"
+                                [clearSearchOnAdd]="true"></ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-3"  *ngIf="textCaract2">
+                            <div class="from-group">
+                                <label class="form-control-label" for="">{{textCaract2}}</label>
+                                <ng-select (change)="filtraCat()"[(ngModel)]="selectCara2" 
+                                bindValue="nombre" [items]="arrayCaracteristica2" bindLabel="nombre">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-3"  *ngIf="textCaract3">
+                            <div class="from-group">
+                                <label class="form-control-label" for="">{{textCaract3}}</label>
+                                <ng-select (change)="filtraCat()" [(ngModel)]="selectCara3" 
+                                    bindValue="nombre"[items]="arrayCaracteristica3" bindLabel="nombre">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3">
+                            <div class="from-group">
+                                <label for="">Destacados </label>
+                                <ng-select  (change)="filtraCat()" [(ngModel)]="selectDest"
+                                    bindValue="id" [items]="arrayDestacados" bindLabel="nombre">
+                                </ng-select>                      
+                            </div>
+                        </div> -->
+                        <div class="col-12 col-md-3">
+                            <!-- <div class="from-group"> -->
+                                <div class="mt-4">
+                                    <label class="form-control-label"> Destacados </label>
+                                    <input type="checkbox" [(ngModel)]="activoCliente" class="m-2 border-2"
+                                    value="true" aria-controls="datatable" (click)="cambia()"/>
+                                </div>
+                            <!-- </div> -->
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <button class="btn btn-sm btn-primary" (click)="eliminar()">Limpiar búsqueda</button>
+                        </div>
                     </div>
-                    <div class="col-md-12 mt-3">
-                        <button class="btn btn-sm btn-primary" (click)="eliminar()">Limpiar búsqueda</button>
-                     </div>
                 </div>
-            </div>
-            <div class="dataTables_wrapper py-4">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-4">
-                    <div class="dataTables_length" id="datatable_length">
-                        <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
-                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
-                            <option value="10" [selected]="entries == 10">10</option>
-                            <option value="25" [selected]="entries == 25">25</option>
-                            <option value="50" [selected]="entries == 50">50</option>
-                            <option value="-1" [selected]="entries == -1">All</option>
-                        </select>
-                        {{ 'producto.tabla.entradas' | translate}}
-                        </label>
+                <div class="dataTables_wrapper py-4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            <!-- <div class="dataTables_length" id="datatable_length">
+                                <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
+                                <select name="datatable_length" aria-controls="datatable" [(ngModel)]="pageSize"
+                                class="form-control form-control-sm" (change)="refreshDatos()">
+                                    <option [value]="10" >10</option>
+                                    <option [value]="25" >25</option>
+                                    <option [value]="50" >50</option>
+                                    <option [value]="-1" >All</option>
+                                </select>
+                                {{ 'producto.tabla.entradas' | translate}}
+                                </label>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-8 text-right">
+
+                                <a *ngIf="rows.length > 0" class="btn btn-sm btn-warning" 
+                                href="javascript:void(0)" (click)="disableAll()"> Desactivar todos <span class="fas fa-times-circle"></span>
+                                </a>
+
+                                <a *ngIf="rows.length > 0" class="btn btn-sm btn-success" 
+                                href="javascript:void(0)" (click)="activeAll()"> Activar todos <span class="fas fa-check"></span></a>
+
+                                <a *ngIf="!onboardingService.on" class="btn btn-sm btn-danger mr-3" 
+                                href="javascript:void(0)" (click)="deleteAll()"> Eliminar todos <span class="fas fa-trash"></span>
+                                </a>
+                        </div>
+                        
+                    </div>
+                    <ng-container *ngFor="let producto of rows ">
+                        <div class="col-12" >
+                            <div class="card overflow-hidden">
+                                <div class="card-content">
+                                    <div class="card-body ">
+                                        <div class="media align-items-stretch">
+                                            <!-- <div class="align-self-center">
+                                                <i class="icon-pencil primary font-large-2 mr-2"></i>
+                                            </div> -->
+                                            <div class="media-body">
+                                                <h4>{{producto.titulo}}</h4>
+                                                <span class="d-block" *ngIf="producto.codigo"><strong>Codigo:</strong> {{producto.codigo}}</span>
+                                                <span class="d-block" *ngIf="producto.precio"><strong>Precio:</strong> $ {{producto.precio}}</span>
+
+                                                <span class="d-block" *ngIf="producto.caracteristica1"><strong>Caracteristica 1: </strong>{{producto.caracteristica1}}</span>
+                                                <span class="d-block" *ngIf="producto.caracteristica2"><strong>Caracteristica 2: </strong>{{producto.caracteristica2}}</span>
+                                                <span class="d-block" *ngIf="producto.caracteristica3"><strong>Caracteristica 3: </strong>{{producto.caracteristica3}}</span>
+                                                
+                                            </div>
+                                            <div class="desktop align-self-center">
+
+                                                <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalEditProducto,producto)'
+                                                    title="{{ 'producto.tabla.editar' | translate}}">
+                                                    <span class="fas fa-pen-alt"></span> 
+                                                </button>
+                                                
+                                                <button class="btn btn-sm btn-warning" (click)='onActiveClient(producto)'
+                                                    *ngIf="producto.activo == 0" title="{{ 'producto.tabla.habilitar' | translate}}">
+                                                    <span class="fas fa-eye-slash"></span> 
+                                                </button>
+                                                <button class="btn btn-sm btn-success" *ngIf="producto.activo == 1" 
+                                                    (click)='onDisableActive(producto)' title="{{ 'producto.tabla.deshabilitar' | translate}}">
+                                                        <span class="fas fa-eye"></span> 
+                                                </button>
+                                                                    
+                                                <button class="btn btn-sm btn-light" *ngIf="producto.destacado == 0" 
+                                                    (click)='habilitarDestacado(producto)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-star"></span> 
+                                                </button>
+                                                <button class="btn btn-sm btn-gold" *ngIf="producto.destacado == 1" 
+                                                    (click)='deshabilitarDestacado(producto)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-star"></span> 
+                                                </button>
+                                                
+                                                <button class="btn btn-sm btn-danger"  (click)='deleteProduct(producto.id)'
+                                                    title="{{ 'producto.tabla.delete' | translate}}"><span class="fas fa-trash"></span>
+                                                </button>
+                                            
+                                            </div>
+                                            <div class="movil align-self-center">
+                                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                                    <mat-icon>more_vert</mat-icon>
+                                                </button>
+                                                <mat-menu #menu="matMenu">
+                                                    <button mat-menu-item (click)='onSelectItem(modalEditProducto,producto)'>
+                                                        <span class="fas fa-pen-alt m-1"></span> 
+                                                    <span>{{ 'producto.tabla.editar' | translate}}</span>
+                                                    </button>
+
+                                                    <button  mat-menu-item  *ngIf="producto.activo == 0" (click)='onActiveClient(producto)'>
+                                                        <span class="fas fa-eye-slash  m-1"></span> 
+                                                        <span>{{ 'producto.tabla.habilitar' | translate}}</span>
+                                                    </button>
+
+                                                    <button  mat-menu-item  *ngIf="producto.activo == 1" (click)='onDisableActive(producto)' >
+                                                        <span class="fas fa-eye  m-1"></span> 
+                                                        <span>{{ 'producto.tabla.deshabilitar' | translate}}</span>
+                                                    </button>
+                                                                        
+                                                    <button  mat-menu-item  *ngIf="producto.destacado == 0" (click)='habilitarDestacado(producto)' >
+                                                        <span class="fas fas fa-star  m-1"></span> 
+                                                        <span>{{ 'producto.tabla.destacadoA' | translate}}</span>
+
+                                                    </button>
+
+                                                    <button  mat-menu-item *ngIf="producto.destacado == 1" (click)='deshabilitarDestacado(producto)' >
+                                                        <span class="fa fa-star  m-1"></span> 
+                                                        <span>{{ 'producto.tabla.destacadoD' | translate}}</span>
+                                                    </button>
+                                                    
+                                                    <button  mat-menu-item (click)='deleteProduct(producto.id)'>
+                                                        <span class="fas fa-trash  m-1"></span>
+                                                        <span>{{ 'producto.tabla.delete' | translate}}</span>
+                                                    </button>
+
+                                                    <!-- <a href="http://{{empresa.dominio}}" target="blanck" mat-menu-item>
+                                                    <mat-icon>link</mat-icon>
+                                                    <span>ir a tienda</span>
+                                                    </a> -->
+                                                </mat-menu>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </ng-container>
+                    <div class="table-responsive">
+                        <ngb-pagination [(page)]="page" [maxSize]="7" [rotate]="true"  (pageChange)="refreshDatos()"
+                     [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-8 text-right">
 
-                        <a *ngIf="rows.length > 0" class="btn btn-sm btn-warning" 
-                        href="javascript:void(0)" (click)="disableAll()"> Desactivar todos <span class="fas fa-times-circle"></span>
-                        </a>
-
-                        <a *ngIf="rows.length > 0" class="btn btn-sm btn-success" 
-                        href="javascript:void(0)" (click)="activeAll()"> Activar todos <span class="fas fa-check"></span></a>
-
-                        <a *ngIf="!onboardingService.on" class="btn btn-sm btn-danger mr-3" 
-                        href="javascript:void(0)" (click)="deleteAll()"> Eliminar todos <span class="fas fa-trash"></span>
-                        </a>
-                </div>
-                
             </div>
-    
-            <ngx-datatable 
-                [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                class="bootstrap selection-cell fullscreen"
-                [columnMode]="'force'" 
-                [headerHeight]="50" 
-                [footerHeight]="50" 
-                [rowHeight]="60"
-                [scrollbarH]="true"
-                [limit]="entries != -1 ? entries : undefined" [rows]="rows" 
-                (activate)="onActivate($event)" [rowHeight]="getRowHeight"
-                >
-                            
-                <ngx-datatable-column name="titulo" [width]="250" >
-                    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.titulo' | translate}}</span>
-                    </ng-template>
-                    
-                </ngx-datatable-column>
-                <ngx-datatable-column name="codigo" [width]="100">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.codigo' | translate}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica1" *ngIf="textCaract1" [width]="200">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{textCaract1}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica2" *ngIf="textCaract2" [width]="200">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{textCaract2}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="caracteristica3" *ngIf="textCaract3" [width]="200">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{textCaract3}}</span>
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="precio" [width]="100">
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.precio' | translate}} </span>
-                    </ng-template>
-                </ngx-datatable-column>
-              
-                <ngx-datatable-column name="Acción" [width]="250" >
-                    <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'producto.tabla.acciones' | translate}}</span>
-                    </ng-template>
-                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                
-                            <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalEditProducto,row)'
-                                title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
-                               
-                               
-                            <button class="btn btn-sm btn-warning" (click)='onActiveClient(row)'
-                                *ngIf="row.activo == 0" title="{{ 'producto.tabla.habilitar' | translate}}">
-                                <span class="fas fa-eye-slash"></span> </button>
-                            <button class="btn btn-sm btn-success" *ngIf="row.activo == 1" 
-                                (click)='onDisableActive(row)' title="{{ 'producto.tabla.deshabilitar' | translate}}">
-                                    <span class="fas fa-eye"></span> </button>
-                                                   
-                            <button class="btn btn-sm btn-light" *ngIf="row.destacado == 0" 
-                                (click)='habilitarDestacado(row)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-star"></span> </button>
-                            <button class="btn btn-sm btn-gold" *ngIf="row.destacado == 1" 
-                                (click)='deshabilitarDestacado(row)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-star"></span> </button>
-                             
-
-                            <button class="btn btn-sm btn-danger"  (click)='deleteProduct(row.id)'
-                                title="{{ 'producto.tabla.delete' | translate}}"><span class="fas fa-trash"></span>
-                            </button>
-                      </ng-template>
-                </ngx-datatable-column>
-
-                
-            </ngx-datatable>
-            </div>
-        </div>
         </div>
     </div>
 </div>
