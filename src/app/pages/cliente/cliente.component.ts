@@ -70,6 +70,12 @@ export class ClienteComponent implements OnInit {
 
   flagEdit:boolean = false;
   dataCliente:{} = {};
+
+  dataFilter:any= [];
+  page = 1;
+  isDisabled = true;
+  pageSize = 10;
+  collectionSize:number = this.tempRow.length;
   constructor(
     private clienteService: ClienteService,
     public translate: TranslateService,
@@ -271,8 +277,9 @@ export class ClienteComponent implements OnInit {
       this.temp = res.pedidos['clientes'];
       this.tempRow = res.pedidos['clientes'];
       this.arrayPagos = res.pedidos['pagos'];
-      console.log(this.arrayPagos);
       
+      this.collectionSize = this.temp.length;
+      this.refreshDatos();
       this.loadingIndicator = true;
     }).catch(err=>{
       console.log(err);
@@ -539,6 +546,29 @@ export class ClienteComponent implements OnInit {
     }
 
   }
+  refreshDatos() {
+    // this.rows = this.rowsTemp;
+    // console.log(this.rows);
+     if(this.dataFilter.length > 0){
+      this.temp = this.dataFilter;
+      this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }else{
+
+      this.temp = this.tempRow.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }
+    
+    console.log(this.temp);
+
+
+  }
   filters(){
 
     const nCliente = this.nroCliente;
@@ -588,7 +618,18 @@ export class ClienteComponent implements OnInit {
         producto1 = producto1.filter( filtros[filtro][1])
       }
     }
-    this.temp = producto1;
+
+    if(producto1.length > 0){
+      this.dataFilter = producto1;  
+      this.collectionSize = producto1.length;
+      this.refreshDatos();
+    }else{
+      this.dataFilter = [];  
+      this.temp = [];
+      this.collectionSize = 0;
+    }   
+
+    // this.temp = producto1;
   }
   cambia(){
     this.cont++;
@@ -605,6 +646,9 @@ export class ClienteComponent implements OnInit {
     this.mailCliente = '';
     this.activoCliente = false;
     this.temp = this.tempRow;
+    this.collectionSize = this.tempRow.length;
+    this.dataFilter = [];
+    this.refreshDatos();
   }
 
   openSucursal(modalSucursal, row){
