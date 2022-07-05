@@ -55,7 +55,7 @@ export class ClientesComponent implements OnInit {
   dataFilter:any= [];
   page = 1;
   isDisabled = true;
-  pageSize = 5;
+  pageSize = 10;
   collectionSize:number = this.tempRow.length;
 
   constructor(private pedidosService: PedidosService,
