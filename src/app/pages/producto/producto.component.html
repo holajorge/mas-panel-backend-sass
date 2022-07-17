@@ -243,7 +243,7 @@
         <div class="card-wrapper bg-white">
             <div class="card">
                 <div class="card-header">
-                    <h3>Nombre y Descripcion</h3>
+                    <h3>Datos Básicos</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -266,27 +266,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-control-label" for="descripcion">{{ 'producto.formEdit.descripcion' | translate }}:</label>
-                                <textarea formControlName="descripcion"  name="descripcion" id="" cols="50" rows="5" class="form-control"></textarea>
-                                <!-- <input type="text" formControlName="descripcion" placeholder="descripcion" name="descripcion" class="form-control" id="descripcion"> -->
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-wrapper bg-white">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Precio y Stock</h3>
-                </div>
-                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -332,10 +311,21 @@
                         </div>
                         
                     </div>
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="descripcion">{{ 'producto.formEdit.descripcion' | translate }}:</label>
+                                <textarea formControlName="descripcion"  name="descripcion" id="" cols="50" rows="5" class="form-control"></textarea>
+                                <!-- <input type="text" formControlName="descripcion" placeholder="descripcion" name="descripcion" class="form-control" id="descripcion"> -->
+                            </div>
+                        </div>
+                        
+                    </div>                  
                 </div>
-            </div>    
-        </div>    
-
+            </div>
+        </div>
+        
         <div class="card-wrapper bg-white">
             <div class="card">
                 <div class="card-header">
