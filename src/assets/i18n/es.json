@@ -14,7 +14,7 @@
         "titulo": "Configuraciones Generales",
         "subtitulo": "Ingrese las datos de su empresa",
         "dominio": "Ingrese las configuraciones de dominio",
-        "general": "Seleccione cómo desea que se comporte su MasPedidos",
+        "general": "Seleccione qué opciones tendrán sus clientes",
         "general_redes": "Redes Sociales",
         "general_afip": "Ingrese la url del QR de la AFIP",
         "formConfig": {

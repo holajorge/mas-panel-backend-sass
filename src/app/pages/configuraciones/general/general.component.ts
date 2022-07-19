@@ -48,6 +48,8 @@ export class GeneralComponent implements OnInit {
       leyenda_mas_iva: [null],
       sin_precio: [null],
       sin_codigo: [null],
+      hora: [''],
+      monto_minimo: [null],
       pedido_firebase: [null]
     });
     this.empresaData.id = this.empresa;
@@ -83,8 +85,10 @@ export class GeneralComponent implements OnInit {
           leyenda_mas_iva: (this.configuraciones.leyenda_mas_iva=="true" || this.configuraciones.leyenda_mas_iva=="1" ) ? 1 : 0,
           sin_precio: (this.configuraciones.sin_precio=="true" || this.configuraciones.sin_precio=="1" ) ? 1 : 0,
           sin_codigo: (this.configuraciones.sin_codigo=="true" || this.configuraciones.sin_codigo=="1" ) ? 1 : 0,
-          pedido_firebase: (this.configuraciones.pedido_firebase=="true" || this.configuraciones.pedido_firebase=="1" ) ? 1 : 0
+          pedido_firebase: (this.configuraciones.pedido_firebase=="true" || this.configuraciones.pedido_firebase=="1" ) ? 1 : 0,
 
+          hora: (this.configuraciones.hora=="" || this.configuraciones.hora=="undefined" || this.configuraciones.hora==undefined) ? "" : this.configuraciones.hora,
+          monto_minimo: (this.configuraciones.monto_minimo=="" || this.configuraciones.monto_minimo=="undefined" || this.configuraciones.monto_minimo==undefined) ? "" : this.configuraciones.monto_minimo,
 
           // nombre_empresa: this.configuraciones.nombre_empresa,
           // direccion: this.configuraciones.direccion,
@@ -121,6 +125,8 @@ export class GeneralComponent implements OnInit {
     formData.append('sin_codigo',  this.formConfig.get('sin_codigo').value);
     formData.append('sin_precio',  this.formConfig.get('sin_precio').value);
     formData.append('pedido_firebase',  this.formConfig.get('pedido_firebase').value);
+    formData.append('hora',  this.formConfig.get('hora').value);
+    formData.append('monto_minimo',  this.formConfig.get('monto_minimo').value);
     this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){

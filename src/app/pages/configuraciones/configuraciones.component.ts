@@ -92,9 +92,9 @@ export class ConfiguracionesComponent {
       color_botones: [''],
       empresa_id:  this.empresa,
       descripcion_empresa: [''],
-      hora: [''],
+      // hora: [''],
       size_foto: [''],
-      monto_minimo: [null]
+      // monto_minimo: [null]
     });
     this.empresaData.id = this.empresa;
     this.getConfig();
@@ -140,9 +140,9 @@ export class ConfiguracionesComponent {
           direccion: this.configuraciones.direccion,
           telefono: this.configuraciones.telefono,
           correo: this.configuraciones.correo,
-          hora: this.configuraciones.hora,
+          // hora: this.configuraciones.hora,
           size_foto: this.configuraciones.size_foto,
-          monto_minimo: this.configuraciones.monto_minimo
+          // monto_minimo: this.configuraciones.monto_minimo
         });
 
         if(this.configuraciones.logo == '' || this.configuraciones.logo == undefined){ 
