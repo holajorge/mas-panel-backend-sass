@@ -124,96 +124,102 @@
                     </div>
                     <ng-container *ngFor="let producto of rows ">
                         <div class="col-12" >
-                            <div class="card overflow-hidden">
-                                <div class="card-content">
-                                    <div class="card-body ">
-                                        <div class="media align-items-stretch">
-                                            <!-- <div class="align-self-center">
-                                                <i class="icon-pencil primary font-large-2 mr-2"></i>
-                                            </div> -->
-                                            <div class="media-body">
-                                                <h4>{{producto.titulo}}</h4>
-                                                <span class="d-block" *ngIf="producto.codigo"><strong>Codigo:</strong> {{producto.codigo}}</span>
-                                                <span class="d-block" *ngIf="producto.precio"><strong>Precio:</strong> $ {{producto.precio}}</span>
-
-                                                <span class="d-block" *ngIf="this.textCaract1"><strong>{{this.textCaract1}}: </strong>{{producto.caracteristica1}}</span>
-                                                <span class="d-block" *ngIf="this.textCaract2"><strong>{{this.textCaract2}}: </strong>{{producto.caracteristica2}}</span>
-                                                <span class="d-block" *ngIf="this.textCaract3"><strong>{{this.textCaract3}}: </strong>{{producto.caracteristica3}}</span>
-                                                
+                            <div class="card overflow-hidden d-none d-sm-none d-md-block">
+                                <div class="card-body">
+                                        <h2 class="card-title text-center">{{producto.titulo}}</h2>
+                                        <div class="media h-100">
+                                            <div class="media-body d-flex justify-content-between h-100">
+                                                <div class="mr-4" style="position:relative">
+                                                    <img *ngIf="producto.fotos.length > 0" src="{{ producto.fotos[0] }}" class="img-thumbnail mr-1 card-img-top" style="max-width: 15rem; height: auto;" alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
+                                                </div>
+                                                <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
+                                                    <h4 class="d-block" *ngIf="producto.codigo"><strong>Codigo:</strong> {{producto.codigo}}</h4>
+                                                    <h4 class="d-block" *ngIf="this.textCaract1"><strong>{{this.textCaract1}}: </strong>{{producto.caracteristica1}}</h4>
+                                                    <h4 class="d-block" *ngIf="this.textCaract2"><strong>{{this.textCaract2}}: </strong>{{producto.caracteristica2}}</h4>
+                                                    <h4 class="d-block" *ngIf="this.textCaract3"><strong>{{this.textCaract3}}: </strong>{{producto.caracteristica3}}</h4>
+                                                    <h3 class="d-block" *ngIf="producto.precio"><strong>Precio:</strong> $ {{producto.precio}}</h3>
+                                                </div>
+                                                <div class="align-self-between d-flex flex-column justify-content-between">
+                                                    <a href="javascript:void(0)" (click)='onSelectItem(modalEditProducto,producto)'
+                                                        title="{{ 'producto.tabla.editar' | translate}}"> {{ 'producto.tabla.editar' | translate}}
+                                                        <span class="fas fa-pen-alt primary"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" (click)='onActiveClient(producto)'
+                                                        *ngIf="producto.activo == 0" title="{{ 'producto.tabla.habilitar' | translate}}">{{ 'producto.tabla.habilitar' | translate}}
+                                                        <span class="fas fa-eye-slash primary"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" *ngIf="producto.activo == 1"
+                                                        (click)='onDisableActive(producto)' title="{{ 'producto.tabla.deshabilitar' | translate}}">{{ 'producto.tabla.deshabilitar' | translate}}
+                                                            <span class="fas fa-eye primary"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" *ngIf="producto.destacado == 0"
+                                                        (click)='habilitarDestacado(producto)' title="{{ 'producto.tabla.destacadoA' | translate}}">{{ 'producto.tabla.destacadoA' | translate}} <span class="fas fas fa-star primary"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" *ngIf="producto.destacado == 1"
+                                                        (click)='deshabilitarDestacado(producto)' title="{{ 'producto.tabla.destacadoD' | translate}}">{{ 'producto.tabla.destacadoD' | translate}} <span class="fa fa-star primary"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0)"
+                                                        (click)='deleteProduct(producto.id)' title="{{ 'producto.tabla.delete' | translate}}">{{ 'producto.tabla.delete' | translate}} <span class="fas fa-trash primary"></span>
+                                                    </a>
+                                                    <div class="d-none"></div>
+                                                </div>
                                             </div>
-                                            <div class="desktop align-self-center">
-
-                                                <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalEditProducto,producto)'
-                                                    title="{{ 'producto.tabla.editar' | translate}}">
-                                                    <span class="fas fa-pen-alt"></span> 
-                                                </button>
-                                                
-                                                <button class="btn btn-sm btn-warning" (click)='onActiveClient(producto)'
-                                                    *ngIf="producto.activo == 0" title="{{ 'producto.tabla.habilitar' | translate}}">
-                                                    <span class="fas fa-eye-slash"></span> 
-                                                </button>
-                                                <button class="btn btn-sm btn-success" *ngIf="producto.activo == 1" 
-                                                    (click)='onDisableActive(producto)' title="{{ 'producto.tabla.deshabilitar' | translate}}">
-                                                        <span class="fas fa-eye"></span> 
-                                                </button>
-                                                                    
-                                                <button class="btn btn-sm btn-light" *ngIf="producto.destacado == 0" 
-                                                    (click)='habilitarDestacado(producto)' title="{{ 'producto.tabla.destacadoA' | translate}}"><span class="fas fas fa-star"></span> 
-                                                </button>
-                                                <button class="btn btn-sm btn-gold" *ngIf="producto.destacado == 1" 
-                                                    (click)='deshabilitarDestacado(producto)' title="{{ 'producto.tabla.destacadoD' | translate}}"><span class="fa fa-star"></span> 
-                                                </button>
-                                                
-                                                <button class="btn btn-sm btn-danger"  (click)='deleteProduct(producto.id)'
-                                                    title="{{ 'producto.tabla.delete' | translate}}"><span class="fas fa-trash"></span>
-                                                </button>
-                                            
-                                            </div>
-                                            <div class="movil align-self-center">
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="card overflow-hidden d-block d-md-none">
+                                  <img *ngIf="producto.fotos.length > 0" src="{{ producto.fotos[0] }}" class="card-img-top" alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
+                                  <div class="card-body">
+                                      <div class="d-flex justify-content-between">
+                                          <h2 class="card-title">{{producto.titulo}}</h2>
+                                          <div class="mt--1 mr--2">
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                                                     <mat-icon>more_vert</mat-icon>
                                                 </button>
                                                 <mat-menu #menu="matMenu">
                                                     <button mat-menu-item (click)='onSelectItem(modalEditProducto,producto)'>
-                                                        <span class="fas fa-pen-alt m-1"></span> 
+                                                        <span class="fas fa-pen-alt m-1"></span>
                                                     <span>{{ 'producto.tabla.editar' | translate}}</span>
                                                     </button>
 
                                                     <button  mat-menu-item  *ngIf="producto.activo == 0" (click)='onActiveClient(producto)'>
-                                                        <span class="fas fa-eye-slash  m-1"></span> 
+                                                        <span class="fas fa-eye-slash  m-1"></span>
                                                         <span>{{ 'producto.tabla.habilitar' | translate}}</span>
                                                     </button>
 
                                                     <button  mat-menu-item  *ngIf="producto.activo == 1" (click)='onDisableActive(producto)' >
-                                                        <span class="fas fa-eye  m-1"></span> 
+                                                        <span class="fas fa-eye  m-1"></span>
                                                         <span>{{ 'producto.tabla.deshabilitar' | translate}}</span>
                                                     </button>
-                                                                        
+
                                                     <button  mat-menu-item  *ngIf="producto.destacado == 0" (click)='habilitarDestacado(producto)' >
-                                                        <span class="fas fas fa-star  m-1"></span> 
+                                                        <span class="fas fas fa-star  m-1"></span>
                                                         <span>{{ 'producto.tabla.destacadoA' | translate}}</span>
 
                                                     </button>
 
                                                     <button  mat-menu-item *ngIf="producto.destacado == 1" (click)='deshabilitarDestacado(producto)' >
-                                                        <span class="fa fa-star  m-1"></span> 
+                                                        <span class="fa fa-star  m-1"></span>
                                                         <span>{{ 'producto.tabla.destacadoD' | translate}}</span>
                                                     </button>
-                                                    
+
                                                     <button  mat-menu-item (click)='deleteProduct(producto.id)'>
                                                         <span class="fas fa-trash  m-1"></span>
                                                         <span>{{ 'producto.tabla.delete' | translate}}</span>
                                                     </button>
-
-                                                    <!-- <a href="http://{{empresa.dominio}}" target="blanck" mat-menu-item>
-                                                    <mat-icon>link</mat-icon>
-                                                    <span>ir a tienda</span>
-                                                    </a> -->
                                                 </mat-menu>
+                                          </div>
+                                      </div>
+                                      <div class="media h-100 d-flex">
+                                            <div class="flex-column">
+                                                <span class="d-block" *ngIf="producto.codigo"><strong>Codigo:</strong> {{producto.codigo}}</span>
+                                                <span class="d-block" *ngIf="this.textCaract1"><strong>{{this.textCaract1}}: </strong>{{producto.caracteristica1}}</span>
+                                                <span class="d-block" *ngIf="this.textCaract2"><strong>{{this.textCaract2}}: </strong>{{producto.caracteristica2}}</span>
+                                                <span class="d-block" *ngIf="this.textCaract3"><strong>{{this.textCaract3}}: </strong>{{producto.caracteristica3}}</span>
+                                                <h3 class="d-block mt-1" *ngIf="producto.precio"><strong>Precio:</strong> $ {{producto.precio}}</h3>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                  </div>
                             </div>
                         </div> 
                     </ng-container>

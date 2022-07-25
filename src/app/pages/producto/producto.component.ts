@@ -1067,4 +1067,9 @@ export class ProductoComponent implements OnInit {
     
 
   }
+
+  public onImgError(event){
+    this.productoService.onImgError(event);
+  }
+
 }

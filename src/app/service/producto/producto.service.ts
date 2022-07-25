@@ -249,4 +249,8 @@ export class ProductoService {
       );    
   }
 
+  onImgError(event){
+    event.target.src = 'https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/nofoto.png';
+  }
+
 }

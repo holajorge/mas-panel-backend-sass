@@ -103,47 +103,45 @@
                         </div>
                     </div>
 
-                    <ng-container *ngFor="let producto of temp ">
-                        <div class="col-12" >
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6" *ngFor="let producto of temp">
                             <div class="card overflow-hidden">
                                 <div class="card-content">
-                                    <div class="card-body ">
-                                        <div class="media align-items-stretch">
-                                            <!-- <div class="align-self-center">
-                                                <i class="icon-pencil primary font-large-2 mr-2"></i>
-                                            </div> -->
-                                            <div class="media-body">
-                                                <h4><strong>ID: </strong>{{producto.numeroInterno}}</h4>
-                                                <span class="d-block" ><strong>Fecha:</strong> {{producto.fecha | fehaLarga}}</span>
-                                                <span class="d-block" ><strong>Nro Cliente:</strong> {{producto.nrocliente}}</span>
-
-                                                <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
-                                                <span class="d-block"><strong>Total:</strong> $ {{producto.total}}</span>
-                                                
-                                                <span class="d-block">
-                                                    <strong>Estado:</strong>
-                                                    <ng-select [(ngModel)]="models[producto.id]" [items]="lista_estados" appendTo="body" (change)="change_state(producto)">
-                                                    </ng-select>
-                                                </span>
+                                    <div class="card-body d-none d-sm-none d-md-block">
+                                        <div class="d-flex justify-content-between">
+                                            <h4 class="card-title"><strong>ID: </strong>{{producto.numeroInterno}}</h4>
+                                            <div class="mr--2">
+                                                <a href="javascript:void(0)" class="mr-3" (click)='addNote(modalNote,producto)'>Nota <span class="fas fa-clipboard"></span></a>
+                                                <a href="javascript:void(0)" class="mr-3" (click)='onSelectItem(modalEditVendedor,producto)'>{{ 'pedidos.tabla.detalle' | translate}} <span class="fas fa-info"></span></a>
+                                                <a *ngIf="producto.comentario != ''" href="javascript:void(0)" class="mr-3" (click)='onaddComente(modalComent,producto)' title="comentar">Comentar <span class="fas fa-eye"></span> </a>
+                                                <a href="javascript:void(0)" class="mr-3" (click)='dataExcelClientes(producto)' title="exportar">Exportar <span class="fas fa-file-import"></span> </a>
                                             </div>
-                                            <div class="desktop align-self-center">
-                                                <button class="btn btn-sm btn-primary" (click)='addNote(modalNote,producto)'><span class="fas fa-clipboard"></span></button>
-                                                <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,producto)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
-                                                <button *ngIf="producto.comentario != ''" class="btn btn-sm btn-info" (click)='onaddComente(modalComent,producto)' title="comentar"><span class="fas fa-eye"></span> </button>
-                                                <button class="btn btn-sm btn-success" (click)='dataExcelClientes(producto)' title="exportar"><span class="fas fa-file-import"></span> </button>
-                                               
-                                            </div>
-                                            <div class="movil align-self-center">
+                                        </div>
+                                        <div class="media h-100 d-flex flex-column">
+                                            <span class="d-block" ><strong>Fecha:</strong> {{producto.fecha | fehaLarga}}</span>
+                                            <span class="d-block" ><strong>Nro Cliente:</strong> {{producto.nrocliente}}</span>
+                                            <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
+                                            <span class="d-block"><strong>Total:</strong> $ {{producto.total}}</span>
+                                            <span class="d-block">
+                                                <strong>Estado:</strong>
+                                                <ng-select [(ngModel)]="models[producto.id]" [items]="lista_estados" appendTo="body" (change)="change_state(producto)" class="auto-grow"></ng-select>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body d-block d-md-none">
+                                        <div class="d-flex justify-content-between">
+                                            <h4 class="card-title"><strong>ID: </strong>{{producto.numeroInterno}}</h4>
+                                            <div class="mt--1 mr--2">
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                                                     <mat-icon>more_vert</mat-icon>
                                                 </button>
-                                                <mat-menu #menu="matMenu">
 
+                                                <mat-menu #menu="matMenu">
                                                     <button mat-menu-item  (click)='addNote(modalNote,producto)'>
                                                         <span class="fas fa-clipboard m-1"> </span>Nota
                                                     </button>
                                                     <button mat-menu-item  (click)='onSelectItem(modalEditVendedor,producto)'>
-                                                        <span class="fat-add m-1"></span> {{ 'pedidos.tabla.detalle' | translate}}
+                                                        <span class="fas fa-info m-1"></span> {{ 'pedidos.tabla.detalle' | translate}}
                                                     </button>
                                                     <button mat-menu-item *ngIf="producto.comentario != ''" (click)='onaddComente(modalComent,producto)' title="comentar">
                                                         <span class="fas fa-eye m-1"></span> Comentar
@@ -151,15 +149,24 @@
                                                     <button mat-menu-item  (click)='dataExcelClientes(producto)' title="exportar">
                                                         <span class="fas fa-file-import m-1"></span>  exportar
                                                     </button>
-
                                                 </mat-menu>
                                             </div>
+                                        </div>
+                                        <div class="media h-100 d-flex flex-column">
+                                            <span class="d-block" ><strong>Fecha:</strong> {{producto.fecha | fehaLarga}}</span>
+                                            <span class="d-block" ><strong>Nro Cliente:</strong> {{producto.nrocliente}}</span>
+                                            <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
+                                            <span class="d-block"><strong>Total:</strong> $ {{producto.total}}</span>
+                                            <span class="d-block">
+                                                <strong>Estado:</strong>
+                                                <ng-select [(ngModel)]="models[producto.id]" [items]="lista_estados" appendTo="body" (change)="change_state(producto)" class="auto-grow"></ng-select>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div> 
-                    </ng-container>
+                    </div>
                     <div class="table-responsive">
                         <ngb-pagination [(page)]="page" [maxSize]="7" [rotate]="true"  (pageChange)="refreshDatos()"
                      [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
