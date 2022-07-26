@@ -33,7 +33,7 @@ export class LoginPartnerComponent implements OnInit {
       if(data.body.perfil != null){
         
         localStorage.setItem('admin', data.body.id);
-        localStorage.setItem('afiliado', '1');
+        // localStorage.setItem('afiliado', '1');
         Swal.close();
         form.reset();
 

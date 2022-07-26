@@ -36,11 +36,11 @@ export class EmpresasComponent implements OnInit {
      }
 
   ngOnInit() {
-    if(localStorage.getItem('afiliado')){
+    // if(localStorage.getItem('afiliado')){
       this.getEmpresasAfiliado();
-    }else{
-      this.getEmpresas();
-    }
+    // }else{
+      // this.getEmpresas();
+    // }
   }
   getEmpresas(){
     Swal.showLoading();
