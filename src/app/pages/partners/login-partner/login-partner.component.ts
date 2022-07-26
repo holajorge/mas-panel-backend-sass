@@ -28,7 +28,7 @@ export class LoginPartnerComponent implements OnInit {
   }
   login(form:NgForm){
     Swal.showLoading();
-    this.loginService.authSuper(form.value).subscribe((data:any) => {  
+    this.loginService.authPartners(form.value).subscribe((data:any) => {  
       // console.log(data); return false;
       if(data.body.perfil != null){
         
