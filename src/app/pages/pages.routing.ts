@@ -43,6 +43,7 @@ import { EmpresasComponent } from './super-admin/empresas/empresas.component';
 import { TapiceComponent } from './tapice/tapice.component';
 
 import { TutorialesComponent } from './tutoriales/tutoriales.component';
+import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
 
 const routes:Routes = [
     {
@@ -110,6 +111,7 @@ const routes:Routes = [
         children: [
             {path:'', component: HomeSuperComponent},
             {path:'empresas', component: EmpresasComponent},
+            {path:'afiliados', component: AfiliadosComponent},
         ]
     }       
 
