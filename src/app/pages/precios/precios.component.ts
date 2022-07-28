@@ -148,7 +148,7 @@ export class PreciosComponent implements OnInit {
         this.getPrecios();
         Swal.fire('Listo!','Precio actualizado con éxito!', 'success')
       }else{
-        Swal.fire('Editar Erro, intente novamente', 'error')
+        Swal.fire('Editar Error, intente nuevamente', 'error')
       }
       
     }).catch(err=>{

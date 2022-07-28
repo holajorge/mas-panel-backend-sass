@@ -48,4 +48,28 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
+  saveEmpresa(empresa){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/saveEmpresa", empresa, this.header)
+    .pipe( 
+      map( (res) => { 
+        let {flag} = res['body'];
+        console.log(flag);
+        
+        return flag;
+      }),
+      catchError( error => error )
+    )
+  }
+  dishableEmpresa(empresa){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/dishableEmpresa", empresa, this.header)
+    .pipe( 
+      map( (res) => { 
+        let {flag} = res['body'];
+        console.log(flag);
+        
+        return flag;
+      }),
+      catchError( error => error )
+    )
+  }
 }

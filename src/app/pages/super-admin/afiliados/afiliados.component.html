@@ -38,11 +38,11 @@
                                 <button class="btn btn-md btn-info " (click)="openInfo(modalEmpresa,empresa)" title="Ver empresas" >
                                     <i class="icon-info success font-large-2 "></i>
                                 </button>
-                                <button class="btn btn-sm " (click)="desactivarAfiliado(empresa)" title="Desactivar Afiliado">
-                                    <i class="icon-heart danger font-large-2"></i>
+                                <button class="btn btn-sm btn-danger" (click)="desactivarAfiliado(empresa)" title="Desactivar Afiliado">Desactivar Afiliado
+                                    <!-- <i class="icon-heart danger font-large-2"></i> -->
                                 </button>
-                                <button class="btn btn-sm " (click)="editar(empresa)"  title="Editar">
-                                    <i class="icon-heart danger font-large-2"></i>
+                                <button class="btn btn-sm " (click)="editar(addEmpresa,empresa)"  title="Editar">Editar
+                                    <!-- <i class="icon-heart danger font-large-2"></i> -->
                                 </button>
                                 <!-- <button class="btn btn-sm ">
                                     <i class="icon-pencil primary font-large-2 mr-2"></i>
@@ -53,18 +53,18 @@
                                     <mat-icon>more_vert</mat-icon>
                                   </button>
                                   <mat-menu #menu="matMenu">
+
                                     <button mat-menu-item (click)="openInfo(modalEmpresa,empresa)">
-                                      <mat-icon>info</mat-icon>
-                                      <span>Detalles</span>
+                                      
+                                      <span>Ver empresas</span>
                                     </button>
-                                    <!-- <button mat-menu-item disabled>
-                                      <mat-icon>voicemail</mat-icon>
-                                      <span>Check voice mail</span>
-                                    </button> -->
-                                    <a href="http://{{empresa.dominio}}" target="blanck" mat-menu-item>
-                                      <mat-icon>link</mat-icon>
-                                      <span>ir a tienda</span>
-                                    </a>
+                                    <button mat-menu-item (click)="desactivarAfiliado(empresa)">
+                                      <span>Desactivar</span>
+                                    </button>
+                                    <button mat-menu-item (click)="editar(addEmpresa,empresa)">                                        
+                                        <span>Editar</span>
+                                    </button>
+                                    
                                   </mat-menu>
                             </div>
                         </div>
@@ -124,4 +124,102 @@
       <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> 
         <i class="fa fa-times-circle" ></i> Cerrar</button>
     </div>
+</ng-template>
+
+
+<ng-template #addEmpresa >
+
+    <div class="modal-header">    
+        <h2 class="modal-title" >Editar Empresa</h2>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    
+    <form role="form" [formGroup]="editForm" novalidate>
+  
+    <div class="modal-body">
+      <div class="card-wrapper bg-white">
+  
+        <div class="card">
+          <div class="card-header">
+            <h3>Generales</h3>
+          </div>
+          <div class="card-body">
+  
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group mb-3" [ngClass]="{ focused: focus === true }" >
+                  <label for="nombre">{{ 'registracion.nombre' | translate}}</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                    </div>
+                    <input class="form-control" id="nombre" name="nombre" placeholder="{{ 'registracion.nombre' | translate}}" formControlName="nombre"
+                      type="text" (focus)="focus = true" (blur)="focus = false" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group mb-3" [ngClass]="{ focused: focus === true }" >
+                  <label for="email">{{ 'registracion.email' | translate}}</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" id="email" name="email" placeholder="{{ 'registracion.email' | translate}}"  formControlName="email"
+                      type="text" (focus)="focus = true" (blur)="focus = false" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group" [ngClass]="{ focused: focus1 === true }">
+                  <label for="password">{{ 'registracion.pass' | translate}} (la nueva clave)</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" id="password" [type]="fieldTextType ? 'text' : 'password'" name="password" formControlName="clave"
+                            placeholder="{{ 'registracion.pass' | translate}}" type="password" (focus)="focus1 = true" (blur)="focus1 = false" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i  class="fa" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                            </span>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="form-group" [ngClass]="{ focused: focus1 === true }">
+                  <label for="subdomain">{{ 'registracion.subdomain' | translate}}</label>
+  
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-shop"></i></span>
+                    </div>
+                    <input class="form-control" id="subdomain" name="subdomain" placeholder="{{ 'registracion.subdomain' | translate}}" formControlName="dominio"
+                      type="text" (focus)="focus1 = true" (blur)="focus1 = false" />
+                    <small class="form-control"> .maspedidos.com.ar  </small>
+                  </div>
+                  <div *ngIf="(subdomain.dirty && subdomain.touched)" class="alert alert-dominio">
+                      <div *ngIf="validatePageField(subdomain.viewModel)" class="alert alert-danger">{{ 'registracion.errorCaracter' | translate}}</div>
+                  </div>
+                </div>
+              </div>        
+            </div>
+            
+           
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=" modal-footer">
+      <button type="button"  [disabled]="editForm.invalid" type="button" class="btn btn-success my-4" (click)="saveEmpresa()">Guardar</button>
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> 
+        <i class="fa fa-times-circle" ></i> Cerrar</button>
+    </div>
+    </form>
+  
   </ng-template>

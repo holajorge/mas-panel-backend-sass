@@ -4,6 +4,8 @@ import { EmpresaService } from 'src/app/service/empresa/empresa.service';
 import Swal from 'sweetalert2';
 // import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router'; //para redireccionar las vistas
+import { FormBuilder,Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-afiliados',
@@ -21,11 +23,24 @@ export class AfiliadosComponent implements OnInit {
   };
   nameEmpresa:string = '';
   entries:number = 10;
-  constructor(private router: Router,
-    public empresaService:EmpresaService,private modalService: BsModalService) { }
+  editForm:any = [];    
+  fieldTextType: boolean;
+  
+  constructor(private router: Router,private formBuilder: FormBuilder, public translate: TranslateService,
+    public empresaService:EmpresaService,private modalService: BsModalService) {  this.translate.use('es');}
 
   ngOnInit() {
     this.getEmpresas();
+    this.editForm = this.formBuilder.group({
+      id: [''],
+      nombre: ['',Validators.required],
+      email: ['',Validators.required],
+      dominio: ['',Validators.required],
+      clave: [''],
+    });
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
   getEmpresas(){
     Swal.showLoading();
@@ -64,14 +79,76 @@ export class AfiliadosComponent implements OnInit {
       this.notification
     );
 
-
-
-
   }
   desactivarAfiliado(empresa){
 
-  }
-  editar(empresa){
+    Swal.fire({
+      title: 'Seguro de Desactivar afiliado?',
+      text: "Esta accion desactiva la cuenta, dejandolo sin acceso al sistema!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Desactivar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
 
+          setTimeout( ()=> {
+            Swal.showLoading();
+            this.empresaService.dishableEmpresa({id: empresa.id}).subscribe(
+              (flag) => {
+                if(flag){
+                  Swal.fire('Listo!','El cambio aplicado correctamente','success');
+                }else{
+                  Swal.fire('error!','El cambio no se aplico, intente nuevamente', 'error');
+                }        
+              },
+              (error) => {
+                Swal.close();
+                console.log(error);
+              }
+            );    
+          },2000 );
+        }
+          
+    })
+
+  }
+  editar(modal,empresa){
+    console.log(empresa);
+    
+    this.editForm.patchValue({
+      id: empresa.id,
+      nombre: empresa.nombre, 
+      email: empresa.email,
+      dominio: empresa.dominio,
+      clave: '',
+    });
+    this.notificationModal = this.modalService.show(
+      modal,
+      this.notification
+    );
+  }
+  saveEmpresa(){
+    Swal.showLoading();
+
+    console.log(this.editForm.value);
+    this.empresaService.saveEmpresa(this.editForm.value).subscribe(
+      (flag) => {
+
+        if(flag){
+          Swal.fire('Listo!','Los registros guardados con exito','success');
+          this.notificationModal.hide();
+        }else{
+          Swal.fire('error!','Los Registros no fueron guardados con exito, intente nuevamente', 'error');
+        }
+        
+      },
+      (error) => {
+        Swal.close();
+        console.log(error);
+      }
+    );    
   }
 }
