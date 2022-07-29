@@ -22,4 +22,27 @@ export class RegistracionService {
     // console.log(data);
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveCompany",data,options);
   }
+  savePartner(data){
+
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    data["user"] = data["email"];
+    data["bucket"] = data["subdomain"];
+    data["domain"] = data["subdomain"] + ConfigService.DOMAIN();
+    data["config"] = {"subdominio": data["bucket"]};
+    data["status"] = 1;
+    
+    // console.log(data);
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveCompanyPartner",data,options).pipe(
+      map( 
+        (response:any)=> {
+          let {flag} = response['body'];
+          return flag;
+        }
+      ),
+      catchError( error => {
+        return of(false)
+      })
+    );
+  }
 }

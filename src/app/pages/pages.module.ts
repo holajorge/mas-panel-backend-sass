@@ -59,7 +59,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { TutorialesComponent } from './tutoriales/tutoriales.component'
 import {MatIconModule} from '@angular/material/icon';
 import { TapiceComponent } from './tapice/tapice.component';
-import { LoginPartnerComponent } from './partners/login-partner/login-partner.component'
+import { LoginPartnerComponent } from './partners/login-partner/login-partner.component';
+import { RegistracionPartnerComponent } from './partners/registracion-partner/registracion-partner.component'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -106,7 +107,8 @@ imports: [
     EmpresasComponent,
     TutorialesComponent,
     TapiceComponent,
-    LoginPartnerComponent
+    LoginPartnerComponent,
+    RegistracionPartnerComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,

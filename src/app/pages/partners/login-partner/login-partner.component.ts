@@ -103,7 +103,7 @@ export class LoginPartnerComponent implements OnInit {
       });
   }
   toRegisterPage(){
-    this.router.navigate(['/registracion']);
+    this.router.navigate(['/partners/registracion']);
   }
 
 }

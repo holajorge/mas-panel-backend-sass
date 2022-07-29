@@ -5,11 +5,13 @@ import { ClaveComponent } from './clave/clave.component';
 import { RegistracionComponent } from './registracion/registracion.component';
 import { LoginSuperComponent } from '../pages/super-admin/login-super/login-super.component';
 import { LoginPartnerComponent } from '../pages/partners/login-partner/login-partner.component';
+import { RegistracionPartnerComponent } from '../pages/partners/registracion-partner/registracion-partner.component';
 
 export const routes: Routes = [
     {path:'login', component: LoginComponent},
     {path:'back/login', component: LoginSuperComponent},
     {path:'partners/login', component: LoginPartnerComponent},
+    {path:'partners/registracion', component: RegistracionPartnerComponent},
     {path:'clave', component: ClaveComponent},
     {path:'registracion', component: RegistracionComponent},
 ]
