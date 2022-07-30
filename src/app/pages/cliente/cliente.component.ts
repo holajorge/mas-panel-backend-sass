@@ -170,7 +170,7 @@ export class ClienteComponent implements OnInit {
         if (result.value) {
 
           setTimeout( ()=>{
-              this. sendEmail(row);
+              this.sendEmail(row);
           } ,1000);
           
         }
@@ -433,7 +433,7 @@ export class ClienteComponent implements OnInit {
       (error) => {
         console.log(error);
         
-        Swal.fire('Error!','Surgio un error inesperado, intenete de nuevo', 'error')
+        Swal.fire('Error!','Surgio un error inesperado, intente de nuevo', 'error')
 
       }
     );
