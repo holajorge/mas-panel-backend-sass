@@ -30,7 +30,7 @@ export class AfiliadosComponent implements OnInit {
     public empresaService:EmpresaService,private modalService: BsModalService) {  this.translate.use('es');}
 
   ngOnInit() {
-    this.getEmpresas();
+    this.getAfiliados();
     this.editForm = this.formBuilder.group({
       id: [''],
       nombre: ['',Validators.required],
@@ -42,9 +42,9 @@ export class AfiliadosComponent implements OnInit {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-  getEmpresas(){
+  getAfiliados(){
     Swal.showLoading();
-    this.empresaService.getEmpresas().subscribe(
+    this.empresaService.getAfiliados().subscribe(
       (datos) => {
         Swal.close();
         console.log(datos);
@@ -58,11 +58,11 @@ export class AfiliadosComponent implements OnInit {
       
     )
   }
-  openInfo(modal, empresa){
+  openInfo(modal, afiliado){
 
-    this.nameEmpresa = empresa.nombre;
+    this.nameEmpresa = afiliado.nombre;
     this.afiliadosEmpre = [];
-    this.empresaService.getAfiliadosEmpresa({'id':empresa.id}).subscribe(
+    this.empresaService.getAfiliadosEmpresa({'id':afiliado.id}).subscribe(
       (empresas) => {
 
         this.afiliadosEmpre = empresas;
@@ -80,7 +80,7 @@ export class AfiliadosComponent implements OnInit {
     );
 
   }
-  desactivarAfiliado(empresa){
+  desactivarAfiliado(afiliado){
 
     Swal.fire({
       title: 'Seguro de Desactivar afiliado?',
@@ -96,10 +96,11 @@ export class AfiliadosComponent implements OnInit {
 
           setTimeout( ()=> {
             Swal.showLoading();
-            this.empresaService.dishableEmpresa({id: empresa.id}).subscribe(
+            this.empresaService.dishableAfiliado({id: afiliado.id}).subscribe(
               (flag) => {
                 if(flag){
                   Swal.fire('Listo!','El cambio aplicado correctamente','success');
+                  this.getAfiliados();
                 }else{
                   Swal.fire('error!','El cambio no se aplico, intente nuevamente', 'error');
                 }        
@@ -140,6 +141,7 @@ export class AfiliadosComponent implements OnInit {
         if(flag){
           Swal.fire('Listo!','Los registros guardados con exito','success');
           this.notificationModal.hide();
+          this.getAfiliados();
         }else{
           Swal.fire('error!','Los Registros no fueron guardados con exito, intente nuevamente', 'error');
         }

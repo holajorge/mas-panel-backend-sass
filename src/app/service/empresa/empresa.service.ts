@@ -24,6 +24,16 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
+  getAfiliados(){
+    return this._http.get(ConfigService.API_ENDPOINT()+"SuperAdmin/getAfiliados")
+    .pipe( 
+      map( (res) => { 
+        let {datos} = res['body'];
+        return datos;
+      }),
+      catchError( error => error )
+    )
+  }
   getTokenEmpresa(empresa){
     return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getTokenEmpresa", empresa, this.header)
     .pipe( 
@@ -36,8 +46,8 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
-  getAfiliadosEmpresa(empresa){
-    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getAfiliadosEmpresa", empresa, this.header)
+  getAfiliadosEmpresa(afiliadoID){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getAfiliadosEmpresa", afiliadoID, this.header)
     .pipe( 
       map( (res) => { 
         let {datos} = res['body'];
@@ -60,8 +70,8 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
-  dishableEmpresa(empresa){
-    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/dishableEmpresa", empresa, this.header)
+  dishableAfiliado(afiliado){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/dishableAfiliado", afiliado, this.header)
     .pipe( 
       map( (res) => { 
         let {flag} = res['body'];

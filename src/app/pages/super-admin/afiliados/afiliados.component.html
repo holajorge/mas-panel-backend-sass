@@ -3,7 +3,7 @@
       <div class=" header-body">
         <div class=" row align-items-center py-4">
           <div class=" col-lg-4 col-7">
-            <h6 class=" h2  d-inline-block mb-0 mr-1 text-uppercase">Empresas</h6>
+            <h6 class=" h2  d-inline-block mb-0 mr-1 text-uppercase">Afiliados</h6>
             
           </div>
           <div class=" col-lg-8 col-5 text-right">
@@ -38,9 +38,9 @@
                                 <button class="btn btn-md btn-info " (click)="openInfo(modalEmpresa,empresa)" title="Ver empresas" >
                                     <i class="icon-info success font-large-2 "></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger" (click)="desactivarAfiliado(empresa)" title="Desactivar Afiliado">Desactivar Afiliado
-                                    <!-- <i class="icon-heart danger font-large-2"></i> -->
-                                </button>
+                                <button *ngIf="empresa.status != 0" class="btn btn-sm btn-danger" (click)="desactivarAfiliado(empresa)" title="Desactivar Afiliado">Desactivar Afiliado</button>
+
+                                <button *ngIf="empresa.status == 0" class="btn btn-sm btn-primary" title="Desactivado">Desactivado </button>
                                 <button class="btn btn-sm " (click)="editar(addEmpresa,empresa)"  title="Editar">Editar
                                     <!-- <i class="icon-heart danger font-large-2"></i> -->
                                 </button>
