@@ -92,9 +92,9 @@ export class ConfiguracionesComponent {
       color_botones: [''],
       empresa_id:  this.empresa,
       descripcion_empresa: [''],
-      hora: [''],
+      // hora: [''],
       size_foto: [''],
-      monto_minimo: [null]
+      // monto_minimo: [null]
     });
     this.empresaData.id = this.empresa;
     this.getConfig();
@@ -140,9 +140,9 @@ export class ConfiguracionesComponent {
           direccion: this.configuraciones.direccion,
           telefono: this.configuraciones.telefono,
           correo: this.configuraciones.correo,
-          hora: this.configuraciones.hora,
+          // hora: this.configuraciones.hora,
           size_foto: this.configuraciones.size_foto,
-          monto_minimo: this.configuraciones.monto_minimo
+          // monto_minimo: this.configuraciones.monto_minimo
         });
 
         if(this.configuraciones.logo == '' || this.configuraciones.logo == undefined){ 
@@ -279,9 +279,9 @@ export class ConfiguracionesComponent {
     formData.append('direccion',  this.formConfig.get('direccion').value);
     formData.append('telefono',  this.formConfig.get('telefono').value);
     formData.append('correo',  this.formConfig.get('correo').value);
-    formData.append('hora',  this.formConfig.get('hora').value);
+   // formData.append('hora',  this.formConfig.get('hora').value);
     formData.append('size_foto',  this.formConfig.get('size_foto').value);
-    formData.append('monto_minimo',  this.formConfig.get('monto_minimo').value);
+    //formData.append('monto_minimo',  this.formConfig.get('monto_minimo').value);
     
     this.configService.saveConfig(formData).then( (res:any) =>{    
       Swal.close();

@@ -106,29 +106,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <div class="custom-control custom-checkbox mt-4"  >
-                                            <input id="stock_descontar"
-                                                class="custom-control-input" type="checkbox" formControlName="stock_descontar">
-                                            <label for="stock_descontar"
-                                                class="custom-control-label" >{{ 'config.formConfig.stock_descontar' | translate }}</label>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
-                                <div class="col-md-4">
-                                    <div class="form-group mr-1">
-                                        <div class="custom-control custom-checkbox mt-4"  >
-                                            <input id="stock_permitir"
-                                                class="custom-control-input" type="checkbox" formControlName="stock_permitir">
-                                            <label for="stock_permitir"
-                                                class="custom-control-label" >{{ 'config.formConfig.stock_permitir' | translate }}</label>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
                                 <div class="col-md-4">
                                     <div class="form-group mr-1">
@@ -155,6 +135,50 @@
                             </div>
                         </form>       
                     </div>                 
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">Manejo de stock</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row popup-info-custom">
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  >
+                                            <input id="stock_descontar"
+                                                class="custom-control-input" type="checkbox" formControlName="stock_descontar">
+                                            <label for="stock_descontar"
+                                                class="custom-control-label" >{{ 'config.formConfig.stock_descontar' | translate }}</label>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mr-1">
+                                        <div class="custom-control custom-checkbox mt-4"  >
+                                            <input id="stock_permitir"
+                                                class="custom-control-input" type="checkbox" formControlName="stock_permitir">
+                                            <label for="stock_permitir"
+                                                class="custom-control-label" >{{ 'config.formConfig.stock_permitir' | translate }}</label>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -221,6 +245,42 @@
                     </div>
                 </div>    
             </div>
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-header"><h3 class="mb-0">{{ 'config.formConfig.general_limites' | translate}}</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row popup-info-custom">     
+                                <div class="col-md-4">
+                                    <label class="form-control-label" 
+                                        for="example-time-input">{{ 'config.formConfig.hora_limite_pedido' | translate}}</label>
+                                    <input class=" form-control" formControlName="hora"  type="time"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-control-label" 
+                                        for="example-time-input">{{ 'config.formConfig.monto_limite_pedido' | translate}}</label>
+                                    <input class=" form-control" formControlName="monto_minimo"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-control-label" 
+                                        for="example-time-input">{{ 'config.formConfig.cantidad_minima_carrito' | translate}}</label>
+                                    <input class=" form-control" formControlName="cantidad_minima_carrito"/>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div cclass="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
 
             <div class="card-wrapper">
                 <div class="card">
