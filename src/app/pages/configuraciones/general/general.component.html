@@ -252,17 +252,21 @@
                     <div class="card-body">
                         <form [formGroup]="formConfig" novalidate >
                             <div class="row popup-info-custom">     
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-control-label" 
                                         for="example-time-input">{{ 'config.formConfig.hora_limite_pedido' | translate}}</label>
                                     <input class=" form-control" formControlName="hora"  type="time"/>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-control-label" 
                                         for="example-time-input">{{ 'config.formConfig.monto_limite_pedido' | translate}}</label>
                                     <input class=" form-control" formControlName="monto_minimo"/>
                                 </div>
-                                <!-- <div class="col-4"></div> -->
+                                <div class="col-md-4">
+                                    <label class="form-control-label" 
+                                        for="example-time-input">{{ 'config.formConfig.cantidad_minima_carrito' | translate}}</label>
+                                    <input class=" form-control" formControlName="cantidad_minima_carrito"/>
+                                </div>
                             </div>
                             <div class="">
                                 <div cclass="col-md-4">

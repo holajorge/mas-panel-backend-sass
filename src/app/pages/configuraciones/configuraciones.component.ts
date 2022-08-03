@@ -279,9 +279,9 @@ export class ConfiguracionesComponent {
     formData.append('direccion',  this.formConfig.get('direccion').value);
     formData.append('telefono',  this.formConfig.get('telefono').value);
     formData.append('correo',  this.formConfig.get('correo').value);
-    formData.append('hora',  this.formConfig.get('hora').value);
+   // formData.append('hora',  this.formConfig.get('hora').value);
     formData.append('size_foto',  this.formConfig.get('size_foto').value);
-    formData.append('monto_minimo',  this.formConfig.get('monto_minimo').value);
+    //formData.append('monto_minimo',  this.formConfig.get('monto_minimo').value);
     
     this.configService.saveConfig(formData).then( (res:any) =>{    
       Swal.close();

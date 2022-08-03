@@ -18,7 +18,7 @@
         "general_redes": "Redes Sociales",
         "general_afip": "Ingrese la url del QR de la AFIP",
         "formConfig": {
-            "general_limites": "Ingrese los límites de horario y monto mínimo para hacer pedidos",
+            "general_limites": "Límites y mínimos parar realizar pedidos",
             "hora_limite_pedido": "Horario límite para hacer pedidos",
             "monto_limite_pedido": "Monto mínimo de dinero para hacer un pedido ",
             "nombre": "Nombre de la empresa",
@@ -53,7 +53,8 @@
             "leyendaMasIva": "Mostrar leyenda \"Más Iva\" en el carrito ",
             "sin_precio": "No mostrar el precio en pantalla ",
             "sin_codigo": "No mostrar el código del producto en pantalla ",
-            "pedido_firebase": "Activar mismo usuario puede hacer pedidos distintos"
+            "pedido_firebase": "Activar mismo usuario puede hacer pedidos distintos",
+            "cantidad_minima_carrito": "Mínimo de artículos para poder realizar el pedido"
         }
     },
     "categorias": {
