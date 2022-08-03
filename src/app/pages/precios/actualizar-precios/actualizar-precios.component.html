@@ -1,0 +1,157 @@
+<div class=" header pb-6">
+    <div class=" container-fluid">
+      <div class="header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 d-inline-block mb-0">
+                Aplicar actualización de precios</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+              <a class="btn btn-success" href="javascript:void(0)" (click)="newDiscount(modalAddDiscount)"> Nuevos precios</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<ng-template #modalAddDiscount >
+    <form [formGroup]="addForm" novalidate >
+    <div class=" modal-header">
+        <h5 class="modal-title" >{{ 'cliente.comprobantes.tabla.actualizar' | translate}} </h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body pt-0">
+            <div class="card-wrapper bg-white" *ngIf="lista_precios.length">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Listas de precios</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="lista_precios" class="form-control-label">Listas</label>
+                                <ng-select #NgSelectListaPrecios formControlName="lista_precios" id="lista_precios"
+                                    [items]="lista_precios"
+                                    bindValue="lista"
+                                    bindLabel="lista"
+                                    (clear)="resetCalculations();"
+                                    >
+                                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                                        <small class="form-text text-muted"> {{item.lista}} ( ${{item.precio}} )</small>
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Producto/s que va a afectar este descuento</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>Elegirlos varios productos según filtros</h3>
+                            </div>
+                                <div class="col-lg-4"  *ngIf="caract1.length > 0">
+                                    <div class="form-group mr-1">
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ textCaract1 }}</label>
+                                         <ng-select formControlName="caract1"
+                                            [items]="caract1"  (change)='disabledInputCode()'
+                                            bindValue="nombre"
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4" *ngIf="caract2.length > 0">
+                                    <div class="form-group mr-1">
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ textCaract2 }}</label>
+                                         <ng-select formControlName="caract2"
+                                            [items]="caract2"
+                                            bindValue="nombre"
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4" *ngIf="caract3.length > 0 ">
+                                    <div class="form-group mr-1">
+                                        <label for="nombre_empresa"
+                                         class="form-control-label">{{ textCaract3 }}</label>
+                                         <ng-select formControlName="caract3"
+                                            [items]="caract3"
+                                            bindValue="nombre"
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                    </div>
+                                </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mt-3 mb-2">
+                                <h3>Elegir un producto por código</h3>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ 'precios.descuento.codigo' | translate}}</label>
+                                    <input formControlName="codigo_producto" class="form-control"
+                                        (keyup)="disabledInputSelect($event)"
+                                        placeholder="{{ 'precios.descuento.codigo' | translate }}">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Descuento a aplicar</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <ng-select #NgSelectTipoDescuento formControlName="tipo_descuento" id="tipo_descuento"
+                                    [items]="tipo_descuentos"
+                                    bindValue="code"
+                                    bindLabel="name"
+                                    >
+                                </ng-select>
+                                <div class="alert alert-danger p-1"
+                                     *ngIf="addForm.get('tipo_descuento').hasError('required') && addForm.get('tipo_descuento').touched">
+                                     Es un campo obligatorio
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="input-group mr-1">
+                                    <input type="number" formControlName="descuento" class="form-control"
+                                        placeholder="{{ 'precios.descuento.descuento' | translate }}">
+                                        <span class="input-group-text bg-light rounded-end ml--1">%</span>
+                                </div>
+                                <div class="alert alert-danger p-1"
+                                     *ngIf="addForm.get('descuento').hasError('required') && addForm.get('descuento').touched">
+                                     Es un campo obligatorio
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class=" modal-footer">
+        <button class="btn btn-success" [disabled]='addForm.invalid'
+        (click)="confirm()" >{{ 'cliente.add.guardar' | translate }} <span class="fas fa-save"></span></button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.comprobantes.tabla.cancelar' | translate}}</button>
+    </div>
+</form>
+</ng-template>
