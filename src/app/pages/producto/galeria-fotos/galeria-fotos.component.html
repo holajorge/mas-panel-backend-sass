@@ -1,77 +1,66 @@
 <div class="align-self-between d-flex justify-content-between mr-2 ml-2 mt-2" style="flex-wrap: wrap">
-    <ng-container *ngFor="let producto of productos">
-        <div class="card overflow-hidden d-block mr-1 ml-1" style="width: 18rem;" *ngIf="producto.fotos.length > 0">
-          <img *ngIf="producto.fotos.length > 0" src="https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/{{bucket}}/fotos/{{ producto.fotos[0] }}" class="img-thumbnail mr-1 card-img-top"  alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
+    <ng-container class="d-block" *ngFor="let photo of photos">
+        <div class="card overflow-hidden mr-1 ml-1" style="width: 18rem;">
+          <img src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
           <div class="card-body">
-            <h5 class="card-title">{{producto.titulo}}</h5>
             <div class="align-self-between d-flex justify-content-between">
-                <a href="javascript:void(0)" (click)='asignar(producto)'
+                <a href="javascript:void(0)" (click)='asignar(modalAsignar, photo)'
                     title="Asignar"> Asignar
                     <span class="fas fa-pen-alt primary"></span>
                 </a>
                 <a href="javascript:void(0)"
-                    (click)='eliminar(producto)' title="Eliminar">Eliminar <span class="fas fa-trash primary"></span>
+                    (click)='eliminar(photo)' title="Eliminar">Eliminar <span class="fas fa-trash primary"></span>
                 </a>
-                <div class="d-none"></div>
             </div>
           </div>
         </div>
     </ng-container>
-
-    <!--
-    <div class="card overflow-hidden d-block d-md-none">
-          <img *ngIf="producto.fotos.length > 0" src="{{ producto.fotos[0] }}" class="card-img-top" alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
+    <ng-container class="d-block d-md-none" *ngFor="let photo of photos">
+        <div class="card overflow-hidden mr-1 ml-1">
+          <img src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
           <div class="card-body">
-              <div class="d-flex justify-content-between">
-                  <h2 class="card-title">{{producto.titulo}}</h2>
-                  <div class="mt--1 mr--2">
-                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)='onSelectItem(modalEditProducto,producto)'>
-                                <span class="fas fa-pen-alt m-1"></span>
-                            <span>{{ 'producto.tabla.editar' | translate}}</span>
-                            </button>
-
-                            <button  mat-menu-item  *ngIf="producto.activo == 0" (click)='onActiveClient(producto)'>
-                                <span class="fas fa-eye-slash  m-1"></span>
-                                <span>{{ 'producto.tabla.habilitar' | translate}}</span>
-                            </button>
-
-                            <button  mat-menu-item  *ngIf="producto.activo == 1" (click)='onDisableActive(producto)' >
-                                <span class="fas fa-eye  m-1"></span>
-                                <span>{{ 'producto.tabla.deshabilitar' | translate}}</span>
-                            </button>
-
-                            <button  mat-menu-item  *ngIf="producto.destacado == 0" (click)='habilitarDestacado(producto)' >
-                                <span class="fas fas fa-star  m-1"></span>
-                                <span>{{ 'producto.tabla.destacadoA' | translate}}</span>
-
-                            </button>
-
-                            <button  mat-menu-item *ngIf="producto.destacado == 1" (click)='deshabilitarDestacado(producto)' >
-                                <span class="fa fa-star  m-1"></span>
-                                <span>{{ 'producto.tabla.destacadoD' | translate}}</span>
-                            </button>
-
-                            <button  mat-menu-item (click)='deleteProduct(producto.id)'>
-                                <span class="fas fa-trash  m-1"></span>
-                                <span>{{ 'producto.tabla.delete' | translate}}</span>
-                            </button>
-                        </mat-menu>
-                  </div>
-              </div>
-              <div class="media h-100 d-flex">
-                    <div class="flex-column">
-                        <span class="d-block" *ngIf="producto.codigo"><strong>Codigo:</strong> {{producto.codigo}}</span>
-                        <span class="d-block" *ngIf="this.textCaract1"><strong>{{this.textCaract1}}: </strong>{{producto.caracteristica1}}</span>
-                        <span class="d-block" *ngIf="this.textCaract2"><strong>{{this.textCaract2}}: </strong>{{producto.caracteristica2}}</span>
-                        <span class="d-block" *ngIf="this.textCaract3"><strong>{{this.textCaract3}}: </strong>{{producto.caracteristica3}}</span>
-                        <h3 class="d-block mt-1" *ngIf="producto.precio"><strong>Precio:</strong> $ {{producto.precio}}</h3>
-                    </div>
-                </div>
+            <div class="align-self-between d-flex justify-content-between">
+                <a href="javascript:void(0)" (click)='asignar(modalAsignar, photo)'
+                    title="Asignar"> Asignar
+                    <span class="fas fa-pen-alt primary"></span>
+                </a>
+                <a href="javascript:void(0)"
+                    (click)='eliminar(photo)' title="Eliminar">Eliminar <span class="fas fa-trash primary"></span>
+                </a>
+            </div>
           </div>
-    </div>
-    -->
+        </div>
+    </ng-container>
 </div>
+
+
+<ng-template #modalAsignar >
+    <div class=" modal-header">
+        <h5 class="modal-title" >Asignar foto</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        <div class="card-group">
+            <div class="card">
+              <div class="from-group">
+                  <label class="form-control-label">Seleccione el producto</label>
+                  <ng-select
+                            [items]="products"
+                            [(ngModel)]="productOption"
+                            bindValue="id"
+                            bindLabel="name"
+                            [clearSearchOnAdd]="true">
+                  </ng-select>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" modal-footer">
+      <button class="btn btn-success" data-dismiss="modal" type="button" (click)="photo_assign(); modalAsignarVar.hide()">Asignar</button>
+      <button class="btn btn-sm btn-danger" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+
+</ng-template>

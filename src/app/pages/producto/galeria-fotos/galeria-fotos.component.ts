@@ -35,30 +35,54 @@ export abstract class TranslateParser {
   styleUrls: ['./galeria-fotos.component.scss']
 })
 export class GaleriaFotosComponent implements OnInit {
-  productos:any = [];
-  bucket:string = "";
   empresa:any = "";
+  photos:any = [];
+  modalAsignarVar: BsModalRef;
+  photo_to_assign = "";
+  products:any = [];
+  productOption:any = "";
 
-  constructor(private productoService: ProductoService, public translate: TranslateService) {
+  notification = {
+    keyboard: true,
+    class: "modal-dialog-centered modal-xl static modal-content-custom",
+  };
+
+  constructor(private productoService: ProductoService, public translate: TranslateService,
+              private modalService: BsModalService, private formBuilder: FormBuilder) {
     this.translate.use('es');
     this.empresa = localStorage.getItem('usuario');
   }
 
   ngOnInit() {
     this.getProductos();
+    this.getPhotos();
   }
 
+  getPhotos(){
+    Swal.showLoading();
+    this.productoService.getAllPhotos(this.empresa).then( (res:any) =>{
+      if(res.success){
+        Swal.close();
+          this.photos = JSON.parse(res.response.body['listado']);
+          console.log(this.photos)
+      }else{
+        Swal.close();
+      }
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
   getProductos(){
     Swal.showLoading();
     this.productoService.getProducto(this.empresa).then( (res:any) =>{
       if(res.success){
         Swal.close();
-          this.bucket = res.productos['empresa'].bucket;
-          this.productos = [];
-          res.productos['productos'].forEach((prod) => {
-            prod['fotos'] = JSON.parse(prod['fotos']);
-            this.productos.push(prod);
-          })
+        this.products = [];
+        res.productos['productos'].forEach((prod) => {
+           let row = {id: prod["id"], name: prod["titulo"]};
+           this.products = [...this.products, row];
+        })
       }else{
         Swal.close();
       }
@@ -68,12 +92,61 @@ export class GaleriaFotosComponent implements OnInit {
     });
   }
 
-  asignar(row) {
-    console.log(row);
+  asignar(modalAsignar, keyname) {
+    this.photo_to_assign = keyname.split("/").pop();
+    this.modalAsignarVar = this.modalService.show(
+      modalAsignar
+    );
   }
 
-  eliminar(row) {
-    console.log(row);
+  photo_assign(){
+    Swal.showLoading();
+    this.productoService.photoAssign(this.empresa, this.photo_to_assign, this.productOption).then( (res:any) =>{
+      if(res.success){
+        Swal.close();
+        if(res.response.body){
+            Swal.fire('Listo!','Foto asignada con éxito!', 'success');
+        }else{
+            Swal.fire('Upps!','Error al asignar la foto', 'error');
+        }
+      }else{
+        console.log(res);
+        Swal.close();
+      }
+    }).catch(err=>{
+      Swal.close();
+      Swal.fire('Upps!','Error al asignar la foto', 'error');
+      console.log(err);
+    });
+  }
+
+  eliminar(keyname) {
+    Swal.fire({
+      title: 'Está seguro que desea eliminar esta foto? ' + keyname.split("/").pop(),
+      text: "Eliminar foto del almacenamiento!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+        if (result.value) {
+          Swal.showLoading();
+          this.productoService.deletePhoto(this.empresa, keyname).then( (res:any) =>{
+            if(res.success == true){
+              Swal.fire('Listo!','Foto eliminada con éxito!', 'success')
+              this.getPhotos();
+
+            }else{
+              Swal.fire('Upps!','Error al eliminar foto del almacenamiento, intente nuevamente!', 'error')
+            }
+          }).catch(err=>{
+            Swal.fire('Upps!','Error al eliminar foto del almacenamiento, intente nuevamente!', 'error')
+            console.log(err);
+          });
+        }
+    })
   }
 
   onImgError(event){

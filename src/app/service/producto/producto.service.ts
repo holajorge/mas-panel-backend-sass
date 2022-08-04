@@ -250,4 +250,43 @@ export class ProductoService {
       );    
   }
 
+  getAllPhotos(idEmpresa){
+    let empresa = {id: idEmpresa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/obtenerListadoFotos",empresa,options).toPromise().then((res) =>{
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  deletePhoto(idEmpresa, keyname){
+    let datos = {id: idEmpresa, keyname: keyname};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/eliminarFoto",datos,options).toPromise().then((res) =>{
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al eliminar la foto'};
+    });
+  }
+
+  photoAssign(idEmpresa, photo, idProducto){
+    let datos = {id: idEmpresa, photo: photo, idProducto: idProducto};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/asignarFoto",datos,options).toPromise().then((res) =>{
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al asignar la foto'};
+    });
+  }
+
 }
