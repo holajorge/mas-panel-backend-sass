@@ -70,6 +70,18 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
+  saveAfiliado(afiliado){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/updateAfiliado", afiliado, this.header)
+    .pipe( 
+      map( (res) => { 
+        let {flag} = res['body'];
+        console.log(flag);
+        
+        return flag;
+      }),
+      catchError( error => error )
+    )
+  }
   dishableAfiliado(afiliado){
     return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/dishableAfiliado", afiliado, this.header)
     .pipe( 

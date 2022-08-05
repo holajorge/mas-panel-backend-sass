@@ -34,8 +34,7 @@ export class AfiliadosComponent implements OnInit {
     this.editForm = this.formBuilder.group({
       id: [''],
       nombre: ['',Validators.required],
-      email: ['',Validators.required],
-      dominio: ['',Validators.required],
+      mail: ['',Validators.required],
       clave: [''],
     });
   }
@@ -122,8 +121,8 @@ export class AfiliadosComponent implements OnInit {
     this.editForm.patchValue({
       id: empresa.id,
       nombre: empresa.nombre, 
-      email: empresa.email,
-      dominio: empresa.dominio,
+      mail: empresa.mail,
+      // dominio: empresa.dominio,
       clave: '',
     });
     this.notificationModal = this.modalService.show(
@@ -131,11 +130,10 @@ export class AfiliadosComponent implements OnInit {
       this.notification
     );
   }
-  saveEmpresa(){
+  saveAfiliado(){
     Swal.showLoading();
-
-    console.log(this.editForm.value);
-    this.empresaService.saveEmpresa(this.editForm.value).subscribe(
+    // console.log(this.editForm.value);
+    this.empresaService.saveAfiliado(this.editForm.value).subscribe(
       (flag) => {
 
         if(flag){
