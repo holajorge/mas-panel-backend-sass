@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import Swal from "sweetalert2";
 
-
 const I18N_VALUES = {
   'pt': {
     weekdays: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
@@ -41,10 +40,18 @@ export class GaleriaFotosComponent implements OnInit {
   photo_to_assign = "";
   products:any = [];
   productOption:any = "";
+  entries: number = 20;
+  selectedProducts:any = [];
+  configuraciones:any = [];
+  textCaract1:any = "";
+  textCaract2:any = "";
+  textCaract3:any = "";
+  photo_ampliada = {"uri": "", "width": "", "height": ""};
+
 
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-xl static modal-content-custom",
+    class: "modal-dialog-centered modal-xl",
   };
 
   constructor(private productoService: ProductoService, public translate: TranslateService,
@@ -78,11 +85,17 @@ export class GaleriaFotosComponent implements OnInit {
     this.productoService.getProducto(this.empresa).then( (res:any) =>{
       if(res.success){
         Swal.close();
-        this.products = [];
-        res.productos['productos'].forEach((prod) => {
-           let row = {id: prod["id"], name: prod["titulo"]};
-           this.products = [...this.products, row];
-        })
+        this.products = res.productos['productos'];
+        this.configuraciones = res.productos['configuraciones'];
+        if(this.configuraciones == false || this.configuraciones == null){
+            this.textCaract1 = false;
+            this.textCaract2 = false;
+            this.textCaract3 = false;
+        }else{
+            this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : false;
+            this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : false;
+            this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : false;
+        }
       }else{
         Swal.close();
       }
@@ -93,15 +106,17 @@ export class GaleriaFotosComponent implements OnInit {
   }
 
   asignar(modalAsignar, keyname) {
+    this.selectedProducts = [];
     this.photo_to_assign = keyname.split("/").pop();
     this.modalAsignarVar = this.modalService.show(
-      modalAsignar
+      modalAsignar,
+      this.notification
     );
   }
 
   photo_assign(){
     Swal.showLoading();
-    this.productoService.photoAssign(this.empresa, this.photo_to_assign, this.productOption).then( (res:any) =>{
+    this.productoService.photoAssign(this.empresa, this.photo_to_assign, this.selectedProducts).then( (res:any) =>{
       if(res.success){
         Swal.close();
         if(res.response.body){
@@ -152,5 +167,37 @@ export class GaleriaFotosComponent implements OnInit {
   onImgError(event){
     console.log(event);
   }
+  onActivate(event) {
+    //console.log(event.row);
+  }
 
+  selectListener(event){
+    console.log(event.row);
+  }
+
+  getImageDimenstion(imgUrl){
+    return new Promise((resolve, reject) => {
+      let img = new Image();
+
+      img.src = imgUrl;
+      img.onload =  function (event) {
+                  let  loadedImage = <HTMLImageElement> event.currentTarget;
+                  let width = loadedImage.width;
+                  let height = loadedImage.height;
+
+                 resolve({width,height})
+             }
+        img.onerror = reject
+    })
+  }
+
+  public async ampliarImagen(photo, modalPhoto){
+    await this.getImageDimenstion('https://maspedidos.s3.us-west-2.amazonaws.com/' + photo).then((res:any)=>{
+        this.photo_ampliada = {"uri": photo, "width": res.width, "height": res.height};
+        this.modalAsignarVar = this.modalService.show(
+          modalPhoto,
+          this.notification
+        );
+    });
+  }
 }

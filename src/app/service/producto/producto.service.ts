@@ -276,8 +276,8 @@ export class ProductoService {
     });
   }
 
-  photoAssign(idEmpresa, photo, idProducto){
-    let datos = {id: idEmpresa, photo: photo, idProducto: idProducto};
+  photoAssign(idEmpresa, photo, products){
+    let datos = {id: idEmpresa, photo: photo, products: products};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
 

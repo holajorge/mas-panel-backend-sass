@@ -1,7 +1,7 @@
 <div class="align-self-between d-flex justify-content-between mr-2 ml-2 mt-2" style="flex-wrap: wrap">
     <ng-container class="d-block" *ngFor="let photo of photos">
         <div class="card overflow-hidden mr-1 ml-1" style="width: 18rem;">
-          <img src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
+          <img (click)="ampliarImagen(photo, modalPhoto)" src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
           <div class="card-body">
             <div class="align-self-between d-flex justify-content-between">
                 <a href="javascript:void(0)" (click)='asignar(modalAsignar, photo)'
@@ -17,7 +17,7 @@
     </ng-container>
     <ng-container class="d-block d-md-none" *ngFor="let photo of photos">
         <div class="card overflow-hidden mr-1 ml-1">
-          <img src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
+          <img (click)="ampliarImagen(photo, modalPhoto)" src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
           <div class="card-body">
             <div class="align-self-between d-flex justify-content-between">
                 <a href="javascript:void(0)" (click)='asignar(modalAsignar, photo)'
@@ -45,14 +45,49 @@
         <div class="card-group">
             <div class="card">
               <div class="from-group">
-                  <label class="form-control-label">Seleccione el producto</label>
-                  <ng-select
-                            [items]="products"
-                            [(ngModel)]="productOption"
-                            bindValue="id"
-                            bindLabel="name"
-                            [clearSearchOnAdd]="true">
-                  </ng-select>
+                  <ngx-datatable
+                    [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                    class="bootstrap selection-cell fullscreen"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="60"
+                    [scrollbarH]="true"
+                    [limit]="20"
+                    [selected]="selectedProducts"
+                    [selectionType]="'multiClick'"
+                    [displayCheck]="displayCheck"
+                    [selectAllRowsOnPage]="false"
+                    [limit]="entries != -1 ? entries : undefined" [rows]="products"
+                    (activate)="onActivate($event)"
+                    >
+                    <ngx-datatable-column name="titulo" [width]="250" >
+                        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                            <span>Título</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                   <ngx-datatable-column name="codigo" [width]="100">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Código</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="caracteristica1" *ngIf="textCaract1" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{textCaract1}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="caracteristica2" *ngIf="textCaract2" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{textCaract2}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="caracteristica3" *ngIf="textCaract3" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{textCaract3}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+
               </div>
             </div>
         </div>
@@ -60,7 +95,29 @@
 
     <div class=" modal-footer">
       <button class="btn btn-success" data-dismiss="modal" type="button" (click)="photo_assign(); modalAsignarVar.hide()">Asignar</button>
-      <button class="btn btn-sm btn-danger" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+      <button class="btn btn-danger" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+
+</ng-template>
+
+
+<ng-template #modalPhoto >
+    <div class=" modal-header">
+        <h5 class="modal-title" >Asignar foto</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        <div class="card-group">
+            <div class="card">
+                <img  src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo_ampliada.uri }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo_ampliada.uri}}" height="photo_ampliada.height" width="photo_ampliada.width" (error)="onImgError($event)">
+            </div>
+        </div>
+    </div>
+
+    <div class=" modal-footer">
+      <button class="btn btn-success" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()">Cerrar</button>
     </div>
 
 </ng-template>

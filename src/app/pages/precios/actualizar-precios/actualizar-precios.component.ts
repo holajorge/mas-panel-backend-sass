@@ -68,14 +68,6 @@ export class ActualizarPreciosComponent implements OnInit {
 
   }
 
-  newDiscount(modalAddDiscount){
-    this.addForm.reset();
-    this.notificationModal = this.modalService.show(
-      modalAddDiscount,
-      this.notification
-    );
-  }
-
   disabledInputCode(){
 
     let select1 = this.addForm.get('caract1').value;
@@ -176,7 +168,7 @@ export class ActualizarPreciosComponent implements OnInit {
         this.addForm.reset();
         this.notificationModal.hide();
       }else{
-        Swal.fire('','error de comuniación, intente de nuevo','error');
+        Swal.fire('','error de comunicación, intente de nuevo','error');
         Swal.close();
       }
     }).catch(err=>{
