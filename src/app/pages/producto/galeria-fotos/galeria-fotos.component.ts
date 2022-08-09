@@ -192,12 +192,12 @@ export class GaleriaFotosComponent implements OnInit {
   }
 
   public async ampliarImagen(photo, modalPhoto){
-    await this.getImageDimenstion('https://maspedidos.s3.us-west-2.amazonaws.com/' + photo).then((res:any)=>{
-        this.photo_ampliada = {"uri": photo, "width": res.width, "height": res.height};
+   // await this.getImageDimenstion('https://maspedidos.s3.us-west-2.amazonaws.com/' + photo).then((res:any)=>{
+        this.photo_ampliada = {"uri": photo, "width": '', "height": ''};
         this.modalAsignarVar = this.modalService.show(
           modalPhoto,
           this.notification
         );
-    });
+    //});
   }
 }

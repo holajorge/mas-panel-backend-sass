@@ -1,42 +1,46 @@
-<div class="align-self-between d-flex justify-content-between mr-2 ml-2 mt-2" style="flex-wrap: wrap">
-    <ng-container class="d-block" *ngFor="let photo of photos">
-        <div class="card overflow-hidden mr-1 ml-1" style="width: 18rem;">
-          <img (click)="ampliarImagen(photo, modalPhoto)" src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
-          <div class="card-body">
-            <div class="align-self-between d-flex justify-content-between">
-                <a href="javascript:void(0)" (click)='asignar(modalAsignar, photo)'
-                    title="Asignar"> Asignar
-                    <span class="fas fa-pen-alt primary"></span>
-                </a>
-                <a href="javascript:void(0)"
-                    (click)='eliminar(photo)' title="Eliminar">Eliminar <span class="fas fa-trash primary"></span>
-                </a>
-            </div>
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 d-inline-block mb-0">
+                Galeria de Fotos</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)"> Nuevo </a> -->
           </div>
         </div>
-    </ng-container>
-    <ng-container class="d-block d-md-none" *ngFor="let photo of photos">
-        <div class="card overflow-hidden mr-1 ml-1">
-          <img (click)="ampliarImagen(photo, modalPhoto)" src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
-          <div class="card-body">
-            <div class="align-self-between d-flex justify-content-between">
-                <a href="javascript:void(0)" (click)='asignar(modalAsignar, photo)'
-                    title="Asignar"> Asignar
-                    <span class="fas fa-pen-alt primary"></span>
-                </a>
-                <a href="javascript:void(0)"
-                    (click)='eliminar(photo)' title="Eliminar">Eliminar <span class="fas fa-trash primary"></span>
-                </a>
-            </div>
-          </div>
-        </div>
-    </ng-container>
+      </div>
+    </div>
 </div>
 
+<div class=" container-fluid mt--6">
+    <div class="row bg-white px-3 pt-5">
+        <div class="col-2 mb-3" *ngFor="let photo of photos">
+            <div class="mr-1 ml-1" style="max-height: 200px;overflow: hidden;">        
+                <img (click)="ampliarImagen(photo, modalPhoto)" src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
+            </div>
+            <div class="text-center h5 mr-1 ml-1 mt-1 text-break">{{photo|fotosS3:'sluckip'}}</div>
+            <div class=" border-top p-1">
+                <div class="text-center">
+                    <a href="javascript:void(0)" (click)='asignar(modalAsignar, photo)'
+                        title="Asignar" class="text-grey h4"> Asignar
+                        <span class="fas fa-pen-alt text-primary"></span>
+                    </a>
+                </div>
+                <div class="text-center">
+                    <a href="javascript:void(0)"
+                        (click)='eliminar(photo)' title="Eliminar" class="text-grey h4">Eliminar <span class="fas fa-trash text-danger"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <ng-template #modalAsignar >
     <div class=" modal-header">
-        <h5 class="modal-title" >Asignar foto</h5>
+        <h5 class="modal-title" >Seleccione los productos y luego presione Asignar</h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()">
             <span aria-hidden="true"> × </span>
         </button>
@@ -103,17 +107,15 @@
 
 <ng-template #modalPhoto >
     <div class=" modal-header">
-        <h5 class="modal-title" >Asignar foto</h5>
+        <h5 class="modal-title" >Foto Ampliada</h5>
         <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modalAsignarVar.hide()">
             <span aria-hidden="true"> × </span>
         </button>
     </div>
     <div class=" modal-body  pt-0">
-        <div class="card-group">
-            <div class="card">
-                <img  src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo_ampliada.uri }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo_ampliada.uri}}" height="photo_ampliada.height" width="photo_ampliada.width" (error)="onImgError($event)">
+            <div class="text-center">
+                <img  src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo_ampliada.uri }}" class=""  (error)="onImgError($event)">
             </div>
-        </div>
     </div>
 
     <div class=" modal-footer">
