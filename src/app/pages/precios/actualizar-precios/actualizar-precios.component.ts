@@ -58,6 +58,7 @@ export class ActualizarPreciosComponent implements OnInit {
       caract2: [''],
       caract3: [''],
       lista_precios: [''],
+      all_listas: [''],
       descuento: ['',Validators.required],
       discount: [''],
       tipo_descuento: ['',Validators.required],
@@ -194,4 +195,9 @@ export class ActualizarPreciosComponent implements OnInit {
     this.tipo_descuentos = [...this.tipo_descuentos, {code: "aumentando", name: "Aumentar"}];
     this.tipo_descuentos = [...this.tipo_descuentos, {code: "disminuyendo", name: "Bajar"}];
   }
+
+  set_all_listas(){
+    console.log(this.addForm.get('all_listas').value);
+  }
+
 }

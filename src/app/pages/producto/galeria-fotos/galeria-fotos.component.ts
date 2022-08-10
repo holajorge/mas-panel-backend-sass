@@ -36,9 +36,11 @@ export abstract class TranslateParser {
 export class GaleriaFotosComponent implements OnInit {
   empresa:any = "";
   photos:any = [];
+  photos_original:any = [];
   modalAsignarVar: BsModalRef;
   photo_to_assign = "";
   products:any = [];
+  products_original:any = [];
   productOption:any = "";
   entries: number = 20;
   selectedProducts:any = [];
@@ -47,7 +49,7 @@ export class GaleriaFotosComponent implements OnInit {
   textCaract2:any = "";
   textCaract3:any = "";
   photo_ampliada = {"uri": "", "width": "", "height": ""};
-
+  input_search:any = "";
 
   notification = {
     keyboard: true,
@@ -66,12 +68,13 @@ export class GaleriaFotosComponent implements OnInit {
   }
 
   getPhotos(){
+    this.input_search = "";
     Swal.showLoading();
     this.productoService.getAllPhotos(this.empresa).then( (res:any) =>{
       if(res.success){
         Swal.close();
           this.photos = JSON.parse(res.response.body['listado']);
-          console.log(this.photos)
+          this.photos_original = JSON.parse(res.response.body['listado']);
       }else{
         Swal.close();
       }
@@ -80,12 +83,14 @@ export class GaleriaFotosComponent implements OnInit {
       console.log(err);
     });
   }
+
   getProductos(){
     Swal.showLoading();
     this.productoService.getProducto(this.empresa).then( (res:any) =>{
       if(res.success){
         Swal.close();
         this.products = res.productos['productos'];
+        this.products_original = res.productos['productos'];
         this.configuraciones = res.productos['configuraciones'];
         if(this.configuraciones == false || this.configuraciones == null){
             this.textCaract1 = false;
@@ -200,4 +205,23 @@ export class GaleriaFotosComponent implements OnInit {
         );
     //});
   }
+
+  public find_photo_by_name(event){
+    const val = event.target.value.toLowerCase();
+    if(val !== ''){
+      this.photos = this.photos_original.filter(function (item) {
+          return item.toLowerCase().indexOf(val) !== -1 || !val;
+      });
+    }else{
+      this.photos = this.photos_original;
+    }
+  }
+
+  public search_products(event){
+    const val = event.target.value.toLowerCase();
+    this.products = this.products_original.filter(function (d) {
+      return d.titulo.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+  }
+
 }
