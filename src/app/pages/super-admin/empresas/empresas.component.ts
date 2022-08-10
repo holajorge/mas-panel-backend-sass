@@ -184,6 +184,21 @@ export class EmpresasComponent implements OnInit {
         return true;
     }
   }
+
+  validateEmail(mail){
+      if(mail == ""){
+        this.errorForm = false;
+        return false;
+    }
+    var aux = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail);
+    if(aux){
+        this.errorForm = false;
+        return false;
+    }else{
+        this.errorForm = true;
+        return true;
+    }
+  }
   
   esMayuscula(letra){
       return letra === letra.toUpperCase();

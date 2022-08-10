@@ -187,8 +187,11 @@
                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                   </div>
                   <input class="form-control" id="email" name="email" placeholder="{{ 'registracion.email' | translate}}" 
-                    type="text" (focus)="focus = true" (blur)="focus = false" ngModel/>
+                    type="text" (focus)="focus = true" (blur)="focus = false" ngModel  #email="ngModel"/>
                 </div>
+                <div *ngIf="(email.dirty && email.touched)" class="alert alert-dominio">
+                  <div *ngIf="validateEmail(email.viewModel)" class="alert alert-danger">{{ 'registracion.errorCaracter' | translate}}</div>
+              </div>
               </div>
             </div>
             <div class="col-lg-4">
