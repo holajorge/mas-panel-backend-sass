@@ -94,9 +94,9 @@ export class EmpresasComponent implements OnInit {
   }
   registracion(form:NgForm){
     console.log(form);
-    if(localStorage.getItem('afiliado')){
-      form.value.token = localStorage.getItem('admin');
-    }
+    
+    form.value.token = localStorage.getItem('admin');
+    
     if(this.errorForm){
         Swal.fire({
           title: "Hubo un error",
@@ -114,7 +114,8 @@ export class EmpresasComponent implements OnInit {
     this.registracionService.save(form.value).subscribe(
         (data:any) => {
           let respuesta = JSON.parse(data.body);
-
+          console.log(respuesta);
+          
           if(!respuesta.error){
             Swal.fire({
               title: "Exito",
@@ -125,11 +126,9 @@ export class EmpresasComponent implements OnInit {
             });
 
             this.notificationModal.hide();
-            if(localStorage.getItem('afiliado')){
-              this.getEmpresasAfiliado();
-            }else{
-              this.getEmpresas();
-            }
+            
+            this.getEmpresasAfiliado();
+            
           }else{
             Swal.fire({
               title: "Error",
@@ -146,13 +145,26 @@ export class EmpresasComponent implements OnInit {
 
         },        
         (error) => {
-            Swal.fire({
-              title: "Hubo un error",
-              text: "Revise los datos e intente nuevamente",
-              type: "error",
-              buttonsStyling: false,
-              confirmButtonClass: "btn btn-error"
-            });
+          let resErro = JSON.parse(error['error'].message);
+          
+            if(resErro.error){
+              Swal.fire({
+                title: "Hubo un error",
+                text: resErro.msg,
+                type: "error",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-error"
+              });
+            }else{
+              Swal.fire({
+                title: "Hubo un error",
+                text: "Revise los datos e intente nuevamente",
+                type: "error",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-error"
+              });
+            }
+            
         }
       );
     
@@ -172,15 +184,7 @@ export class EmpresasComponent implements OnInit {
         return true;
     }
   }
-  aceptTerminos(){
-    
-    if(this.flag){      
-      this.disableButton = false;
-    }else{
-      this.disableButton = true;
-
-    }
-  }
+  
   esMayuscula(letra){
       return letra === letra.toUpperCase();
   }
