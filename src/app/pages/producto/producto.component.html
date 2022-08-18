@@ -130,10 +130,10 @@
                                         <div class="media h-100">
                                             <div class="media-body d-flex justify-content-between h-100">
                                                 <div class="mr-4" style="position:relative">
-                                                    <img *ngIf="producto.fotos.length > 0" src="{{ producto.fotos[0] }}" class="img-thumbnail mr-1 card-img-top" style="max-width: 15rem; height: auto;" alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
+                                                    <img *ngIf="producto.fotos.length > 0" src="https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/{{bucket}}/fotos/{{ producto.fotos | convertJsonFotos }}" class="img-thumbnail mr-1 card-img-top" style="max-width: 15rem; height: auto;" alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
                                                 </div>
                                                 <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
-                                                    <h4 class="d-block" *ngIf="producto.codigo"><strong>Codigo:</strong> {{producto.codigo}}</h4>
+                                                    <h4 class="d-block" *ngIf="producto.codigo"><strong>Codigo:</strong> {{producto.codigo}} </h4>
                                                     <h4 class="d-block" *ngIf="this.textCaract1"><strong>{{this.textCaract1}}: </strong>{{producto.caracteristica1}}</h4>
                                                     <h4 class="d-block" *ngIf="this.textCaract2"><strong>{{this.textCaract2}}: </strong>{{producto.caracteristica2}}</h4>
                                                     <h4 class="d-block" *ngIf="this.textCaract3"><strong>{{this.textCaract3}}: </strong>{{producto.caracteristica3}}</h4>
