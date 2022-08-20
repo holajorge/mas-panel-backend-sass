@@ -141,9 +141,9 @@ export class ProductoService {
     });
 
   }
-  deshacerCambiosProductos(empresaa){
+  deshacerCambiosProductos(empresaa, keyname){
 
-    let empresa = {id: empresaa};
+    let empresa = {id: empresaa, keyname:keyname};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -155,8 +155,8 @@ export class ProductoService {
     });
 
   }
-  aplaychangeProducts(empresaa){
-    let empresa = {id: empresaa};
+  aplaychangeProducts(empresaa, keyname){
+    let empresa = {id: empresaa, keyname:keyname};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     

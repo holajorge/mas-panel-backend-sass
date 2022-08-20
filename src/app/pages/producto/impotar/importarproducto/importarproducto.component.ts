@@ -18,6 +18,7 @@ export class ImportarproductoComponent implements OnInit {
   empresa:any = "";
   addForm: FormGroup;
   file_data:any = [];
+  keyname:any = "";
 
   btnvisibilitybtn:boolean = false;
   dataExcel: any = [];
@@ -94,10 +95,9 @@ export class ImportarproductoComponent implements OnInit {
         Swal.fire('error',res.response, 'error');
       }else if(res.success){
         Swal.close();
+        this.keyname = res.response.keyname;
         Swal.fire({
-          // icon: "info",
           title: "Cantidad de producto afectados",
-          // text: "Cantidad productos eliminados: "+ 40 +"<br>" + "productos Nuevos:" + 50, 
           html: 'Productos eliminados: '+ '<b>' + res.response.antes[0].cantidad +'</b><br>'+
             'Productos insertados: ' + '<b>' + res.response.nuevos +'</b>',         
           showCancelButton: true,
@@ -131,7 +131,7 @@ export class ImportarproductoComponent implements OnInit {
   }
 
   deshacerCambios(){
-    this.productoService.deshacerCambiosProductos(this.empresa).then( (res:any) =>{    
+    this.productoService.deshacerCambiosProductos(this.empresa, this.keyname).then( (res:any) =>{
       if(res.flag == true){
         Swal.fire('Listo!','Se descataron los cambios!', 'success')
         this.getProductos();
@@ -146,7 +146,7 @@ export class ImportarproductoComponent implements OnInit {
     });
   }
   aplayChange(){
-    this.productoService.aplaychangeProducts(this.empresa).then( (res:any) =>{    
+    this.productoService.aplaychangeProducts(this.empresa, this.keyname).then( (res:any) =>{
       if(res.flag == true){
        Swal.fire('Listo!','Se ejectuaron los cambios!', 'success')
         this.getProductos();
