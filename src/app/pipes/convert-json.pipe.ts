@@ -8,7 +8,12 @@ export class ConvertJsonFotosPipe implements PipeTransform {
     
     let fotos = JSON.parse(json);
 
-    return fotos[0].toLowerCase();
+    if(fotos[0] !== undefined){
+        return fotos[0].toLowerCase();
+    }
+    else{
+        return "";
+    }
   }
 
 }
