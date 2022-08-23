@@ -216,6 +216,30 @@
 
             <div class="card-wrapper">
                 <div class="card">
+                    <div class="card-header"><h3 class="mb-0">Modificar la palabra <strong>Precio</strong> de la tienda</h3></div>
+                    <div class="card-body">
+                        <form [formGroup]="formConfig" novalidate >
+                            <div class="row popup-info-custom">     
+                                <div class="col-md-4">
+                                    <input placeholder="Precio" class=" form-control" formControlName="label_precio"  type="text"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-2">
+                                        <button [disabled]='formConfig.invalid' (click)="registrarConfig()" class="btn btn-primary">
+                                            {{ 'config.formConfig.guardar' | translate }} <span class=""></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>    
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card">
                     <div class="card-header"><h3 class="mb-0">Usar MasPedidos sin mostrar código de producto</h3></div>
                     <div class="card-body">
                         <form [formGroup]="formConfig" novalidate >
