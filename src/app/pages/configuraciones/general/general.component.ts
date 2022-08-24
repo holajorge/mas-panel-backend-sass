@@ -52,7 +52,8 @@ export class GeneralComponent implements OnInit {
       monto_minimo: [null],
       pedido_firebase: [null],
       cantidad_minima_carrito: [null],
-      label_precio: [null]
+      label_precio: [null],
+      semaforo: [null],
     });
     this.empresaData.id = this.empresa;
   }
@@ -93,7 +94,7 @@ export class GeneralComponent implements OnInit {
           monto_minimo: (this.configuraciones.monto_minimo=="" || this.configuraciones.monto_minimo=="undefined" || this.configuraciones.monto_minimo==undefined) ? "" : this.configuraciones.monto_minimo,
           cantidad_minima_carrito: (this.configuraciones.cantidad_minima_carrito=="" || this.configuraciones.cantidad_minima_carrito=="undefined" || this.configuraciones.cantidad_minima_carrito==undefined) ? "" : this.configuraciones.cantidad_minima_carrito,
           label_precio: (this.configuraciones.label_precio=="" || this.configuraciones.label_precio=="undefined" || this.configuraciones.label_precio==undefined) ? "" : this.configuraciones.label_precio,
-
+          semaforo: (this.configuraciones.semaforo=="" || this.configuraciones.semaforo=="undefined" || this.configuraciones.semaforo==undefined) ? "" : this.configuraciones.semaforo,
           // nombre_empresa: this.configuraciones.nombre_empresa,
           // direccion: this.configuraciones.direccion,
           // telefono: this.configuraciones.telefono,
@@ -133,6 +134,7 @@ export class GeneralComponent implements OnInit {
     formData.append('monto_minimo',  this.formConfig.get('monto_minimo').value);
     formData.append('cantidad_minima_carrito',  this.formConfig.get('cantidad_minima_carrito').value);
     formData.append('label_precio',  this.formConfig.get('label_precio').value);
+    formData.append('semaforo',  this.formConfig.get('semaforo').value);
     this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){
