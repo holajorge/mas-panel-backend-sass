@@ -51,6 +51,7 @@ export class ClientesComponent implements OnInit {
   files:[] = [];
   fileEntries:number = 5;
   bucket:string;
+  flagEliminarPrroducto:string = '';
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -249,12 +250,30 @@ export class ClientesComponent implements OnInit {
       this.detalleRow = this.tempRowDet;
     }
   }
+
+  get pedidoRecibido(){
+    return (this.flagEliminarPrroducto == 'Recibido') ? true : false;
+  }
   onSelectItem(modalEditVendedor,row) {
-    this.detalleRow = [];
+    console.log(row);
+    
     this.empresa.pedido = row.id;
     Swal.showLoading();
-
+    this.flagEliminarPrroducto = row.estado;
+     
     this.detalleId = row.numeroInterno;
+
+    this.getDetallePedido();
+    
+    this.notificationModal = this.modalService.show(
+      modalEditVendedor,
+      this.notification
+    );
+    this.getFilesOrders();
+  }
+  getDetallePedido(){
+    this.detalleRow = [];
+
     this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{    
 
       this.detalleSucursal = res.detalles.sucursal;
@@ -281,12 +300,51 @@ export class ClientesComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
+  }
+
+  eliminarProductoPedido(producto){
     
-    this.notificationModal = this.modalService.show(
-      modalEditVendedor,
-      this.notification
-    );
-    this.getFilesOrders();
+    Swal.fire({
+      title: 'Seguro de Eliminar?',
+      text: "Eliminar el producto de este pedido!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+
+      if (result.value) {
+        
+        setTimeout( ()=>{
+          this.eliminarProductoSave(producto);      
+        },1000);
+
+      }
+    })
+
+  }
+
+  eliminarProductoSave(producto){
+        
+    Swal.showLoading();
+    this.pedidosService.eliminarProductoPedido(producto).subscribe( (res:any) =>{    
+      Swal.close();
+      if(res){
+        Swal.fire('Listo!','Producto eliminado con éxito!', 'success');
+        this.getDetallePedido();
+
+      }else{
+        Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+      }
+    },
+    (err)=>{
+      Swal.close();
+      console.log(err);
+      Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+
+    });
   }
   onaddComente(modalComent,row){
     

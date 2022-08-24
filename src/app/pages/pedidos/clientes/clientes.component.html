@@ -160,10 +160,14 @@
                             </ng-template>
                             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                                 <span>
-                                    <button class="btn btn-sm btn-primary" (click)='addNote(modalNote,row)'><span class="fas fa-clipboard"></span></button>
-                                    <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
-                                    <button *ngIf="row.comentario != ''" class="btn btn-sm btn-info" (click)='onaddComente(modalComent,row)' title="comentar"><span class="fas fa-eye"></span> </button>
-                                    <button class="btn btn-sm btn-success" (click)='dataExcelClientes(row)' title="exportar"><span class="fas fa-file-import"></span> </button>
+                                    <button class="btn btn-sm btn-primary" 
+                                        (click)='addNote(modalNote,row)'><span class="fas fa-clipboard"></span></button>
+                                    <button class="btn btn-sm btn-primary" 
+                                        (click)='onSelectItem(modalEditVendedor,row)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
+                                    <button *ngIf="row.comentario != ''" class="btn btn-sm btn-info" 
+                                        (click)='onaddComente(modalComent,row)' title="comentar"><span class="fas fa-eye"></span> </button>
+                                    <button class="btn btn-sm btn-success" 
+                                        (click)='dataExcelClientes(row)' title="exportar"><span class="fas fa-file-import"></span> </button>
                                 </span>
                             </ng-template>
                         </ngx-datatable-column>
@@ -284,16 +288,16 @@
                         </ng-template>
                     </ngx-datatable-column>
                    
-                    <!-- <ngx-datatable-column name="Acción" >
+                    <ngx-datatable-column name="Acción" *ngIf="pedidoRecibido">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabla.acciones' | translate}}</span>
                         </ng-template>
                         <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                             <span>
-                              <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEditVendedor,row.detalle)'><span class="fat-add"></span> {{ 'pedidos.tabla.detalle' | translate}}</button>
+                              <button class="btn btn-sm btn-danger" (click)='eliminarProductoPedido(row)'>Eliminar </button>
                             </span>
                           </ng-template>
-                    </ngx-datatable-column> -->
+                    </ngx-datatable-column>
                 </ngx-datatable>
                 </div>
 
