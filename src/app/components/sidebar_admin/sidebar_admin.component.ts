@@ -175,6 +175,12 @@ export const ROUTES: RouteInfo[] = [
     icontype: "fa fa-images text-primary",
   },
   {
+    path: "payments",
+    title: "Medios de pago",
+    type: "link",
+    icontype: "fa fa-images text-primary",
+  },
+  {
     path: "tutoriales",
     title: "Tutoriales",
     type: "link",

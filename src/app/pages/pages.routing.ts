@@ -43,6 +43,7 @@ import { EmpresasComponent } from './super-admin/empresas/empresas.component';
 import { TapiceComponent } from './tapice/tapice.component';
 
 import { TutorialesComponent } from './tutoriales/tutoriales.component';
+import { PagosComponent } from './pagos/pagos.component'
 
 const routes:Routes = [
     {
@@ -99,7 +100,10 @@ const routes:Routes = [
             {path: 'tareas', component:TareasComponent},
 
             // admin
-            {path: 'admin/dashboard', component: DashboardComponent}
+            {path: 'admin/dashboard', component: DashboardComponent},
+
+            //métodos de pagos
+            {path:'payments', component: PagosComponent},
             
         ]
     },
