@@ -102,12 +102,12 @@ export class DashboardComponent implements OnInit {
 
     that.startDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
     that.maxDate = { year: now.getFullYear() + 1, month: now.getMonth() + 1, day: now.getDate()};
-    that.minDate = {year: now.getFullYear() - 10, month: now.getMonth() + 1, day: now.getDate()};
+    that.minDate = {year: now.getFullYear() - 2 , month: now.getMonth() + 1, day: now.getDate()};
 
     that.toDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
 
     let dt = new Date();
-    dt.setDate( dt.getDate() - 10 );
+    dt.setDate( dt.getDate()  );
     that.fromDate = {year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate()};
 
 
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
     this.pedidosService.getPedidosyDetallesCliente(this.empresa).then( (res:any) =>{
       this.pedidos_count = res.pedidos["pedidos"].length;
       res.pedidos['pedidos'].forEach(element => {
-        this.price_total += parseFloat(element.precio) * parseInt(element.cantidad);
+        this.price_total += parseFloat(element.precio);
       });
     }).catch(err=>{
       console.log(err);
