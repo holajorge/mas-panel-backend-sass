@@ -31,7 +31,7 @@ export class PagosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.configuration = {mercadopago: {}, webpay: {ecommerceCode: "", secretApiKey: ""}};
+    this.configuration = {mercadopago: {publicKey: "", accessToken: ""}, webpay: {ecommerceCode: "", secretApiKey: ""}};
   }
 
   getPayments(){
@@ -70,7 +70,7 @@ export class PagosComponent implements OnInit {
         }
     }else{
         this.payment_selected.active = false;
-        this.configuration = {mercadopago: {}, webpay: {ecommerceCode: "", secretApiKey: ""}};
+        this.configuration = {mercadopago: {publicKey: "", accessToken: ""}, webpay: {ecommerceCode: "", secretApiKey: ""}};
     }
     this.notificationModal = this.modalService.show(
       modalEdit,
