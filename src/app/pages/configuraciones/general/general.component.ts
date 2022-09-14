@@ -53,7 +53,8 @@ export class GeneralComponent implements OnInit {
       pedido_firebase: [null],
       cantidad_minima_carrito: [null],
       label_precio: [null],
-      moneda: [null]
+      moneda: [null],
+      semaforo: [null]
     });
     this.empresaData.id = this.empresa;
   }
@@ -96,6 +97,7 @@ export class GeneralComponent implements OnInit {
           label_precio: (this.configuraciones.label_precio=="" || this.configuraciones.label_precio=="undefined" || this.configuraciones.label_precio==undefined) ? "" : this.configuraciones.label_precio,
           moneda: (this.configuraciones.moneda=="" || this.configuraciones.moneda=="undefined" || this.configuraciones.moneda==undefined) ? "" : this.configuraciones.moneda,
 
+          semaforo: (this.configuraciones.semaforo=="" || this.configuraciones.semaforo=="undefined" || this.configuraciones.semaforo==undefined) ? "" : this.configuraciones.semaforo
           // nombre_empresa: this.configuraciones.nombre_empresa,
           // direccion: this.configuraciones.direccion,
           // telefono: this.configuraciones.telefono,
@@ -137,6 +139,7 @@ export class GeneralComponent implements OnInit {
     formData.append('label_precio',  this.formConfig.get('label_precio').value);
     formData.append('moneda',  this.formConfig.get('moneda').value);
     
+    formData.append('semaforo',  this.formConfig.get('semaforo').value);
     this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){
