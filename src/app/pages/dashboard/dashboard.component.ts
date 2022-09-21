@@ -2,6 +2,8 @@ import {Component, ViewChild, OnInit, ElementRef, Renderer2} from '@angular/core
 import {PedidosService } from '../../service/pedidos/pedidos.service';
 import {ClienteService } from '../../service/cliente/cliente.service';
 import {TranslateService} from '@ngx-translate/core';
+import { ConfigService } from 'src/app/service/config/config.service';
+
 import {
     NgbDatepicker,
     NgbInputDatepicker,
@@ -67,22 +69,29 @@ export class DashboardComponent implements OnInit {
   productsDatatableEmpty:boolean = true;
   loadingIndicatorProductsDatatable = true;
   clientsDatatableEmpty:boolean = true;
+  colorsDatatableHydroEmpty:boolean = false;
   loadingIndicatorClientsDatatable = true;
   datatableClientes = [];
   datatableProductos = [];
   columnsProducts = [];
   columnsClients = [];
+  columnsColorsHydro = [];
+
+  // custom para hydro
+  data_hydro = {'result': false, 'data': []};
 
   constructor(
     public translate: TranslateService,
     private pedidosService: PedidosService,
     private clienteService: ClienteService,
-    element: ElementRef, private renderer: Renderer2, private _parserFormatter: NgbDateParserFormatter
+    element: ElementRef, private renderer: Renderer2, private _parserFormatter: NgbDateParserFormatter,
+    public configService: ConfigService,
   ) {
     this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
     this.getPedidos();
     this.getClientes();
+    this.getDataHydro();
   }
 
   ngOnInit() {
@@ -95,7 +104,10 @@ export class DashboardComponent implements OnInit {
        { name: 'CLIENTE', prop: 'cliente', resizeable: true},
        { name: 'VENTAS', prop: 'ventas', resizeable: true, width: 110, minWidth: 110, maxWidth: 110 }
     ];
-
+    this.columnsColorsHydro = [
+       { name: 'Color', prop: 'color', resizeable: true},
+       { name: 'Cantidad de Kilos', prop: 'kilos', resizeable: true}
+    ];
   }
 
   initRangeSelector(that){
@@ -137,6 +149,23 @@ export class DashboardComponent implements OnInit {
     this.clientes_count = 0;
     this.clienteService.getcliente(this.empresa).then( (res:any) =>{
       this.clientes_count = res.pedidos['clientes'].length;
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  getDataHydro(){
+
+    this.data_hydro = {'result': false, 'data': []};
+    this.pedidos_count = 0;
+    this.empresa.pedido = "";
+    this.pedidosService.getDataHydro(this.empresa).then( (res:any) =>{
+      this.data_hydro = res.pedidos;
+      if(this.data_hydro.data.length > 0){
+        this.colorsDatatableHydroEmpty = false;
+      }else{
+        this.colorsDatatableHydroEmpty = true;
+      }
     }).catch(err=>{
       console.log(err);
     });
@@ -243,6 +272,10 @@ export class DashboardComponent implements OnInit {
       options: data.options
     });
 
+  }
+
+  dataExcelKilosPorColor(){
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id, "_blank");
   }
 
 }
