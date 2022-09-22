@@ -168,31 +168,33 @@ export class DashboardComponent implements OnInit {
   }
 
   getDataHydro(){
-
-    this.data_hydro = {'result': false, 'data': []};
-    this.pedidos_count = 0;
-    this.empresa.pedido = "";
-    this.pedidosService.getDataHydro(this.empresa).then( (res:any) =>{
-      this.data_hydro = res.pedidos;
-      if(this.data_hydro.data['kilos_por_color'].length > 0){
-        this.colorsDatatableHydroEmpty = false;
-      }else{
-        this.colorsDatatableHydroEmpty = true;
-      }
-      if(this.data_hydro.data['pedidos_por_tratamiento'].length > 0){
-        this.tratamientoDatatableHydroEmpty = false;
-      }else{
-        this.tratamientoDatatableHydroEmpty = true;
-      }
-      if(this.data_hydro.data['pedidos_por_cliente'].length > 0){
-        this.clientsDatatableHydroEmpty = false;
-      }else{
-        this.clientsDatatableHydroEmpty = true;
-      }
-
-    }).catch(err=>{
-      console.log(err);
-    });
+    if(this.fromDate && this.toDate){
+        let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+        let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+        this.data_hydro = {'result': false, 'data': []};
+        this.pedidos_count = 0;
+        this.empresa.pedido = "";
+        this.pedidosService.getDataHydro(this.empresa, start_date, end_date).then( (res:any) =>{
+          this.data_hydro = res.pedidos;
+          if(this.data_hydro.data['kilos_por_color'].length > 0){
+            this.colorsDatatableHydroEmpty = false;
+          }else{
+            this.colorsDatatableHydroEmpty = true;
+          }
+          if(this.data_hydro.data['pedidos_por_tratamiento'].length > 0){
+            this.tratamientoDatatableHydroEmpty = false;
+          }else{
+            this.tratamientoDatatableHydroEmpty = true;
+          }
+          if(this.data_hydro.data['pedidos_por_cliente'].length > 0){
+            this.clientsDatatableHydroEmpty = false;
+          }else{
+            this.clientsDatatableHydroEmpty = true;
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
+    }
   }
 
   onDateSelection(date: NgbDateStruct) {
@@ -222,6 +224,7 @@ export class DashboardComponent implements OnInit {
     if(this.fromDate && this.toDate){
         let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
         let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+        this.getDataHydro();
         this.pedidosService.getPedidosClientePorFechas(this.empresa, start_date, end_date).then( (res:any) =>{
           this.plotLineChart(res.pedidos["pedidos"]);
         }).catch(err=>{
