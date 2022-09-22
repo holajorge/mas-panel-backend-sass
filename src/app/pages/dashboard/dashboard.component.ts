@@ -70,12 +70,16 @@ export class DashboardComponent implements OnInit {
   loadingIndicatorProductsDatatable = true;
   clientsDatatableEmpty:boolean = true;
   colorsDatatableHydroEmpty:boolean = false;
+  clientsDatatableHydroEmpty:boolean = false;
+  tratamientoDatatableHydroEmpty:boolean = false;
   loadingIndicatorClientsDatatable = true;
   datatableClientes = [];
   datatableProductos = [];
   columnsProducts = [];
   columnsClients = [];
   columnsColorsHydro = [];
+  columnsClientsHydro = [];
+  columnsTratamientoHydro = [];
 
   // custom para hydro
   data_hydro = {'result': false, 'data': []};
@@ -108,6 +112,15 @@ export class DashboardComponent implements OnInit {
        { name: 'Color', prop: 'color', resizeable: true},
        { name: 'Cantidad de Kilos', prop: 'kilos', resizeable: true}
     ];
+    this.columnsClientsHydro = [
+       { name: 'Cliente', prop: 'cliente', resizeable: true},
+       { name: 'Cantidad de pedidos', prop: 'pedidos', resizeable: true}
+    ];
+    this.columnsTratamientoHydro = [
+       { name: 'Tratamiento', prop: 'tratamiento', resizeable: true},
+       { name: 'Cantidad de pedidos', prop: 'pedidos', resizeable: true}
+    ];
+
   }
 
   initRangeSelector(that){
@@ -161,11 +174,22 @@ export class DashboardComponent implements OnInit {
     this.empresa.pedido = "";
     this.pedidosService.getDataHydro(this.empresa).then( (res:any) =>{
       this.data_hydro = res.pedidos;
-      if(this.data_hydro.data.length > 0){
+      if(this.data_hydro.data['kilos_por_color'].length > 0){
         this.colorsDatatableHydroEmpty = false;
       }else{
         this.colorsDatatableHydroEmpty = true;
       }
+      if(this.data_hydro.data['pedidos_por_tratamiento'].length > 0){
+        this.tratamientoDatatableHydroEmpty = false;
+      }else{
+        this.tratamientoDatatableHydroEmpty = true;
+      }
+      if(this.data_hydro.data['pedidos_por_cliente'].length > 0){
+        this.clientsDatatableHydroEmpty = false;
+      }else{
+        this.clientsDatatableHydroEmpty = true;
+      }
+
     }).catch(err=>{
       console.log(err);
     });
@@ -277,5 +301,7 @@ export class DashboardComponent implements OnInit {
   dataExcelKilosPorColor(){
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id, "_blank");
   }
-
+  dataExcelHydro(table){
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id+"&table="+table, "_blank");
+  }
 }
