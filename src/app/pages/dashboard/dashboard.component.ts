@@ -175,6 +175,24 @@ export class DashboardComponent implements OnInit {
         this.pedidos_count = 0;
         this.empresa.pedido = "";
         this.pedidosService.getDataHydro(this.empresa, start_date, end_date).then( (res:any) =>{
+
+          // Por default ordeno los 3 arrays de mayor a menor
+          res.pedidos.data['kilos_por_color'].sort((a, b) => {
+              if (a.kilos > b.kilos) return -1;
+              if (a.kilos < b.kilos) return 1;
+              return 0;
+          })
+          res.pedidos.data['pedidos_por_tratamiento'].sort((a, b) => {
+              if (a.pedidos > b.pedidos) return -1;
+              if (a.pedidos < b.pedidos) return 1;
+              return 0;
+          })
+          res.pedidos.data['pedidos_por_cliente'].sort((a, b) => {
+              if (a.pedidos > b.pedidos) return -1;
+              if (a.pedidos < b.pedidos) return 1;
+              return 0;
+          })
+
           this.data_hydro = res.pedidos;
           if(this.data_hydro.data['kilos_por_color'].length > 0){
             this.colorsDatatableHydroEmpty = false;
