@@ -2,7 +2,7 @@ import {Component, ViewChild, OnInit, ElementRef, Renderer2} from '@angular/core
 import {PedidosService } from '../../service/pedidos/pedidos.service';
 import {ClienteService } from '../../service/cliente/cliente.service';
 import {TranslateService} from '@ngx-translate/core';
-import { ConfigService } from 'src/app/service/config/config.service';
+import { ConfigService } from '../../service/config/config.service';
 
 import {
     NgbDatepicker,
@@ -320,9 +320,17 @@ export class DashboardComponent implements OnInit {
   }
 
   dataExcelKilosPorColor(){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id, "_blank");
+
+    let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+    let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id+"&start_date="+start_date+"&end_date="+end_date, "_blank");
   }
   dataExcelHydro(table){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id+"&table="+table, "_blank");
+
+    let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+    let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id+"&table="+table+"&start_date="+start_date+"&end_date="+end_date, "_blank");
   }
 }
