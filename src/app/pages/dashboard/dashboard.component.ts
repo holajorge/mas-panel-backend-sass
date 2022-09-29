@@ -250,7 +250,9 @@ export class DashboardComponent implements OnInit {
     if(this.fromDate && this.toDate){
         let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
         let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
-        this.getDataHydro();
+        if(this.usuario == 32){
+          this.getDataHydro();
+        }
         this.pedidosService.getPedidosClientePorFechas(this.empresa, start_date, end_date).then( (res:any) =>{
           this.plotLineChart(res.pedidos["pedidos"]);
         }).catch(err=>{
