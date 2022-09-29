@@ -2,6 +2,8 @@ import {Component, ViewChild, OnInit, ElementRef, Renderer2} from '@angular/core
 import {PedidosService } from '../../service/pedidos/pedidos.service';
 import {ClienteService } from '../../service/cliente/cliente.service';
 import {TranslateService} from '@ngx-translate/core';
+import { ConfigService } from '../../service/config/config.service';
+
 import {
     NgbDatepicker,
     NgbInputDatepicker,
@@ -13,6 +15,9 @@ import {NgModel} from "@angular/forms";
 import {Subscription} from 'rxjs';
 
 import Chart from "chart.js";
+
+import { JwtHelperService } from "@auth0/angular-jwt";
+const helper = new JwtHelperService();
 
 
 const now = new Date();
@@ -67,25 +72,41 @@ export class DashboardComponent implements OnInit {
   productsDatatableEmpty:boolean = true;
   loadingIndicatorProductsDatatable = true;
   clientsDatatableEmpty:boolean = true;
+  colorsDatatableHydroEmpty:boolean = false;
+  clientsDatatableHydroEmpty:boolean = false;
+  tratamientoDatatableHydroEmpty:boolean = false;
   loadingIndicatorClientsDatatable = true;
   datatableClientes = [];
   datatableProductos = [];
   columnsProducts = [];
   columnsClients = [];
+  columnsColorsHydro = [];
+  columnsClientsHydro = [];
+  columnsTratamientoHydro = [];
 
+  // custom para hydro
+  data_hydro = {'result': false, 'data': []};
+  usuario;
   constructor(
     public translate: TranslateService,
     private pedidosService: PedidosService,
     private clienteService: ClienteService,
-    element: ElementRef, private renderer: Renderer2, private _parserFormatter: NgbDateParserFormatter
+    element: ElementRef, private renderer: Renderer2, private _parserFormatter: NgbDateParserFormatter,
+    public configService: ConfigService,
   ) {
     this.translate.use('es');
     this.empresa.id = localStorage.getItem('usuario');
     this.getPedidos();
     this.getClientes();
+    this.getDataHydro();
   }
 
   ngOnInit() {
+    let usuario:any = localStorage.getItem('usuario');
+    this.usuario = helper.decodeToken(usuario);
+    this.usuario = this.usuario[0].id;
+    console.log(this.usuario);
+
     setTimeout(this.initRangeSelector, 1000, this);
     this.columnsProducts = [
        { name: 'TITULO', prop: 'titulo', resizeable: true},
@@ -94,6 +115,18 @@ export class DashboardComponent implements OnInit {
     this.columnsClients = [
        { name: 'CLIENTE', prop: 'cliente', resizeable: true},
        { name: 'VENTAS', prop: 'ventas', resizeable: true, width: 110, minWidth: 110, maxWidth: 110 }
+    ];
+    this.columnsColorsHydro = [
+       { name: 'Color', prop: 'color', resizeable: true},
+       { name: 'Cantidad de Kilos', prop: 'kilos', resizeable: true}
+    ];
+    this.columnsClientsHydro = [
+       { name: 'Cliente', prop: 'cliente', resizeable: true},
+       { name: 'Cantidad de pedidos', prop: 'pedidos', resizeable: true}
+    ];
+    this.columnsTratamientoHydro = [
+       { name: 'Tratamiento', prop: 'tratamiento', resizeable: true},
+       { name: 'Cantidad de pedidos', prop: 'pedidos', resizeable: true}
     ];
 
   }
@@ -142,6 +175,54 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getDataHydro(){
+    if(this.fromDate && this.toDate){
+        let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+        let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+        this.data_hydro = {'result': false, 'data': []};
+        this.pedidos_count = 0;
+        this.empresa.pedido = "";
+        this.pedidosService.getDataHydro(this.empresa, start_date, end_date).then( (res:any) =>{
+
+          // Por default ordeno los 3 arrays de mayor a menor
+          res.pedidos.data['kilos_por_color'].sort((a, b) => {
+              if (a.kilos > b.kilos) return -1;
+              if (a.kilos < b.kilos) return 1;
+              return 0;
+          })
+          res.pedidos.data['pedidos_por_tratamiento'].sort((a, b) => {
+              if (a.pedidos > b.pedidos) return -1;
+              if (a.pedidos < b.pedidos) return 1;
+              return 0;
+          })
+          res.pedidos.data['pedidos_por_cliente'].sort((a, b) => {
+              if (a.pedidos > b.pedidos) return -1;
+              if (a.pedidos < b.pedidos) return 1;
+              return 0;
+          })
+
+          this.data_hydro = res.pedidos;
+          if(this.data_hydro.data['kilos_por_color'].length > 0){
+            this.colorsDatatableHydroEmpty = false;
+          }else{
+            this.colorsDatatableHydroEmpty = true;
+          }
+          if(this.data_hydro.data['pedidos_por_tratamiento'].length > 0){
+            this.tratamientoDatatableHydroEmpty = false;
+          }else{
+            this.tratamientoDatatableHydroEmpty = true;
+          }
+          if(this.data_hydro.data['pedidos_por_cliente'].length > 0){
+            this.clientsDatatableHydroEmpty = false;
+          }else{
+            this.clientsDatatableHydroEmpty = true;
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
+    }
+  }
+
   onDateSelection(date: NgbDateStruct) {
 
     let parsed = '';
@@ -169,6 +250,7 @@ export class DashboardComponent implements OnInit {
     if(this.fromDate && this.toDate){
         let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
         let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+        this.getDataHydro();
         this.pedidosService.getPedidosClientePorFechas(this.empresa, start_date, end_date).then( (res:any) =>{
           this.plotLineChart(res.pedidos["pedidos"]);
         }).catch(err=>{
@@ -245,4 +327,18 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  dataExcelKilosPorColor(){
+
+    let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+    let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id+"&start_date="+start_date+"&end_date="+end_date, "_blank");
+  }
+  dataExcelHydro(table){
+
+    let start_date = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+    let end_date = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id+"&table="+table+"&start_date="+start_date+"&end_date="+end_date, "_blank");
+  }
 }

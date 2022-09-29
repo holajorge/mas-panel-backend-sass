@@ -11,7 +11,7 @@
 </div>
 
 <div class=" container-fluid mt--6">
-    <div class="row">
+    <div *ngIf="usuario != 32" class="row">
         <div class="col-xl-4 col-md-4">
           <div class="card card-stats">
             <!-- Card body -->
@@ -124,7 +124,7 @@
         </div>
     </div>
 
-    <div class="row mt-6" *ngIf="fromDate && toDate">
+      <div class="row mt-6" *ngIf="(fromDate && toDate) && (usuario != 32)">
         <div class="col-xl-6 col-md-12">
             <div class=" card">
                 <div class="dataTables_wrapper py-4 "  *ngIf="productsDatatableEmpty">
@@ -203,8 +203,90 @@
             </div>
         </div>
 
+      </div>
+
+    <div class="row mt-6" *ngIf="data_hydro.result">
+        <div class="col-xl-6 col-md-12">
+            <div class="card">
+                <div class="dataTables_wrapper py-4" *ngIf="!colorsDatatableHydroEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera mb-2">
+                                <h3 style="display:inline; margin-right: 2rem">Cantidad de kilos por color</h3>
+                                <button style="display:inline" class="btn btn-sm btn-success" (click)="dataExcelHydro('color')" title="exportar"><span class="fas fa-file-import"></span></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                        class="bootstrap selection-cell fullscreen"
+                        [columnMode]="'force'"
+                        [columns]="columnsColorsHydro"
+                        [headerHeight]="50" [footerHeight]="50"
+                        [rowHeight]="40"
+                        [limit]="entries != -1 ? entries : undefined" [rows]="data_hydro.data['kilos_por_color']"
+                        [scrollbarH]="true">
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+            <div class="card">
+                <div class="dataTables_wrapper py-4" *ngIf="!tratamientoDatatableHydroEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera mb-2">
+                                <h3 style="display:inline; margin-right: 2rem">Cantidad de Kilos por Tratamiento</h3>
+                                <button style="display:inline" class="btn btn-sm btn-success" (click)="dataExcelHydro('tratamiento')" title="exportar"><span class="fas fa-file-import"></span></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                        class="bootstrap selection-cell fullscreen"
+                        [columnMode]="'force'"
+                        [columns]="columnsTratamientoHydro"
+                        [headerHeight]="50" [footerHeight]="50"
+                        [rowHeight]="40"
+                        [limit]="entries != -1 ? entries : undefined" [rows]="data_hydro.data['pedidos_por_tratamiento']"
+                        [scrollbarH]="true">
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+            <div class="card">
+                <div class="dataTables_wrapper py-4" *ngIf="!clientsDatatableHydroEmpty">
+                    <div class="row">
+                        <div class="col-12 col-centered">
+                            <div class="text-center cabecera mb-2">
+                                <h3 style="display:inline; margin-right: 2rem">Cantidad de Kilos por clientes</h3>
+                                <button style="display:inline" class="btn btn-sm btn-success" (click)="dataExcelHydro('clientes')" title="exportar"><span class="fas fa-file-import"></span></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                        class="bootstrap selection-cell fullscreen"
+                        [columnMode]="'force'"
+                        [columns]="columnsClientsHydro"
+                        [headerHeight]="50" [footerHeight]="50"
+                        [rowHeight]="40"
+                        [limit]="entries != -1 ? entries : undefined" [rows]="data_hydro.data['pedidos_por_cliente']"
+                        [scrollbarH]="true">
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
 
+
 </div>
+
+
+
