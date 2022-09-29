@@ -16,6 +16,9 @@ import {Subscription} from 'rxjs';
 
 import Chart from "chart.js";
 
+import { JwtHelperService } from "@auth0/angular-jwt";
+const helper = new JwtHelperService();
+
 
 const now = new Date();
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
@@ -83,7 +86,7 @@ export class DashboardComponent implements OnInit {
 
   // custom para hydro
   data_hydro = {'result': false, 'data': []};
-
+  usuario;
   constructor(
     public translate: TranslateService,
     private pedidosService: PedidosService,
@@ -99,6 +102,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    let usuario:any = localStorage.getItem('usuario');
+    this.usuario = helper.decodeToken(usuario);
+    this.usuario = this.usuario[0].id;
+    console.log(this.usuario);
+
     setTimeout(this.initRangeSelector, 1000, this);
     this.columnsProducts = [
        { name: 'TITULO', prop: 'titulo', resizeable: true},
