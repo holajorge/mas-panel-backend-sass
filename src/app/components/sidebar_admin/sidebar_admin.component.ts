@@ -140,6 +140,7 @@ export const ROUTES: RouteInfo[] = [
       { path: "importarfotos", title: "Importar Fotos", type: "link" },
       { path: "permisos", title: "Permisos de clientes", type: "link" },
       { path: "importar-permisos", title: "Importar permisos de clientes", type: "link" },
+      { path: "galeriafotos", title: "Galería de Fotos", type: "link" },
     ]
   },
   {
@@ -153,13 +154,21 @@ export const ROUTES: RouteInfo[] = [
       { path: "importar-precios", title: "Importar precios", type: "link" }, */
       { path: "lista-precios", title: "Lista Precios", type: "link" },
       { path: "importar-lista-precios", title: " Importar Listas de Precios", type: "link" },
+      { path: "stock-precio", title: "Actualizar Precios y Stock por Excel", type: "link" },
+      { path: "actualizar-precios", title: "Actualizar Precios", type: "link" }
+
+    ]
+  },
+  {
+    path: "precios",
+    title: "Descuentos",
+    type: "sub",
+    icontype: "fa fa-tags text-primary",
+    isCollapsed: true,
+    children: [
       { path: "descuento-lista", title: "Descuentos", type: "link", param: 'simple'},
       { path: "descuento-lista", title: "Descuento por volumen", type: "link", param: 'volumen'},
-      /* { path: "descuento-categorias", title: "Descuentos por Categorias", type: "link" }, */
-       
       { path: "importar-descuentos", title: "Importar descuentos", type: "link" },
-      { path: "stock-precio", title: "Actualizar Precios y Stock", type: "link" }
-
     ]
   },
   {
