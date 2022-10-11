@@ -6,7 +6,7 @@ import { FotosS3Pipe } from './fotos-s3.pipe';
 import {ConvertJsonFotosPipe } from './convert-json.pipe';
 
 @NgModule({
-  declarations: [FehaLargaPipe, BannersImgPipe, VideosPipe,ConvertJsonFotosPipe],
-  exports: [FehaLargaPipe,BannersImgPipe, VideosPipe,ConvertJsonFotosPipe]
+  declarations: [FehaLargaPipe, BannersImgPipe, VideosPipe,ConvertJsonFotosPipe, FotosS3Pipe],
+  exports: [FehaLargaPipe,BannersImgPipe, VideosPipe,ConvertJsonFotosPipe, FotosS3Pipe]
 })
 export class PipesModule { }

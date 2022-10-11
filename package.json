@@ -23,6 +23,7 @@
     "@angular/platform-browser": "9.0.2",
     "@angular/platform-browser-dynamic": "9.0.2",
     "@angular/router": "9.0.2",
+    "@auth0/angular-jwt": "^5.0.2",
     "@fullcalendar/core": "4.4.0",
     "@fullcalendar/daygrid": "4.4.0",
     "@fullcalendar/interaction": "4.4.0",
