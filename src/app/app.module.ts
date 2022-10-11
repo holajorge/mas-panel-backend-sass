@@ -25,13 +25,15 @@ import {BdcWalkModule} from 'bdc-walkthrough';
 import {DpDatePickerModule} from 'ng2-date-picker';
 import { SuperComponent } from './layouts/super/super.component';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
   imports: [
-    DpDatePickerModule,MatMenuModule,
+    DpDatePickerModule,MatMenuModule,MatPaginatorModule,
     NgbModule,NgSelectModule,
     ModalModule.forRoot(),
     NgxDatatableModule,

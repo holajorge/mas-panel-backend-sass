@@ -168,7 +168,6 @@ export class ProductoService {
     });
   }
   importPhoto(filedata){
-    // https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/sluckip/fotos/2022-01-181642515247logo_empresa.jpg
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importPhotoProduct",filedata).toPromise().then((res) =>{
       return { success: true, response:res};
     })
@@ -287,6 +286,10 @@ export class ProductoService {
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al asignar la foto'};
     });
+  }
+
+  onImgError(event){
+    event.target.src = 'https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/nofoto.png';
   }
 
 }
