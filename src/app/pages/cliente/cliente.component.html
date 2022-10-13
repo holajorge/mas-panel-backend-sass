@@ -91,29 +91,47 @@
                                         <!-- <div class="align-self-center">
                                             <i class="icon-pencil primary font-large-2 mr-2"></i>
                                         </div> -->
-                                        <div class="media-body">
-                                            <h4><strong>Nro Cliente: </strong>{{producto.nrocliente}}</h4>
-                                            <span class="d-block" ><strong>Nombre:</strong> {{producto.nombre }}</span>
-                                            <span class="d-block" ><strong>Correo:</strong> {{producto.email}}</span>
-                                            <span class="d-block"><strong>Nombre Usuario:</strong> {{producto.usuario}}</span>
-                                            <span class="d-block"><strong>Clave:</strong> {{producto.clave}}</span>
+                                        <div class="col-8 col-md-9">
+                                            <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
+                                                <h4><strong>Nro Cliente: </strong>{{producto.nrocliente}}</h4>
+                                                <span class="d-block" ><strong>Nombre:</strong> {{producto.nombre }}</span>
+                                                <span class="d-block" ><strong>Correo:</strong> {{producto.email}}</span>
+                                                <span class="d-block"><strong>Nombre Usuario:</strong> {{producto.usuario}}</span>
+                                                <span class="d-block"><strong>Clave:</strong> {{producto.clave}}</span>
+                                            </div>
                                         </div>
-                                        <div class="desktop align-self-center">
-                                            <button class="d-none btn btn-sm btn-primary"  
-                                                (click)='invitarCliente(producto)' title="invitacion">
-                                                <span class="fas fa-envelope-square"></span>  
-                                            </button>
+                                        <div class="col-12 col-md-3">
+                                            <!-- opciones desktop -->
+                                            <div class="d-none d-md-block ">
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='invitarCliente(producto)'
+                                                    title="invitacion"> Invitación
+                                                    <span class="fas fa-envelope-square"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='openSucursal(modalSucursal,producto)'
+                                                    title="sucursales"> Sucursales
+                                                    <span class="fas fa-store"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light"
+                                                       (click)='onSelectItem(modalEdit,producto)' title="{{ 'cliente.tabla.editar' | translate}}">{{ 'cliente.tabla.editar' | translate}}
+                                                       <span class="fas fa-pen-alt"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light"
+                                                    (click)='pedidos(modalPedidos,producto)' title="{{ 'cliente.tabla.pedido' | translate}}">{{ 'cliente.tabla.pedido' | translate}}
+                                                    <span class="fas fa-truck"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" *ngIf="producto.activo == 1"
+                                                    (click)='onDisableActive(producto)' title="Deshabilitar">Deshabilitar
+                                                    <span class="fas fa-user-slash"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" *ngIf="producto.activo == 0"
+                                                    (click)='onActiveClient(producto)' title="Habilitar">Habilitar
+                                                    <span class="fas fa-user-tie"></span>
+                                                </a>
+                                                <div class="d-none"></div>
+                                            </div>
+                                            <!-- opciones desktop -->
+                                        </div>
 
-                                            <button class="btn btn-sm btn-neutral"  
-                                                (click)='openSucursal(modalSucursal,producto)' title="sucursales">
-                                                <span class="fas fa-store"></span>  
-                                            </button>
-                                            <button class="btn btn-sm btn-primary" (click)='onSelectItem(modalEdit,producto)' title="{{ 'cliente.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span>  </button>
-                                            <button class="btn btn-sm btn-info" (click)='pedidos(modalPedidos,producto)' title="{{ 'cliente.tabla.pedido' | translate}}"><span class="fas fa-truck"></span>  </button>
-                                            <button *ngIf="producto.activo == 1" class="btn btn-sm btn-danger" (click)='onDisableActive(producto)' title="Deshabilitar"><span class="fas fa-user-slash"></span> </button>
-                                            <button *ngIf="producto.activo == 0" class="btn btn-sm btn-success" (click)='onActiveClient(producto)' title="Habilitar"><span class="fas fa-user-tie"></span> </button>
-                                                    
-                                        </div>
                                         <div class="movil align-self-center">
                                             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                                                 <mat-icon>more_vert</mat-icon>
