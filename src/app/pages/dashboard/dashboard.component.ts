@@ -122,11 +122,11 @@ export class DashboardComponent implements OnInit {
     ];
     this.columnsClientsHydro = [
        { name: 'Cliente', prop: 'cliente', resizeable: true},
-       { name: 'Cantidad de pedidos', prop: 'pedidos', resizeable: true}
+       { name: 'Cantidad de pedidos', prop: 'kilos', resizeable: true}
     ];
     this.columnsTratamientoHydro = [
        { name: 'Tratamiento', prop: 'tratamiento', resizeable: true},
-       { name: 'Cantidad de pedidos', prop: 'pedidos', resizeable: true}
+       { name: 'Cantidad de pedidos', prop: 'kilos', resizeable: true}
     ];
 
   }
@@ -156,11 +156,9 @@ export class DashboardComponent implements OnInit {
     this.price_total = 0;
     this.pedidos_count = 0;
     this.empresa.pedido = "";
-    this.pedidosService.getPedidosyDetallesCliente(this.empresa).then( (res:any) =>{
-      this.pedidos_count = res.pedidos["pedidos"].length;
-      res.pedidos['pedidos'].forEach(element => {
-        this.price_total += parseFloat(element.precio);
-      });
+    this.pedidosService.getDataReports(this.empresa).then( (res:any) =>{
+      this.pedidos_count = res.data["cantidad_pedidos"];
+      this.price_total = parseFloat(res.data["suma_precios"]);
     }).catch(err=>{
       console.log(err);
     });
@@ -183,24 +181,6 @@ export class DashboardComponent implements OnInit {
         this.pedidos_count = 0;
         this.empresa.pedido = "";
         this.pedidosService.getDataHydro(this.empresa, start_date, end_date).then( (res:any) =>{
-
-          // Por default ordeno los 3 arrays de mayor a menor
-          res.pedidos.data['kilos_por_color'].sort((a, b) => {
-              if (a.kilos > b.kilos) return -1;
-              if (a.kilos < b.kilos) return 1;
-              return 0;
-          })
-          res.pedidos.data['pedidos_por_tratamiento'].sort((a, b) => {
-              if (a.pedidos > b.pedidos) return -1;
-              if (a.pedidos < b.pedidos) return 1;
-              return 0;
-          })
-          res.pedidos.data['pedidos_por_cliente'].sort((a, b) => {
-              if (a.pedidos > b.pedidos) return -1;
-              if (a.pedidos < b.pedidos) return 1;
-              return 0;
-          })
-
           this.data_hydro = res.pedidos;
           if(this.data_hydro.data['kilos_por_color'].length > 0){
             this.colorsDatatableHydroEmpty = false;
