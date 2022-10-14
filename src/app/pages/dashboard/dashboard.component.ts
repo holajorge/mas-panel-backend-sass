@@ -122,11 +122,11 @@ export class DashboardComponent implements OnInit {
     ];
     this.columnsClientsHydro = [
        { name: 'Cliente', prop: 'cliente', resizeable: true},
-       { name: 'Cantidad de pedidos', prop: 'kilos', resizeable: true}
+       { name: 'Cantidad de kilos', prop: 'kilos', resizeable: true}
     ];
     this.columnsTratamientoHydro = [
        { name: 'Tratamiento', prop: 'tratamiento', resizeable: true},
-       { name: 'Cantidad de pedidos', prop: 'kilos', resizeable: true}
+       { name: 'Cantidad de kilos', prop: 'kilos', resizeable: true}
     ];
 
   }

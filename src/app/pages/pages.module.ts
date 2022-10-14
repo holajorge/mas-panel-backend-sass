@@ -53,19 +53,17 @@ import { ListaPComponent } from './precios/lista/listaP.component';
 import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
 import { LoginSuperComponent } from './super-admin/login-super/login-super.component';
 import { HomeSuperComponent } from './super-admin/home-super/home-super.component';
-import { EmpresasComponent } from './super-admin/empresas/empresas.component'
+import { EmpresasComponent } from './super-admin/empresas/empresas.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { TutorialesComponent } from './tutoriales/tutoriales.component'
+import { TutorialesComponent } from './tutoriales/tutoriales.component';
 import {MatIconModule} from '@angular/material/icon';
 import { TapiceComponent } from './tapice/tapice.component';
 import { ActualizarPreciosComponent } from './precios/actualizar-precios/actualizar-precios.component';
 import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
-import { TapiceComponent } from './tapice/tapice.component';
 import { LoginPartnerComponent } from './partners/login-partner/login-partner.component';
-import { RegistracionPartnerComponent } from './partners/registracion-partner/registracion-partner.component'
-import { TapiceComponent } from './tapice/tapice.component';
-import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component'
+import { RegistracionPartnerComponent } from './partners/registracion-partner/registracion-partner.component';
+import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -113,9 +111,9 @@ imports: [
     TutorialesComponent,
     TapiceComponent,
     ActualizarPreciosComponent,
-    GaleriaFotosComponent
+    GaleriaFotosComponent,
     LoginPartnerComponent,
-    RegistracionPartnerComponent
+    RegistracionPartnerComponent,
     AfiliadosComponent
   ],
   imports: [
