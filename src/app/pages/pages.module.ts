@@ -64,6 +64,8 @@ import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.co
 import { TapiceComponent } from './tapice/tapice.component';
 import { LoginPartnerComponent } from './partners/login-partner/login-partner.component';
 import { RegistracionPartnerComponent } from './partners/registracion-partner/registracion-partner.component'
+import { TapiceComponent } from './tapice/tapice.component';
+import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -112,9 +114,9 @@ imports: [
     TapiceComponent,
     ActualizarPreciosComponent,
     GaleriaFotosComponent
-    TapiceComponent,
     LoginPartnerComponent,
     RegistracionPartnerComponent
+    AfiliadosComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,

@@ -28,8 +28,18 @@ export class EmpresaService {
     let data = {token: localStorage.getItem('admin')};
 
     return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getEmpresasAfiliado", data, this.header)
-    .pipe( 
-      map( (res) => { 
+    .pipe(
+      map( (res) => {
+        let {datos} = res['body'];
+        return datos;
+      }),
+      catchError( error => error )
+    )
+  }
+  getAfiliados(){
+    return this._http.get(ConfigService.API_ENDPOINT()+"SuperAdmin/getAfiliados")
+    .pipe(
+      map( (res) => {
         let {datos} = res['body'];
         return datos;
       }),
@@ -44,6 +54,54 @@ export class EmpresaService {
         console.log(datos);
         
         return datos;
+      }),
+      catchError( error => error )
+    )
+  }
+  getAfiliadosEmpresa(afiliadoID){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getAfiliadosEmpresa", afiliadoID, this.header)
+    .pipe(
+      map( (res) => {
+        let {datos} = res['body'];
+        console.log(datos);
+
+        return datos;
+      }),
+      catchError( error => error )
+    )
+  }
+  saveEmpresa(empresa){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/saveEmpresa", empresa, this.header)
+    .pipe(
+      map( (res) => {
+        let {flag} = res['body'];
+        console.log(flag);
+
+        return flag;
+      }),
+      catchError( error => error )
+    )
+  }
+  saveAfiliado(afiliado){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/updateAfiliado", afiliado, this.header)
+    .pipe(
+      map( (res) => {
+        let {flag} = res['body'];
+        console.log(flag);
+
+        return flag;
+      }),
+      catchError( error => error )
+    )
+  }
+  dishableAfiliado(afiliado){
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/dishableAfiliado", afiliado, this.header)
+    .pipe(
+      map( (res) => {
+        let {flag} = res['body'];
+        console.log(flag);
+
+        return flag;
       }),
       catchError( error => error )
     )
