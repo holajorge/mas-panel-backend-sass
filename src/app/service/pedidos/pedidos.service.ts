@@ -135,6 +135,18 @@ export class PedidosService {
         catchError( error => error)
       );
   }
+  eliminarProductoPedido(data){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/eliminar_Producto_Pedido",data,this.headers )
+      .pipe(
+        map( (res:any) => {      
+          let {flag} = res;        
+          return flag;
+        }),
+        catchError( error => error)
+      );
+  }
+
 
   getPedidosClientePorFechas(idEmpresa, date_start, date_end){
     idEmpresa["date_start"] = date_start;

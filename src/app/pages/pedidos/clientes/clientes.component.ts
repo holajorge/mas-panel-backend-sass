@@ -58,6 +58,7 @@ export class ClientesComponent implements OnInit {
   pageSize = 10;
   collectionSize:number = this.tempRow.length;
 
+  flagEliminarPrroducto:string = '';
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -157,18 +158,18 @@ export class ClientesComponent implements OnInit {
       this.temp = this.dataFilter;
       this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
                             ).slice(
-                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize,
                               (this.page - 1) * this.pageSize + this.pageSize
                             );
     }else{
 
       this.temp = this.tempRow.map(  (product, i) => ({id:i+1,...product})
                             ).slice(
-                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize,
                               (this.page - 1) * this.pageSize + this.pageSize
                             );
     }
-    
+
     console.log(this.temp);
 
 
@@ -216,16 +217,16 @@ export class ClientesComponent implements OnInit {
       }
     }         
     if(producto1.length > 0){
-      this.dataFilter = producto1;  
+      this.dataFilter = producto1;
       this.collectionSize = producto1.length;
       this.refreshDatos();
     }else{
-      this.dataFilter = [];  
+      this.dataFilter = [];
       this.temp = [];
       this.collectionSize = 0;
-    }     
+    }
 
-    // this.temp = producto1;  
+    // this.temp = producto1;
 
   }
   eliminar(){
@@ -295,13 +296,31 @@ export class ClientesComponent implements OnInit {
       this.detalleRow = this.tempRowDet;
     }
   }
+
+  get pedidoRecibido(){
+    return (this.flagEliminarPrroducto == 'Recibido') ? true : false;
+  }
   onSelectItem(modalEditVendedor,row) {
-    this.detalleRow = [];
+    console.log(row);
+
     this.empresa.pedido = row.id;
     Swal.showLoading();
+    this.flagEliminarPrroducto = row.estado;
 
     this.detalleId = row.numeroInterno;
-    this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{    
+
+    this.getDetallePedido();
+
+    this.notificationModal = this.modalService.show(
+      modalEditVendedor,
+      this.notification
+    );
+    this.getFilesOrders();
+  }
+  getDetallePedido(){
+    this.detalleRow = [];
+
+    this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{
 
       this.detalleSucursal = res.detalles.sucursal;
       this.detalleRow = res.detalles.detalle;
@@ -327,12 +346,51 @@ export class ClientesComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
-    
-    this.notificationModal = this.modalService.show(
-      modalEditVendedor,
-      this.notification
-    );
-    this.getFilesOrders();
+  }
+
+  eliminarProductoPedido(producto){
+
+    Swal.fire({
+      title: 'Seguro de Eliminar?',
+      text: "Eliminar el producto de este pedido!",
+      type: 'warning',
+      showCancelButton: true,
+      buttonsStyling: false,
+      confirmButtonClass: 'btn btn-danger',
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonClass: 'btn btn-secondary'
+    }).then((result) => {
+
+      if (result.value) {
+
+        setTimeout( ()=>{
+          this.eliminarProductoSave(producto);
+        },1000);
+
+      }
+    })
+
+  }
+
+  eliminarProductoSave(producto){
+
+    Swal.showLoading();
+    this.pedidosService.eliminarProductoPedido(producto).subscribe( (res:any) =>{
+      Swal.close();
+      if(res){
+        Swal.fire('Listo!','Producto eliminado con éxito!', 'success');
+        this.getDetallePedido();
+
+      }else{
+        Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+      }
+    },
+    (err)=>{
+      Swal.close();
+      console.log(err);
+      Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+
+    });
   }
   onaddComente(modalComent,row){
     
