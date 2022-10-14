@@ -61,6 +61,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { TapiceComponent } from './tapice/tapice.component';
 import { ActualizarPreciosComponent } from './precios/actualizar-precios/actualizar-precios.component';
 import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
+import { TapiceComponent } from './tapice/tapice.component';
+import { LoginPartnerComponent } from './partners/login-partner/login-partner.component';
+import { RegistracionPartnerComponent } from './partners/registracion-partner/registracion-partner.component'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -109,6 +112,9 @@ imports: [
     TapiceComponent,
     ActualizarPreciosComponent,
     GaleriaFotosComponent
+    TapiceComponent,
+    LoginPartnerComponent,
+    RegistracionPartnerComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,

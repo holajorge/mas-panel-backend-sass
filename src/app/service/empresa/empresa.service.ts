@@ -24,6 +24,18 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
+  getEmpresasAfiliado(){
+    let data = {token: localStorage.getItem('admin')};
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getEmpresasAfiliado", data, this.header)
+    .pipe( 
+      map( (res) => { 
+        let {datos} = res['body'];
+        return datos;
+      }),
+      catchError( error => error )
+    )
+  }
   getTokenEmpresa(empresa){
     return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getTokenEmpresa", empresa, this.header)
     .pipe( 
