@@ -110,9 +110,9 @@ export class DescuentoListaComponent implements OnInit {
 
       //this.caract4 = res.response['caracteristica4'];
 
-      this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
-      this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
-      this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
+      this.textCaract1 = (this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1.value && this.configuraciones.caracteristica1.value != "") ? this.configuraciones.caracteristica1.value : "caracteristica 1"
+      this.textCaract2 = (this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2.value && this.configuraciones.caracteristica2.value != "") ? this.configuraciones.caracteristica2.value : "caracteristica 2"
+      this.textCaract3 = (this.configuraciones.caracteristica3 && this.configuraciones.caracteristica3.value && this.configuraciones.caracteristica3.value != "") ? this.configuraciones.caracteristica3.value : "caracteristica 3"
       //this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
 
     }).catch(err=>{
@@ -309,9 +309,9 @@ export class DescuentoListaComponent implements OnInit {
       this.clientes = res.response['clientes'];
 
       this.configuraciones = res.response['configuraciones'];
-      this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : "caracteristica 1"
-      this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : "caracteristica 2"
-      this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : "caracteristica 3"
+      this.textCaract1 = (this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1.value && this.configuraciones.caracteristica1.value != "") ? this.configuraciones.caracteristica1.value : "caracteristica 1"
+      this.textCaract2 = (this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2.value && this.configuraciones.caracteristica2.value != "") ? this.configuraciones.caracteristica2.value : "caracteristica 2"
+      this.textCaract3 = (this.configuraciones.caracteristica3 && this.configuraciones.caracteristica3.value && this.configuraciones.caracteristica3.value != "") ? this.configuraciones.caracteristica3.value : "caracteristica 3"
       //this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
 
       Swal.close();

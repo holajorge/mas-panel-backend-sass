@@ -97,9 +97,9 @@ export class GaleriaFotosComponent implements OnInit {
             this.textCaract2 = false;
             this.textCaract3 = false;
         }else{
-            this.textCaract1 = (this.configuraciones.caracteristica1 != "") ? this.configuraciones.caracteristica1 : false;
-            this.textCaract2 = (this.configuraciones.caracteristica2 != "") ? this.configuraciones.caracteristica2 : false;
-            this.textCaract3 = (this.configuraciones.caracteristica3 != "") ? this.configuraciones.caracteristica3 : false;
+            this.textCaract1 = (this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1.value && this.configuraciones.caracteristica1.value != "") ? this.configuraciones.caracteristica1.value : false;
+            this.textCaract2 = (this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2.value && this.configuraciones.caracteristica2.value != "") ? this.configuraciones.caracteristica2.value : false;
+            this.textCaract3 = (this.configuraciones.caracteristica3 && this.configuraciones.caracteristica3.value && this.configuraciones.caracteristica3.value != "") ? this.configuraciones.caracteristica3.value : false;
         }
       }else{
         Swal.close();

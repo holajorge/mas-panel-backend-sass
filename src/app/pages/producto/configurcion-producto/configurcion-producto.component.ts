@@ -41,27 +41,32 @@ export class ConfigurcionProductoComponent implements OnInit {
       
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
-        
-        if(this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1 !== ''){
-          this.addForm.patchValue({caract1: this.configuraciones.caracteristica1});
+
+
+        let condition = this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1["value"] && this.configuraciones.caracteristica1["value"] !== '';
+        if(condition){
+          this.addForm.patchValue({caract1: this.configuraciones.caracteristica1.value});
         }else{
           this.addForm.controls['caract2'].disable();
           this.addForm.controls['caract3'].disable();
           this.addForm.controls['caract4'].disable();
         }
-        if(this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2 !== ''){
-          this.addForm.patchValue({caract2: this.configuraciones.caracteristica2});
+        condition = this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2["value"] && this.configuraciones.caracteristica2["value"] !== '';
+        if(condition){
+          this.addForm.patchValue({caract2: this.configuraciones.caracteristica2.value});
         }else{          
           this.addForm.controls['caract3'].disable();
           this.addForm.controls['caract4'].disable();
         }
-        if(this.configuraciones.caracteristica3 != undefined && this.configuraciones.caracteristica3 !== '' ){
-          this.addForm.patchValue({caract3: this.configuraciones.caracteristica3});
+        condition = this.configuraciones.caracteristica3 && this.configuraciones.caracteristica3["value"] && this.configuraciones.caracteristica3["value"] !== '';
+        if(condition){
+          this.addForm.patchValue({caract3: this.configuraciones.caracteristica3.value});
         }else{
           this.addForm.controls['caract4'].disable();
         }
-         if(this.configuraciones.caracteristica4 != undefined){
-          this.addForm.patchValue({caract4: this.configuraciones.caracteristica4});
+        condition = this.configuraciones.caracteristica4 && this.configuraciones.caracteristica4["value"] && this.configuraciones.caracteristica4["value"] !== '';
+        if(condition){
+          this.addForm.patchValue({caract4: this.configuraciones.caracteristica4.value});
         }
       }
       

@@ -18,6 +18,7 @@ export class GeneralComponent implements OnInit {
   formConfig:any = [];
   configuraciones:any;
   form_dataConfig:any=[];
+  selectCaracteristicas = [];
 
   constructor(
     public translate: TranslateService,  
@@ -54,7 +55,8 @@ export class GeneralComponent implements OnInit {
       cantidad_minima_carrito: [null],
       label_precio: [null],
       moneda: [null],
-      semaforo: [null]
+      semaforo: [null],
+      caracteristicas: [null]
     });
     this.empresaData.id = this.empresa;
   }
@@ -103,6 +105,29 @@ export class GeneralComponent implements OnInit {
           // telefono: this.configuraciones.telefono,
           // correo: this.configuraciones.correo,
         });
+
+
+        // caracteristicas -- feature: seleccionar cuales mostrar y cuales no.
+        this.selectCaracteristicas = [];
+        let caracteristicas = ['caracteristica1', 'caracteristica2', 'caracteristica3', 'caracteristica4'];
+        let caract_options_aux = [];
+        caracteristicas.forEach((value) => {
+          let condition = this.configuraciones[value] && this.configuraciones[value]["value"] && this.configuraciones[value]["value"] !== '';
+          if(condition){
+            let row = { id: value, name: value};
+            this.selectCaracteristicas = [...this.selectCaracteristicas, row];
+            if(this.configuraciones[value]["show"]){
+                caract_options_aux.push(value);
+            }
+          }
+        });
+
+        // Por default, todas las tiendas tienen que ver caracteristica1 y caracteristica2 si están setteadas.
+        if(!(caract_options_aux.length)){
+            caract_options_aux.push('caracteristica1');
+            caract_options_aux.push('caracteristica2');
+        }
+        this.formConfig.patchValue({caracteristicas: caract_options_aux})
       }
       
     }).catch(err=>{
@@ -138,12 +163,11 @@ export class GeneralComponent implements OnInit {
     formData.append('cantidad_minima_carrito',  this.formConfig.get('cantidad_minima_carrito').value);
     formData.append('label_precio',  this.formConfig.get('label_precio').value);
     formData.append('moneda',  this.formConfig.get('moneda').value);
-    
     formData.append('semaforo',  this.formConfig.get('semaforo').value);
+    formData.append('caracteristicas',  this.formConfig.get('caracteristicas').value);
     this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){
-
         Swal.fire('Listo!','Configuración guardada con éxito!', 'success');
       }else{
         Swal.fire('Error al guardar, intente de nuevo!', 'error');
