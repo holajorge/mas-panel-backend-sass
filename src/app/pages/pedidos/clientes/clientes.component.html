@@ -111,10 +111,10 @@
                                         <div class="d-flex justify-content-between">
                                             <h4 class="card-title"><strong>ID: </strong>{{producto.numeroInterno}}</h4>
                                             <div class="mr--2">
-                                                <a href="javascript:void(0)" class="mr-3" (click)='addNote(modalNote,producto)'>Nota <span class="fas fa-clipboard"></span></a>
-                                                <a href="javascript:void(0)" class="mr-3" (click)='onSelectItem(modalEditVendedor,producto)'>{{ 'pedidos.tabla.detalle' | translate}} <span class="fas fa-info"></span></a>
-                                                <a *ngIf="producto.comentario != ''" href="javascript:void(0)" class="mr-3" (click)='onaddComente(modalComent,producto)' title="comentar">Comentar <span class="fas fa-eye"></span> </a>
-                                                <a href="javascript:void(0)" class="mr-3" (click)='dataExcelClientes(producto)' title="exportar">Exportar <span class="fas fa-file-import"></span> </a>
+                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='addNote(modalNote,producto)'>Nota <span class="fas fa-clipboard"></span></a>
+                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalEditVendedor,producto)'>{{ 'pedidos.tabla.detalle' | translate}} <span class="fas fa-info"></span></a>
+                                                <a *ngIf="producto.comentario != ''" href="javascript:void(0)" class="mr-3 text-info" (click)='onaddComente(modalComent,producto)' title="comentar">Comentar <span class="fas fa-eye"></span> </a>
+                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='dataExcelClientes(producto)' title="exportar">Exportar <span class="fas fa-file-import"></span> </a>
                                             </div>
                                         </div>
                                         <div class="media h-100 d-flex flex-column">
