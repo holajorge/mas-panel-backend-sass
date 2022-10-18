@@ -1,3 +1,16 @@
 ng-select select-dropdown > div {
     z-index: 2;
 }
+
+.ng-select.auto-grow {
+  display: flex;
+
+  .ng-select-container {
+    min-width: 10rem;
+    width: auto;
+  }
+
+  .ng-dropdown-panel {
+    width: auto;
+  }
+}

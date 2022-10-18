@@ -141,9 +141,9 @@ export class ProductoService {
     });
 
   }
-  deshacerCambiosProductos(empresaa){
+  deshacerCambiosProductos(empresaa, keyname){
 
-    let empresa = {id: empresaa};
+    let empresa = {id: empresaa, keyname:keyname};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -155,8 +155,8 @@ export class ProductoService {
     });
 
   }
-  aplaychangeProducts(empresaa){
-    let empresa = {id: empresaa};
+  aplaychangeProducts(empresaa, keyname){
+    let empresa = {id: empresaa, keyname:keyname};
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
     
@@ -168,7 +168,7 @@ export class ProductoService {
     });
   }
   importPhoto(filedata){
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importPhotoProduct",filedata).toPromise().then((res) =>{     
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/importPhotoProduct",filedata).toPromise().then((res) =>{
       return { success: true, response:res};
     })
     .catch( (err) =>{
@@ -247,6 +247,49 @@ export class ProductoService {
           return of(false)
         })
       );    
+  }
+
+  getAllPhotos(idEmpresa){
+    let empresa = {id: idEmpresa};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/obtenerListadoFotos",empresa,options).toPromise().then((res) =>{
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  deletePhoto(idEmpresa, keyname){
+    let datos = {id: idEmpresa, keyname: keyname};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/eliminarFoto",datos,options).toPromise().then((res) =>{
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al eliminar la foto'};
+    });
+  }
+
+  photoAssign(idEmpresa, photo, products){
+    let datos = {id: idEmpresa, photo: photo, products: products};
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/asignarFoto",datos,options).toPromise().then((res) =>{
+      return { success: true, response:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al asignar la foto'};
+    });
+  }
+
+  onImgError(event){
+    event.target.src = 'https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/nofoto.png';
   }
 
 }

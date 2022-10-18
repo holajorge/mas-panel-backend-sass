@@ -25,3 +25,18 @@
 .form-control-sm{
   height: calc( 1em + 1.25em + 5px) !important;
 }
+
+.foto-listado{
+  max-width: 7rem !important; 
+  height: auto;
+  float:left;
+}
+
+.posicion-opciones-mobile{
+  float:right;
+  width:10px;
+}
+
+.listado-boxes .item-box:nth-child(odd) {
+  background-color: #f9f9f9;
+}

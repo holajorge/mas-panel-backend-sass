@@ -35,6 +35,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
 import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
+import { ActualizarPreciosComponent } from './precios/actualizar-precios/actualizar-precios.component';
 //super admin
 import { LoginSuperComponent } from './super-admin/login-super/login-super.component';
 import { SuperGuard } from '../guards/super.guard';
@@ -43,6 +44,7 @@ import { EmpresasComponent } from './super-admin/empresas/empresas.component';
 import { TapiceComponent } from './tapice/tapice.component';
 
 import { TutorialesComponent } from './tutoriales/tutoriales.component';
+import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
 
 const routes:Routes = [
     {
@@ -82,6 +84,7 @@ const routes:Routes = [
             {path: 'producto/productos',  component: ProductoComponent},
             {path: 'producto/importarproducto',  component: ImportarproductoComponent},
             {path: 'producto/importarfotos',  component: ImportarFotosComponent},
+            {path: 'producto/galeriafotos',  component: GaleriaFotosComponent},
             //precios
             {path: 'precios/lista-precios',  component: ListaPComponent},
             {path: 'precios/importar-precios',  component: ImportarPreciosComponent},
@@ -90,6 +93,7 @@ const routes:Routes = [
             {path: 'precios/descuento-lista/:type',  component: DescuentoListaComponent},
             {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent},
             {path: 'precios/stock-precio',  component: StockPrecioComponent},
+            {path: 'precios/actualizar-precios',  component: ActualizarPreciosComponent},
             {path: 'tapice',  component: TapiceComponent},
 
             //tutoriales

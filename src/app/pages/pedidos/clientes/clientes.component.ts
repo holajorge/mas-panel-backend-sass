@@ -51,6 +51,13 @@ export class ClientesComponent implements OnInit {
   files:[] = [];
   fileEntries:number = 5;
   bucket:string;
+
+  dataFilter:any= [];
+  page = 1;
+  isDisabled = true;
+  pageSize = 10;
+  collectionSize:number = this.tempRow.length;
+
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -127,6 +134,8 @@ export class ClientesComponent implements OnInit {
         this.emptyTable = true;
         this.temp = res.pedidos.pedidos;
         this.tempRow = res.pedidos.pedidos;
+        this.collectionSize = this.temp.length;
+        this.refreshDatos();
         this.loadingIndicator = true;
         this.dataExcel = res.pedidos.detalle;
 
@@ -138,6 +147,29 @@ export class ClientesComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+
+
+  }
+  refreshDatos() {
+    // this.rows = this.rowsTemp;
+    // console.log(this.rows);
+     if(this.dataFilter.length > 0){
+      this.temp = this.dataFilter;
+      this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }else{
+
+      this.temp = this.tempRow.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }
+    
+    console.log(this.temp);
 
 
   }
@@ -183,7 +215,17 @@ export class ClientesComponent implements OnInit {
         producto1 = producto1.filter( filtros[filtro][1])   
       }
     }         
-    this.temp = producto1;  
+    if(producto1.length > 0){
+      this.dataFilter = producto1;  
+      this.collectionSize = producto1.length;
+      this.refreshDatos();
+    }else{
+      this.dataFilter = [];  
+      this.temp = [];
+      this.collectionSize = 0;
+    }     
+
+    // this.temp = producto1;  
 
   }
   eliminar(){
@@ -192,6 +234,10 @@ export class ClientesComponent implements OnInit {
     this.dateStar = null;
     this.dateEnd = null;
     this.temp = this.tempRow;
+    this.dataFilter = [];
+    this.estadoSelect=null;
+    this.collectionSize = this.tempRow.length;
+    this.refreshDatos();
   }
   dataExcelClientes(row){
     

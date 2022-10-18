@@ -58,7 +58,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { TutorialesComponent } from './tutoriales/tutoriales.component'
 import {MatIconModule} from '@angular/material/icon';
-import { TapiceComponent } from './tapice/tapice.component'
+import { TapiceComponent } from './tapice/tapice.component';
+import { ActualizarPreciosComponent } from './precios/actualizar-precios/actualizar-precios.component';
+import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -104,7 +106,9 @@ imports: [
     HomeSuperComponent,
     EmpresasComponent,
     TutorialesComponent,
-    TapiceComponent
+    TapiceComponent,
+    ActualizarPreciosComponent,
+    GaleriaFotosComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,

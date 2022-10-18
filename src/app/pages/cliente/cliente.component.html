@@ -60,17 +60,17 @@
             <div class="dataTables_wrapper py-4">
                 <div class="row">
                     <div class="col-sm-12 col-md-10">
-                    <div class="dataTables_length" id="datatable_length">
-                        <label class="form-control-label"> {{ 'cliente.tabla.mostrar' | translate}}
-                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
-                            <option value="10" [selected]="entries == 10">10</option>
-                            <option value="25" [selected]="entries == 25">25</option>
-                            <option value="50" [selected]="entries == 50">50</option>
-                            <option value="-1" [selected]="entries == -1">All</option>
-                        </select>
-                        {{ 'cliente.tabla.entradas' | translate}}
-                        </label>
-                    </div>
+                        <!-- <div class="dataTables_length" id="datatable_length">
+                            <label class="form-control-label"> {{ 'cliente.tabla.mostrar' | translate}}
+                            <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
+                                <option value="10" [selected]="entries == 10">10</option>
+                                <option value="25" [selected]="entries == 25">25</option>
+                                <option value="50" [selected]="entries == 50">50</option>
+                                <option value="-1" [selected]="entries == -1">All</option>
+                            </select>
+                            {{ 'cliente.tabla.entradas' | translate}}
+                            </label>
+                        </div> -->
                     </div>
                     <div class="d-none col-sm-12 col-md-2">
                         <a class="btn btn-sm btn-warning" href="javascript:void(0)" (click)="invitarTodos()"> Invitar a Todos 
@@ -81,8 +81,93 @@
                         </div>
                     </div>
                 </div>
+
+                <ng-container *ngFor="let producto of temp ">
+                    <div class="col-12" >
+                        <div class="card overflow-hidden">
+                            <div class="card-content">
+                                <div class="card-body ">
+                                    <div class="media align-items-stretch">
+                                        <!-- <div class="align-self-center">
+                                            <i class="icon-pencil primary font-large-2 mr-2"></i>
+                                        </div> -->
+                                        <div class="col-8 col-md-9">
+                                            <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
+                                                <h4><strong>Nro Cliente: </strong>{{producto.nrocliente}}</h4>
+                                                <span class="d-block" ><strong>Nombre:</strong> {{producto.nombre }}</span>
+                                                <span class="d-block" ><strong>Correo:</strong> {{producto.email}}</span>
+                                                <span class="d-block"><strong>Nombre Usuario:</strong> {{producto.usuario}}</span>
+                                                <span class="d-block"><strong>Clave:</strong> {{producto.clave}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <!-- opciones desktop -->
+                                            <div class="d-none d-md-block ">
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='invitarCliente(producto)'
+                                                    title="invitacion"> Invitación
+                                                    <span class="fas fa-envelope-square"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='openSucursal(modalSucursal,producto)'
+                                                    title="sucursales"> Sucursales
+                                                    <span class="fas fa-store"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light"
+                                                       (click)='onSelectItem(modalEdit,producto)' title="{{ 'cliente.tabla.editar' | translate}}">{{ 'cliente.tabla.editar' | translate}}
+                                                       <span class="fas fa-pen-alt"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light"
+                                                    (click)='pedidos(modalPedidos,producto)' title="{{ 'cliente.tabla.pedido' | translate}}">{{ 'cliente.tabla.pedido' | translate}}
+                                                    <span class="fas fa-truck"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" *ngIf="producto.activo == 1"
+                                                    (click)='onDisableActive(producto)' title="Deshabilitar">Deshabilitar
+                                                    <span class="fas fa-user-slash"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" *ngIf="producto.activo == 0"
+                                                    (click)='onActiveClient(producto)' title="Habilitar">Habilitar
+                                                    <span class="fas fa-user-tie"></span>
+                                                </a>
+                                                <div class="d-none"></div>
+                                            </div>
+                                            <!-- opciones desktop -->
+                                        </div>
+
+                                        <div class="movil align-self-center">
+                                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                                <mat-icon>more_vert</mat-icon>
+                                            </button>
+                                            <mat-menu #menu="matMenu">
+
+                                                <button mat-menu-item (click)='invitarCliente(producto)' >
+                                                    <span class="fas fa-envelope-square m-1"></span>  invitacion
+                                                </button>
+                                                <button mat-menu-item (click)='openSucursal(modalSucursal,producto)' >
+                                                    <span class="fas fa-store m-1"></span>  sucursales
+                                                </button>
+                                                <button mat-menu-item (click)='onSelectItem(modalEdit,producto)'>
+                                                    <span class="fas fa-pen-alt m-1"></span>{{ 'cliente.tabla.editar' | translate}}  </button>
+                                                <button mat-menu-item (click)='pedidos(modalPedidos,producto)'>
+                                                    <span class="fas fa-truck m-1"></span>{{ 'cliente.tabla.pedido' | translate}}  </button>
+                                                <button mat-menu-item *ngIf="producto.activo == 1" (click)='onDisableActive(producto)'>
+                                                    <span class="fas fa-user-slash m-1"></span> Deshabilitar </button>
+                                                <button mat-menu-item *ngIf="producto.activo == 0" (click)='onActiveClient(producto)' >
+                                                    <span class="fas fa-user-tie m-1"></span> Habilitar </button>
+
+                                            </mat-menu>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </ng-container>
+                <div class="table-responsive">
+                    <ngb-pagination [(page)]="page" [maxSize]="7" [rotate]="true"  (pageChange)="refreshDatos()"
+                 [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
+                </div>
+
     
-                <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                <!-- <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
                     class="bootstrap selection-cell fullscreen"
                     [columnMode]="'force'" [headerHeight]="50" 
                     [footerHeight]="50" [rowHeight]="70" 
@@ -139,7 +224,7 @@
                             </span>
                         </ng-template>
                     </ngx-datatable-column>
-                </ngx-datatable>
+                </ngx-datatable> -->
             </div>
         </div>
         </div>

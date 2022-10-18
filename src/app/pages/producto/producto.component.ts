@@ -47,7 +47,10 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}] 
 })
 export class ProductoComponent implements OnInit {
-  
+  page = 1;
+  isDisabled = true;
+  pageSize = 10;
+
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
@@ -57,6 +60,7 @@ export class ProductoComponent implements OnInit {
   empresa:any = "";
   rows:any = [];
   rowsTemp:any = [];
+
   arrayCaracteristica1:any = [];
   arrayCaracteristica2:any = [];
   arrayCaracteristica3:any = [];
@@ -105,6 +109,8 @@ export class ProductoComponent implements OnInit {
   fotos:any;
   listaCop:any;
   listaTemp:any = [];
+  collectionSize:number = this.listaTemp.length;
+
   selectCara1:any = "";
   selectCara2:any="";
   selectCara3:any="";
@@ -119,6 +125,7 @@ export class ProductoComponent implements OnInit {
   myFiles:string [] = [];
   cont: any = 0;
   activoCliente:boolean = false;
+  dataFilter:[] = [];
   
   constructor(public translate: TranslateService,
     public productoService: ProductoService,
@@ -345,13 +352,17 @@ export class ProductoComponent implements OnInit {
         Swal.close();
         // if(res.productos['productos'].length > 0){
           // this.flagProductList = true;
+
           this.bucket = res.productos['empresa'].bucket;
           
           this.rows = res.productos['productos'];
-          
           this.rowsTemp = res.productos['productos'];
+          this.collectionSize = this.rows.length;
+          this.refreshDatos();
+
           this.listaCop = res.productos['productos'];
-          this.filtraCat();
+         
+          // this.filtraCat();
           
           this.arrayCaracteristica1 = res.productos['caracteristica1'];
           this.arrayCaracteristica2 = res.productos['caracteristica2'];
@@ -460,8 +471,28 @@ export class ProductoComponent implements OnInit {
   getNames(): string[] {
     return this.rows.map(row => row.titulo).map(fullName => fullName.split(' ')[1]);
   } 
-  entriesChange($event) {
-    this.entries = $event.target.value;
+  refreshDatos() {
+    // this.rows = this.rowsTemp;
+    // console.log(this.rows);
+     if(this.dataFilter.length > 0){
+      this.rows = this.dataFilter;
+      this.rows = this.rows.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }else{
+
+      this.rows = this.rowsTemp.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }
+    
+    console.log(this.rows);
+
+
   }
   entriesChangeDestacados($event){
     this.entriesDestacados = $event.target.value;
@@ -512,7 +543,6 @@ export class ProductoComponent implements OnInit {
     const titulo = this.tituloP;
     let activo = null;
    
-    
     if(this.cont == 1){
       activo = true
     }else{
@@ -537,15 +567,24 @@ export class ProductoComponent implements OnInit {
         // d['titulo'].includes(titulo);
       }] 
     }
-    // console.log(check);
     
     let producto1 = this.listaCop;  
     for (const filtro in filtros) {
       if(filtros[filtro][0]){
         producto1 = producto1.filter( filtros[filtro][1])   
       }
-    }         
-    this.rows = producto1;        
+    }       
+    
+    if(producto1.length > 0){
+      this.dataFilter = producto1;  
+      this.collectionSize = producto1.length;
+      this.refreshDatos();
+    }else{
+      this.dataFilter = [];  
+      this.rows = [];
+      this.collectionSize = 0;
+    }      
+
   }
   cambia(){
     this.cont++;
@@ -560,7 +599,11 @@ export class ProductoComponent implements OnInit {
     this.selectCara3 = null;
     this.codigoP = '';
     this.selectDest = null;
-    this.rows = this.listaCop;
+    this.dataFilter = [];
+    this.rows = this.rowsTemp;
+    this.collectionSize = this.rowsTemp.length;
+    this.refreshDatos()
+
   }
   chekDestacado(){
     
@@ -1024,4 +1067,9 @@ export class ProductoComponent implements OnInit {
     
 
   }
+
+  public onImgError(event){
+    this.productoService.onImgError(event);
+  }
+
 }
