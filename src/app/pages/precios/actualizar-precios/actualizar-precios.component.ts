@@ -167,7 +167,7 @@ export class ActualizarPreciosComponent implements OnInit {
         Swal.close();
         Swal.fire('Listo','Actualización de precios registrado con éxito','success');
         this.addForm.reset();
-        this.notificationModal.hide();
+      //  this.notificationModal.hide();
       }else{
         Swal.fire('','error de comunicación, intente de nuevo','error');
         Swal.close();

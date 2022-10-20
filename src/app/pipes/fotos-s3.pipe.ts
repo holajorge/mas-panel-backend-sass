@@ -5,10 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FotosS3Pipe implements PipeTransform {
 
   transform(img: string, bucket:string): any {
-    
-    var re = new RegExp("maspedidos/"+bucket+"/fotos/","g");
-    img = img.replace(re, "");
-    return img;
+
+    var re = img.split("/");
+    return re[3];
   }
 
 }
