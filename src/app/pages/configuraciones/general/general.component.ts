@@ -19,6 +19,7 @@ export class GeneralComponent implements OnInit {
   configuraciones:any;
   form_dataConfig:any=[];
   selectCaracteristicas = [];
+  caracteristicasValues = {};
 
   constructor(
     public translate: TranslateService,  
@@ -114,18 +115,19 @@ export class GeneralComponent implements OnInit {
         caracteristicas.forEach((value) => {
           let condition = this.configuraciones[value] && this.configuraciones[value]["value"] && this.configuraciones[value]["value"] !== '';
           if(condition){
-            let row = { id: value, name: value};
+            this.caracteristicasValues[this.configuraciones[value]["value"]] = value
+            let row = { id: this.configuraciones[value]["value"], name: this.configuraciones[value]["value"]};
             this.selectCaracteristicas = [...this.selectCaracteristicas, row];
             if(this.configuraciones[value]["show"]){
-                caract_options_aux.push(value);
+                caract_options_aux.push(this.configuraciones[value]["value"]);
             }
           }
         });
 
         // Por default, todas las tiendas tienen que ver caracteristica1 y caracteristica2 si están setteadas.
         if(!(caract_options_aux.length)){
-            caract_options_aux.push('caracteristica1');
-            caract_options_aux.push('caracteristica2');
+            caract_options_aux.push(this.configuraciones['caracteristica1']["value"]);
+            caract_options_aux.push(this.configuraciones['caracteristica2']["value"]);
         }
         this.formConfig.patchValue({caracteristicas: caract_options_aux})
       }
@@ -164,7 +166,15 @@ export class GeneralComponent implements OnInit {
     formData.append('label_precio',  this.formConfig.get('label_precio').value);
     formData.append('moneda',  this.formConfig.get('moneda').value);
     formData.append('semaforo',  this.formConfig.get('semaforo').value);
-    formData.append('caracteristicas',  this.formConfig.get('caracteristicas').value);
+
+    // Agrego la información de las caracteristicas. Hago una transformacion ya que necesito pasar "caracteristica1, caracteristica2, etc"
+    let values = "";
+    this.formConfig.get('caracteristicas').value.forEach((value)=>{
+        values += this.caracteristicasValues[value] + ",";
+    })
+    values = values.slice(0, -1);
+    formData.append('caracteristicas',  values);
+
     this.configService.saveGenerales(formData).then( (res:any) =>{
       Swal.close();
       if(res.response.body.flag == true){

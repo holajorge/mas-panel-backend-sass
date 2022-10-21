@@ -15,7 +15,7 @@ export class ConfigService {
   
     if(!environment.production){
 
-     // return "http://localhost:8000/";
+      return "http://localhost:8000/";
       return "https://api.maspedidos.com.ar/";
     }
     else{
@@ -81,6 +81,7 @@ export class ConfigService {
   }
   saveGenerales(data){
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/saveGenerales",data).toPromise().then((res) =>{     
+      console.log(data);
       return { success: true, response:res};
     })
     .catch( (err) =>{
