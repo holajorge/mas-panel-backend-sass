@@ -38,6 +38,12 @@ export const ROUTES: RouteInfo[] = [
     type: "link",
     icontype: "ni ni-chart-bar-32 text-primary"
   },
+  {
+    path: "afiliados",
+    title: "Afiliados",
+    type: "link",
+    icontype: "fa fa-user text-primary"
+  },
   // {
   //   path: "cuenta",
   //   title: "Mi cuenta",

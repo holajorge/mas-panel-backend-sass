@@ -45,6 +45,7 @@ import { TapiceComponent } from './tapice/tapice.component';
 
 import { TutorialesComponent } from './tutoriales/tutoriales.component';
 import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
+import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
 
 const routes:Routes = [
     {
@@ -114,6 +115,7 @@ const routes:Routes = [
         children: [
             {path:'', component: HomeSuperComponent},
             {path:'empresas', component: EmpresasComponent},
+            {path:'afiliados', component: AfiliadosComponent},
         ]
     }       
 

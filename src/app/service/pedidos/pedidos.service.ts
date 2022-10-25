@@ -62,6 +62,7 @@ export class PedidosService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+
   getGuardarComentario(comentario){
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
@@ -134,6 +135,18 @@ export class PedidosService {
         catchError( error => error)
       );
   }
+  eliminarProductoPedido(data){
+
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/eliminar_Producto_Pedido",data,this.headers )
+      .pipe(
+        map( (res:any) => {      
+          let {flag} = res;        
+          return flag;
+        }),
+        catchError( error => error)
+      );
+  }
+
 
   getPedidosClientePorFechas(idEmpresa, date_start, date_end){
     idEmpresa["date_start"] = date_start;
@@ -171,6 +184,18 @@ export class PedidosService {
     idEmpresa["end_date"] = end_date;
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getDataHydro",idEmpresa,options).toPromise().then((res) =>{
       return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  getDataReports(idEmpresa){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getDataReports",idEmpresa,options).toPromise().then((res) =>{
+      return { success: true, data:res};
     })
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al traer los datos'};

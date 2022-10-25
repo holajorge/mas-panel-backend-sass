@@ -22,7 +22,12 @@ export class LoginService {
     let options = { headers: headers };
     return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/loginSuper",usuario,options);
   }
-
+  authPartners(usuario){
+    
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    return this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/loginPartners",usuario,options);
+  }
   isAuthenticated():Observable<boolean>{
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };

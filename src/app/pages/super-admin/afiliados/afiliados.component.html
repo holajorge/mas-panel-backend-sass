@@ -1,0 +1,205 @@
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-4 col-7">
+            <h6 class=" h2  d-inline-block mb-0 mr-1 text-uppercase">Afiliados</h6>
+            
+          </div>
+          <div class=" col-lg-8 col-5 text-right">
+            <!-- <a class=" btn btn-sm btn-neutral" href="javascript:void(0)" 
+            (click)="newCompany()"> Nuevo </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class=" container-fluid mt--6">
+    
+    <div class="row">
+        <div class="col-12" *ngFor="let empresa of empresas">
+            <div class="card overflow-hidden">
+                <div class="card-content">
+                    <div class="card-body ">
+                        <div class="media align-items-stretch">
+                            <!-- <div class="align-self-center">
+                                <i class="icon-pencil primary font-large-2 mr-2"></i>
+                            </div> -->
+                            <div class="media-body">
+                                <h4>{{empresa.nombre}}</h4>
+                                <span class="d-block" *ngIf="empresa.contacto">{{empresa.contacto}}</span>
+                                <span class="d-block" *ngIf="empresa.fecha_registro">{{empresa.fecha_registro}}</span>
+                                <span class="d-block" *ngIf="empresa.telefono">{{empresa.telefono}}</span>
+                                
+                            </div>
+                            <div class="desktop align-self-center">
+                                <button class="btn btn-md btn-info " (click)="openInfo(modalEmpresa,empresa)" title="Ver empresas" >
+                                    <i class="icon-info success font-large-2 "></i>
+                                </button>
+                                <button *ngIf="empresa.status != 0" class="btn btn-sm btn-danger" (click)="desactivarAfiliado(empresa)" title="Desactivar Afiliado">Desactivar Afiliado</button>
+
+                                <button *ngIf="empresa.status == 0" class="btn btn-sm btn-primary" title="Desactivado">Desactivado </button>
+                                <button class="btn btn-sm " (click)="editar(addEmpresa,empresa)"  title="Editar">Editar
+                                    <!-- <i class="icon-heart danger font-large-2"></i> -->
+                                </button>
+                                <!-- <button class="btn btn-sm ">
+                                    <i class="icon-pencil primary font-large-2 mr-2"></i>
+                                </button> -->
+                            </div>
+                            <div class="movil align-self-center">
+                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                  </button>
+                                  <mat-menu #menu="matMenu">
+
+                                    <button mat-menu-item (click)="openInfo(modalEmpresa,empresa)">
+                                      
+                                      <span>Ver empresas</span>
+                                    </button>
+                                    <button mat-menu-item (click)="desactivarAfiliado(empresa)">
+                                      <span>Desactivar</span>
+                                    </button>
+                                    <button mat-menu-item (click)="editar(addEmpresa,empresa)">                                        
+                                        <span>Editar</span>
+                                    </button>
+                                    
+                                  </mat-menu>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+</div>
+
+
+<ng-template #modalEmpresa >
+    <div class="modal-header">    
+        <h2 class="" >{{nameEmpresa}}</h2>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    <div class="modal-body">
+        
+        <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                    class="bootstrap selection-cell fullscreen"
+                    [columnMode]="'force'" 
+                    [headerHeight]="50" 
+                    [footerHeight]="50" 
+                    [rowHeight]="70"
+                    [scrollbarH]="true"
+                    [limit]="entries != -1 ? entries : undefined" [rows]="afiliadosEmpre"  
+                    >
+                    
+                    <ngx-datatable-column name="nombre" [width]="100">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Nombre</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="usuario" [width]="100">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Usuario</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="dominio" [width]="100">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Dominio </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="telefono" [width]="100">
+                        <ng-template let-column="column" ngx-datatableheader-template>
+                            <span>Telefono </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    
+                </ngx-datatable>     
+  
+    </div>
+    <div class=" modal-footer">
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> 
+        <i class="fa fa-times-circle" ></i> Cerrar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #addEmpresa >
+
+    <div class="modal-header">    
+        <h2 class="modal-title" >Editar Afiliado</h2>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>    
+    
+    <form role="form" [formGroup]="editForm" novalidate>
+  
+    <div class="modal-body">
+      <div class="card-wrapper bg-white">
+  
+        <div class="card">
+          <div class="card-header">
+            <h3>Generales</h3>
+          </div>
+          <div class="card-body">
+  
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group mb-3" [ngClass]="{ focused: focus === true }" >
+                  <label for="nombre">Nombre afiliado</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                    </div>
+                    <input class="form-control" id="nombre" name="nombre" placeholder="{{ 'registracion.nombre' | translate}}" formControlName="nombre"
+                      type="text" (focus)="focus = true" (blur)="focus = false" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group mb-3" [ngClass]="{ focused: focus === true }" >
+                  <label for="email">{{ 'registracion.email' | translate}}</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" id="email" name="email" placeholder="{{ 'registracion.mail' | translate}}"  formControlName="mail"
+                      type="text" (focus)="focus = true" (blur)="focus = false" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group" [ngClass]="{ focused: focus1 === true }">
+                  <label for="password">{{ 'registracion.pass' | translate}} (la nueva clave)</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" id="password" [type]="fieldTextType ? 'text' : 'password'" name="password" formControlName="clave"
+                            placeholder="{{ 'registracion.pass' | translate}}" type="password" (focus)="focus1 = true" (blur)="focus1 = false" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i  class="fa" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                            </span>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=" modal-footer">
+      <button type="button"  [disabled]="editForm.invalid" type="button" class="btn btn-success my-4" (click)="saveAfiliado()">Guardar</button>
+      <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> 
+        <i class="fa fa-times-circle" ></i> Cerrar</button>
+    </div>
+    </form>
+  
+  </ng-template>
