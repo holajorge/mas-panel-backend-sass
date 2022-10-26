@@ -29,9 +29,9 @@ export class ActualizarPreciosComponent implements OnInit {
   textCaract1:any;
   textCaract2:any;
   textCaract3:any;
-  caract1:any = [];
-  caract2:any = [];
-  caract3:any = [];
+  caract1_items:any = [];
+  caract2_items:any = [];
+  caract3_items:any = [];
 
   lista_precios:any = [];
   tipo_descuentos:any = [];
@@ -81,8 +81,6 @@ export class ActualizarPreciosComponent implements OnInit {
 
     }
     if( (select1 == null || select1 == '') && (select2 == null || select2 == '') &&(select3 == null || select3 == '')){
-      console.log('entra');
-
       this.addForm.controls['codigo_producto'].enable();
     }
 
@@ -109,9 +107,9 @@ export class ActualizarPreciosComponent implements OnInit {
     Swal.showLoading();
     this.descuentoCateService.getDataSelect(this.empresa).then( (res:any) =>{
 
-      this.caract1 = res.response['caracteristica1'];
-      this.caract2 = res.response['caracteristica2'];
-      this.caract3 = res.response['caracteristica3'];
+      this.caract1_items = res.response['caracteristica1'];
+      this.caract2_items = res.response['caracteristica2'];
+      this.caract3_items = res.response['caracteristica3'];
 
       this.configuraciones = res.response['configuraciones'];
       this.textCaract1 = (this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1.value && this.configuraciones.caracteristica1.value != "") ? this.configuraciones.caracteristica1.value : "caracteristica 1"
@@ -127,10 +125,19 @@ export class ActualizarPreciosComponent implements OnInit {
 
   confirm(){
     let text_marca = "";
-    if(this.addForm.get('caract1').value != "" && this.addForm.get('caract1').value != null){
-        text_marca = "de la marca " + this.addForm.get('caract1').value + " ";
-    }else{
+    if(this.addForm.get('codigo_producto').value != "" && this.addForm.get('codigo_producto').value != null){
         text_marca = "con el código " + this.addForm.get('codigo_producto').value + " ";
+    }else{
+        if(this.caract1_items.length && this.addForm.get('caract1').value != "" && this.addForm.get('caract1').value != null){
+            text_marca = "de " + this.textCaract1 + ": " + this.addForm.get('caract1').value + ", ";
+            if(this.caract2_items.length && this.addForm.get('caract2').value != "" && this.addForm.get('caract2').value != null){
+                text_marca += this.textCaract2 + ": " + this.addForm.get('caract2').value + ", ";
+            }
+            if(this.caract3_items.length && this.addForm.get('caract3').value != "" && this.addForm.get('caract3').value != null){
+                text_marca += this.textCaract3 + ": " + this.addForm.get('caract3').value + ", ";
+            }
+            text_marca = text_marca.slice(0, -2) + " ";
+        }
     }
 
     let text = "Se van a actualizar los productos " + text_marca + this.addForm.get('tipo_descuento').value + " un " + this.addForm.get('descuento').value.toString() + "%."
