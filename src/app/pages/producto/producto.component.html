@@ -165,7 +165,7 @@
                                         <h4 class="d-block" *ngIf="this.textCaract1"><strong>{{this.textCaract1}}: </strong>{{producto.caracteristica1}}</h4>
                                         <h4 class="d-block" *ngIf="this.textCaract2"><strong>{{this.textCaract2}}: </strong>{{producto.caracteristica2}}</h4>
                                         <h4 class="d-block" *ngIf="this.textCaract3"><strong>{{this.textCaract3}}: </strong>{{producto.caracteristica3}}</h4>
-                                        <h3 class="d-block" *ngIf="producto.precio"><strong>Precio:</strong> $ {{producto.precio}}</h3>
+                                        <h3 class="d-block" *ngIf="producto.precio"><strong>Precio:</strong> {{ configuraciones["moneda"] }} {{producto.precio}}</h3>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-3">

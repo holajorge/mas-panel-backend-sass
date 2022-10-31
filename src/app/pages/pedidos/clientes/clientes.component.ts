@@ -59,6 +59,8 @@ export class ClientesComponent implements OnInit {
   collectionSize:number = this.tempRow.length;
 
   flagEliminarPrroducto:string = '';
+  configuraciones:any;
+
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -99,11 +101,16 @@ export class ClientesComponent implements OnInit {
     this.getConfig()
 
   }
+
   getConfig(){
     this.configService.getConfigEmpresa({id:this.empresa.id}).then( (res:any) =>{    
       Swal.close();
       if(res.response.body['configuraciones'] != ""){
         this.bucket = res.response.body['bucket'];
+        this.configuraciones = JSON.parse(res.response.body['configuraciones']);
+        if(this.configuraciones["moneda"] == ""){
+            this.configuraciones["moneda"] = "$";
+        }
       }
       
     }).catch(err=>{

@@ -3,6 +3,7 @@ import {PedidosService } from '../../service/pedidos/pedidos.service';
 import {ClienteService } from '../../service/cliente/cliente.service';
 import {TranslateService} from '@ngx-translate/core';
 import { ConfigService } from '../../service/config/config.service';
+import Swal from "sweetalert2";
 
 import {
     NgbDatepicker,
@@ -87,6 +88,7 @@ export class DashboardComponent implements OnInit {
   // custom para hydro
   data_hydro = {'result': false, 'data': []};
   usuario;
+  configuraciones:any;
   constructor(
     public translate: TranslateService,
     private pedidosService: PedidosService,
@@ -129,7 +131,28 @@ export class DashboardComponent implements OnInit {
        { name: 'Cantidad de kilos', prop: 'kilos', resizeable: true}
     ];
 
+    this.getConfig();
+
   }
+
+  getConfig(){
+    Swal.showLoading();
+    this.configService.getConfigEmpresa(this.empresa).then( (res:any) =>{
+      Swal.close();
+      if(res.response.body['configuraciones'] != ""){
+        this.configuraciones = JSON.parse(res.response.body['configuraciones']);
+        if(this.configuraciones["moneda"] == ""){
+            this.configuraciones["moneda"] = "$";
+        }
+      }
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+
+
+
 
   initRangeSelector(that){
 
