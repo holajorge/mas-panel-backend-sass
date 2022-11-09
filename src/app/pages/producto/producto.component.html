@@ -157,7 +157,7 @@
                             </h2>
                                 </div>
                                 <div class="col-4 col-md-2 ">
-                                    <img *ngIf="producto.fotos.length > 0" src="https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/{{bucket}}/fotos/{{ producto.fotos | convertJsonFotos }}" class="img-thumbnail mr-1 mb-3 card-img-top foto-listado" alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
+                                    <img *ngIf="producto.fotos.length > 0" loading="lazy" src="https://maspedidos.s3.us-west-2.amazonaws.com/maspedidos/{{bucket}}/fotos/{{ producto.fotos | convertJsonFotos }}" class="img-thumbnail mr-1 mb-3 card-img-top foto-listado" alt="{{producto.fotos[0]}}" (error)="onImgError($event)">
                                 </div>
                                 <div class="col-8 col-md-7">
                                     <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">

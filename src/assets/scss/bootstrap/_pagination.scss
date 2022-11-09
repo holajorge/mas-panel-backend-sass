@@ -2,6 +2,9 @@
   display: flex;
   @include list-unstyled();
   @include border-radius();
+  margin-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .page-link {

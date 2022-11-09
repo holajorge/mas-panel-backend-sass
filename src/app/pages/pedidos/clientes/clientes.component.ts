@@ -375,7 +375,7 @@ export class ClientesComponent implements OnInit {
   eliminarProductoSave(producto){
 
     Swal.showLoading();
-    this.pedidosService.eliminarProductoPedido(producto).subscribe( (res:any) =>{
+    this.pedidosService.eliminarProductoPedido(producto, this.empresa.id).subscribe( (res:any) =>{
       Swal.close();
       if(res){
         Swal.fire('Listo!','Producto eliminado con éxito!', 'success');

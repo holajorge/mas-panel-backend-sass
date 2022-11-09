@@ -23,7 +23,7 @@
     <div class="row bg-white px-3 pt-5">
         <div class="col-12 col-md-2 mb-3" *ngFor="let photo of photos">
             <div class="mr-1 ml-1" style="max-height: 200px;overflow: hidden;">        
-                <img (click)="ampliarImagen(photo, modalPhoto)" src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
+                <img  loading="lazy" (click)="ampliarImagen(photo, modalPhoto)" src="https://maspedidos.s3.us-west-2.amazonaws.com/{{ photo }}" class="img-thumbnail mr-1 card-img-top"  alt="{{photo}}" (error)="onImgError($event)">
             </div>
             <div class="text-center h5 mr-1 ml-1 mt-1 text-break">{{photo|fotosS3:'sluckip'}}</div>
             <div class=" border-top p-1">

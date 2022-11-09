@@ -135,9 +135,12 @@ export class PedidosService {
         catchError( error => error)
       );
   }
-  eliminarProductoPedido(data){
+  eliminarProductoPedido(data, id){
 
-    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/eliminar_Producto_Pedido",data,this.headers )
+    let datos
+    datos = {id:id, producto:data};
+
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/eliminar_Producto_Pedido",datos,this.headers )
       .pipe(
         map( (res:any) => {      
           let {flag} = res;        
