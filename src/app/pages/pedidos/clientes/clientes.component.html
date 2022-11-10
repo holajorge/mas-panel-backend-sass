@@ -121,7 +121,7 @@
                                             <span class="d-block" ><strong>Fecha:</strong> {{producto.fecha | fehaLarga}}</span>
                                             <span class="d-block" ><strong>Nro Cliente:</strong> {{producto.nrocliente}}</span>
                                             <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
-                                            <span class="d-block"><strong>Total:</strong> $ {{producto.total}}</span>
+                                            <span class="d-block"><strong>Total:</strong> {{ configuraciones["moneda"] }} {{producto.total}}</span>
                                             <span class="d-block">
                                                 <strong>Estado:</strong>
                                                 <ng-select [(ngModel)]="models[producto.id]" [items]="lista_estados" appendTo="body" (change)="change_state(producto)" class="auto-grow"></ng-select>
@@ -156,7 +156,7 @@
                                             <span class="d-block" ><strong>Fecha:</strong> {{producto.fecha | fehaLarga}}</span>
                                             <span class="d-block" ><strong>Nro Cliente:</strong> {{producto.nrocliente}}</span>
                                             <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
-                                            <span class="d-block"><strong>Total:</strong> $ {{producto.total}}</span>
+                                            <span class="d-block"><strong>Total:</strong> {{ configuraciones["moneda"] }} {{producto.total}}</span>
                                             <span class="d-block">
                                                 <strong>Estado:</strong>
                                                 <ng-select [(ngModel)]="models[producto.id]" [items]="lista_estados" appendTo="body" (change)="change_state(producto)" class="auto-grow"></ng-select>

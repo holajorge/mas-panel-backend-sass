@@ -126,7 +126,7 @@ export class ProductoComponent implements OnInit {
   cont: any = 0;
   activoCliente:boolean = false;
   dataFilter:[] = [];
-  
+
   constructor(public translate: TranslateService,
     public productoService: ProductoService,
     private modalService: BsModalService,
@@ -166,7 +166,7 @@ export class ProductoComponent implements OnInit {
       multiplo:['1']
       
     });
-    
+
   }
   onSelectItem(modalEditProducto,row) {
     this.textAddOrEdit = true;
@@ -370,6 +370,9 @@ export class ProductoComponent implements OnInit {
           this.arrayCaracteristica4 = res.productos['caracteristica4'];
 
           this.configuraciones = res.productos['configuraciones'];
+          if(this.configuraciones["moneda"] == ""){
+                this.configuraciones["moneda"] = "$";
+          }
           if(this.configuraciones == false || this.configuraciones == null){
             this.textCaract1 = false;
             this.textCaract2 = false;
