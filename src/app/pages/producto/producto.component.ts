@@ -236,6 +236,7 @@ export class ProductoComponent implements OnInit {
             
             if(res){
               Swal.fire('listo','Productos eliminado con éxito','success');
+              this.eliminar();
               this.getProductos();
             }else{
               Swal.fire('error','No fue posible eliminar todos los productos, verifique conexion e intente de nuevo','error');  
@@ -267,6 +268,7 @@ export class ProductoComponent implements OnInit {
             
             if(res){
               Swal.fire('listo','Producto eliminado con éxito','success');
+              this.eliminar();
               this.getProductos();
             }else{
               Swal.fire('error','No fue posible eliminar el producto, verifique conexion e intente de nuevo','error');  
@@ -601,6 +603,7 @@ export class ProductoComponent implements OnInit {
     this.selectCara2 = null;
     this.selectCara3 = null;
     this.codigoP = '';
+    this.tituloP = '';
     this.selectDest = null;
     this.dataFilter = [];
     this.rows = this.rowsTemp;
@@ -822,6 +825,7 @@ export class ProductoComponent implements OnInit {
         this.filtraCat();
         this.myFiles = [];
         Swal.fire('Listo!','Producto creado con éxito!', 'success')
+        this.eliminar();
         this.reiniciarCaracteristicas();
 
       }else{        

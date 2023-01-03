@@ -24,7 +24,7 @@ export class DescuentoListaComponent implements OnInit {
 
   empresa:any = "";
   addForm: FormGroup;
-  descuentos: any;
+  descuentos = [];
   rowTemp:any;
   activeRow:any;
   entries: number = 10;
