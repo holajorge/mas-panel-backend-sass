@@ -177,6 +177,48 @@
                                 <span>Tipo</span>
                             </ng-template>
                         </ngx-datatable-column>
+                        <ngx-datatable-column name="fecha_desde">
+                            <ng-template let-column="column" value="hola" ngx-datatable-header-template>
+                                <span>Fecha desde</span>
+                            </ng-template>
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <span>
+                                    {{row.fecha_desde |date:'dd/MM/yyyy'}}
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="fecha_hasta">
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>Fecha hasta</span>
+                            </ng-template>
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <span>
+                                   {{row.fecha_hasta | date:'dd/MM/yyyy'}}
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="visible">
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>Visible</span>
+                            </ng-template>
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <span>
+                                   {{row.visible}}
+                                </span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="link">
+                            <ng-template let-column="column" ngx-datatable-header-template>
+                                <span>Link</span>
+                            </ng-template>
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <a href="{{row.link}}" target="_blank" >
+                                    <span>
+                                        {{row.link}}
+                                    </span>
+                                </a>
+                            </ng-template>
+                        </ngx-datatable-column>
                         <ngx-datatable-column name="Acción" >
                             <ng-template let-column="column" ngx-datatable-header-template>
                                 <span>{{ 'producto.tabla.acciones' | translate}}</span>
@@ -218,7 +260,7 @@
                 </div>    
             </div>           
             <div class="row" style="display: flex;" *ngIf="show">
-                                            
+                                          
                 <div class="col-md-6" *ngIf="flagBanners">                
 
                     <div class="custom-file">
@@ -261,7 +303,28 @@
                            alt="movil" style="width:100%;">
                     </div>    
                 </div>
-            </div>   
+                
+            </div>
+            <div class="row mt-3" style="display: flex;" *ngIf="show">
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Fecha Inicio</label>
+                        <input type="date" class="form-control" name="fecha_desde" formControlName="fecha_desde">
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Fecha Fin</label>
+                        <input type="date" class="form-control" name="fecha_hasta" formControlName="fecha_hasta">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Link</label>
+                        <input type="text" class="form-control" placeholder="https://www.ejemplo.com" name="link" formControlName="link">
+                    </div>
+                </div>
+            </div>
             
             
         </form>
