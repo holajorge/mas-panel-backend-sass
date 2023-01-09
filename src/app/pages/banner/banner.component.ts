@@ -49,6 +49,13 @@ export class BannerComponent implements OnInit {
   flagBanners:boolean = false;
   flagBannersAviso:boolean = false;
   ruta:string = '';
+  dataFilter:any= [];
+  temp = [];
+  tempRow = [];
+  pageSize = 10;
+  page = 1;
+  
+  collectionSize:number = this.tempRow.length;
   constructor(
     public translate: TranslateService, public fb: FormBuilder,
     public bannerService: BannerService,
@@ -118,7 +125,10 @@ export class BannerComponent implements OnInit {
       banners => {        
         Swal.close();
         this.listBanners = banners.filter(banner => {return this.checkDate(banner)}); 
-              
+        this.temp = this.listBanners;
+        this.tempRow = this.listBanners;
+        this.collectionSize = this.temp.length;
+        this.refreshDatos();
       },
       (error) => {
         console.log(error);        
@@ -552,6 +562,28 @@ export class BannerComponent implements OnInit {
     }
     return true;
   }
+  refreshDatos() {
+    // this.rows = this.rowsTemp;
+    // console.log(this.rows);
+     if(this.dataFilter.length > 0){
+      this.temp = this.dataFilter;
+      this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }else{
 
+      this.temp = this.tempRow.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }
+    
+    console.log(this.temp);
+
+
+  }
 
 }
