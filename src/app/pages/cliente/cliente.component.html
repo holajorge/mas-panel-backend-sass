@@ -84,7 +84,31 @@
 
                 <ng-container *ngFor="let producto of temp ">
                     <div class="col-12" >
+                        
                         <div class="card overflow-hidden">
+                            <div class="posicion-opciones-mobile d-block d-md-none mr-3 text-right">
+                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+
+                                    <button mat-menu-item (click)='invitarCliente(producto)' >
+                                        <span class="fas fa-envelope-square m-1"></span>  invitacion
+                                    </button>
+                                    <button mat-menu-item (click)='openSucursal(modalSucursal,producto)' >
+                                        <span class="fas fa-store m-1"></span>  sucursales
+                                    </button>
+                                    <button mat-menu-item (click)='onSelectItem(modalEdit,producto)'>
+                                        <span class="fas fa-pen-alt m-1"></span>{{ 'cliente.tabla.editar' | translate}}  </button>
+                                    <button mat-menu-item (click)='pedidos(modalPedidos,producto)'>
+                                        <span class="fas fa-truck m-1"></span>{{ 'cliente.tabla.pedido' | translate}}  </button>
+                                    <button mat-menu-item *ngIf="producto.activo == 1" (click)='onDisableActive(producto)'>
+                                        <span class="fas fa-user-slash m-1"></span> Deshabilitar </button>
+                                    <button mat-menu-item *ngIf="producto.activo == 0" (click)='onActiveClient(producto)' >
+                                        <span class="fas fa-user-tie m-1"></span> Habilitar </button>
+
+                                </mat-menu>
+                            </div>
                             <div class="card-content">
                                 <div class="card-body ">
                                     <div class="media align-items-stretch">
@@ -132,29 +156,7 @@
                                             <!-- opciones desktop -->
                                         </div>
 
-                                        <div class="movil align-self-center">
-                                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                                                <mat-icon>more_vert</mat-icon>
-                                            </button>
-                                            <mat-menu #menu="matMenu">
-
-                                                <button mat-menu-item (click)='invitarCliente(producto)' >
-                                                    <span class="fas fa-envelope-square m-1"></span>  invitacion
-                                                </button>
-                                                <button mat-menu-item (click)='openSucursal(modalSucursal,producto)' >
-                                                    <span class="fas fa-store m-1"></span>  sucursales
-                                                </button>
-                                                <button mat-menu-item (click)='onSelectItem(modalEdit,producto)'>
-                                                    <span class="fas fa-pen-alt m-1"></span>{{ 'cliente.tabla.editar' | translate}}  </button>
-                                                <button mat-menu-item (click)='pedidos(modalPedidos,producto)'>
-                                                    <span class="fas fa-truck m-1"></span>{{ 'cliente.tabla.pedido' | translate}}  </button>
-                                                <button mat-menu-item *ngIf="producto.activo == 1" (click)='onDisableActive(producto)'>
-                                                    <span class="fas fa-user-slash m-1"></span> Deshabilitar </button>
-                                                <button mat-menu-item *ngIf="producto.activo == 0" (click)='onActiveClient(producto)' >
-                                                    <span class="fas fa-user-tie m-1"></span> Habilitar </button>
-
-                                            </mat-menu>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
