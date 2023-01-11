@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   pedidos_count = 0;
   clientes_count = 0;
   price_total = 0;
-
+  ticketPromedio = 0;
   // range date selector
   startDate: NgbDateStruct;
   maxDate: NgbDateStruct;
@@ -107,6 +107,7 @@ export class DashboardComponent implements OnInit {
     let usuario:any = localStorage.getItem('usuario');
     this.usuario = helper.decodeToken(usuario);
     this.usuario = this.usuario[0].id;
+    
     console.log(this.usuario);
 
     setTimeout(this.initRangeSelector, 1000, this);
@@ -246,6 +247,7 @@ export class DashboardComponent implements OnInit {
       parsed += ' - ' + this._parserFormatter.format(this.toDate);
     }
     this.requestDataFromRange();
+    
     this.renderer.setProperty(this.myRangeInput.nativeElement, 'value', parsed);
   }
 
@@ -263,6 +265,7 @@ export class DashboardComponent implements OnInit {
         });
 
         this.pedidosService.getDatatablesFromRange(this.empresa, start_date, end_date).then( (res:any) =>{
+          this.ticketPromedio = res.pedidos.ticket??0;
           if(res.pedidos.clientes.length > 0){
             this.clientsDatatableEmpty = false;
             this.datatableClientes = res.pedidos.clientes.slice(0, 15);
@@ -346,4 +349,20 @@ export class DashboardComponent implements OnInit {
 
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadTableHydro?token="+this.empresa.id+"&table="+table+"&start_date="+start_date+"&end_date="+end_date, "_blank");
   }
+
+  dataExcelProductos(){
+    let startDate = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+    let endDate = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+    
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadProductos?token="+this.empresa.id+"&start_date="+startDate+"&end_date="+endDate, "_blank");  
+  }
+
+  dataExcelClientes(){
+    let startDate = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+    let endDate = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+    
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadClientes?token="+this.empresa.id+"&start_date="+startDate+"&end_date="+endDate, "_blank");  
+  }
+
+  
 }
