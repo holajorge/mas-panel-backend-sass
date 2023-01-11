@@ -33,6 +33,8 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
   !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
     ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -68,6 +70,37 @@ export class DashboardComponent implements OnInit {
 
   // charts
   pedidos_chart_data: any;
+  chartPie;
+  chartPieData = {data: {labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: [
+            "#00bcd4",
+            "#ff5722",
+            "#e91e63",
+            "#009688",
+            "#9c27b0",
+            "#3f51b5",
+            "#f44336",
+            "#4caf50",
+            "#004d40"
+          ],
+          label: "Ventas caracteristica1"
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      legend: {
+        display: false
+      },
+      animation: {
+        animateScale: true,
+        animateRotate: true
+      }
+    }
+  };
 
   // datatables
   productsDatatableEmpty:boolean = true;
@@ -88,6 +121,7 @@ export class DashboardComponent implements OnInit {
   // custom para hydro
   data_hydro = {'result': false, 'data': []};
   usuario;
+  tamData;
   configuraciones:any;
   constructor(
     public translate: TranslateService,
@@ -133,6 +167,11 @@ export class DashboardComponent implements OnInit {
     ];
 
     this.getConfig();
+    this.chartPie = document.getElementById("chart-pie");
+    
+    // Init chart
+    
+
 
   }
 
@@ -258,6 +297,13 @@ export class DashboardComponent implements OnInit {
         if(this.usuario == 32){
           this.getDataHydro();
         }
+
+        this.pedidosService.getDataCaracteristica(this.empresa, start_date, end_date).then( (res:any) =>{
+          this.loadDataPieChart(res.caracteristicas);
+        }).catch(err=>{
+          console.log(err);
+        });
+
         this.pedidosService.getPedidosClientePorFechas(this.empresa, start_date, end_date).then( (res:any) =>{
           this.plotLineChart(res.pedidos["pedidos"]);
         }).catch(err=>{
@@ -364,5 +410,42 @@ export class DashboardComponent implements OnInit {
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadClientes?token="+this.empresa.id+"&start_date="+startDate+"&end_date="+endDate, "_blank");  
   }
 
+  loadDataPieChart(data){
+    this.chartPieData.data.labels = [];
+    this.chartPieData.data.datasets[0].data = [];
+    this.tamData = data.caracteristicas.length;
+    if(data.caracteristicas.length>8){
+      data.caracteristicas.slice(0,8).forEach(e => {
+        this.chartPieData.data.labels.push(e.caracteristica1);
+        this.chartPieData.data.datasets[0].data.push(e.cantidad);
+      });
+      var otros = 0;
+      data.caracteristicas.slice(8,data.caracteristicas.legend).forEach(e => {
+        otros+=parseFloat(e.cantidad);
+      });
+      this.chartPieData.data.labels.push("Otros");
+      this.chartPieData.data.datasets[0].data.push(otros);
+    }else{
+      data.caracteristicas.forEach(e => {
+        this.chartPieData.data.labels.push(e.caracteristica1);
+        this.chartPieData.data.datasets[0].data.push(e.cantidad);
+      });
+    }
+    console.log("holaaa");
+    console.log(this.tamData);
+    var pieChart = new Chart(this.chartPie, {
+      type: "pie",
+      data: this.chartPieData.data,
+      options: this.chartPieData.options
+    });
+    
+  }
+
+  dataExcelCaracteristicas(){
+    let startDate = this.fromDate["year"] + "-" + this.fromDate["month"] + "-" + this.fromDate["day"];
+    let endDate = this.toDate["year"] + "-" + this.toDate["month"] + "-" + this.toDate["day"];
+    
+    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadCaracteristicas?token="+this.empresa.id+"&startDate="+startDate+"&endDate="+endDate, "_blank");  
+  }
   
 }

@@ -205,4 +205,17 @@ export class PedidosService {
     });
   }
 
+  getDataCaracteristica(idEmpresa, startDate, endDate){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    idEmpresa["startDate"] = startDate;
+    idEmpresa["endDate"] = endDate;
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getDataCaracteristica",idEmpresa,options).toPromise().then((res) =>{
+      return { success: true, caracteristicas:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
 }
