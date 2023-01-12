@@ -131,7 +131,8 @@ export class ClientesComponent implements OnInit {
     )
   }
 
-  getPedidos(){ 
+  getPedidos(){
+    
 
     this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{    
 
@@ -161,6 +162,7 @@ export class ClientesComponent implements OnInit {
   refreshDatos() {
     // this.rows = this.rowsTemp;
     // console.log(this.rows);
+    
      if(this.dataFilter.length > 0){
       this.temp = this.dataFilter;
       this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
@@ -182,7 +184,7 @@ export class ClientesComponent implements OnInit {
 
   }
   filters(){
-       
+    
     const npedido = this.nroPedido;
     const ncliente = this.nroCliente;
     const star = this.dateStar;
@@ -248,7 +250,6 @@ export class ClientesComponent implements OnInit {
     this.refreshDatos();
   }
   dataExcelClientes(row){
-    
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id+"&token="+this.empresa.id, "_blank");
   }
   entriesChange($event) {
@@ -324,6 +325,7 @@ export class ClientesComponent implements OnInit {
     );
     this.getFilesOrders();
   }
+
   getDetallePedido(){
     this.detalleRow = [];
 
@@ -480,6 +482,11 @@ export class ClientesComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+  }
+
+  exportarPedidos(){
+    window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&nroCliente="+this.nroCliente+
+    "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&token="+this.empresa.id, "_blank");  
   }
 
 }
