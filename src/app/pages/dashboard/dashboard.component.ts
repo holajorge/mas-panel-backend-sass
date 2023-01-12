@@ -89,6 +89,7 @@ export class DashboardComponent implements OnInit {
   data_hydro = {'result': false, 'data': []};
   usuario;
   configuraciones:any;
+  moneda = '';
   constructor(
     public translate: TranslateService,
     private pedidosService: PedidosService,
@@ -145,6 +146,7 @@ export class DashboardComponent implements OnInit {
         if(this.configuraciones["moneda"] == ""){
             this.configuraciones["moneda"] = "$";
         }
+        this.moneda = this.configuraciones["moneda"];
       }
     }).catch(err=>{
       Swal.close();

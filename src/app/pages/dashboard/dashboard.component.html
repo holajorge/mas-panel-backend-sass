@@ -54,8 +54,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">TOTAL {{configuraciones['moneda']}} ACUMULADA DE PEDIDOS</h5>
-                  <span class="h2 font-weight-bold mb-0"> {{configuraciones['moneda']}} {{ price_total | number : '1.2-2' }}</span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">TOTAL {{moneda}} ACUMULADA DE PEDIDOS</h5>
+                  <span class="h2 font-weight-bold mb-0"> {{moneda}} {{ price_total | number : '1.2-2' }}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -221,7 +221,7 @@
                         </ngx-datatable-column>
                         <ngx-datatable-column name="ventas" [width]="20" [resizeable]="false">
                             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-expanded="expanded" let-row="row">
-                                {{configuraciones['moneda']}} {{ value | number : '1.2-2' }}
+                                {{moneda}} {{ value | number : '1.2-2' }}
                           </ng-template>
                           </ngx-datatable-column>
                     </ngx-datatable>
