@@ -371,6 +371,15 @@ export class BannerComponent implements OnInit {
     this.flagAdd = false;
     this.bannerForm.patchValue({id:row.id});
     this.bannerForm.patchValue({tipo:row.tipo});
+    this.bannerForm.patchValue({link:row.link});
+    if(row.fecha_desde!=null){
+      this.bannerForm.patchValue({fecha_desde:new Date(row.fecha_desde).toJSON().split('T')[0]});
+    }
+    if(row.fecha_hasta){
+      this.bannerForm.patchValue({fecha_hasta:new Date(row.fecha_hasta).toJSON().split('T')[0]});
+    }
+    
+    
     this.bannerForm.controls['escritorio'].setValidators([Validators.nullValidator]);
 
     if(row.tipo == "Banner"){
@@ -412,6 +421,7 @@ export class BannerComponent implements OnInit {
     }
     formData.append('tipo',this.bannerForm.get('tipo').value);
     formData.append('id',this.empresa);
+    
     formData.append('fecha_desde',this.bannerForm.get('fecha_desde').value);
     formData.append('fecha_hasta',this.bannerForm.get('fecha_hasta').value);
     formData.append('link',this.bannerForm.get('link').value);
@@ -442,8 +452,7 @@ export class BannerComponent implements OnInit {
     Swal.showLoading();
     // formData.append('escritorio',this.file_dataDesktop.get('logo'));
     if(Array.isArray(this.file_dataDesktop)){
-      Swal.fire('Upps', 'Es necesario el banner de escritorio', 'warning');
-      return false;
+      
     }else{
       formData.append('escritorio', this.file_dataDesktop.get('logo'));
     }
