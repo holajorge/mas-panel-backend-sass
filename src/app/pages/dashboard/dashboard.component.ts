@@ -18,6 +18,7 @@ import {Subscription} from 'rxjs';
 import Chart from "chart.js";
 
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { $ } from 'protractor';
 const helper = new JwtHelperService();
 
 
@@ -70,7 +71,7 @@ export class DashboardComponent implements OnInit {
 
   // charts
   pedidos_chart_data: any;
-  chartPie;
+  pieChart;
   chartPieData = {data: {labels: [],
       datasets: [
         {
@@ -168,7 +169,7 @@ export class DashboardComponent implements OnInit {
     ];
 
     this.getConfig();
-    this.chartPie = document.getElementById("chart-pie");
+    
     
     // Init chart
     
@@ -413,6 +414,10 @@ export class DashboardComponent implements OnInit {
   }
 
   loadDataPieChart(data){
+    
+    document.getElementById('chart-pie').remove();
+    document.getElementById('chart-pie-container').insertAdjacentHTML('beforeend','<canvas class="chart-canvas" id="chart-pie"> </canvas>')
+    var chartPie = document.getElementById('chart-pie');
     this.chartPieData.data.labels = [];
     this.chartPieData.data.datasets[0].data = [];
     this.tamData = data.caracteristicas.length;
@@ -434,12 +439,14 @@ export class DashboardComponent implements OnInit {
       });
     }
     console.log("holaaa");
-    console.log(this.tamData);
-    var pieChart = new Chart(this.chartPie, {
+    console.log(chartPie);
+    
+    this.pieChart = new Chart(chartPie, {
       type: "pie",
       data: this.chartPieData.data,
       options: this.chartPieData.options
     });
+    this.pieChart.update();
     
   }
 
