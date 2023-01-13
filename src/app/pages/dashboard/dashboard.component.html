@@ -130,7 +130,7 @@
           <div class="row">
             <div class="col-12 col-centered">
                 <div class="text-center cabecera">
-                    <h3>Ventas por Caracteristica1 <a *ngIf="tamData != 0" class="btn btn-success py-1 px-2 ml-3" (click)="dataExcelCaracteristicas()"><span class="text-white fas fa-file-import"></span></a></h3>
+                    <h3>Ventas por {{ configuraciones['caracteristica1'].value }} <a *ngIf="tamData != 0" class="btn btn-success py-1 px-2 ml-3" (click)="dataExcelCaracteristicas()"><span class="text-white fas fa-file-import"></span></a></h3>
                 </div>
             </div>
           </div>
