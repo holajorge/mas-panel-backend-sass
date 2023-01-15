@@ -121,74 +121,82 @@
 
 <div class=" container-fluid mt--6">
     <div class=" row">
-        <div class=" col">
-            <div class=" card">
-
-                <div class=" card-header">
+        <div class="col">
+            <div class="card">
+                <div class=" card-header mb-3">
                     <h3 class="catd-text">Banners</h3>
                 </div>
-                <div class="dataTables_wrapper py-4">
+                <div class="dataTables_wrapper card p-4 listado-boxes">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-4">
-                            <div class="dataTables_length" id="datatable_length">
-                                <label class="form-control-label"> {{ 'producto.tabla.mostrar' | translate}}
-                                <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" >
-                                    <option value="10" [selected]="entries == 10">10</option>
-                                    <option value="25" [selected]="entries == 25">25</option>
-                                    <option value="50" [selected]="entries == 50">50</option>
-                                    <option value="-1" [selected]="entries == -1">All</option>
-                                </select>
-                                {{ 'producto.tabla.entradas' | translate}}
-                                </label>
-                            </div>
-                        </div>                
+                            
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-8 text-right mb-3"></div>
                     </div>
-                    <ngx-datatable 
-                    [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
-                    class="bootstrap selection-cell fullscreen" [columnMode]="'force'"
-                    [columns]="columns" [headerHeight]="50" [footerHeight]="50"
-                    [rowHeight]="60" [limit]="entries != -1 ? entries : undefined"
-                    [scrollbarH]="true"
-                    [rows]="listBanners" >
-                        <ngx-datatable-column name="rutaescritorio" headerClass="w100">
-                            <ng-template let-column="column" ngx-datatable-header-template >
-                                <span>Escritorio</span>
-                            </ng-template>
-                            <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
-                                <span class="w100">
-                                    <img  class="avatar cursor border-0 rounded-0" (click)="openImg(modalBannerImg,row.rutaescritorio)"
-                                    [src]="row.rutaescritorio | bannersImg:bucket" [alt]="row.rutaescritorio">
-                                </span>
-                            </ng-template>
-                        </ngx-datatable-column>
-                        <ngx-datatable-column name="rutamovil" >
-                            <ng-template let-column="column" ngx-datatable-header-template>
-                                <span>Celular</span>
-                            </ng-template>
-                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                                <span>
-                                    <img  class="avatar cursor border-0 rounded-0" (click)="openImg(modalBannerImg,row.rutamovil)"
-                                    [src]="row.rutamovil | bannersImg:bucket" [alt]="row.rutamovil">
-                                </span>
-                            </ng-template>
-                        </ngx-datatable-column>
-                        <ngx-datatable-column name="tipo">
-                            <ng-template let-column="column" ngx-datatable-header-template>
-                                <span>Tipo</span>
-                            </ng-template>
-                        </ngx-datatable-column>
-                        <ngx-datatable-column name="Acción" >
-                            <ng-template let-column="column" ngx-datatable-header-template>
-                                <span>{{ 'producto.tabla.acciones' | translate}}</span>
-                            </ng-template>
-                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                                <button class="btn btn-sm btn-primary"  (click)='onSelectItem(modalBanner,row)'
-                                title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-pen-alt"></span> </button>
-                                <button class="btn btn-sm btn-danger"  (click)='deleteBanner(row.id)'
-                                title="{{ 'producto.tabla.editar' | translate}}"><span class="fas fa-trash"></span> </button>
-                            </ng-template>
-                        </ngx-datatable-column>
-                    </ngx-datatable>
+                    <ng-container *ngFor="let banner of temp ">
+                        <div class="col-12 py-3 card item-box">
+                            <div class="row d-flex flex-md-row">
+                                <div class="col-12 "><h2 class="card-title text-right">
+                                <!-- opciones mobile -->
+                                <div class="posicion-opciones-mobile d-block d-md-none mr-3">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)='onSelectItem(modalBanner,banner)'>
+                                            <span class="fas fa-pen-alt m-1"></span>
+                                            <span>Editar</span>
+                                        </button>
+
+                                        <button  mat-menu-item  (click)='deleteBanner(banner.id)'>
+                                            <span class="fas fa-eye-slash  m-1"></span>
+                                            <span>Eliminar</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                                <!-- fin opciones mobile --> 
+                            </h2>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <img  class="img-thumbnail mr-1 mb-3 p-0 rounded-0 card-img-top foto-listado" loading="lazy" (click)="openImg(modalBannerImg,banner.rutaescritorio)"
+                                                                [src]="banner.rutaescritorio | bannersImg:bucket" [alt]="banner.rutaescritorio">
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <img  class="img-thumbnail mr-1 mb-3 p-0 rounded-0 card-img-top foto-listado" loading="lazy" (click)="openImg(modalBannerImg,banner.rutamovil)"
+                                                                [src]="banner.rutamovil | bannersImg:bucket" [alt]="banner.rutamovil">
+                                </div>
+                                <div class="col-12 col-md-5">
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
+                                        <h4 class="d-block"><strong>Tipo:</strong> {{banner.tipo}} </h4>
+                                        <h4 class="d-block"><strong>Fecha desde: </strong>{{banner.fecha_desde |date:'dd/MM/yyyy'}}</h4>
+                                        <h4 class="d-block"><strong>Fecha hasta: </strong>{{banner.fecha_hasta |date:'dd/MM/yyyy'}}</h4>
+                                        <h4 class="d-block"><strong>Visible: </strong>{{banner.visible}}</h4>
+                                        <h4 class="d-block"><strong>Link: </strong><a target="_blank"  rel="noopener noreferrer" href="{{banner.link}}">{{banner.link}}</a></h4>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2 mr-auto">
+                                    <!-- opciones desktop -->
+                                    <div class="d-none d-md-block ">
+                                        <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='onSelectItem(modalBanner,banner)'
+                                            title="Editar banner">Editar
+                                            <span class="fas fa-pen-alt "></span>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='deleteBanner(banner.id)'
+                                            title="Eliminar banner"> Eliminar
+                                            <span class="fas fa-trash"></span>
+                                        </a>
+                                        <div class="d-none"></div>
+                                    </div>
+                                    <!-- fin opciones desktop -->
+                                </div>
+                                
+                            </div>
+                        </div> 
+                    </ng-container>
+                    <div class="table-responsive">
+                        <ngb-pagination [(page)]="page" [maxSize]="7" [rotate]="true"  (pageChange)="refreshDatos()"
+                        [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,7 +226,7 @@
                 </div>    
             </div>           
             <div class="row" style="display: flex;" *ngIf="show">
-                                            
+                                          
                 <div class="col-md-6" *ngIf="flagBanners">                
 
                     <div class="custom-file">
@@ -261,7 +269,28 @@
                            alt="movil" style="width:100%;">
                     </div>    
                 </div>
-            </div>   
+                
+            </div>
+            <div class="row mt-3" style="display: flex;" *ngIf="show">
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Fecha Inicio</label>
+                        <input type="date" class="form-control" name="fecha_desde" formControlName="fecha_desde">
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Fecha Fin</label>
+                        <input type="date" class="form-control" name="fecha_hasta" formControlName="fecha_hasta">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Link</label>
+                        <input type="text" class="form-control" placeholder="https://www.ejemplo.com" name="link" formControlName="link">
+                    </div>
+                </div>
+            </div>
             
             
         </form>

@@ -49,6 +49,13 @@ export class BannerComponent implements OnInit {
   flagBanners:boolean = false;
   flagBannersAviso:boolean = false;
   ruta:string = '';
+  dataFilter:any= [];
+  temp = [];
+  tempRow = [];
+  pageSize = 10;
+  page = 1;
+  
+  collectionSize:number = this.tempRow.length;
   constructor(
     public translate: TranslateService, public fb: FormBuilder,
     public bannerService: BannerService,
@@ -76,10 +83,12 @@ export class BannerComponent implements OnInit {
       movil: [null],
       tipo: ['', Validators.required],
       id: [''],
+      fecha_desde: [''],
+      fecha_hasta:[''],
+      link:[''],
     });    
   }
   ngOnInit() {
-    
     Swal.showLoading();
     this.getConfig();
     this.getDataBanners();
@@ -115,7 +124,11 @@ export class BannerComponent implements OnInit {
     this.bannerService.getDataBannes(data).subscribe( 
       banners => {        
         Swal.close();
-        this.listBanners = banners;           
+        this.listBanners = banners.filter(banner => {return this.checkDate(banner)}); 
+        this.temp = this.listBanners;
+        this.tempRow = this.listBanners;
+        this.collectionSize = this.temp.length;
+        this.refreshDatos();
       },
       (error) => {
         console.log(error);        
@@ -355,6 +368,7 @@ export class BannerComponent implements OnInit {
     this.flagAdd = true;
     this.flagBanners = false;
     this.flagBannersAviso = false;
+    this.show = false;
     this.imageURLHeader = '';
     this.imageURLMobil = '';
 
@@ -408,6 +422,9 @@ export class BannerComponent implements OnInit {
     }
     formData.append('tipo',this.bannerForm.get('tipo').value);
     formData.append('id',this.empresa);
+    formData.append('fecha_desde',this.bannerForm.get('fecha_desde').value);
+    formData.append('fecha_hasta',this.bannerForm.get('fecha_hasta').value);
+    formData.append('link',this.bannerForm.get('link').value);
     Swal.showLoading();
 
     this.bannerService.banner(formData).subscribe(
@@ -418,6 +435,7 @@ export class BannerComponent implements OnInit {
           Swal.fire('Listo', 'Banners guardados con exito', 'success');
           this.getDataBanners();
           this.notificationModal.hide();
+          this.show = false;
         }else{
           Swal.fire('error', 'No fue posible guardar los Banners, porfavor intente de nuevo', 'error');          
         }
@@ -445,6 +463,9 @@ export class BannerComponent implements OnInit {
     formData.append('tipo',this.bannerForm.get('tipo').value);
     formData.append('banner_id',this.bannerForm.get('id').value);
     formData.append('id',this.empresa);
+    formData.append('fecha_desde',this.bannerForm.get('fecha_desde').value);
+    formData.append('fecha_hasta',this.bannerForm.get('fecha_hasta').value);
+    formData.append('link',this.bannerForm.get('link').value);
     this.bannerService.updateBanners(formData).subscribe(
       (flag) => {
         console.log(flag);
@@ -530,4 +551,39 @@ export class BannerComponent implements OnInit {
     
     
   }
+
+  checkDate(banner: Banner): boolean{
+    var actual = new Date().getTime();
+    if (banner.fecha_desde==null ||(actual>=new Date(banner.fecha_desde).getTime() && 
+    actual<= new Date(banner.fecha_hasta).getTime()) ){
+      banner.visible = 'Si';
+    }else{
+      banner.visible = 'No';
+    }
+    return true;
+  }
+  refreshDatos() {
+    // this.rows = this.rowsTemp;
+    // console.log(this.rows);
+     if(this.dataFilter.length > 0){
+      this.temp = this.dataFilter;
+      this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }else{
+
+      this.temp = this.tempRow.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize, 
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }
+    
+    console.log(this.temp);
+
+
+  }
+
 }
