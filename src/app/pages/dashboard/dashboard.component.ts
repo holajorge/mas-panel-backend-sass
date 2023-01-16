@@ -125,6 +125,7 @@ export class DashboardComponent implements OnInit {
   tamData;
   configuraciones:any;
   moneda = '';
+  caracteristica1 = '';
   constructor(
     public translate: TranslateService,
     private pedidosService: PedidosService,
@@ -144,7 +145,7 @@ export class DashboardComponent implements OnInit {
     this.usuario = helper.decodeToken(usuario);
     this.usuario = this.usuario[0].id;
     
-    console.log(this.usuario);
+    
 
     setTimeout(this.initRangeSelector, 1000, this);
     this.columnsProducts = [
@@ -181,12 +182,14 @@ export class DashboardComponent implements OnInit {
     Swal.showLoading();
     this.configService.getConfigEmpresa(this.empresa).then( (res:any) =>{
       Swal.close();
+     
       if(res.response.body['configuraciones'] != ""){
         this.configuraciones = JSON.parse(res.response.body['configuraciones']);
         if(this.configuraciones["moneda"] == ""){
             this.configuraciones["moneda"] = "$";
         }
         this.moneda = this.configuraciones["moneda"];
+        this.caracteristica1 = this.configuraciones["caracteristica1"]['value']
       }
     }).catch(err=>{
       Swal.close();
@@ -438,8 +441,8 @@ export class DashboardComponent implements OnInit {
         this.chartPieData.data.datasets[0].data.push(e.cantidad);
       });
     }
-    console.log("holaaa");
-    console.log(chartPie);
+   // console.log("holaaa");
+   // console.log(chartPie);
     
     this.pieChart = new Chart(chartPie, {
       type: "pie",
