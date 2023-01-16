@@ -172,6 +172,7 @@ export class DashboardComponent implements OnInit {
     this.getConfig();
     
     
+    
     // Init chart
     
 
@@ -210,8 +211,7 @@ export class DashboardComponent implements OnInit {
 
     let dt = new Date();
     dt.setDate( dt.getDate()  );
-    that.fromDate = {year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate()};
-
+    that.fromDate = {year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate()-7};
 
     let parsed = '';
     parsed += that._parserFormatter.format(that.fromDate);
@@ -441,8 +441,6 @@ export class DashboardComponent implements OnInit {
         this.chartPieData.data.datasets[0].data.push(e.cantidad);
       });
     }
-   // console.log("holaaa");
-   // console.log(chartPie);
     
     this.pieChart = new Chart(chartPie, {
       type: "pie",
