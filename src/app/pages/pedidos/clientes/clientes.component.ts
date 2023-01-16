@@ -20,6 +20,10 @@ export class ClientesComponent implements OnInit {
     keyboard: true,
     class: "modal-dialog-centered modal-xl static",
   };
+  panelFiltro = {
+    keyboard: true,
+    class: "my-modal"
+  }
   activeRow: any;
   activeRowDet: any;
   empresa:any = {id:'', pedido:''};
@@ -45,8 +49,12 @@ export class ClientesComponent implements OnInit {
   lista_estados: any = [];
   lista_estadosFiltros: any = [];
   estado_to_id: any = {};
+  listaProvincias: any = [];
+  listaProvinciasFiltros: any = [];
+  provinciaId: any = {};
   models: any = {};
   estadoSelect:number;
+  provinciaSelect: string;
   noteForm:FormGroup;
   files:[] = [];
   fileEntries:number = 5;
@@ -93,6 +101,18 @@ export class ClientesComponent implements OnInit {
       });
 
       this.getPedidos();
+
+    }).catch(err=>{
+      console.log(err);
+    });
+    
+    this.pedidosService.getDistinctProvinciaClientes(this.empresa).then( (res:any) =>{
+      this.listaProvinciasFiltros = res.resultado;
+      
+      res.resultado.forEach(element => {
+        this.listaProvincias.push(element.provincia);
+      });
+
 
     }).catch(err=>{
       console.log(err);
@@ -183,6 +203,21 @@ export class ClientesComponent implements OnInit {
 
 
   }
+
+  formatN(num){
+    num = num.toString();
+    num = num.length<2?"0"+num:num;
+    return num;
+  }
+
+  dates(op){
+    var today = new Date();
+    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+today.getDate();
+    today.setDate(today.getDate()-op);
+    this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
+    this.filters();
+  }
+
   filters(){
     
     const npedido = this.nroPedido;
@@ -190,10 +225,21 @@ export class ClientesComponent implements OnInit {
     const star = this.dateStar;
     const end = this.dateEnd;
     const estado = this.estadoSelect;
+    const provincia = this.provinciaSelect;
     
     const filtros = {
       estado: [estado, d => d['estado'].includes(estado)],
-
+      provincia: [provincia, d => {
+        
+        if(d['provincia']==null)true
+        else{
+          let prov = d['provincia'].toLowerCase();
+          if(prov.includes(provincia.toLocaleLowerCase()) ){
+            return true;
+          } 
+        }
+        
+      }],
       id: [npedido, d => {
         let nroI = d['numeroInterno'].toLowerCase();
         if(nroI.includes(npedido.toLocaleLowerCase()) ){
@@ -219,7 +265,9 @@ export class ClientesComponent implements OnInit {
         }
       }],
     }
-    let producto1 = this.tempRow;  
+    
+    let producto1 = this.tempRow;
+    console.log(producto1);  
     for (const filtro in filtros) {
       if(filtros[filtro][0]){
         producto1 = producto1.filter( filtros[filtro][1])   
@@ -247,6 +295,7 @@ export class ClientesComponent implements OnInit {
     this.dataFilter = [];
     this.estadoSelect=null;
     this.collectionSize = this.tempRow.length;
+    this.provinciaSelect = null;
     this.refreshDatos();
   }
   dataExcelClientes(row){
@@ -487,6 +536,13 @@ export class ClientesComponent implements OnInit {
   exportarPedidos(){
     window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&nroCliente="+this.nroCliente+
     "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&token="+this.empresa.id, "_blank");  
+  }
+
+  mostrarMasFiltros(modalFiltros){
+    this.notificationModal = this.modalService.show(
+      modalFiltros,
+      this.panelFiltro
+    );
   }
 
 }

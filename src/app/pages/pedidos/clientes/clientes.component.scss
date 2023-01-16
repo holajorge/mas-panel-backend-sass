@@ -14,3 +14,16 @@ ng-select select-dropdown > div {
     width: auto;
   }
 }
+
+.my-modal{
+  position: fixed;
+  margin: auto;
+  width: 420px;
+  height: 100%;
+  right: 0px;
+}
+
+.my-modal > div{
+  height: 100%;
+}
+
