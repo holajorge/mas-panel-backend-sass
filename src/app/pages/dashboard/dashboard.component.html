@@ -54,8 +54,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">TOTAL {{configuraciones['moneda']}} ACUMULADA DE PEDIDOS</h5>
-                  <span class="h2 font-weight-bold mb-0"> {{configuraciones['moneda']}} {{ price_total | number : '1.2-2' }}</span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">TOTAL {{moneda}} ACUMULADA DE PEDIDOS</h5>
+                  <span class="h2 font-weight-bold mb-0"> {{moneda}} {{ price_total | number : '1.2-2' }}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -124,6 +124,42 @@
         </div>
     </div>
 
+    <div class="row" >
+      <div class="col-6">
+        <div class="card py-4">
+          <div class="row">
+            <div class="col-12 col-centered">
+                <div class="text-center cabecera">
+                    <h3>Ventas por {{caracteristica1}} <a *ngIf="tamData != 0" class="btn btn-success py-1 px-2 ml-3" (click)="dataExcelCaracteristicas()"><span class="text-white fas fa-file-import"></span></a></h3>
+                </div>
+            </div>
+          </div>
+          <div  class="card-body" id="chart-pie-container"  >
+           <canvas class="chart-canvas" id="chart-pie"> </canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card card-stats">
+          <!-- Card body -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-uppercase text-muted mb-0">Ticket</h5>
+                <span class="h2 font-weight-bold mb-0"> {{moneda}} {{ (ticketPromedio.ticket | number : '1.2-2' )|| 0}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                  <i class="ni ni-chart-bar-32"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
       <div class="row mt-6" *ngIf="(fromDate && toDate) && (usuario != 32)">
         <div class="col-xl-6 col-md-12">
             <div class=" card">
@@ -131,8 +167,7 @@
                     <div class="row">
                         <div class="col-12 col-centered">
                             <div class="text-center cabecera">
-                                <h3>Ranking de los 15 productos más vendidos</h3>
-                                <img src="assets/img/2808165.jpg" width="30%">
+                                <h3>Ranking de los 15 productos más vendidos </h3><img src="assets/img/2808165.jpg" width="30%">
                             </div>
                         </div>
                     </div>
@@ -141,7 +176,9 @@
                     <div class="row">
                         <div class="col-12 col-centered">
                             <div class="text-center cabecera">
-                                <h3>Ranking de los 15 productos más vendidos</h3>
+                                <h3>Ranking de los 15 productos más vendidos
+                                  <a class="btn btn-success py-1 px-2 ml-3" (click)="dataExcelProductos()"><span class="text-white fas fa-file-import"></span></a>
+                                </h3>
                             </div>
                         </div>
                     </div>
@@ -175,7 +212,9 @@
                     <div class="row">
                         <div class="col-12 col-centered">
                             <div class="text-center cabecera">
-                                <h3>Ranking de los 15 clientes con más dinero generado de las ventas</h3>
+                                <h3>Ranking de los 15 clientes con más dinero generado de las ventas
+                                  <a class="btn btn-success py-1 px-2 ml-3" (click)="dataExcelClientes()"><span class="text-white fas fa-file-import"></span></a>
+                                </h3>
                             </div>
                         </div>
                     </div>
@@ -194,7 +233,7 @@
                         </ngx-datatable-column>
                         <ngx-datatable-column name="ventas" [width]="20" [resizeable]="false">
                             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-expanded="expanded" let-row="row">
-                                {{configuraciones['moneda']}} {{ value | number : '1.2-2' }}
+                                {{moneda}} {{ value | number : '1.2-2' }}
                           </ng-template>
                           </ngx-datatable-column>
                     </ngx-datatable>
