@@ -287,8 +287,8 @@ export class ClientesComponent implements OnInit {
 
   }
   eliminar(){
-    this.nroPedido = null;
-    this.nroCliente = null;
+    this.nroPedido = "";
+    this.nroCliente = "";
     this.dateStar = null;
     this.dateEnd = null;
     this.temp = this.tempRow;
@@ -535,7 +535,7 @@ export class ClientesComponent implements OnInit {
 
   exportarPedidos(){
     window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&nroCliente="+this.nroCliente+
-    "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&token="+this.empresa.id, "_blank");  
+    "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&provinciaSelect="+this.provinciaSelect+"&token="+this.empresa.id, "_blank");  
   }
 
   mostrarMasFiltros(modalFiltros){

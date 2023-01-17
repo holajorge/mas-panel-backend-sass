@@ -443,19 +443,19 @@
             </div>
             <label for="" class="form-control-label">Rango de fechas</label>
             <div class="row">
-                <div class="col-12 col-md-2">
+                <div class="col-2">
                     <button class="btn btn-sm btn-primary" (click)="dates(0)">Hoy</button>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-4">
                     <button class="btn btn-sm btn-primary" (click)="dates(7)">Ultimos 7 días</button>
                 </div>
-                <div class="col-12 col-md-5">
+                <div class="col-5">
                     <button class="btn btn-sm btn-primary" (click)="dates(30)">Últimos 30 días</button>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-12">
-                    <label class="form-control-label" for="">Provincias</label>
+                    <label class="form-control-label" for="">Provincia</label>
                     <ng-select (change)="filters()" [(ngModel)]="provinciaSelect" 
                         bindValue="provincia" [items]="listaProvincias" bindLabel="provincia">
                     </ng-select>
