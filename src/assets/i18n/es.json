@@ -430,7 +430,8 @@
             "actualizar": "Actualizar",
             "cancelar": "Cancelar",
             "pedido": "Pedidos",
-            "price_list": "Lista de precios"
+            "price_list": "Lista de precios",
+            "general_info":  "Información general"
         },
         "tablaCliente": {
             "cliente": "Cliente",

@@ -29,11 +29,13 @@
                             <div class="media align-items-stretch">
                                 <div class="col-8 col-md-9">
                                     <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
-                                        <span class="d-block" *ngIf="true"><strong>Familia: </strong>{{desc.caracteristica1}}</span>
-                                        <span class="d-block" *ngIf="true"><strong>Marca:</strong> {{desc.caracteristica2 }}</span>
-                                        <span class="d-block" *ngIf="true"><strong>Caracteristica 3:</strong> {{desc.caracteristica3}}</span>
-                                        <span class="d-block"><strong>Código de producto:</strong> {{desc.codigoProducto}}</span>
-                                        <span class="d-block"><strong>Nro Cliente:</strong> {{desc.nrocliente}}</span>
+                                        <span class="d-block" *ngIf="textCaract1 && desc.caracteristica1"><strong>{{textCaract1}}: </strong>{{desc.caracteristica1}}</span>
+                                        <span class="d-block" *ngIf="textCaract2 && desc.caracteristica2"><strong>{{textCaract2}}:</strong> {{desc.caracteristica2 }}</span>
+                                        <span class="d-block" *ngIf="textCaract3 && desc.caracteristica3"><strong>{{textCaract3}}:</strong> {{desc.caracteristica3}}</span>
+                                        <span class="d-block" *ngIf="textCaract4 && desc.caracteristica4"><strong>{{textCaract4}}:</strong> {{desc.caracteristica3}}</span>
+                                        <span class="d-block"><strong>Código de producto:</strong> {{desc.codigo_producto}}</span>
+                                        <span class="d-block" *ngIf="desc.nrocliente != '0'"><strong>Nro Cliente:</strong> {{desc.nrocliente}}</span>
+                                        <span class="d-block" *ngIf="desc.nrocliente == '0'"><strong>Nro Cliente:</strong> TODOS</span>
                                         <span class="d-block"><strong>Descuento:</strong> {{desc.porcentaje}}</span>
                                     </div>
                                 </div>
