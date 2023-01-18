@@ -50,22 +50,7 @@
                                     (keyup)="filters()"/>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3">
-                            <div class="form-group">
-                                <label for="" class="form-control-label">Fecha Inicio</label>
-                                <input type="date" class="form-control form-control-sm" [(ngModel)]="dateStar"  (change)="filters()" >
-                                <!-- <dp-date-picker theme="dp-material" (onChange)="filters($event)"
-                                    [(ngModel)]="dateStar" [config]="datePickerConfig" ></dp-date-picker>   -->
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <div class="form-group">
-                                <label for="" class="form-control-label">Fecha Fin</label>
-                                <input type="date" class="form-control form-control-sm" [(ngModel)]="dateEnd" (change)="filters()" >
-                                <!-- <dp-date-picker theme="dp-material" [(ngModel)]="dateEnd" [config]="datePickerConfig" ></dp-date-picker>   -->
-                            </div>
-                        </div>
-
+                        
                         <div class="col-md-3" >
                             <div class="from-group">
                                 <label class="form-control-label" for="">Estado</label>
@@ -73,6 +58,11 @@
                                     bindValue="estado" [items]="lista_estados" bindLabel="estado">
                                 </ng-select>
                             </div>
+                        </div>
+                        <div class="col-md-3 mt-4 py-2">
+                            <button class="btn btn-sm btn-secondary active" (click)="mostrarMasFiltros(modalFiltro)">
+                                <span class="ml-1  fas fa-sliders-h"></span> Filtros
+                            </button>
                         </div>
                     
                          <div class="col-md-12 mt-3">
@@ -82,6 +72,8 @@
                          
                     </div>
                 </div>
+                
+
                 <div class="dataTables_wrapper py-4" *ngIf="emptyTable">
 
                     <div class="row">
@@ -427,3 +419,51 @@
         </div>
     
     </ng-template>
+    <ng-template #modalFiltro >
+        <div class=" modal-header">    
+            <h3 class="modal-title" >Filtrar pedidos</h3>
+            <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide();">
+                <span aria-hidden="true"> × </span>
+            </button>
+        </div>
+        <div class=" modal-body">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Fecha Inicio</label>
+                        <input type="date" class="form-control form-control-sm" [(ngModel)]="dateStar"  (change)="filters()" >
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Fecha Fin</label>
+                        <input type="date" class="form-control form-control-sm" [(ngModel)]="dateEnd" (change)="filters()" >
+                    </div>
+                </div>
+            </div>
+            <label for="" class="form-control-label">Rango de fechas</label>
+            <div class="row">
+                <div class="col-2">
+                    <button class="btn btn-sm btn-primary" (click)="dates(0)">Hoy</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-sm btn-primary" (click)="dates(7)">Ultimos 7 días</button>
+                </div>
+                <div class="col-5">
+                    <button class="btn btn-sm btn-primary" (click)="dates(30)">Últimos 30 días</button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label class="form-control-label" for="">Provincia</label>
+                    <ng-select (change)="filters()" [(ngModel)]="provinciaSelect" 
+                        bindValue="provincia" [items]="listaProvincias" bindLabel="provincia">
+                    </ng-select>
+                </div>
+            </div>
+
+            
+            
+        </div>
+    </ng-template>
+    
