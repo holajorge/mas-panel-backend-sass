@@ -215,7 +215,7 @@ export class ClientesComponent implements OnInit {
     this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+today.getDate();
     today.setDate(today.getDate()-op);
     this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
-    this.filters();
+    
   }
 
   filters(){
