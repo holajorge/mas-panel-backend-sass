@@ -1,0 +1,169 @@
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 d-inline-block mb-0">Lista usuarios</h6>
+          </div>
+          <div class=" col-lg-6 col-5 text-right">
+
+            <a  class=" btn btn btn-success" href="javascript:void(0)" (click)="modalForm(modalAdd)" >Nuevo usuario </a>
+        </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class="col">
+            <div class="card">
+                <div class=" card-header mb-3">
+                    <div class=" card-header">
+                        <h3 class="catd-text">Filtros</h3>
+                        <div class="row">
+                            
+                            <div class="col-md-3"  *ngIf="listaModulos">
+                                <div class="from-group">
+                                    <label class="form-control-label" for="">Permisos</label>
+                                    <ng-select  [(ngModel)]="permiso" 
+                                        bindValue="path"[items]="listaModulos" bindLabel="nombre">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <button class="btn btn-sm btn-primary" (click)="addFiltro()">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="row mr-auto justify-content-end">
+                            <div class="col-12 d-flex flex-row flex-wrap justify-content-end">
+                                <div *ngFor="let Permiso of listaFiltros"class="ml-2">
+                                    <div class="chip">
+                                        {{Permiso}}
+                                        <span class="closebtn" (click)="eliminarFiltro(Permiso)">&times;</span>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="dataTables_wrapper card p-4 listado-boxes">
+                    <ng-container *ngFor="let usuario of temp ">
+                        <div class="col-12 py-3 card item-box">
+                            <div class="row d-flex flex-md-row">
+                                <div class="col-12 "><h2 class="card-title text-right">
+                                    <!-- opciones mobile -->
+                                    <div class="posicion-opciones-mobile d-block d-md-none mr-3">
+                                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                            <mat-icon>more_vert</mat-icon>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item >
+                                                <span class="fas fa-pen-alt m-1"></span>
+                                                <span>Editar</span>
+                                            </button>
+
+                                            <button  mat-menu-item >
+                                                <span class="fas fa-eye-slash  m-1"></span>
+                                                <span>Eliminar</span>
+                                            </button>
+                                        </mat-menu>
+                                    </div>
+                                    <!-- fin opciones mobile --> 
+                                    </h2>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
+                                        <h4 class="d-block"><strong>Nombre:</strong> {{usuario.nombre}} </h4>
+                                        <h4 class="d-block"><strong>Apellido:</strong> {{usuario.apellido}} </h4>
+                                        <h4 class="d-block"><strong>Email </strong>{{usuario.email}}</h4>
+                                        <h4 class="d-block"><strong>Permisos </strong>{{usuario.permisos}}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2 ml-auto">
+                                    <!-- opciones desktop -->
+                                    <div class="d-none d-md-block ">
+                                        <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='onSelectItem(modalAdd,usuario)'
+                                            title="Editar banner">Editar
+                                            <span class="fas fa-pen-alt "></span>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" (click)='deleteUsuario(usuario.email)'
+                                            title="Eliminar banner"> Eliminar
+                                            <span class="fas fa-trash"></span>
+                                        </a>
+                                        <div class="d-none"></div>
+                                    </div>
+                                    <!-- fin opciones desktop -->
+                                </div>
+                                
+                            </div>
+                        </div> 
+                    </ng-container>
+                    <div class="table-responsive">
+                        <ngb-pagination [(page)]="page" [maxSize]="7" [rotate]="true"  (pageChange)="refreshDatos()"
+                        [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalAdd >
+    <div class=" modal-header">    
+        <h5 class="modal-title" > Agregar usuario </h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button" (click)="notificationModal.hide();">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class=" modal-body  pt-0">
+        <form [formGroup]="editForm" novalidate >
+            
+            <div class="form-row">
+                <div class="form-group col col-md-6">
+                    <label class="form-control-label" for="nombre">Nombre  </label>
+                    <input type="text" formControlName="nombre" placeholder="Nombre" name="nombre" class="form-control" id="nombre">
+                      
+                </div>      
+                <div class="form-group col col-md-6">
+                    <label class="form-control-label" for="apellido">Apellido  </label>
+                    <input type="text" formControlName="apellido" placeholder="Apellido" name="apellido" class="form-control" id="apellido">
+                     
+                </div>                         
+                <div class="form-group col col-md-6">
+                    <label class="form-control-label" for="email">Email  </label>
+                    <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+                     
+                </div>   
+                <div class="form-group col col-md-6">
+                    <label class="form-control-label" for="clave">Contraseña  </label>
+                    <input type="password" formControlName="clave" placeholder="Contraseña" name="clave" class="form-control" id="clave">
+                </div>  
+                <div class="col-12">
+                    <label class="form-control-label" for="permisos">Permisos</label>
+                    <div class="form-check row d-flex">
+                        <div class="col-md-12 d-flex flex-wrap">
+                            <div *ngFor="let modulo of listaModulos" class="col-3" >
+                                <input class="form-check-input"  type="checkbox"  (change)="onCheckChange($event)" value="{{modulo.path}}"  id="{{modulo.nombre}}">
+                                <label class="form-check-label" for="{{modulo.nombre}}">
+                                {{modulo.nombre}}
+                                </label>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>                                  
+            </div>
+            
+              
+      </form>
+    </div>
+    <div class=" modal-footer">
+        <button *ngIf="!flagAdd" class="btn btn-success"   (click)="actualizarUsuario()">Actualizar</button>
+      <button *ngIf="flagAdd" class="btn btn-success"  (click)="addUsuario()">Guardar</button> 
+      <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{  'vendedores.newForm.cancelar' | translate}}</button>
+    </div>
+
+</ng-template>

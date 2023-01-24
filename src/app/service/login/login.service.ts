@@ -83,6 +83,18 @@ export class LoginService {
         }
     ));
   }
+
+  tienePermisos(url):Observable<boolean>{
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    this.user.id = localStorage.getItem('usuario');
+    let data = {url:url,id:this.user};
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/checkPermisos",JSON.stringify(data),options).pipe( map( resp => resp["body"]["flag"]
+      ), catchError(error => of(false) ) );
+    
+  }
+
+  
 }
 
 

@@ -53,6 +53,12 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
+    path: "usuarios",
+    title: "Usuarios",
+    type: "link",
+    icontype: "fa fa-users-cog text-primary"
+  },
+  {
     path: "configuraciones",
     title: "Configuraciones",
     type: "sub",
@@ -110,23 +116,6 @@ export const ROUTES: RouteInfo[] = [
       { path: "lista-comprobante", title: "Listar comprobantes", type: "link" },    
     ]
   },
-  // {
-  //   path: "categorias",
-  //   title: "Categorias",
-  //   type: "link",
-  //   icontype: "ni-map-big text-primary",
-  // },
-  /*{
-    path: "categorias",
-    title: "Categorias",
-    type: "sub",
-    icontype: "fa fa-folder text-primary",
-    isCollapsed: true,
-    children: [
-      { path: "lista", title: "Lista de categorías", type: "link" },
-      { path: "importar", title: "Importar categoría", type: "link" },
-    ]
-  }, */
   {
     path: "producto",
     title: "Productos",
@@ -202,6 +191,7 @@ export class SidebarAdminComponent implements OnInit {
   public optionModal: BsModalRef;
   empresa: any = {id:''};
   flag:boolean;
+  permisos: any[];
   constructor(private router: Router, public onboardingService:WalkthroughService, private modalService: BsModalService, public configService: ConfigService,) { }
 
   async ngOnInit(): Promise<void>  {
@@ -209,7 +199,7 @@ export class SidebarAdminComponent implements OnInit {
     // console.log(this.flag);
     // await this.itemsMenu();
     // this.menuItems = ROUTES.filter(menuItem => menuItem);
-
+    this.permisos = localStorage.getItem('permisos').split(",");
     this.router.events.subscribe(event => {
       this.isCollapsed = true;
     });
@@ -243,6 +233,7 @@ export class SidebarAdminComponent implements OnInit {
   }
   onLogout(){
     localStorage.removeItem('usuario');
+    localStorage.removeItem('permisos');
     this.router.navigateByUrl('/login');
   }
   onMouseEnterSidenav() {
