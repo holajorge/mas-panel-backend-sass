@@ -25,6 +25,7 @@ export class UsuariosComponent implements OnInit {
   page = 1;
   collectionSize:number = this.tempRow.length;
   flagAdd:boolean = false;
+  tempId = null;
   notificationModal: BsModalRef;
   permiso = null;
   notification = {
@@ -47,17 +48,6 @@ export class UsuariosComponent implements OnInit {
 
 
   ngOnInit() {
-    let myDict = {};
-
-    this.usuarioService.getModulos().then( (res:any) =>{
-      this.listaModulos = res.data.modulos;
-      for (let i = 0; i < res.data.modulos.length; i++) {
-        myDict[res.data.modulos[i].nombre] = '';
-      }
-    }).catch(err=>{
-      console.log(err);
-    });
-    myDict = [myDict];
     this.editForm = this.formBuilder.group({
       empresa_id:  this.empresa.id,
       nombre: ['', Validators.required],
@@ -67,6 +57,15 @@ export class UsuariosComponent implements OnInit {
       permisos:new FormArray([]),
       
     });
+    this.usuarioService.getModulos().then( (res:any) =>{
+      this.listaModulos = res.data.modulos;
+      for (let i = 0; i < res.data.modulos.length; i++) {
+        this.editForm.addControl(res.data.modulos[i].path, new FormControl(false));
+      }
+    }).catch(err=>{
+      console.log(err);
+    });
+   
     this.getUsuarios();
   }
 
@@ -85,6 +84,7 @@ export class UsuariosComponent implements OnInit {
     this.editForm.get('empresa_id').setValue(this.empresa.id);
     
     Swal.showLoading();
+    
     this.usuarioService.crearUsuario(this.editForm.value).subscribe(data => {  
       if(data == true){
         Swal.fire('','Datos del nuevo usuario creado con éxito!', 'success');
@@ -113,6 +113,9 @@ export class UsuariosComponent implements OnInit {
       permisos:new FormArray([]),
       
     });
+    for (let i = 0; i < this.listaModulos.length; i++) {
+      this.editForm.addControl(this.listaModulos[i].path, new FormControl(false));
+    }
   }
   onCheckChange(event) {
     const formArray: FormArray = this.editForm.get('permisos') as FormArray;
@@ -209,12 +212,23 @@ export class UsuariosComponent implements OnInit {
 
   onSelectItem(modal, usuario){
     this.clearData();
+    this.tempId = usuario.id;
     this.flagAdd = false;
     this.editForm.patchValue({nombre:usuario.nombre});
     this.editForm.patchValue({apellido:usuario.apellido});
     this.editForm.patchValue({email:usuario.email});
     this.editForm.patchValue({clave:usuario.clave});
-  
+    
+    const formArray: FormArray = this.editForm.get('permisos') as FormArray;
+    usuario.permisos.split(",").forEach((ctrl) => {
+      if (ctrl!=""){
+        this.editForm.get(ctrl).setValue(true);
+        formArray.push(new FormControl(ctrl));
+      }
+      
+    });
+
+    console.log(this.editForm.controls);
     this.notificationModal = this.modalService.show( modal,this.notification);
     
   }
@@ -229,7 +243,8 @@ export class UsuariosComponent implements OnInit {
     formData.append('email',this.editForm.get('email').value);
     formData.append('clave',this.editForm.get('clave').value);
     formData.append('permisos',this.editForm.get('permisos').value);
-
+    formData.append('id',this.tempId);
+    this.tempId = null;
     this.usuarioService.actualizarUsuario(formData).subscribe(
       (flag) => {
         if(flag){

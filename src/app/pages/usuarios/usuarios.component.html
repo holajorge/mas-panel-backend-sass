@@ -146,7 +146,7 @@
                     <div class="form-check row d-flex">
                         <div class="col-md-12 d-flex flex-wrap">
                             <div *ngFor="let modulo of listaModulos" class="col-3" >
-                                <input class="form-check-input"  type="checkbox"  (change)="onCheckChange($event)" value="{{modulo.path}}"  id="{{modulo.nombre}}">
+                                <input class="form-check-input" formControlName="{{modulo.path}}"  type="checkbox"  (change)="onCheckChange($event)" value="{{modulo.path}}"  id="{{modulo.nombre}}">
                                 <label class="form-check-label" for="{{modulo.nombre}}">
                                 {{modulo.nombre}}
                                 </label>
