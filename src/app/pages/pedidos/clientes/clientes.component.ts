@@ -176,7 +176,7 @@ export class ClientesComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
-
+    
 
   }
   refreshDatos() {
@@ -431,7 +431,6 @@ export class ClientesComponent implements OnInit {
   }
 
   eliminarProductoSave(producto){
-
     Swal.showLoading();
     this.pedidosService.eliminarProductoPedido(producto, this.empresa.id).subscribe( (res:any) =>{
       Swal.close();
@@ -543,6 +542,28 @@ export class ClientesComponent implements OnInit {
       modalFiltros,
       this.panelFiltro
     );
+  }
+
+  modificarProductoPedido(producto){
+    Swal.showLoading();
+    this.pedidosService.editarProductoPedido(producto, this.empresa.id).subscribe( (res:any) =>{
+      Swal.close();
+      if(res){
+        Swal.fire('Listo!','Producto eliminado con éxito!', 'success');
+        this.getDetallePedido();
+        this.notificationModal.hide();
+        this.getPedidos();
+      }else{
+        Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+      }
+    },
+    (err)=>{
+      Swal.close();
+      console.log(err);
+      Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+
+    });
+
   }
 
 }
