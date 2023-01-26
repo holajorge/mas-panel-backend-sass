@@ -24,7 +24,7 @@ export class DescuentoListaComponent implements OnInit {
 
   empresa:any = "";
   addForm: FormGroup;
-  descuentos: any;
+  descuentos = [];
   rowTemp:any;
   activeRow:any;
   entries: number = 10;
@@ -43,6 +43,12 @@ export class DescuentoListaComponent implements OnInit {
   flagDisableSelect:boolean = false;
   type = "simple";
   descuentos_volumen = [{"mayor":null, "menor": null, "descuento": null}];
+
+  page = 1;
+  pageSize = 10;
+  descuentosTemp:any = [];
+  collectionSize:number = this.descuentosTemp.length;
+
   constructor(
     public translate: TranslateService,
     private formBuilder: FormBuilder,
@@ -99,6 +105,7 @@ export class DescuentoListaComponent implements OnInit {
         })
       }
       this.descuentos = aux;
+      this.descuentosTemp = aux;
       this.rowTemp = aux;
       this.configuraciones = res.response['configuraciones'];
       this.clientes = res.response['clientes'];
@@ -113,8 +120,8 @@ export class DescuentoListaComponent implements OnInit {
       this.textCaract1 = (this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1.value && this.configuraciones.caracteristica1.value != "") ? this.configuraciones.caracteristica1.value : "caracteristica 1"
       this.textCaract2 = (this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2.value && this.configuraciones.caracteristica2.value != "") ? this.configuraciones.caracteristica2.value : "caracteristica 2"
       this.textCaract3 = (this.configuraciones.caracteristica3 && this.configuraciones.caracteristica3.value && this.configuraciones.caracteristica3.value != "") ? this.configuraciones.caracteristica3.value : "caracteristica 3"
+      this.refreshDatos();
       //this.textCaract4 = (this.configuraciones.caracteristica4 != "") ? this.configuraciones.caracteristica4 : "caracteristica 4"
-
     }).catch(err=>{
       Swal.close();
       console.log(err);
@@ -126,29 +133,6 @@ export class DescuentoListaComponent implements OnInit {
   }
   onActivate(event) {
     this.activeRow = event.row;
-  }
-  filterTable(event) {
-    const val = event.target.value.toLowerCase();
-
-    if(val !== ''){
-      // filter our data
-      const temRow = this.descuentos.filter(function (d) {
-
-        for (var key in d) {
-          if(!Array.isArray(d[key])){
-            let hola = (d[key] != null) ? d[key].toLowerCase() : '';
-            if ( hola.indexOf(val) !== -1) {
-              return true;
-            }
-
-          }
-        }
-        return false;
-      });
-      this.descuentos = temRow;
-    }else{
-      this.descuentos = this.rowTemp;
-    }
   }
 
   onSelectItem(modal, row){
@@ -379,4 +363,13 @@ export class DescuentoListaComponent implements OnInit {
         this.addForm.patchValue({cliente: 0});
     }
   }
+
+  refreshDatos() {
+      this.collectionSize = this.descuentosTemp.length;
+      this.descuentos = this.descuentosTemp.map(  (product, i) => ({id:i+1,...product})).slice(
+                              (this.page - 1) * this.pageSize,
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+  }
+
 }

@@ -12,7 +12,11 @@ export class ListaPComponent implements OnInit {
   empresaData:any = {id: ''};
   listaPrecios:any = [];
   listaPreciosTemp:any = [];
-  
+  listaPreciosTempFilter:any = [];
+  collectionSize:number = this.listaPreciosTempFilter.length;
+  page = 1;
+  pageSize = 10;
+
   entries: number = 10;
   columnPrecios = [ 
     {prop:'lista',name:'Lista'}, 
@@ -36,7 +40,9 @@ export class ListaPComponent implements OnInit {
     this.precioService.getListaP(this.empresaData).subscribe( 
       (res) => {
         this.listaPrecios = res;        
-        this.listaPreciosTemp = res;        
+        this.listaPreciosTemp = res;
+        this.listaPreciosTempFilter = res;
+        this.refreshDatos();
       },
       (error) => {
 
@@ -91,13 +97,21 @@ export class ListaPComponent implements OnInit {
         datos = datos.filter( filtros[filtro][1])
       }
     }
-    this.listaPrecios = datos;
+    this.listaPreciosTempFilter = datos;
+    this.refreshDatos();
 
   }
   eliminar(){
     this.listaFilter = '';
     this.codigoProductFilter = '';
-    this.listaPrecios = this.listaPreciosTemp;
+    //this.listaPrecios = this.listaPreciosTemp;
+    this.refreshDatos();
   }
-
+  refreshDatos() {
+      this.collectionSize = this.listaPreciosTempFilter.length;
+      this.listaPrecios = this.listaPreciosTempFilter.map(  (product, i) => ({id:i+1,...product})).slice(
+                              (this.page - 1) * this.pageSize,
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+  }
 }

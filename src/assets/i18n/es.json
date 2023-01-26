@@ -18,6 +18,7 @@
         "general_redes": "Redes Sociales",
         "general_afip": "Ingrese la url del QR de la AFIP",
         "general_caracteristicas": "Seleccione las características que desea mostrar en el listado del catálogo",
+        "general_sin_caracteristicas": "No hay caracteristicas cargadas",
         "formConfig": {
             "general_limites": "Límites y mínimos parar realizar pedidos",
             "hora_limite_pedido": "Horario límite para hacer pedidos",
@@ -429,7 +430,8 @@
             "actualizar": "Actualizar",
             "cancelar": "Cancelar",
             "pedido": "Pedidos",
-            "price_list": "Lista de precios"
+            "price_list": "Lista de precios",
+            "general_info":  "Información Adicional"
         },
         "tablaCliente": {
             "cliente": "Cliente",

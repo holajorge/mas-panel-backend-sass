@@ -122,6 +122,7 @@
                                                 <span class="d-block" ><strong>Correo:</strong> {{producto.email}}</span>
                                                 <span class="d-block"><strong>Nombre Usuario:</strong> {{producto.usuario}}</span>
                                                 <span class="d-block"><strong>Clave:</strong> {{producto.clave}}</span>
+                                                <span class="d-block" *ngIf="producto.info_general"> <strong>{{ 'cliente.tabla.general_info' | translate}}:</strong> {{producto.info_general}}</span>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-3">
@@ -464,6 +465,14 @@
                           [placeholder]="'Seleccione una lista de precios'"
                           [multiple]="false" name="lista" id="lista">
                   </ng-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <div class="form-group">
+                        <label class="form-control-label" for="info_general">{{ 'cliente.tabla.general_info' | translate}}:</label>
+                        <input type="text" formControlName="info_general" placeholder="{{ 'cliente.tabla.general_info' | translate}}" name="info_general" class="form-control" id="info_general">
+                    </div>
                 </div>
             </div>
             <div *ngIf="flagSendEmail" class="row">

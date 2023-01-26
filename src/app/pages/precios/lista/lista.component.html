@@ -18,76 +18,62 @@
     <div class=" row">
         <div class=" col">
             <div class=" card">
-              <div class=" card-header">
-                <h3 class="catd-text">Filtros</h3>
-                <div class="row">
-                    <div class="col-12 col-md-3">
-                        <div class="from-group">
-                            <label class="form-control-label">Nombre de lista</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="listaFilter"
-                                placeholder="Nombre de lista" aria-controls="datatable" (keyup)="filterTable()"/>
+                <div class=" card-header">
+                    <h3 class="catd-text">Filtros</h3>
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <div class="from-group">
+                                <label class="form-control-label">Nombre de lista</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="listaFilter"
+                                    placeholder="Nombre de lista" aria-controls="datatable" (keyup)="filterTable()"/>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 col-md-3">
-                      <div class="from-group">
-                          <label class="form-control-label">Código de producto</label>
-                          <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoProductFilter"
-                              placeholder="Código de producto" aria-controls="datatable" (keyup)="filterTable()"/>
+                        <div class="col-12 col-md-3">
+                          <div class="from-group">
+                              <label class="form-control-label">Código de producto</label>
+                              <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoProductFilter"
+                                  placeholder="Código de producto" aria-controls="datatable" (keyup)="filterTable()"/>
+                          </div>
                       </div>
-                  </div>
 
-                    <div class="col-md-12 mt-3">
-                        <button class="btn btn-sm btn-primary" (click)="eliminar()">limpiar búsqueda</button>
+                        <div class="col-md-12 mt-3">
+                            <button class="btn btn-sm btn-primary" (click)="eliminar()">limpiar búsqueda</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-                <div class="dataTables_wrapper py-4">
-                    
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                          <div class="dataTables_length" id="datatable_length">
-                              <label class="form-control-label"> mostrar
-                              <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChange($event)">
-                                  <option value="10" [selected]="entries == 10">10</option>
-                                  <option value="25" [selected]="entries == 25">25</option>
-                                  <option value="50" [selected]="entries == 50">50</option>
-                                  <option value="-1" [selected]="entries == -1">All</option>
-                              </select>
-                              entradas
-                              </label>
-                          </div>
+                <div class=" container-fluid mt-2">
+                    <div class=" row">
+                        <div class="col-12" *ngIf="!listaPrecios.length">
+                            <h3>No se han encontrado resultados!</h3>
                         </div>
+                        <ng-container *ngFor="let row of listaPrecios ">
+                            <div class="col-12">
+                                <div class="card overflow-hidden">
+                                    <div class="card-content">
+                                        <div class="card-body ">
+                                            <div class="media align-items-stretch">
+                                                <div class="col-8 col-md-9">
+                                                    <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
+                                                        <span class="d-block" *ngIf="true"><strong>Lista: </strong>{{row.lista}}</span>
+                                                        <span class="d-block" *ngIf="true"><strong>Producto:</strong> {{row.codigoProducto }}</span>
+                                                        <span class="d-block" *ngIf="true"><strong>Precio:</strong> {{row.precio}}</span>
+                                                        <span class="d-block"><strong>Precio oferta:</strong> {{row.precioOferta}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="table-responsive" *ngIf="listaPreciosTempFilter.length > pageSize">
+                            <ngb-pagination [(page)]="page" [maxSize]="pageSize" [rotate]="true"  (pageChange)="refreshDatos()"
+                                            [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
+                        </div>
+
                     </div>
-
-                    <ngx-datatable class="bootstrap selection-cell fullscreen"
-                      [columnMode]="'force'" [headerHeight]="50" 
-                      [footerHeight]="50" [rowHeight]="70"
-                      [scrollbarH]="true"
-                      [limit]="entries != -1 ? entries : undefined" [rows]="listaPrecios" > 
-                      <ngx-datatable-column name="lista" [width]="200">
-                        <ng-template let-column="column" ngx-datatable-header-template>
-                            <span> Lista</span>
-                        </ng-template>
-                      </ngx-datatable-column>
-                      <ngx-datatable-column name="codigoProducto" [width]="100">
-                        <ng-template let-column="column" ngx-datatable-header-template>
-                            <span> Producto</span>
-                        </ng-template>
-                      </ngx-datatable-column>
-                      <ngx-datatable-column name="precio" [width]="100">
-                        <ng-template let-column="column" ngx-datatable-header-template>
-                            <span> Precio</span>
-                        </ng-template>
-                      </ngx-datatable-column>
-                      <ngx-datatable-column name="precioOferta" [width]="100">
-                        <ng-template let-column="column" ngx-datatable-header-template>
-                            <span> Precio oferta</span>
-                        </ng-template>
-                      </ngx-datatable-column>
-
-                    </ngx-datatable>
                 </div>
             </div>
         </div>

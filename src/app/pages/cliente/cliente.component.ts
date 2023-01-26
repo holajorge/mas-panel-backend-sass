@@ -108,7 +108,8 @@ export class ClienteComponent implements OnInit {
       lista: [''],
       nroclientLast:[''] ,
       send:[''],
-      pago: ['']
+      pago: [''],
+      info_general: ['']
     });
     this.editFormSucursal = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -361,6 +362,7 @@ export class ClienteComponent implements OnInit {
       provincia:row.provincia,
       localidad:row.localidad,
       direccion:row.direccion,
+      info_general: row.info_general,
       lista: row.lista,
       nroclientLast: row.nrocliente,
       pago: row.forma_pago
