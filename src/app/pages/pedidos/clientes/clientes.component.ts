@@ -551,7 +551,6 @@ export class ClientesComponent implements OnInit {
       if(res){
         Swal.fire('Listo!','Producto eliminado con éxito!', 'success');
         this.getDetallePedido();
-        this.notificationModal.hide();
         this.getPedidos();
       }else{
         Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
