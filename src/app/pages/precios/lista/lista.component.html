@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         </ng-container>
-                        <div class="table-responsive" *ngIf="listaPrecios.length > pageSize">
+                        <div class="table-responsive" *ngIf="listaPreciosTempFilter.length > pageSize">
                             <ngb-pagination [(page)]="page" [maxSize]="pageSize" [rotate]="true"  (pageChange)="refreshDatos()"
                                             [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
                         </div>
