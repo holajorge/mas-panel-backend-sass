@@ -180,4 +180,17 @@ export class PreciosService {
     });
   }
 
+  actualizarDolar(formadd){
+    
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/actualizarDolar",formadd,options).toPromise().then((res) =>{      
+      return { success: true, precio:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
 }

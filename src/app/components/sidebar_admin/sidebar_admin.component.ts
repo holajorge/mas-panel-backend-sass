@@ -144,7 +144,8 @@ export const ROUTES: RouteInfo[] = [
       { path: "lista-precios", title: "Lista Precios", type: "link" },
       { path: "importar-lista-precios", title: " Importar Listas de Precios", type: "link" },
       { path: "stock-precio", title: "Actualizar Precios y Stock por Excel", type: "link" },
-      { path: "actualizar-precios", title: "Actualizar Precios", type: "link" }
+      { path: "actualizar-precios", title: "Actualizar Precios", type: "link" },
+      { path: "actualizar-dolar", title: "Actualizar Dolar", type: "link" }
 
     ]
   },

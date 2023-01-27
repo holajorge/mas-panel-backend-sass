@@ -48,6 +48,7 @@ import { TapiceComponent } from './tapice/tapice.component';
 import { TutorialesComponent } from './tutoriales/tutoriales.component';
 import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
 import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
+import { ActualizarDolarComponent } from './precios/actualizar-dolar/actualizar-dolar.component';
 
 const routes:Routes = [
     {
@@ -97,6 +98,7 @@ const routes:Routes = [
             {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent,canActivate: [PermisosGuard]},
             {path: 'precios/stock-precio',  component: StockPrecioComponent,canActivate: [PermisosGuard]},
             {path: 'precios/actualizar-precios',  component: ActualizarPreciosComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/actualizar-dolar', component: ActualizarDolarComponent, canActivate: [PermisosGuard]},
             {path: 'tapice',  component: TapiceComponent,canActivate: [PermisosGuard]},
 
             //tutoriales
