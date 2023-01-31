@@ -106,4 +106,34 @@ export class EmpresaService {
       catchError( error => error )
     )
   }
+
+
+  //estados
+  getEstados(data){
+    
+    return new Promise( (resolve) => {
+      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getEstados", data, this.header).subscribe(
+        (resp:any) => {
+          console.log(resp, 'servicio00');
+          const {datos} = resp;
+          resolve(datos);
+        }
+      );
+    });
+
+  }
+
+  newEstados(data){
+    return new Promise( (resolve) => {
+      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/newEstados", data, this.header).subscribe(
+        (resp:any) => {
+          console.log(resp, 'servicio');
+          
+          const {flag} = resp;
+          resolve(flag);
+        }
+      );
+    });
+  }
+
 }

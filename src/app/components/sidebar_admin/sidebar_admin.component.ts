@@ -61,7 +61,8 @@ export const ROUTES: RouteInfo[] = [
     children: [
       { path: "empresa", title: "Datos de la empresa", type: "link" },
      /* { path: "dominios", title: "Configuración de dominios", type: "link" },*/
-      { path: "general", title: "Configuración general ", type: "link" }
+      { path: "general", title: "Configuración general ", type: "link" },
+      { path: "estados", title: "Configuración estados ", type: "link" }
     ]
   },
  {

@@ -46,6 +46,7 @@ import { TapiceComponent } from './tapice/tapice.component';
 import { TutorialesComponent } from './tutoriales/tutoriales.component';
 import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
 import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
+import { EstadosPedidosComponent } from './estados-pedidos/estados-pedidos.component';
 
 const routes:Routes = [
     {
@@ -63,6 +64,7 @@ const routes:Routes = [
             {path: 'configuraciones/empresa', component: ConfiguracionesComponent},
             {path: 'configuraciones/dominios', component: DominioComponent},
             {path: 'configuraciones/general', component: GeneralComponent},
+            {path: 'configuraciones/estados', component: EstadosPedidosComponent},
 
             {path:'pedidos/vendedores', component: PedidosComponent},
             {path:'pedidos/clientes', component: ClientesComponent},
