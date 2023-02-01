@@ -114,7 +114,6 @@ export class EmpresaService {
     return new Promise( (resolve) => {
       this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getEstados", data, this.header).subscribe(
         (resp:any) => {
-          console.log(resp, 'servicio00');
           const {datos} = resp;
           resolve(datos);
         }
@@ -127,10 +126,30 @@ export class EmpresaService {
     return new Promise( (resolve) => {
       this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/newEstados", data, this.header).subscribe(
         (resp:any) => {
-          console.log(resp, 'servicio');
-          
           const {flag} = resp;
           resolve(flag);
+        }
+      );
+    });
+  }
+
+  editEstados(data){
+    return new Promise( (resolve) => {
+      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/editEstado", data, this.header).subscribe(
+        (resp:any) => {          
+          const {flag} = resp;
+          resolve(flag);
+        }
+      );
+    });
+  }
+
+  deleteEstado(data){
+    return new Promise( (resolve) => {
+      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/deleteEstado", data, this.header).subscribe(
+        (resp:any) => {          
+          
+          resolve(resp);
         }
       );
     });
