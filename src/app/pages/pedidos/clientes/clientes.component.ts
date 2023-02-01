@@ -176,7 +176,7 @@ export class ClientesComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
-
+    
 
   }
   refreshDatos() {
@@ -212,10 +212,11 @@ export class ClientesComponent implements OnInit {
 
   dates(op){
     var today = new Date();
-    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+today.getDate();
+    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
     today.setDate(today.getDate()-op);
+    console.log(this.dateEnd);
     this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
-    
+    this.filters();this.notificationModal.hide();
   }
 
   filters(){
@@ -431,7 +432,6 @@ export class ClientesComponent implements OnInit {
   }
 
   eliminarProductoSave(producto){
-
     Swal.showLoading();
     this.pedidosService.eliminarProductoPedido(producto, this.empresa.id).subscribe( (res:any) =>{
       Swal.close();
@@ -543,6 +543,27 @@ export class ClientesComponent implements OnInit {
       modalFiltros,
       this.panelFiltro
     );
+  }
+
+  modificarProductoPedido(producto){
+    Swal.showLoading();
+    this.pedidosService.editarProductoPedido(producto, this.empresa.id).subscribe( (res:any) =>{
+      Swal.close();
+      if(res){
+        Swal.fire('Listo!','Producto eliminado con éxito!', 'success');
+        this.getDetallePedido();
+        this.getPedidos();
+      }else{
+        Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+      }
+    },
+    (err)=>{
+      Swal.close();
+      console.log(err);
+      Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
+
+    });
+
   }
 
 }
