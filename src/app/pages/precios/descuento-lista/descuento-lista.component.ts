@@ -43,11 +43,13 @@ export class DescuentoListaComponent implements OnInit {
   flagDisableSelect:boolean = false;
   type = "simple";
   descuentos_volumen = [{"mayor":null, "menor": null, "descuento": null}];
-
+  filtro = {"cliente": null, "todos": null, "caract1": null, "caract2": null, "caract3": null };
   page = 1;
   pageSize = 10;
   descuentosTemp:any = [];
-  collectionSize:number = this.descuentosTemp.length;
+  descuentosTempFilter:any = [];
+  collectionSize:number = this.descuentosTempFilter.length;;
+
 
   constructor(
     public translate: TranslateService,
@@ -106,10 +108,18 @@ export class DescuentoListaComponent implements OnInit {
       }
       this.descuentos = aux;
       this.descuentosTemp = aux;
+      this.descuentosTempFilter = aux;
       this.rowTemp = aux;
       this.configuraciones = res.response['configuraciones'];
-      this.clientes = res.response['clientes'];
-      this.clientes.push({nombre:'Todos',nrocliente:0 });
+
+      let aux_clientes = [];
+      res.response['clientes'].forEach((value) => {
+        value.name_nrocliente = value.nombre + " (" + value.nrocliente + ")";
+        aux_clientes.push(value);
+      })
+
+      this.clientes = aux_clientes;
+      this.clientes.push({nombre:'Todos',nrocliente:0, name_nrocliente: 'Todos' });
 
       this.caract1 = res.response['caracteristica1'];
       this.caract2 = res.response['caracteristica2'];
@@ -290,7 +300,14 @@ export class DescuentoListaComponent implements OnInit {
       this.caract2 = res.response['caracteristica2'];
       this.caract3 = res.response['caracteristica3'];
       //this.caract4 = res.response['caracteristica4'];
-      this.clientes = res.response['clientes'];
+
+      let aux = [];
+      res.response['clientes'].forEach((value) => {
+        value.name_nrocliente = value.nombre + " (" + value.nrocliente + ")";
+        aux.push(value);
+      })
+
+      this.clientes = aux;
 
       this.configuraciones = res.response['configuraciones'];
       this.textCaract1 = (this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1.value && this.configuraciones.caracteristica1.value != "") ? this.configuraciones.caracteristica1.value : "caracteristica 1"
@@ -300,7 +317,7 @@ export class DescuentoListaComponent implements OnInit {
 
       Swal.close();
 
-      this.clientes.push({nombre:'Todos',nrocliente:0 });
+      this.clientes.push({nombre:'Todos',nrocliente:0, name_nrocliente: 'Todos'});
 
     }).catch(err=>{
       Swal.close();
@@ -362,14 +379,49 @@ export class DescuentoListaComponent implements OnInit {
     if((this.addForm.get('todos').value)){
         this.addForm.patchValue({cliente: 0});
     }
+    if(this.filtro.todos){
+        this.filtro.cliente = 0;
+    }
+    this.filterTable();
   }
 
   refreshDatos() {
-      this.collectionSize = this.descuentosTemp.length;
-      this.descuentos = this.descuentosTemp.map(  (product, i) => ({id:i+1,...product})).slice(
+      this.collectionSize = this.descuentosTempFilter.length;
+      this.descuentos = this.descuentosTempFilter.map(  (product, i) => ({id:i+1,...product})).slice(
                               (this.page - 1) * this.pageSize,
                               (this.page - 1) * this.pageSize + this.pageSize
                             );
+  }
+
+  clearFilter(){
+    this.filtro = {"cliente": null, "todos": null, "caract1": null, "caract2": null, "caract3": null };
+    this.refreshDatos();
+  }
+
+
+  filterTable(){
+
+    const car1 = this.filtro.caract1;
+    const car2 = this.filtro.caract2;
+    const car3 = this.filtro.caract3;
+    let client = this.filtro.cliente
+    console.log(client);
+    const filtros = {
+      cliente: [client, d => d['nrocliente'].toString() == client.toString()],
+      caracteristica1: [car1, d => d['caracteristica1'].includes(car1)],
+      caracteristica2: [car2, d => d['caracteristica2'].includes(car2)],
+      caracteristica3: [car3, d => d['caracteristica3'].includes(car3)],
+    }
+
+    let datos = this.descuentosTemp;
+    for (const filtro in filtros) {
+      if(filtros[filtro][0] == 0 || filtros[filtro][0]){
+        datos = datos.filter(filtros[filtro][1]);
+      }
+    }
+    this.descuentosTempFilter = datos;
+    this.refreshDatos();
+
   }
 
 }
