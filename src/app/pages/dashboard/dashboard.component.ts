@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
   pedidos_count = 0;
   clientes_count = 0;
   price_total = 0;
-  ticketPromedio = 0;
+  ticketPromedio;
   // range date selector
   startDate: NgbDateStruct;
   maxDate: NgbDateStruct;
@@ -317,7 +317,7 @@ export class DashboardComponent implements OnInit {
         });
 
         this.pedidosService.getDatatablesFromRange(this.empresa, start_date, end_date).then( (res:any) =>{
-          this.ticketPromedio = res.pedidos.ticket??0;
+          this.ticketPromedio = res.pedidos.ticket.ticket??0;
           if(res.pedidos.clientes.length > 0){
             this.clientsDatatableEmpty = false;
             this.datatableClientes = res.pedidos.clientes.slice(0, 15);
