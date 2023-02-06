@@ -33,13 +33,20 @@ export class LoginComponent implements OnInit {
       if(data.body.perfil != null){
         
         localStorage.setItem('usuario', data.body.id);
+        if("permisos" in data.body.perfil[0] ){
+          localStorage.setItem('permisos', data.body.perfil[0].permisos+",tareas");
+        }else{
+          localStorage.setItem('permisos', "todos");
+        }
+        
+        //
         Swal.close();
         form.reset();
 
        // this.onboardingService.turn_on();
        // this.onboardingService.reset();
 
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin/tareas']);
        }else{
         Swal.close();
         Swal.fire({

@@ -31,27 +31,27 @@
         <ul class="navbar-nav">
           <li *ngFor="let menuitem of menuItems" class="nav-item">
             <!--If is a single link-->
-            <a routerLinkActive="active" [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'" class="nav-link">
+            <a routerLinkActive="active" [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link' && (permisos.indexOf(menuitem.path) > -1 || permisos[0]=='todos')" class="nav-link">
               <i class="ni {{ menuitem.icontype }}"></i>
               <span class="nav-link-text">{{ menuitem.title }}</span>
             </a>
 
             <!--If it have a submenu -->
             <!--If it has a task -->
-            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && onboardingService.on && checkTask(menuitem, 'taskClickProducts')" [bdcWalkTriggerFor]="taskClickProducts" [enabled]="onboardingService.on"
+            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && onboardingService.on && checkTask(menuitem, 'taskClickProducts')  && (permisos.indexOf(menuitem.path) > -1 || permisos[0]=='todos')" [bdcWalkTriggerFor]="taskClickProducts" [enabled]="onboardingService.on"
                (click)="menuitem.isCollapsed = !menuitem.isCollapsed; setStepOnboarding('taskClickProducts')" [attr.aria-expanded]="!menuitem.isCollapsed"
                [attr.aria-controls]="menuitem.collapse">
               <i class="ni {{ menuitem.icontype }}"></i>
               <span class="nav-link-text">{{ menuitem.title }}</span>
             </a>
-            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && onboardingService.on && checkTask(menuitem, 'clickClients')" [bdcWalkTriggerFor]="clickClients" [enabled]="onboardingService.on"
+            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && onboardingService.on && checkTask(menuitem, 'clickClients')  && (permisos.indexOf(menuitem.path) > -1 || permisos[0]=='todos')" [bdcWalkTriggerFor]="clickClients" [enabled]="onboardingService.on"
                (click)="menuitem.isCollapsed = !menuitem.isCollapsed; setStepOnboarding('clickClients')" [attr.aria-expanded]="!menuitem.isCollapsed"
                [attr.aria-controls]="menuitem.collapse">
               <i class="ni {{ menuitem.icontype }}"></i>
               <span class="nav-link-text">{{ menuitem.title }}</span>
             </a>
             <!--If it hasn't a task -->
-            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && (checkTask(menuitem, 'nothing') || !onboardingService.on)"
+            <a class="nav-link mano" data-toggle="collapse" routerLinkActive="active" *ngIf="menuitem.type === 'sub' && (checkTask(menuitem, 'nothing') || !onboardingService.on) && (permisos.indexOf(menuitem.path) > -1 || permisos[0]=='todos')"
                (click)="menuitem.isCollapsed = !menuitem.isCollapsed;" [attr.aria-expanded]="!menuitem.isCollapsed"
                [attr.aria-controls]="menuitem.collapse">
               <i class="ni {{ menuitem.icontype }}"></i>

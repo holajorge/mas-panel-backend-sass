@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from "@angular/core";
 import { AuthGuard } from '../guards/auth.guard';
+import { PermisosGuard } from '../guards/permisos.guard';
 
 import { AdminComponent } from '../layouts/admin/admin.component';
 import { SuperComponent } from '../layouts/super/super.component';
@@ -32,6 +33,7 @@ import { MicuentaComponent } from './micuenta/micuenta.component';
 import { ListaPreciosComponent } from './precios/lista-precios/lista-precios/lista-precios.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ImportarDescuentoComponent } from './precios/importar-descuento/importar-descuento.component';
 import { ImportarSucursalesComponent } from './cliente/importar-sucursales/importar-sucursales.component';
 import { StockPrecioComponent } from './precios/stock-precio/stock-precio.component';
@@ -53,49 +55,49 @@ const routes:Routes = [
         component: AdminComponent,
         canActivate: [AuthGuard],
         children: [ 
-            {path:'', component: ClientesComponent},
+            {path:'', component: ClientesComponent,canActivate: [PermisosGuard]},
             //MI CUENTA
             // empresa
             {path: 'cuenta/datos', component: MicuentaComponent},
             {path: 'cuenta/pagos', component: MicuentaComponent},
 
             // empresa
-            {path: 'configuraciones/empresa', component: ConfiguracionesComponent},
-            {path: 'configuraciones/dominios', component: DominioComponent},
-            {path: 'configuraciones/general', component: GeneralComponent},
+            {path: 'configuraciones/empresa', component: ConfiguracionesComponent, canActivate: [PermisosGuard]},
+            {path: 'configuraciones/dominios', component: DominioComponent,canActivate: [PermisosGuard]},
+            {path: 'configuraciones/general', component: GeneralComponent,canActivate: [PermisosGuard]},
 
-            {path:'pedidos/vendedores', component: PedidosComponent},
-            {path:'pedidos/clientes', component: ClientesComponent},
+            {path:'pedidos/vendedores', component: PedidosComponent, canActivate: [PermisosGuard]},
+            {path:'pedidos/clientes', component: ClientesComponent, canActivate: [PermisosGuard]},
             
-            {path:'banners', component: BannerComponent},
+            {path:'banners', component: BannerComponent,canActivate: [PermisosGuard]},
             //vendedores
-            {path:'vendedor/vendedores', component: VendedorComponent}, 
-            {path:'vendedor/importarVendedor', component: ImportarVendedorComponent}, 
+            {path:'vendedor/vendedores', component: VendedorComponent,canActivate: [PermisosGuard]}, 
+            {path:'vendedor/importarVendedor', component: ImportarVendedorComponent,canActivate: [PermisosGuard]}, 
             // clientes
-            {path: 'cliente/clientes',  component: ClienteComponent},
-            {path: 'cliente/importar',  component: ImportarComponent},
-            {path: 'cliente/importar-sucursales',  component: ImportarSucursalesComponent},
+            {path: 'cliente/clientes',  component: ClienteComponent, canActivate: [PermisosGuard]},
+            {path: 'cliente/importar',  component: ImportarComponent, canActivate: [PermisosGuard]},
+            {path: 'cliente/importar-sucursales',  component: ImportarSucursalesComponent, canActivate: [PermisosGuard]},
             // {path: 'cliente/agregar-comprobante',  component: AgregarComponent},
-            {path: 'cliente/lista-comprobante',  component: ListaComponent},
+            {path: 'cliente/lista-comprobante',  component: ListaComponent, canActivate: [PermisosGuard]},
             //categorias
-            {path: 'producto/permisos',  component: CategoriasComponent},
-            {path: 'producto/importar-permisos',  component: ImportarCategoriaComponent},
+            {path: 'producto/permisos',  component: CategoriasComponent, canActivate: [PermisosGuard]},
+            {path: 'producto/importar-permisos',  component: ImportarCategoriaComponent, canActivate: [PermisosGuard]},
             //productos
-            {path: 'producto/configuracion',  component: ConfigurcionProductoComponent},
-            {path: 'producto/productos',  component: ProductoComponent},
-            {path: 'producto/importarproducto',  component: ImportarproductoComponent},
-            {path: 'producto/importarfotos',  component: ImportarFotosComponent},
-            {path: 'producto/galeriafotos',  component: GaleriaFotosComponent},
+            {path: 'producto/configuracion',  component: ConfigurcionProductoComponent,canActivate: [PermisosGuard]},
+            {path: 'producto/productos',  component: ProductoComponent,canActivate: [PermisosGuard]},
+            {path: 'producto/importarproducto',  component: ImportarproductoComponent,canActivate: [PermisosGuard]},
+            {path: 'producto/importarfotos',  component: ImportarFotosComponent,canActivate: [PermisosGuard]},
+            {path: 'producto/galeriafotos',  component: GaleriaFotosComponent,canActivate: [PermisosGuard]},
             //precios
-            {path: 'precios/lista-precios',  component: ListaPComponent},
-            {path: 'precios/importar-precios',  component: ImportarPreciosComponent},
-            {path: 'precios/importar-descuentos',  component: ImportarDescuentoComponent},
-            {path: 'precios/descuento-categorias',  component: DescuentoComponent},
-            {path: 'precios/descuento-lista/:type',  component: DescuentoListaComponent},
-            {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent},
-            {path: 'precios/stock-precio',  component: StockPrecioComponent},
-            {path: 'precios/actualizar-precios',  component: ActualizarPreciosComponent},
-            {path: 'tapice',  component: TapiceComponent},
+            {path: 'precios/lista-precios',  component: ListaPComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/importar-precios',  component: ImportarPreciosComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/importar-descuentos',  component: ImportarDescuentoComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/descuento-categorias',  component: DescuentoComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/descuento-lista/:type',  component: DescuentoListaComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/importar-lista-precios',  component: ListaPreciosComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/stock-precio',  component: StockPrecioComponent,canActivate: [PermisosGuard]},
+            {path: 'precios/actualizar-precios',  component: ActualizarPreciosComponent,canActivate: [PermisosGuard]},
+            {path: 'tapice',  component: TapiceComponent,canActivate: [PermisosGuard]},
 
             //tutoriales
             {path:'tutoriales', component: TutorialesComponent},
@@ -104,7 +106,10 @@ const routes:Routes = [
             {path: 'tareas', component:TareasComponent},
 
             // admin
-            {path: 'admin/dashboard', component: DashboardComponent}
+            {path: 'admin/dashboard', component: DashboardComponent,canActivate: [PermisosGuard]},
+
+            // usuarios
+            {path: 'usuarios', component: UsuariosComponent,canActivate: [PermisosGuard]}
             
         ]
     },

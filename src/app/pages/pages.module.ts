@@ -64,6 +64,7 @@ import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.co
 import { LoginPartnerComponent } from './partners/login-partner/login-partner.component';
 import { RegistracionPartnerComponent } from './partners/registracion-partner/registracion-partner.component';
 import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -114,7 +115,8 @@ imports: [
     GaleriaFotosComponent,
     LoginPartnerComponent,
     RegistracionPartnerComponent,
-    AfiliadosComponent
+    AfiliadosComponent,
+    UsuariosComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,
