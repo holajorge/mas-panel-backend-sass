@@ -15,8 +15,8 @@ export class ConfigService {
   
     if(!environment.production){
 
-      return "http://localhost:8000/";
-      //return "https://api.maspedidos.com.ar/";
+      //return "http://localhost:8000/";
+      return "https://api.maspedidos.com.ar/";
     }
     else{
       return "https://api.maspedidos.com.ar/";

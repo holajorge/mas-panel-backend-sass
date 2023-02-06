@@ -21,6 +21,82 @@
         <div class="col-12" *ngIf="!descuentos.length">
             <h3>No se han encontrado resultados!</h3>
         </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Filtros</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="nombre_empresa" class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                                <ng-select (change)="filterTable()" [(ngModel)]="filtro.cliente"
+                                    [items]="clientes"
+                                    bindValue="nrocliente"
+                                    bindLabel="name_nrocliente"
+                                    >
+                                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                                        <small class="form-text text-muted"> {{item.nombre}} ( {{item.nrocliente}} )</small>
+                                    </ng-template>
+                                </ng-select>
+                                <div class="alert  alert-danger"
+                                    *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">
+                                    {{ 'cliente.add.cliente' | translate }} es obligatorio
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="input-group">
+                                    <input type="checkbox" [(ngModel)]="filtro.todos" name="todos" class="d-inline-block" style="width: 3rem; height: 1.3rem; margin-top: 2.5rem;" (change)="set_todos()">
+                                    <label class="d-inline-block" for="todos" style="margin-top: 2.4rem">Todos</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"  *ngIf="caract1.length > 0">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ textCaract1 }}</label>
+                                     <ng-select (change)="filterTable()" [(ngModel)]="filtro.caract1"
+                                        [items]="caract1"  (change)='disabledInputCode()'
+                                        bindValue="nombre"
+                                        bindLabel="nombre">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" *ngIf="caract2.length > 0 && textCaract2 != 'caracteristica 2'">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ textCaract2 }}</label>
+                                     <ng-select (change)="filterTable()" [(ngModel)]="filtro.caract2"
+                                        [items]="caract2"
+                                        bindValue="nombre"
+                                        bindLabel="nombre">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" *ngIf="caract3.length > 0 && textCaract3 != 'caracteristica 3'">
+                                <div class="form-group mr-1">
+                                    <label for="nombre_empresa"
+                                     class="form-control-label">{{ textCaract3 }}</label>
+                                     <ng-select (change)="filterTable()" [(ngModel)]="filtro.caract3"
+                                        [items]="caract3"
+                                        bindValue="nombre"
+                                        bindLabel="nombre">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-sm btn-primary" (click)="clearFilter()">limpiar búsqueda</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <ng-container *ngFor="let desc of descuentos ">
             <div class="col-12">
                 <div class="card overflow-hidden">
@@ -32,7 +108,7 @@
                                         <span class="d-block" *ngIf="textCaract1 && desc.caracteristica1"><strong>{{textCaract1}}: </strong>{{desc.caracteristica1}}</span>
                                         <span class="d-block" *ngIf="textCaract2 && desc.caracteristica2"><strong>{{textCaract2}}:</strong> {{desc.caracteristica2 }}</span>
                                         <span class="d-block" *ngIf="textCaract3 && desc.caracteristica3"><strong>{{textCaract3}}:</strong> {{desc.caracteristica3}}</span>
-                                        <span class="d-block" *ngIf="textCaract4 && desc.caracteristica4"><strong>{{textCaract4}}:</strong> {{desc.caracteristica3}}</span>
+                                        <span class="d-block" *ngIf="textCaract4 && desc.caracteristica4"><strong>{{textCaract4}}:</strong> {{desc.caracteristica4}}</span>
                                         <span class="d-block"><strong>Código de producto:</strong> {{desc.codigo_producto}}</span>
                                         <span class="d-block" *ngIf="desc.nrocliente != '0'"><strong>Nro Cliente:</strong> {{desc.nrocliente}}</span>
                                         <span class="d-block" *ngIf="desc.nrocliente == '0'"><strong>Nro Cliente:</strong> TODOS</span>
@@ -81,7 +157,7 @@
                 </div>
             </div>
         </ng-container>
-        <div class="table-responsive" *ngIf="descuentosTemp.length > pageSize">
+        <div class="table-responsive" *ngIf="descuentosTempFilter.length > pageSize">
             <ngb-pagination [(page)]="page" [maxSize]="pageSize" [rotate]="true"  (pageChange)="refreshDatos()"
                             [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
         </div>
@@ -199,22 +275,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for="nombre_empresa"
-                                    class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
-                                    <ng-select #NgSelectCliente formControlName="cliente"
-                                        [items]="clientes"
-                                        bindValue="nrocliente"
-                                        bindLabel="nombre"
-                                        (clear)="resetCalculations();"
-                                        >
-                                        <ng-template ng-option-tmp let-item="item" let-index="index">
-                                            <small class="form-text text-muted"> {{item.nombre}} ( {{item.nrocliente}} )</small>
-                                        </ng-template>
-                                    </ng-select>
-                                    <div class="alert  alert-danger"
-                                        *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">
-                                        {{ 'cliente.add.cliente' | translate }} es obligatorio
-                                    </div>
+                                <label for="nombre_empresa" class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                                <ng-select #NgSelectCliente formControlName="cliente"
+                                    [items]="clientes"
+                                    bindValue="nrocliente"
+                                    bindLabel="name_nrocliente"
+                                    (clear)="resetCalculations();"
+                                    >
+                                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                                        <small class="form-text text-muted"> {{item.nombre}} ( {{item.nrocliente}} )</small>
+                                    </ng-template>
+                                </ng-select>
+                                <div class="alert  alert-danger"
+                                    *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">
+                                    {{ 'cliente.add.cliente' | translate }} es obligatorio
+                                </div>
                             </div>
                             <div class="col-lg-8">
                                 <div class="input-group">
@@ -248,7 +323,7 @@
                                         </ng-select>
                                     </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="caract2.length > 0">
+                                <div class="col-lg-4" *ngIf="caract2.length > 0 && textCaract2 != 'caracteristica 2'">
                                     <div class="form-group mr-1">
                                         <label for="nombre_empresa"
                                          class="form-control-label">{{ textCaract2 }}</label>
@@ -259,7 +334,7 @@
                                         </ng-select>
                                     </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="caract3.length > 0 ">
+                                <div class="col-lg-4" *ngIf="caract3.length > 0 && textCaract3 != 'caracteristica 3'">
                                     <div class="form-group mr-1">
                                         <label for="nombre_empresa"
                                          class="form-control-label">{{ textCaract3 }}</label>
@@ -285,10 +360,8 @@
                                         (keyup)="disabledInputSelect($event)"
                                         placeholder="{{ 'precios.descuento.codigo' | translate }}">
                                 </div>
-                                
                             </div>
                             <div class="col-lg-8"></div>
-            
                         </div>
                     </div>
                 </div>
@@ -347,22 +420,21 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <label for="nombre_empresa"
-                                        class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
-                                        <ng-select #NgSelectCliente formControlName="cliente"
-                                            [items]="clientes"
-                                            bindValue="nrocliente"
-                                            bindLabel="nombre"
-                                            (clear)="resetCalculations();"
-                                            >
-                                            <ng-template ng-option-tmp let-item="item" let-index="index">
-                                                <small class="form-text text-muted"> {{item.nombre}} ( {{item.nrocliente}} )</small>
-                                            </ng-template>
-                                        </ng-select>
-                                        <div class="alert  alert-danger"
-                                            *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">
-                                            {{ 'cliente.add.cliente' | translate }} es obligatorio
-                                        </div>
+                                    <label for="nombre_empresa" class="form-control-label">{{ 'cliente.add.cliente' | translate }}</label>
+                                    <ng-select #NgSelectCliente formControlName="cliente"
+                                        [items]="clientes"
+                                        bindValue="nrocliente"
+                                        bindLabel="name_nrocliente"
+                                        (clear)="resetCalculations();"
+                                        >
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <small class="form-text text-muted"> {{item.nombre}} ( {{item.nrocliente}} )</small>
+                                        </ng-template>
+                                    </ng-select>
+                                    <div class="alert  alert-danger"
+                                        *ngIf="addForm.get('cliente').hasError('required') && addForm.get('cliente').touched">
+                                        {{ 'cliente.add.cliente' | translate }} es obligatorio
+                                    </div>
                                 </div>
                                 <div class="col-lg-8">
                                     <div class="input-group">
