@@ -231,4 +231,18 @@ export class PedidosService {
     });
   }
 
+  editarProductoPedido(producto, empresaId){
+    let datos
+    datos = {id:empresaId, producto:producto};
+
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/editarProductoPedido",datos,this.headers )
+      .pipe(
+        map( (res:any) => {      
+          let {flag} = res;        
+          return flag;
+        }),
+        catchError( error => error)
+      );
+  }
+
 }

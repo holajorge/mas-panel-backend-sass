@@ -349,6 +349,9 @@
                         <ng-template let-column="column" ngx-datatable-header-template>
                             <span>{{ 'pedidos.tabladetalle.cantidad' | translate}}</span>
                         </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <input type="number" [(ngModel)]="row.cantidad"  class="form-control form-control-sm" value="{{row.cantidad}}">   
+                        </ng-template>
                     </ngx-datatable-column>
                    
                     <ngx-datatable-column name="Acción" *ngIf="pedidoRecibido">
@@ -357,8 +360,12 @@
                         </ng-template>
                         <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                             <span>
-                              <button class="btn btn-sm btn-danger" (click)='eliminarProductoPedido(row)'>Eliminar </button>
+                                <button class="btn btn-sm btn-success" (click)='modificarProductoPedido(row)' >Actualizar </button>
+                              </span>
+                            <span>
+                              <button class="btn btn-sm btn-danger mt-1" (click)='eliminarProductoPedido(row)'>Eliminar </button>
                             </span>
+                            
                           </ng-template>
                     </ngx-datatable-column>
                 </ngx-datatable>
