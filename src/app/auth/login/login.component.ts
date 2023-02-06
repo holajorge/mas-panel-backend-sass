@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       if(data.body.perfil != null){
         
         localStorage.setItem('usuario', data.body.id);
+        console.log(data.body.id);
         if("permisos" in data.body.perfil[0] ){
           localStorage.setItem('permisos', data.body.perfil[0].permisos+",tareas");
         }else{
