@@ -212,10 +212,11 @@ export class ClientesComponent implements OnInit {
 
   dates(op){
     var today = new Date();
-    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+today.getDate();
+    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
     today.setDate(today.getDate()-op);
+    console.log(this.dateEnd);
     this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
-    
+    this.filters();this.notificationModal.hide();
   }
 
   filters(){
