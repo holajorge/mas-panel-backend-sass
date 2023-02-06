@@ -85,6 +85,8 @@ export const ROUTES: RouteInfo[] = [
     isCollapsed: true,
     children: [
       { path: "clientes", title: "Pedidos de clientes", type: "link" },
+      { path: "armar", title: "Armar pedidos", type: "link" },
+      { path: "faltantes", title: "Productos Faltantes", type: "link" },
      /* { path: "vendedores", title: "Pedido de Vendedores", type: "link" }, */   
     ]
   },

@@ -1,0 +1,76 @@
+  .btn-secondaryfalse{
+    background-color: #f7fafc !important;
+  }
+  .btn-secondaryfalse2{
+    background-color: #f7fafc !important;
+  }
+  .btn-secondarytrue{
+    background-color: #2dce89 !important;
+  }
+
+  .btn-secondary2true{
+    background-color: #ce2d2d !important;
+  }
+  .text-mutedfalse{
+    color:#8898aa !important;
+  }
+  .text-mutedtrue{
+    color:white !important;
+  }
+
+   .modal-dialog2 {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+  .modal .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  .modal .modal-body {
+    overflow-y: auto;
+  }
+
+  ng-select select-dropdown > div {
+    z-index: 2;
+}
+
+.ng-select.auto-grow {
+  display: flex;
+
+  .ng-select-container {
+    min-width: 10rem;
+    width: auto;
+  }
+
+  .ng-dropdown-panel {
+    width: auto;
+  }
+}
+
+.my-modal{
+  position: fixed;
+  margin: auto;
+  width: 430px;
+  height: 100%;
+  right: 0px;
+}
+
+.my-modal > div{
+  height: 100%;
+}
+
+@media (max-width: 420px) {
+  .my-modal{
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
