@@ -65,7 +65,7 @@ import { LoginPartnerComponent } from './partners/login-partner/login-partner.co
 import { RegistracionPartnerComponent } from './partners/registracion-partner/registracion-partner.component';
 import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-
+import { ActualizarDolarComponent } from './precios/actualizar-dolar/actualizar-dolar.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -116,7 +116,8 @@ imports: [
     LoginPartnerComponent,
     RegistracionPartnerComponent,
     AfiliadosComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    ActualizarDolarComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,
