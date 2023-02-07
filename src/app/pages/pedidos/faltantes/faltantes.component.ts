@@ -145,9 +145,6 @@ export class FaltantesComponent implements OnInit {
 
   }
   refreshDatos() {
-    // this.rows = this.rowsTemp;
-    // console.log(this.rows);
-    
      if(this.dataFilter.length > 0){
       this.temp = this.dataFilter;
       this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
@@ -221,7 +218,6 @@ export class FaltantesComponent implements OnInit {
         if(d['fechafiltro'] >= star){
           return true;
         }
-        // d['fechafiltro'].includes(star)
       }],
       end: [end, d => {
 
@@ -248,9 +244,9 @@ export class FaltantesComponent implements OnInit {
       this.collectionSize = 0;
     }
 
-    // this.temp = producto1;
 
   }
+
   eliminar(){
     this.nroPedido = "";
     this.nroCliente = "";
@@ -276,7 +272,6 @@ export class FaltantesComponent implements OnInit {
     const val = event.target.value.toLowerCase();
     
     if(val !== ''){
-      // filter our data
       this.temRow = this.temp.filter(function (d) {
       
         for (var key in d) {
@@ -288,7 +283,6 @@ export class FaltantesComponent implements OnInit {
 
           }  
         }
-        // return false;
       });
       this.temp =this.temRow;
     }else{

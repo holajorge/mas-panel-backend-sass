@@ -39,9 +39,9 @@
                         </div>
                         <div class="col-12 col-md-3">
                             <div class="from-group">
-                                <label class="form-control-label">Número Cliente</label>
-                                <input type="text" class="form-control form-control-sm" [(ngModel)]="nroCliente"
-                                    placeholder="Número Cliente" aria-controls="datatable" 
+                                <label class="form-control-label">Nombre Cliente</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="cliente"
+                                    placeholder="Nombre Cliente" aria-controls="datatable" 
                                     (keyup)="filters()"/>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
 
                                                 <mat-menu #menu="matMenu">
                                                     <button mat-menu-item  (click)='onSelectItem(modalEditVendedor,producto)'>
-                                                        <span class="fas fa-clipboard m-1"></span> {{ 'pedidos.tabla.detalle' | translate}}
+                                                        <span class="fas fa-clipboard m-1"></span> Armar Pedido
                                                     </button>
                                                 </mat-menu>
                                             </div>
