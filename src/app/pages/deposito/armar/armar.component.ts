@@ -187,7 +187,7 @@ export class ArmarComponent implements OnInit {
     const provincia = this.provinciaSelect;
     
     const filtros = {
-      estado: [estado, d => !(d['estado'].includes(estado))],
+      estado: [estado, d => !(d['estado']==estado)],
       provincia: [provincia, d => {
         
         if(d['provincia']==null)true
@@ -280,7 +280,8 @@ export class ArmarComponent implements OnInit {
 
   onSelectItem(modalEditVendedor,row) {
     console.log(row);
-
+    
+    this.change_state(row);
     this.empresa.pedido = row.id;
     Swal.showLoading();
 
@@ -393,5 +394,28 @@ export class ArmarComponent implements OnInit {
       this.temp = [];
       this.collectionSize = 0;
     }
+  }
+
+  change_state(row){
+    if(this.models[row.id] == null){
+        this.models[row.id] = row["estado"];
+        return;
+    }
+    let estado = row["estado"];
+    row["estado"] = "En Armado";
+    row["pedido_estado_id"] = 6;
+
+    this.pedidosService.updateEstadoPedido(row).then( (res:any) =>{
+      if(res.resultado == true){
+        Swal.fire('Listo!','Estado modificado con éxito!', 'success');
+        this.getPedidos();
+       }else{
+        this.models[row.id] = estado;
+        row["estado"] = estado;
+        Swal.fire('Error!','El estado no fue modificado, intente nuevamente', 'error');
+       }
+    }).catch(err=>{
+      console.log(err);
+    });
   }
 }
