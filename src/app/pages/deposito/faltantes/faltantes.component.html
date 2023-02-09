@@ -72,9 +72,11 @@
                                         </div>
                                         <div class="media h-100 d-flex flex-column">
                                             <span class="d-block" ><strong>Titulo: </strong>{{producto.titulo}}</span>
-                                            <span class="d-block"><strong>Caracteristica1: </strong>{{producto.caracteristica1}}</span>
-                                            <span class="d-block"><strong>Caracteristica2: </strong>{{producto.caracteristica2}}</span>
-                                            <span class="d-block"><strong>Caracteristica3: </strong>{{producto.caracteristica3}}</span>
+                                            <span class="d-block"><strong>{{caracteristica1}}: </strong>{{producto.caracteristica1}}</span>
+                                            <span class="d-block"><strong>{{caracteristica2}}: </strong>{{producto.caracteristica2}}</span>
+                                            <span class="d-block"><strong>{{caracteristica3}}: </strong>{{producto.caracteristica3}}</span>
+                                            <span class="d-block"><strong>Cantidad: </strong>{{producto.cantidad_pedida-producto.cantidad_enviada}}</span>
+                                            <span class="d-block"><strong>Pedido #: </strong>{{producto.numero_interno}}</span>
                                             <span class="d-block"><strong>Fecha: </strong> {{producto.fecha |date:'dd/MM/yyyy'}}</span>
                                         </div>
                                     </div>

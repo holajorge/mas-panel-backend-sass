@@ -270,5 +270,16 @@ export class PedidosService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
-
+  getPedidosClienteEstado(idEmpresa,estado){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    let datos = {id:idEmpresa["id"], estado:estado};
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidosClienteEstado",datos,options).toPromise().then((res) =>{      
+      return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
 }

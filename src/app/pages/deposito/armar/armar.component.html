@@ -139,17 +139,32 @@
                     <div class="col-sm-12 col-md-6 mb-3">
                         <h1>Pedido #{{ detalleId }}</h1>
                     </div>
-                </div>    
+                </div>
+                    
                 <div class="row">
                     <div class="col-sm-12 col-md-6 mb-3" *ngIf="detalleSucursal != '' ">
                         <h3> Pedido a sucursal: {{ detalleSucursal }}</h3>
                     </div>
+                </div>
+                <div class="mb-3 card p-3">
+                    <h3 class="catd-text">Filtros</h3>
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <div class="from-group">
+                                <label class="form-control-label">Código del producto</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="codigoP"
+                                    placeholder="código del producto" aria-controls="datatable" 
+                                    (keyup)="filters2()"/>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>    
                 <div class="">
                     <div class="d-flex flex-row flex-wrap card p-3" >
-                        <div class="col-sm-12 col-lg-3" *ngFor="let row of detalleRow">
+                        <div class="col-sm-12 col-lg-3" *ngFor="let row of tempRowDet">
                             <div class="card p-3 mr-3 {{row.notas}}">
-                                <span class="d-block" ><strong>Codigo:</strong> {{row.codigo}}</span>
+                                <span class="d-block" ><strong>Código:</strong> {{row.codigo}}</span>
                                 <span class="d-block" ><strong>Titulo:</strong> {{row.titulo}}</span>
                                 <input type="number" [(ngModel)]="row.cantidad"  class="form-control mt-2"  value="2">
                                 <div class="mt-3 mb-2 row">

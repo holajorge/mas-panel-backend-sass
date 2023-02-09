@@ -6,14 +6,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ConfigService } from 'src/app/service/config/config.service';
 
-
 @Component({
-  selector: 'app-armar',
-  templateUrl: './armar.component.html',
-  styleUrls: ['./armar.component.scss'],
+  selector: 'app-faltantes',
+  templateUrl: './faltantes.component.html',
+  styleUrls: ['./faltantes.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ArmarComponent implements OnInit {
+export class FaltantesComponent implements OnInit {
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
@@ -23,19 +22,28 @@ export class ArmarComponent implements OnInit {
     keyboard: true,
     class: "my-modal"
   }
+  armado: boolean = false;
+  faltante: boolean = false;
+  activeRow: any;
+  activeRowDet: any;
   empresa:any = {id:'', pedido:''};
   temRow:any = [];
+  temRowDet:any = [];
   temp = [];
   detalleRow = [];
   detalleSucursal;
   detalleId;
   tempRow = [];
   tempRowDet:any = [];
-  loadingIndicator = true; 
+  loadingIndicator = true;
+  entries: number = 10;
+  entriesDet: number = 10;
+  addForm: FormGroup;
+  btnvisibility: boolean = true;  
   emptyTable:boolean = false;
   dataExcel: any = [];
   nroPedido:string = "";
-  cliente:string = "";
+  nroCliente:string = "";
   dateStar:any;
   dateEnd:any;
   lista_estados: any = [];
@@ -47,14 +55,20 @@ export class ArmarComponent implements OnInit {
   models: any = {};
   estadoSelect:number;
   provinciaSelect: string;
+  noteForm:FormGroup;
+  files:[] = [];
+  fileEntries:number = 5;
   bucket:string;
-
+  caracteristica1 = '';
+  caracteristica2 = '';
+  caracteristica3 = '';
   dataFilter:any= [];
   page = 1;
   isDisabled = true;
   pageSize = 10;
   collectionSize:number = this.tempRow.length;
 
+  flagEliminarPrroducto:string = '';
   configuraciones:any;
 
   constructor(private pedidosService: PedidosService,
@@ -69,34 +83,11 @@ export class ArmarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lista_estados = [];
-    this.lista_estadosFiltros = [];
-    this.pedidosService.getDistinctEstadoPedidos(this.empresa).then( (res:any) =>{
-      this.lista_estadosFiltros = res.resultado;
-      res.resultado.forEach(element => {
-        this.lista_estados.push(element.estado);
-        this.estado_to_id[element.estado] = element.estado_id;
-      });
-
-      this.getPedidos();
-
-    }).catch(err=>{
-      console.log(err);
-    });
-    
-    this.pedidosService.getDistinctProvinciaClientes(this.empresa).then( (res:any) =>{
-      this.listaProvinciasFiltros = res.resultado;
-      
-      res.resultado.forEach(element => {
-        this.listaProvincias.push(element.provincia);
-      });
-
-
-    }).catch(err=>{
-      console.log(err);
-    });
-
     this.getConfig()
+    this.getProductosFaltantes();
+    
+
+    
 
   }
 
@@ -109,6 +100,9 @@ export class ArmarComponent implements OnInit {
         if(this.configuraciones["moneda"] == ""){
             this.configuraciones["moneda"] = "$";
         }
+        this.caracteristica1 = this.configuraciones["caracteristica1"]['value']
+        this.caracteristica2 = this.configuraciones["caracteristica2"]['value']
+        this.caracteristica3 = this.configuraciones["caracteristica3"]['value']
       }
       
     }).catch(err=>{
@@ -116,21 +110,34 @@ export class ArmarComponent implements OnInit {
       console.log(err);
     });
   }
+  getFilesOrders(){
 
-  getPedidos(){
-    this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{    
+    this.pedidosService.getFileOrder({'npedido':this.empresa.pedido, 'token': this.empresa.id}).subscribe(
+      (files) => {
+        this.files = files;
+      },
+      (error) => {
+        console.log(error);
 
-      res.pedidos.pedidos.forEach(element => this.models[element.id] = element.estado);
+      }
+    )
+  }
 
-      if(res.pedidos.pedidos.length > 0){
+  getProductosFaltantes(){
+    
+
+    this.pedidosService.getProductosFaltantes(this.empresa).then( (res:any) =>{    
+      console.log(res);
+      res.productos.productos.forEach(element => this.models[element.id] = element.estado);
+
+      if(res.productos.productos.length > 0){
 
         this.emptyTable = true;
-        this.temp = res.pedidos.pedidos;
-        this.tempRow = res.pedidos.pedidos;
+        this.temp = res.productos.productos;
+        this.tempRow = res.productos.productos;
         this.collectionSize = this.temp.length;
         this.refreshDatos();
         this.loadingIndicator = true;
-        this.dataExcel = res.pedidos.detalle;
 
       }else{
         this.emptyTable = false;
@@ -140,10 +147,11 @@ export class ArmarComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
-  }
+    
 
+  }
   refreshDatos() {
-    if(this.dataFilter.length > 0){
+     if(this.dataFilter.length > 0){
       this.temp = this.dataFilter;
       this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
                             ).slice(
@@ -158,6 +166,10 @@ export class ArmarComponent implements OnInit {
                               (this.page - 1) * this.pageSize + this.pageSize
                             );
     }
+
+    console.log(this.temp);
+
+
   }
 
   formatN(num){
@@ -177,7 +189,7 @@ export class ArmarComponent implements OnInit {
   filters(){
     
     const npedido = this.nroPedido;
-    const ncliente = this.cliente;
+    const ncliente = this.nroCliente;
     const star = this.dateStar;
     const end = this.dateEnd;
     const estado = this.estadoSelect;
@@ -197,13 +209,13 @@ export class ArmarComponent implements OnInit {
         
       }],
       id: [npedido, d => {
-        let nroI = d['numeroInterno'].toLowerCase();
+        let nroI = d['numero_interno'].toLowerCase();
         if(nroI.includes(npedido.toLocaleLowerCase()) ){
           return true;
         } 
       }],
       nrocliente: [ncliente, d => {
-        let nroC = d['cliente'].toLowerCase();
+        let nroC = d['nrocliente'].toLowerCase();
         if(nroC.includes(ncliente.toLocaleLowerCase()) ){
           return true;
         }
@@ -214,6 +226,7 @@ export class ArmarComponent implements OnInit {
         }
       }],
       end: [end, d => {
+
         if(star <= d['fechafiltro'] && d['fechafiltro'] <= end ){
           return true
         }
@@ -236,11 +249,13 @@ export class ArmarComponent implements OnInit {
       this.temp = [];
       this.collectionSize = 0;
     }
+
+
   }
 
   eliminar(){
     this.nroPedido = "";
-    this.cliente = "";
+    this.nroCliente = "";
     this.dateStar = null;
     this.dateEnd = null;
     this.temp = this.tempRow;
@@ -253,12 +268,18 @@ export class ArmarComponent implements OnInit {
   dataExcelClientes(row){
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id+"&token="+this.empresa.id, "_blank");
   }
- 
+  entriesChange($event) {
+    this.entries = $event.target.value;
+  }
+  entriesChangeDet($event){
+    this.entriesDet = $event.target.value;
+  }
   filterTable(event) {
     const val = event.target.value.toLowerCase();
     
     if(val !== ''){
       this.temRow = this.temp.filter(function (d) {
+      
         for (var key in d) {
           if(!Array.isArray(d[key])){      
             let hola = (d[key] != null) ? d[key].toLowerCase() : '';
@@ -280,6 +301,7 @@ export class ArmarComponent implements OnInit {
 
     this.empresa.pedido = row.id;
     Swal.showLoading();
+    this.flagEliminarPrroducto = row.estado;
 
     this.detalleId = row.numeroInterno;
 
@@ -289,6 +311,7 @@ export class ArmarComponent implements OnInit {
       modalEditVendedor,
       this.notification
     );
+    this.getFilesOrders();
   }
 
   getDetallePedido(){
@@ -314,7 +337,7 @@ export class ArmarComponent implements OnInit {
   }
 
   exportarPedidos(){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&flag=1&nroCliente="+this.cliente+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&nroCliente="+this.nroCliente+
     "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&provinciaSelect="+this.provinciaSelect+"&token="+this.empresa.id, "_blank");  
   }
 
@@ -326,11 +349,6 @@ export class ArmarComponent implements OnInit {
   }
 
   cambiarEstado(row,estado){
-    if(estado==2){
-      row.cantidad = 0;
-    }else{
-      row.cantidad = row.cantidad_pedida;
-    }
     row.estado = estado;
   }
   
@@ -351,7 +369,7 @@ export class ArmarComponent implements OnInit {
         if(res){
           Swal.fire('Listo!','Pedido armado con éxito!', 'success')
           this.notificationModal.hide();
-          this.getPedidos();
+          this.getProductosFaltantes();
          }else{
           Swal.fire('Error!','El pedido no fue armado, intente nuevamente', 'error')
          }

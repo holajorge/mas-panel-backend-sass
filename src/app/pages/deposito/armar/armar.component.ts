@@ -6,13 +6,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ConfigService } from 'src/app/service/config/config.service';
 
+
 @Component({
-  selector: 'app-faltantes',
-  templateUrl: './faltantes.component.html',
-  styleUrls: ['./faltantes.component.scss'],
+  selector: 'app-armar',
+  templateUrl: './armar.component.html',
+  styleUrls: ['./armar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class FaltantesComponent implements OnInit {
+export class ArmarComponent implements OnInit {
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
@@ -22,28 +23,21 @@ export class FaltantesComponent implements OnInit {
     keyboard: true,
     class: "my-modal"
   }
-  armado: boolean = false;
-  faltante: boolean = false;
-  activeRow: any;
-  activeRowDet: any;
   empresa:any = {id:'', pedido:''};
   temRow:any = [];
-  temRowDet:any = [];
   temp = [];
   detalleRow = [];
   detalleSucursal;
   detalleId;
   tempRow = [];
+  tempRow2 = [];
   tempRowDet:any = [];
-  loadingIndicator = true;
-  entries: number = 10;
-  entriesDet: number = 10;
-  addForm: FormGroup;
-  btnvisibility: boolean = true;  
+  loadingIndicator = true; 
   emptyTable:boolean = false;
   dataExcel: any = [];
   nroPedido:string = "";
-  nroCliente:string = "";
+  cliente:string = "";
+  codigoP:string = "";
   dateStar:any;
   dateEnd:any;
   lista_estados: any = [];
@@ -55,9 +49,6 @@ export class FaltantesComponent implements OnInit {
   models: any = {};
   estadoSelect:number;
   provinciaSelect: string;
-  noteForm:FormGroup;
-  files:[] = [];
-  fileEntries:number = 5;
   bucket:string;
 
   dataFilter:any= [];
@@ -66,7 +57,6 @@ export class FaltantesComponent implements OnInit {
   pageSize = 10;
   collectionSize:number = this.tempRow.length;
 
-  flagEliminarPrroducto:string = '';
   configuraciones:any;
 
   constructor(private pedidosService: PedidosService,
@@ -81,8 +71,32 @@ export class FaltantesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProductosFaltantes();
+    this.lista_estados = [];
+    this.lista_estadosFiltros = [];
+    this.pedidosService.getDistinctEstadoPedidos(this.empresa).then( (res:any) =>{
+      this.lista_estadosFiltros = res.resultado;
+      res.resultado.forEach(element => {
+        this.lista_estados.push(element.estado);
+        this.estado_to_id[element.estado] = element.estado_id;
+      });
+      
+      this.getPedidos();
+
+    }).catch(err=>{
+      console.log(err);
+    });
     
+    this.pedidosService.getDistinctProvinciaClientes(this.empresa).then( (res:any) =>{
+      this.listaProvinciasFiltros = res.resultado;
+      
+      res.resultado.forEach(element => {
+        this.listaProvincias.push(element.provincia);
+      });
+
+
+    }).catch(err=>{
+      console.log(err);
+    });
 
     this.getConfig()
 
@@ -104,34 +118,22 @@ export class FaltantesComponent implements OnInit {
       console.log(err);
     });
   }
-  getFilesOrders(){
 
-    this.pedidosService.getFileOrder({'npedido':this.empresa.pedido, 'token': this.empresa.id}).subscribe(
-      (files) => {
-        this.files = files;
-      },
-      (error) => {
-        console.log(error);
+  getPedidos(){
+    this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{    
 
-      }
-    )
-  }
+      res.pedidos.pedidos.forEach(element => this.models[element.id] = element.estado);
 
-  getProductosFaltantes(){
-    
-
-    this.pedidosService.getProductosFaltantes(this.empresa).then( (res:any) =>{    
-      console.log(res);
-      res.productos.productos.forEach(element => this.models[element.id] = element.estado);
-
-      if(res.productos.productos.length > 0){
+      if(res.pedidos.pedidos.length > 0){
 
         this.emptyTable = true;
-        this.temp = res.productos.productos;
-        this.tempRow = res.productos.productos;
+        this.temp = res.pedidos.pedidos;
+        this.tempRow = res.pedidos.pedidos;
         this.collectionSize = this.temp.length;
+        this.filters();
         this.refreshDatos();
         this.loadingIndicator = true;
+        this.dataExcel = res.pedidos.detalle;
 
       }else{
         this.emptyTable = false;
@@ -141,11 +143,10 @@ export class FaltantesComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
-    
-
   }
+
   refreshDatos() {
-     if(this.dataFilter.length > 0){
+    if(this.dataFilter.length > 0){
       this.temp = this.dataFilter;
       this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
                             ).slice(
@@ -160,10 +161,6 @@ export class FaltantesComponent implements OnInit {
                               (this.page - 1) * this.pageSize + this.pageSize
                             );
     }
-
-    console.log(this.temp);
-
-
   }
 
   formatN(num){
@@ -177,20 +174,20 @@ export class FaltantesComponent implements OnInit {
     this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
     today.setDate(today.getDate()-op);
     this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
-    
+    this.filters();this.notificationModal.hide();
   }
 
   filters(){
     
     const npedido = this.nroPedido;
-    const ncliente = this.nroCliente;
+    const ncliente = this.cliente;
     const star = this.dateStar;
     const end = this.dateEnd;
-    const estado = this.estadoSelect;
+    const estado = "Armado";
     const provincia = this.provinciaSelect;
     
     const filtros = {
-      estado: [estado, d => d['estado'].includes(estado)],
+      estado: [estado, d => !(d['estado'].includes(estado))],
       provincia: [provincia, d => {
         
         if(d['provincia']==null)true
@@ -209,7 +206,7 @@ export class FaltantesComponent implements OnInit {
         } 
       }],
       nrocliente: [ncliente, d => {
-        let nroC = d['nrocliente'].toLowerCase();
+        let nroC = d['cliente'].toLowerCase();
         if(nroC.includes(ncliente.toLocaleLowerCase()) ){
           return true;
         }
@@ -220,7 +217,6 @@ export class FaltantesComponent implements OnInit {
         }
       }],
       end: [end, d => {
-
         if(star <= d['fechafiltro'] && d['fechafiltro'] <= end ){
           return true
         }
@@ -243,13 +239,11 @@ export class FaltantesComponent implements OnInit {
       this.temp = [];
       this.collectionSize = 0;
     }
-
-
   }
 
   eliminar(){
     this.nroPedido = "";
-    this.nroCliente = "";
+    this.cliente = "";
     this.dateStar = null;
     this.dateEnd = null;
     this.temp = this.tempRow;
@@ -262,18 +256,12 @@ export class FaltantesComponent implements OnInit {
   dataExcelClientes(row){
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id+"&token="+this.empresa.id, "_blank");
   }
-  entriesChange($event) {
-    this.entries = $event.target.value;
-  }
-  entriesChangeDet($event){
-    this.entriesDet = $event.target.value;
-  }
+ 
   filterTable(event) {
     const val = event.target.value.toLowerCase();
     
     if(val !== ''){
       this.temRow = this.temp.filter(function (d) {
-      
         for (var key in d) {
           if(!Array.isArray(d[key])){      
             let hola = (d[key] != null) ? d[key].toLowerCase() : '';
@@ -295,7 +283,6 @@ export class FaltantesComponent implements OnInit {
 
     this.empresa.pedido = row.id;
     Swal.showLoading();
-    this.flagEliminarPrroducto = row.estado;
 
     this.detalleId = row.numeroInterno;
 
@@ -305,7 +292,6 @@ export class FaltantesComponent implements OnInit {
       modalEditVendedor,
       this.notification
     );
-    this.getFilesOrders();
   }
 
   getDetallePedido(){
@@ -331,7 +317,7 @@ export class FaltantesComponent implements OnInit {
   }
 
   exportarPedidos(){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&nroCliente="+this.nroCliente+
+    window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&flag=1&nroCliente="+this.cliente+
     "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&provinciaSelect="+this.provinciaSelect+"&token="+this.empresa.id, "_blank");  
   }
 
@@ -343,6 +329,11 @@ export class FaltantesComponent implements OnInit {
   }
 
   cambiarEstado(row,estado){
+    if(estado==2){
+      row.cantidad = 0;
+    }else{
+      row.cantidad = row.cantidad_pedida;
+    }
     row.estado = estado;
   }
   
@@ -363,7 +354,7 @@ export class FaltantesComponent implements OnInit {
         if(res){
           Swal.fire('Listo!','Pedido armado con éxito!', 'success')
           this.notificationModal.hide();
-          this.getProductosFaltantes();
+          this.getPedidos();
          }else{
           Swal.fire('Error!','El pedido no fue armado, intente nuevamente', 'error')
          }
@@ -372,6 +363,35 @@ export class FaltantesComponent implements OnInit {
         console.log(err);
         Swal.fire('Error al armar el pedido, intente de nuevo!', 'error');
       });
+    }
+  }
+
+  filters2(){
+    
+    const codigo = this.codigoP;
+    
+    
+    const filtros = {
+      codigo: [codigo, d => (d['codigo'].includes(codigo))],
+    }
+    
+    let producto1 = this.detalleRow;
+    console.log(producto1);  
+    for (const filtro in filtros) {
+      if(filtros[filtro][0]){
+        producto1 = producto1.filter( filtros[filtro][1])   
+      }
+    }         
+    if(producto1.length > 0){
+      console.log(this.codigoP);
+      console.log(producto1);
+      this.tempRowDet = producto1;
+      this.collectionSize = producto1.length;
+      this.refreshDatos();
+    }else{
+      this.dataFilter = [];
+      this.temp = [];
+      this.collectionSize = 0;
     }
   }
 }

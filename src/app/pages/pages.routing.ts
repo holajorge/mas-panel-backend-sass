@@ -49,8 +49,9 @@ import { TutorialesComponent } from './tutoriales/tutoriales.component';
 import { GaleriaFotosComponent } from './producto/galeria-fotos/galeria-fotos.component';
 import { AfiliadosComponent } from './super-admin/afiliados/afiliados.component';
 import { ActualizarDolarComponent } from './precios/actualizar-dolar/actualizar-dolar.component';
-import { ArmarComponent } from './pedidos/armar/armar.component';
-import { FaltantesComponent } from './pedidos/faltantes/faltantes.component';
+import { ArmarComponent } from './deposito/armar/armar.component';
+import { FaltantesComponent } from './deposito/faltantes/faltantes.component';
+import { ArmadosComponent } from './deposito/armados/armados.component';
 
 const routes:Routes = [
     {
@@ -71,8 +72,10 @@ const routes:Routes = [
 
             {path:'pedidos/vendedores', component: PedidosComponent, canActivate: [PermisosGuard]},
             {path:'pedidos/clientes', component: ClientesComponent, canActivate: [PermisosGuard]},
-            {path:'pedidos/armar', component: ArmarComponent, canActivate: [PermisosGuard]},
-            {path:'pedidos/faltantes', component: FaltantesComponent, canActivate: [PermisosGuard]},
+            
+            {path:'deposito/armar', component: ArmarComponent, canActivate: [PermisosGuard]},
+            {path:'deposito/faltantes', component: FaltantesComponent, canActivate: [PermisosGuard]},
+            {path:'deposito/armados', component: ArmadosComponent, canActivate: [PermisosGuard]},
 
             {path:'banners', component: BannerComponent,canActivate: [PermisosGuard]},
             //vendedores

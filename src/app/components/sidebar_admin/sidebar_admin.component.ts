@@ -85,8 +85,19 @@ export const ROUTES: RouteInfo[] = [
     isCollapsed: true,
     children: [
       { path: "clientes", title: "Pedidos de clientes", type: "link" },
+     /* { path: "vendedores", title: "Pedido de Vendedores", type: "link" }, */   
+    ]
+  },
+  {
+    path: "deposito",
+    title: "Depósito",
+    type: "sub",
+    icontype: "fa fa-folder-open text-primary",
+    isCollapsed: true,
+    children: [
       { path: "armar", title: "Armar pedidos", type: "link" },
       { path: "faltantes", title: "Productos Faltantes", type: "link" },
+      { path: "armados", title: "Pedidos Armados", type: "link" },
      /* { path: "vendedores", title: "Pedido de Vendedores", type: "link" }, */   
     ]
   },

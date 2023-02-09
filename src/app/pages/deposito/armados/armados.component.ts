@@ -5,16 +5,13 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ConfigService } from 'src/app/service/config/config.service';
-
-
-
 @Component({
-  selector: 'app-clientes',
-  templateUrl: './clientes.component.html',
-  styleUrls: ['./clientes.component.scss'],
+  selector: 'app-armados',
+  templateUrl: './armados.component.html',
+  styleUrls: ['./armados.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ClientesComponent implements OnInit {
+export class ArmadosComponent implements OnInit {
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
@@ -154,7 +151,7 @@ export class ClientesComponent implements OnInit {
   getPedidos(){
     
 
-    this.pedidosService.getPedidosCliente(this.empresa).then( (res:any) =>{    
+    this.pedidosService.getPedidosClienteEstado(this.empresa,"Armado").then( (res:any) =>{    
 
       res.pedidos.pedidos.forEach(element => this.models[element.id] = element.estado);
 
@@ -180,9 +177,6 @@ export class ClientesComponent implements OnInit {
 
   }
   refreshDatos() {
-    // this.rows = this.rowsTemp;
-    // console.log(this.rows);
-    
      if(this.dataFilter.length > 0){
       this.temp = this.dataFilter;
       this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
@@ -212,10 +206,10 @@ export class ClientesComponent implements OnInit {
 
   dates(op){
     var today = new Date();
-    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+today.getDate();
+    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate())
     today.setDate(today.getDate()-op);
     this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
-    
+    this.filters();this.notificationModal.hide();
   }
 
   filters(){
@@ -224,11 +218,9 @@ export class ClientesComponent implements OnInit {
     const ncliente = this.nroCliente;
     const star = this.dateStar;
     const end = this.dateEnd;
-    const estado = this.estadoSelect;
     const provincia = this.provinciaSelect;
-    console.log(estado);
+    
     const filtros = {
-      estado: [estado, d => d['estado'].includes(estado)],
       provincia: [provincia, d => {
         
         if(d['provincia']==null)true
@@ -256,7 +248,6 @@ export class ClientesComponent implements OnInit {
         if(d['fechafiltro'] >= star){
           return true;
         }
-        // d['fechafiltro'].includes(star)
       }],
       end: [end, d => {
 
@@ -458,19 +449,7 @@ export class ClientesComponent implements OnInit {
       this.notification
     );
   }
-  addNote(modalNote,row){
-    console.log(row);
-    if(row.notas){
-      this.noteForm.patchValue({notas:row.notas});
-    }
-    this.noteForm.patchValue({pedido_id: row.id});
-    
-    // this.btnvisibility = false;
-    this.notificationModal = this.modalService.show(
-      modalNote,
-      this.notification
-    );
-  }
+ 
   onActivate(event) {
     this.activeRow = event.row;
   }
@@ -492,49 +471,10 @@ export class ClientesComponent implements OnInit {
       console.log(err);
     });
   }
-  guardarNotaPedido(){
-    this.pedidosService.getGuardarNota(this.noteForm.value).then( (res:any) =>{    
-      console.log(res);
-      if(res.resultado == true){
-        Swal.fire('Listo!','Nota agregada con éxito!', 'success')
-        this.notificationModal.hide();
-        this.noteForm.reset();
-        this.getPedidos();
-       }else{
-        Swal.fire('Error!','La nota no fué guardada intente nuevamente', 'error')
-       }
-    }).catch(err=>{
-      console.log(err);
-    });
-  }
-
-  change_state(row){
-   
-    if(this.models[row.id] == null){
-        this.models[row.id] = row["estado"];
-        return;
-    }
-    let estado = row["estado"];
-    row["estado"] = this.models[row.id];
-    row["pedido_estado_id"] = this.estado_to_id[row["estado"]];
-
-    this.pedidosService.updateEstadoPedido(row).then( (res:any) =>{
-      if(res.resultado == true){
-        Swal.fire('Listo!','Estado modificado con éxito!', 'success');
-        this.getPedidos();
-       }else{
-        this.models[row.id] = estado;
-        row["estado"] = estado;
-        Swal.fire('Error!','El estado no fue modificado, intente nuevamente', 'error');
-       }
-    }).catch(err=>{
-      console.log(err);
-    });
-  }
 
   exportarPedidos(){
     window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&flag=0&nroCliente="+this.nroCliente+
-    "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&provinciaSelect="+this.provinciaSelect+"&token="+this.empresa.id, "_blank");  
+    "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect=Armado"+"&provinciaSelect="+this.provinciaSelect+"&token="+this.empresa.id, "_blank");  
   }
 
   mostrarMasFiltros(modalFiltros){
