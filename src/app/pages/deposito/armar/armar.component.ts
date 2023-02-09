@@ -41,16 +41,19 @@ export class ArmarComponent implements OnInit {
   dateStar:any;
   dateEnd:any;
   lista_estados: any = [];
+  listaEstadosProductos: any = [];
   lista_estadosFiltros: any = [];
   estado_to_id: any = {};
+  estadoIdProductos: any = {};
   listaProvincias: any = [];
   listaProvinciasFiltros: any = [];
   provinciaId: any = {};
   models: any = {};
   estadoSelect:number;
+  estadoSelectProductos:number;
   provinciaSelect: string;
   bucket:string;
-
+  armados:boolean = false;
   dataFilter:any= [];
   page = 1;
   isDisabled = true;
@@ -72,6 +75,8 @@ export class ArmarComponent implements OnInit {
 
   ngOnInit() {
     this.lista_estados = [];
+    this.listaEstadosProductos = ["Sin Armar","Armado","Faltante"];
+    this.estadoIdProductos = {"Sin Armar":0,"Armado":1,"Faltante":2};
     this.lista_estadosFiltros = [];
     this.pedidosService.getDistinctEstadoPedidos(this.empresa).then( (res:any) =>{
       this.lista_estadosFiltros = res.resultado;
@@ -303,13 +308,15 @@ export class ArmarComponent implements OnInit {
       this.detalleSucursal = res.detalles.sucursal;
       
       this.detalleRow = res.detalles.detalle;
+      this.detalleRow.forEach(element => {
+        element.cantidad_pedida = element.cantidad;
+        element.estado = 0;
+      });
       this.tempRowDet = res.detalles.detalle;
       this.loadingIndicator = true;
       
       
-      this.detalleRow.forEach(element => {
-        element.cantidad_pedida = element.cantidad;
-      });
+      
       Swal.close();
     }).catch(err=>{
       Swal.close();
@@ -370,29 +377,24 @@ export class ArmarComponent implements OnInit {
   filters2(){
     
     const codigo = this.codigoP;
-    
+    const estado = this.estadoSelectProductos;
     
     const filtros = {
       codigo: [codigo, d => (d['codigo'].includes(codigo))],
+      estado: [estado, d => (d['estado']==this.estadoIdProductos[estado])],
     }
     
     let producto1 = this.detalleRow;
-    console.log(producto1);  
+    console.log(producto1);
     for (const filtro in filtros) {
       if(filtros[filtro][0]){
         producto1 = producto1.filter( filtros[filtro][1])   
       }
     }         
     if(producto1.length > 0){
-      console.log(this.codigoP);
-      console.log(producto1);
       this.tempRowDet = producto1;
-      this.collectionSize = producto1.length;
-      this.refreshDatos();
     }else{
-      this.dataFilter = [];
-      this.temp = [];
-      this.collectionSize = 0;
+      this.tempRowDet = [];
     }
   }
 

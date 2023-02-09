@@ -157,6 +157,14 @@
                                     (keyup)="filters2()"/>
                             </div>
                         </div>
+                        <div class="col-md-3" >
+                            <div class="from-group">
+                                <label class="form-control-label" for="">Estado del producto</label>
+                                <ng-select (change)="filters2()" [(ngModel)]="estadoSelectProductos" 
+                                    bindValue="estado" [items]="listaEstadosProductos" bindLabel="estado">
+                                </ng-select>
+                            </div>
+                        </div>
                         
                     </div>
                 </div>    

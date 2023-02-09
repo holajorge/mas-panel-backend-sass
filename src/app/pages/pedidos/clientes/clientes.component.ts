@@ -226,7 +226,7 @@ export class ClientesComponent implements OnInit {
     const end = this.dateEnd;
     const estado = this.estadoSelect;
     const provincia = this.provinciaSelect;
-    console.log(estado);
+    
     const filtros = {
       estado: [estado, d => d['estado'].includes(estado)],
       provincia: [provincia, d => {
