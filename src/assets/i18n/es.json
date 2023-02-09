@@ -151,9 +151,10 @@
             "guardar": "Guardar",
             "cancelar": "Cancelar",
             "foto": "Foto",
-            "unit":"Unidades por bulto",
-            "status":"Activo",
-            "multiplo":"Múltiplo"
+            "unit": "Unidades por bulto",
+            "status": "Activo",
+            "multiplo": "Múltiplo",
+            "urlML": "Ingrese la url completa de la publicación de Mercado Libre que quiera importar las fotos"
         },
         "grid": {
             "titulo": "Grid de fotos"

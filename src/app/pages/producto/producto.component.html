@@ -486,13 +486,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group ">
-                                <label for="foto" 
-                                    class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
-                                <input type="file" accept="image/*"  name="file" accept=".png, .jpg, .jpeg" multiple
-                                    (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
+                                <label for="foto" class="form-control-label">{{ 'producto.formEdit.foto' | translate }}</label>
+                                <input type="text"  name="file" accept=".png, .jpg, .jpeg" multiple (change)="showPreviewHeader($event)" formControlName="foto"  class="form-control">
                             </div>
                         </div>
-                    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label for="urlML"
+                                    class="form-control-label">{{ 'producto.formEdit.urlML' | translate }}</label>
+                                <input type="text" formControlName="urlML"
+                                       placeholder="{{ 'producto.formEdit.urlML' | translate }}" name="urlML" class="ml-1 form-control" id="urlML">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-3 mb-3" *ngFor="let foto of fotos; let i = index">
