@@ -21,7 +21,6 @@ export class ArmadosComponent implements OnInit {
     keyboard: true,
     class: "my-modal"
   }
-  activeRow: any;
   activeRowDet: any;
   empresa:any = {id:'', pedido:''};
   temRow:any = [];
@@ -212,269 +211,80 @@ export class ArmadosComponent implements OnInit {
     this.filters();this.notificationModal.hide();
   }
 
-  filters(){
-    
+  filters() {
     const npedido = this.nroPedido;
     const ncliente = this.nroCliente;
     const star = this.dateStar;
     const end = this.dateEnd;
     const provincia = this.provinciaSelect;
     
-    const filtros = {
-      provincia: [provincia, d => {
-        
-        if(d['provincia']==null)true
-        else{
+    let producto1 = this.tempRow;
+  
+    if (provincia) {
+      producto1 = producto1.filter(d => {
+        if (!d['provincia']) {
+          return true;
+        } else {
           let prov = d['provincia'].toLowerCase();
-          if(prov.includes(provincia.toLocaleLowerCase()) ){
-            return true;
-          } 
+          return prov.includes(provincia.toLocaleLowerCase());
         }
-        
-      }],
-      id: [npedido, d => {
-        let nroI = d['numeroInterno'].toLowerCase();
-        if(nroI.includes(npedido.toLocaleLowerCase()) ){
-          return true;
-        } 
-      }],
-      nrocliente: [ncliente, d => {
-        let nroC = d['nrocliente'].toLowerCase();
-        if(nroC.includes(ncliente.toLocaleLowerCase()) ){
-          return true;
-        }
-      }],
-      star: [star, d => {
-        if(d['fechafiltro'] >= star){
-          return true;
-        }
-      }],
-      end: [end, d => {
-
-        if(star <= d['fechafiltro'] && d['fechafiltro'] <= end ){
-          return true
-        }
-      }],
+      });
     }
     
-    let producto1 = this.tempRow;
-    console.log(producto1);  
-    for (const filtro in filtros) {
-      if(filtros[filtro][0]){
-        producto1 = producto1.filter( filtros[filtro][1])   
-      }
-    }         
-    if(producto1.length > 0){
+    if (npedido) {
+      producto1 = producto1.filter(d => {
+        let nroI = d['numeroInterno'].toLowerCase();
+        return nroI.includes(npedido.toLocaleLowerCase());
+      });
+    }
+    
+    if (ncliente) {
+      producto1 = producto1.filter(d => {
+        let nroC = d['cliente'].toLowerCase();
+        return nroC.includes(ncliente.toLocaleLowerCase());
+      });
+    }
+    
+    if (star) {
+      producto1 = producto1.filter(d => d['fechafiltro'] >= star);
+    }
+    
+    if (end) {
+      producto1 = producto1.filter(d => {
+        if (star <= d['fechafiltro'] && d['fechafiltro'] <= end) {
+          return true;
+        }
+      });
+    }
+  
+    if (producto1.length > 0) {
       this.dataFilter = producto1;
       this.collectionSize = producto1.length;
       this.refreshDatos();
-    }else{
+    } else {
       this.dataFilter = [];
       this.temp = [];
       this.collectionSize = 0;
     }
-
-    // this.temp = producto1;
-
   }
-  eliminar(){
-    this.nroPedido = "";
-    this.nroCliente = "";
-    this.dateStar = null;
-    this.dateEnd = null;
-    this.temp = this.tempRow;
-    this.dataFilter = [];
-    this.estadoSelect=null;
-    this.collectionSize = this.tempRow.length;
-    this.provinciaSelect = null;
-    this.refreshDatos();
-  }
+  
   dataExcelClientes(row){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedido?pedido="+row.id+"&token="+this.empresa.id, "_blank");
-  }
-  entriesChange($event) {
-    this.entries = $event.target.value;
-  }
-  entriesChangeDet($event){
-    this.entriesDet = $event.target.value;
-  }
-  filterTable(event) {
-    const val = event.target.value.toLowerCase();
-    
-    if(val !== ''){
-      // filter our data
-      this.temRow = this.temp.filter(function (d) {
-      
-        for (var key in d) {
-          if(!Array.isArray(d[key])){      
-            let hola = (d[key] != null) ? d[key].toLowerCase() : '';
-            if ( hola.indexOf(val) !== -1) {
-              return true;
-            }      
-
-          }  
-        }
-        // return false;
-      });
-      this.temp =this.temRow;
-    }else{
-      this.temp = this.tempRow;
-    }    
-  }
-  filterTableDet(event){
-    const val = event.target.value.toLowerCase();
-    
-    
-    if(val.length > 0){    
-      
-      this.detalleRow = this.tempRowDet;
-      let temRowDet = this.detalleRow.filter(function (item) {          
-        for (var key in item) {     
-                    
-          let hola = (item[key] != '' && item[key] != null) ? item[key].toLowerCase() : '';          
-          if ( hola.indexOf(val) !== -1) {
-            return true;
-          }
-        }   
-      });
-     
-      this.detalleRow = temRowDet;
-      
-    }else{
-      this.detalleRow = this.tempRowDet;
-    }
-  }
-
-  get pedidoRecibido(){
-    return (this.flagEliminarPrroducto == 'Recibido') ? true : false;
-  }
-  onSelectItem(modalEditVendedor,row) {
-    console.log(row);
-
-    this.empresa.pedido = row.id;
-    Swal.showLoading();
-    this.flagEliminarPrroducto = row.estado;
-
-    this.detalleId = row.numeroInterno;
-
-    this.getDetallePedido();
-
-    this.notificationModal = this.modalService.show(
-      modalEditVendedor,
-      this.notification
-    );
-    this.getFilesOrders();
-  }
-
-  getDetallePedido(){
-    this.detalleRow = [];
-
-    this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{
-
-      this.detalleSucursal = res.detalles.sucursal;
-      this.detalleRow = res.detalles.detalle;
-      this.tempRowDet = res.detalles.detalle;
-      this.loadingIndicator = true;
-
-      this.detalleRow.forEach((row) => {
-        if("variaciones" in row && row["variaciones"]){
-            row["cantidad"] = "";
-            row["variaciones"].forEach((variacion) => {
-                row["cantidad"] += variacion.cantidad.toString() + " x ";
-                variacion.attributes.forEach((attr) => {
-                    row["cantidad"] += "<strong>" + attr[0] + ": </strong>" + attr[1] + " / ";
-                })
-                row["cantidad"] = row["cantidad"].substring(0, row["cantidad"].length - 3) + "<br>";
-
-            })
-        }
-      })
-
-      Swal.close();
-    }).catch(err=>{
-      Swal.close();
-      console.log(err);
-    });
-  }
-
-  eliminarProductoPedido(producto){
-
-    Swal.fire({
-      title: 'Seguro de Eliminar?',
-      text: "Eliminar el producto de este pedido!",
-      type: 'warning',
-      showCancelButton: true,
-      buttonsStyling: false,
-      confirmButtonClass: 'btn btn-danger',
-      confirmButtonText: 'si, Eliminar!',
-      cancelButtonClass: 'btn btn-secondary'
-    }).then((result) => {
-
-      if (result.value) {
-
-        setTimeout( ()=>{
-          this.eliminarProductoSave(producto);
-        },1000);
-
-      }
-    })
-
-  }
-
-  eliminarProductoSave(producto){
-    Swal.showLoading();
-    this.pedidosService.eliminarProductoPedido(producto, this.empresa.id).subscribe( (res:any) =>{
-      Swal.close();
-      if(res){
-        Swal.fire('Listo!','Producto eliminado con éxito!', 'success');
-        this.getDetallePedido();
-
-      }else{
-        Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
-      }
-    },
-    (err)=>{
-      Swal.close();
-      console.log(err);
-      Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
-
-    });
-  }
-  onaddComente(modalComent,row){
-    
-    this.addForm.setValue({pedido_id: row.id,comentario:row.comentario});
-    this.btnvisibility = false;
-    this.notificationModal = this.modalService.show(
-      modalComent,
-      this.notification
-    );
-  }
- 
-  onActivate(event) {
-    this.activeRow = event.row;
-  }
-  onActivateDet(event) {
-    this.activeRowDet = event.row;
-  }
-  guardarComentarioPedido(){
-
-    this.pedidosService.getGuardarComentario(this.addForm.value).then( (res:any) =>{    
-      console.log(res);
-      if(res.resultado == true){
-        Swal.fire('Listo!','Comentario agregado con éxito!', 'success')
-        this.notificationModal.hide();
-        this.getPedidos();
-       }else{
-        Swal.fire('Error!','El comentario no fué guardado intente nuevamente', 'error')
-       }
-    }).catch(err=>{
-      console.log(err);
-    });
+    const endpoint = ConfigService.API_ENDPOINT() + "Backend/downloadPedido";
+    const params = "?pedido=" + row.id + "&token=" + this.empresa.id;
+    window.open(endpoint + params, "_blank");
   }
 
   exportarPedidos(){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&flag=0&nroCliente="+this.nroCliente+
-    "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect=Armado"+"&provinciaSelect="+this.provinciaSelect+"&token="+this.empresa.id, "_blank");  
+    const endpoint = ConfigService.API_ENDPOINT() + "Backend/exportarPedidos";
+    const params = "?nroPedido=" + this.nroPedido + 
+                  "&flag=1" +
+                  "&nroCliente=" + this.nroCliente +
+                  "&dateStar=" + this.dateStar + 
+                  "&dateEnd=" + this.dateEnd + 
+                  "&estadoSelect=Armado" + 
+                  "&provinciaSelect=" + this.provinciaSelect + 
+                  "&token=" + this.empresa.id;
+    window.open(endpoint + params, "_blank");  
   }
 
   mostrarMasFiltros(modalFiltros){
@@ -483,26 +293,4 @@ export class ArmadosComponent implements OnInit {
       this.panelFiltro
     );
   }
-
-  modificarProductoPedido(producto){
-    Swal.showLoading();
-    this.pedidosService.editarProductoPedido(producto, this.empresa.id).subscribe( (res:any) =>{
-      Swal.close();
-      if(res){
-        Swal.fire('Listo!','Producto eliminado con éxito!', 'success');
-        this.getDetallePedido();
-        this.getPedidos();
-      }else{
-        Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
-      }
-    },
-    (err)=>{
-      Swal.close();
-      console.log(err);
-      Swal.fire('Error al eliminar el producto, intente de nuevo!', 'error');
-
-    });
-
-  }
-
 }
