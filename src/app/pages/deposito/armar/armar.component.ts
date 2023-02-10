@@ -169,30 +169,30 @@ export class ArmarComponent implements OnInit {
   }
 
   formatN(num){
-    num = num.toString();
-    num = num.length<2?"0"+num:num;
-    return num;
+    return (num = num.toString().length < 2 ? "0" + num : num);
   }
 
-  dates(op){
+  dates(op) {
     var today = new Date();
-    this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
-    today.setDate(today.getDate()-op);
-    this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
-    this.filters();this.notificationModal.hide();
+    var month = this.formatN(today.getMonth() + 1);
+    var day = this.formatN(today.getDate());
+    this.dateEnd = today.getFullYear() + "-" + month + "-" + day;
+    today.setDate(today.getDate() - op);
+    this.dateStar = today.getFullYear() + "-" + month + "-" + day;
+    this.filters();
+    this.notificationModal.hide();
   }
 
   filters(){
-    
     const npedido = this.nroPedido;
     const ncliente = this.cliente;
     const star = this.dateStar;
     const end = this.dateEnd;
-    const estado = "Armado";
+    const estado = this.estadoSelect;
     const provincia = this.provinciaSelect;
     
     const filtros = {
-      estado: [estado, d => !(d['estado']==estado)],
+      estado: [estado, d => (d['estado']==estado)],
       provincia: [provincia, d => {
         
         if(d['provincia']==null)true
@@ -351,6 +351,7 @@ export class ArmarComponent implements OnInit {
       if(element.estado!="1" && element.estado!="2"){
         flag = false;
       }
+      delete element.ubicacion;
       element.fecha = new Date();
       element.usuario_id = localStorage.getItem('usuario');
     });
@@ -374,28 +375,18 @@ export class ArmarComponent implements OnInit {
     }
   }
 
-  filters2(){
-    
+  filters2() {
     const codigo = this.codigoP;
     const estado = this.estadoSelectProductos;
-    
-    const filtros = {
-      codigo: [codigo, d => (d['codigo'].includes(codigo))],
-      estado: [estado, d => (d['estado']==this.estadoIdProductos[estado])],
-    }
-    
     let producto1 = this.detalleRow;
-    console.log(producto1);
-    for (const filtro in filtros) {
-      if(filtros[filtro][0]){
-        producto1 = producto1.filter( filtros[filtro][1])   
-      }
-    }         
-    if(producto1.length > 0){
-      this.tempRowDet = producto1;
-    }else{
-      this.tempRowDet = [];
+    if (codigo) {
+      producto1 = producto1.filter((d) => d["codigo"].includes(codigo));
     }
+    if (estado) {
+      producto1 = producto1.filter((d) => d["estado"] == this.estadoIdProductos[estado]);
+    }
+  
+    this.tempRowDet = producto1.length > 0 ? producto1 : [];
   }
 
   change_state(row){

@@ -37,12 +37,28 @@
                                     (keyup)="filters()"/>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3">
+                        <div class="col-md-2" >
                             <div class="from-group">
-                                <label class="form-control-label">Número Cliente</label>
-                                <input type="text" class="form-control form-control-sm" [(ngModel)]="nroCliente"
-                                    placeholder="Número Cliente" aria-controls="datatable" 
-                                    (keyup)="filters()"/>
+                                <label class="form-control-label" for="">{{caracteristica1}}:</label>
+                                <ng-select  (change)="filters()" [(ngModel)]="caracteristica1Select" 
+                                    bindValue="estado" [items]="listaCaracteristica1" bindLabel="estado">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-2" >
+                            <div class="from-group">
+                                <label class="form-control-label" for="">{{caracteristica2}}:</label>
+                                <ng-select  (change)="filters()" [(ngModel)]="caracteristica2Select" 
+                                    bindValue="estado" [items]="listaCaracteristica2" bindLabel="estado">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-2" >
+                            <div class="from-group">
+                                <label class="form-control-label" for="">{{caracteristica3}}:</label>
+                                <ng-select  (change)="filters()" [(ngModel)]="caracteristica3Select" 
+                                    bindValue="estado" [items]="listaCaracteristica3" bindLabel="estado">
+                                </ng-select>
                             </div>
                         </div>
                         

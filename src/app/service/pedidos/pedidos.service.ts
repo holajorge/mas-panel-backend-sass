@@ -282,4 +282,17 @@ export class PedidosService {
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
   }
+
+  getCaracteristica(idEmpresa, numero){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    let datos = {id:idEmpresa["id"]};
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getCategoria"+numero,datos,options).toPromise().then((res) =>{      
+      return { success: true, caracteristica1:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
 }

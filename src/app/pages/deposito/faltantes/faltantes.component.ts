@@ -48,6 +48,12 @@ export class FaltantesComponent implements OnInit {
   dateEnd:any;
   lista_estados: any = [];
   lista_estadosFiltros: any = [];
+  listaCaracteristica1: any = [];
+  listaCaracteristica2: any = [];
+  listaCaracteristica3: any = [];
+  caracteristica1Select = "";
+  caracteristica2Select = "";
+  caracteristica3Select = "";
   estado_to_id: any = {};
   listaProvincias: any = [];
   listaProvinciasFiltros: any = [];
@@ -84,6 +90,9 @@ export class FaltantesComponent implements OnInit {
 
   ngOnInit() {
     this.getConfig()
+    this.getCaracteristica1();
+    this.getCaracteristica2();
+    this.getCaracteristica3();
     this.getProductosFaltantes();
     
 
@@ -124,8 +133,6 @@ export class FaltantesComponent implements OnInit {
   }
 
   getProductosFaltantes(){
-    
-
     this.pedidosService.getProductosFaltantes(this.empresa).then( (res:any) =>{    
       console.log(res);
       res.productos.productos.forEach(element => this.models[element.id] = element.estado);
@@ -147,9 +154,8 @@ export class FaltantesComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
-    
-
   }
+
   refreshDatos() {
      if(this.dataFilter.length > 0){
       this.temp = this.dataFilter;
@@ -189,45 +195,29 @@ export class FaltantesComponent implements OnInit {
   filters(){
     
     const npedido = this.nroPedido;
-    const ncliente = this.nroCliente;
+    const caracteristica1 = this.caracteristica1Select;
+    const caracteristica2 = this.caracteristica2Select;
+    const caracteristica3 = this.caracteristica3Select;
     const star = this.dateStar;
     const end = this.dateEnd;
-    const estado = this.estadoSelect;
-    const provincia = this.provinciaSelect;
-    
     const filtros = {
-      estado: [estado, d => d['estado'].includes(estado)],
-      provincia: [provincia, d => {
-        
-        if(d['provincia']==null)true
-        else{
-          let prov = d['provincia'].toLowerCase();
-          if(prov.includes(provincia.toLocaleLowerCase()) ){
-            return true;
-          } 
-        }
-        
-      }],
+      caracteristica1: [caracteristica1, d => d['caracteristica1'].includes(caracteristica1)],
+      caracteristica2: [caracteristica2, d => d['caracteristica2'].includes(caracteristica2)],
+      caracteristica3: [caracteristica3, d => d['caracteristica3'].includes(caracteristica3)],
       id: [npedido, d => {
         let nroI = d['numero_interno'].toLowerCase();
         if(nroI.includes(npedido.toLocaleLowerCase()) ){
           return true;
         } 
       }],
-      nrocliente: [ncliente, d => {
-        let nroC = d['nrocliente'].toLowerCase();
-        if(nroC.includes(ncliente.toLocaleLowerCase()) ){
-          return true;
-        }
-      }],
       star: [star, d => {
-        if(d['fechafiltro'] >= star){
+        if(d['fecha'] >= star){
           return true;
         }
       }],
       end: [end, d => {
 
-        if(star <= d['fechafiltro'] && d['fechafiltro'] <= end ){
+        if(star <= d['fecha'] && d['fecha'] <= end ){
           return true
         }
       }],
@@ -365,7 +355,7 @@ export class FaltantesComponent implements OnInit {
       Swal.fire('Error!','Hay productos que no estan marcados como armados ni faltantes', 'error');
     }else{
       this.pedidosService.armarPedido(this.detalleRow,this.empresa.id).subscribe( (res:any) =>{ 
-        console.log(res);
+        
         if(res){
           Swal.fire('Listo!','Pedido armado con éxito!', 'success')
           this.notificationModal.hide();
@@ -379,5 +369,45 @@ export class FaltantesComponent implements OnInit {
         Swal.fire('Error al armar el pedido, intente de nuevo!', 'error');
       });
     }
+  }
+
+  getCaracteristica1(){
+    this.pedidosService.getCaracteristica(this.empresa, 1).then( (res:any) =>{
+      
+      res.caracteristica1.caracteristica1.forEach(element => {
+        this.listaCaracteristica1.push(element.nombre);
+      });
+      console.log(this.listaCaracteristica1);
+      Swal.close();
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+  getCaracteristica2(){
+    this.pedidosService.getCaracteristica(this.empresa, 2).then( (res:any) =>{
+      
+      res.caracteristica1.caracteristica1.forEach(element => {
+        this.listaCaracteristica2.push(element.nombre);
+      });
+      console.log(this.listaCaracteristica1);
+      Swal.close();
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+  getCaracteristica3(){
+    this.pedidosService.getCaracteristica(this.empresa, 3).then( (res:any) =>{
+      
+      res.caracteristica1.caracteristica1.forEach(element => {
+        this.listaCaracteristica3.push(element.nombre);
+      });
+      console.log(this.listaCaracteristica1);
+      Swal.close();
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
   }
 }

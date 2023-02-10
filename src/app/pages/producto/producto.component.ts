@@ -163,7 +163,8 @@ export class ProductoComponent implements OnInit {
       logoo: [null],
       foto: [null],
       unit:['',null],
-      multiplo:['1']
+      multiplo:['1'],
+      ubicacion:['',null]
       
     });
 
@@ -702,6 +703,7 @@ export class ProductoComponent implements OnInit {
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
     formData.append('multiplo',this.editForm.get('multiplo').value);
+    formData.append('ubicacion',this.editForm.get('ubicacion').value);
     Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{ 
 
@@ -808,7 +810,8 @@ export class ProductoComponent implements OnInit {
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
     formData.append('multiplo',this.editForm.get('multiplo').value);
-
+    formData.append('ubicacion',this.editForm.get('ubicacion').value);
+    
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{  
       
