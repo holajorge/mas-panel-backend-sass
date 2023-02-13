@@ -731,6 +731,9 @@ export class ProductoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
+
+    this.getProductos();
+
   }
   validateStringCaract(caractNum){
     if(!caractNum){
@@ -841,6 +844,8 @@ export class ProductoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
+    this.getProductos();
+
   }
   
   isKeyExists(obj,key){
@@ -850,6 +855,7 @@ export class ProductoComponent implements OnInit {
         return true;
     }
   }
+
   newProduct(modalEditProducto){
     this.textAddOrEdit = false;
     this.fotos = [];
@@ -870,6 +876,7 @@ export class ProductoComponent implements OnInit {
 
 
   }
+
   onActiveClient(row){    
     Swal.fire({
       title: 'Seguro de habilitar el producto?',
@@ -890,6 +897,7 @@ export class ProductoComponent implements OnInit {
         }
     })
   }
+
   available(row){
     Swal.showLoading();          
 
