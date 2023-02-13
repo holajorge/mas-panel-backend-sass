@@ -84,6 +84,9 @@
                                             <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
                                             <span class="d-block"><strong>Total:</strong> {{ configuraciones["moneda"] }} {{producto.total}}</span>
                                             <span class="d-block"><strong>Estado:</strong> {{ producto.estado}}</span>
+                                            <div class="mt-1 ml-auto hide{{producto.faltantes==2}}">
+                                                <span class="badge badge-pill badge-warning">Faltantes</span>
+                                            </div>
                                             
                                         </div>
                                     </div>

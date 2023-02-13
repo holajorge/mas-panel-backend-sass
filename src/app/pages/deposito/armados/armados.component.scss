@@ -1,17 +1,21 @@
 .my-modal{
-    position: fixed;
-    margin: auto;
-    width: 430px;
-    height: 100%;
-    right: 0px;
+  position: fixed;
+  margin: auto;
+  width: 430px;
+  height: 100%;
+  right: 0px;
+}
+
+.my-modal > div{
+  height: 100%;
+}
+
+.hidefalse{
+  display: none;
+}
+
+@media (max-width: 420px) {
+  .my-modal{
+    width: 100%;
   }
-  
-  .my-modal > div{
-    height: 100%;
-  }
-  
-  @media (max-width: 420px) {
-    .my-modal{
-      width: 100%;
-    }
-  }
+}

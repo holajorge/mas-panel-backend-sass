@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ConfigService } from 'src/app/service/config/config.service';
+import { element } from 'protractor';
 @Component({
   selector: 'app-armados',
   templateUrl: './armados.component.html',
@@ -21,10 +22,7 @@ export class ArmadosComponent implements OnInit {
     keyboard: true,
     class: "my-modal"
   }
-  activeRowDet: any;
   empresa:any = {id:'', pedido:''};
-  temRow:any = [];
-  temRowDet:any = [];
   temp = [];
   detalleRow = [];
   detalleSucursal;
@@ -35,7 +33,6 @@ export class ArmadosComponent implements OnInit {
   entries: number = 10;
   entriesDet: number = 10;
   addForm: FormGroup;
-  btnvisibility: boolean = true;  
   emptyTable:boolean = false;
   dataExcel: any = [];
   nroPedido:string = "";
@@ -55,6 +52,7 @@ export class ArmadosComponent implements OnInit {
   files:[] = [];
   fileEntries:number = 5;
   bucket:string;
+  conFaltante = new Set();
 
   dataFilter:any= [];
   page = 1;
@@ -148,17 +146,26 @@ export class ArmadosComponent implements OnInit {
   }
 
   getPedidos(){
-    
-
     this.pedidosService.getPedidosClienteEstado(this.empresa,"Armado").then( (res:any) =>{    
 
-      res.pedidos.pedidos.forEach(element => this.models[element.id] = element.estado);
+      res.pedidos.pedidos.forEach(element => {
+          this.models[element.id] = element.estado;
+          if(element.faltantes==2){
+            this.conFaltante.add(element.numeroInterno);
+          }
+        }
+      );
+      
+      
 
       if(res.pedidos.pedidos.length > 0){
 
         this.emptyTable = true;
         this.temp = res.pedidos.pedidos;
-        this.tempRow = res.pedidos.pedidos;
+        console.log("ay mi dios");
+        this.temp = this.temp.filter(ele => !(this.conFaltante.has(ele.numeroInterno) &&
+        ele.faltantes==1));
+        this.tempRow = this.temp;
         this.collectionSize = this.temp.length;
         this.refreshDatos();
         this.loadingIndicator = true;
@@ -193,8 +200,6 @@ export class ArmadosComponent implements OnInit {
     }
 
     console.log(this.temp);
-
-
   }
 
   formatN(num){
