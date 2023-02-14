@@ -332,4 +332,17 @@ export class ArmadosComponent implements OnInit {
     }
     this.tempRowDet = producto1.length > 0 ? producto1 : [];
   }
+
+  eliminar(){
+    this.nroPedido = "";
+    this.nroCliente = "";
+    this.dateStar = null;
+    this.dateEnd = null;
+    this.temp = this.tempRow;
+    this.dataFilter = [];
+    this.estadoSelect=null;
+    this.collectionSize = this.tempRow.length;
+    this.provinciaSelect = null;
+    this.refreshDatos();
+  }
 }
