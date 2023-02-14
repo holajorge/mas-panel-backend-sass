@@ -16,7 +16,7 @@ export class ArmadosComponent implements OnInit {
   notificationModal: BsModalRef;
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-xl static",
+    class: "modal-dialog2",
   };
   panelFiltro = {
     keyboard: true,
@@ -53,7 +53,7 @@ export class ArmadosComponent implements OnInit {
   fileEntries:number = 5;
   bucket:string;
   conFaltante = new Set();
-
+  codigoP:string = "";
   dataFilter:any= [];
   page = 1;
   isDisabled = true;
@@ -162,7 +162,6 @@ export class ArmadosComponent implements OnInit {
 
         this.emptyTable = true;
         this.temp = res.pedidos.pedidos;
-        console.log("ay mi dios");
         this.temp = this.temp.filter(ele => !(this.conFaltante.has(ele.numeroInterno) &&
         ele.faltantes==1));
         this.tempRow = this.temp;
@@ -198,8 +197,6 @@ export class ArmadosComponent implements OnInit {
                               (this.page - 1) * this.pageSize + this.pageSize
                             );
     }
-
-    console.log(this.temp);
   }
 
   formatN(num){
@@ -297,5 +294,42 @@ export class ArmadosComponent implements OnInit {
       modalFiltros,
       this.panelFiltro
     );
+  }
+
+  getDetallePedido(){
+    this.detalleRow = [];
+    
+    this.pedidosService.getDetallepedidoFaltantes(this.empresa).then( (res:any) =>{
+      this.detalleRow = res.detalles;
+      this.tempRowDet = res.detalles;
+      this.loadingIndicator = true;
+      Swal.close();
+    }).catch(err=>{
+      Swal.close();
+      console.log(err);
+    });
+  }
+
+  getFaltantes(modalEditVendedor,row){
+    this.empresa.pedido = row.id;
+    Swal.showLoading();
+
+    this.detalleId = row.numeroInterno;
+
+    this.getDetallePedido();
+
+    this.notificationModal = this.modalService.show(
+      modalEditVendedor,
+      this.notification
+    );
+  }
+
+  filters2() {
+    const codigo = this.codigoP;
+    let producto1 = this.detalleRow;
+    if (codigo) {
+      producto1 = producto1.filter((d) => d["codigo"].includes(codigo));
+    }
+    this.tempRowDet = producto1.length > 0 ? producto1 : [];
   }
 }
