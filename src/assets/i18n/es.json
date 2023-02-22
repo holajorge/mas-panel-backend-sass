@@ -151,9 +151,10 @@
             "guardar": "Guardar",
             "cancelar": "Cancelar",
             "foto": "Foto",
-            "unit":"Unidades por bulto",
-            "status":"Activo",
-            "multiplo":"Múltiplo"
+            "unit": "Unidades por bulto",
+            "status": "Activo",
+            "multiplo": "Múltiplo",
+            "urlML": "Ingrese el código del producto, ej: MLA123456789"
         },
         "grid": {
             "titulo": "Grid de fotos"

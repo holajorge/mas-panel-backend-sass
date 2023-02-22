@@ -163,8 +163,8 @@ export class ProductoComponent implements OnInit {
       logoo: [null],
       foto: [null],
       unit:['',null],
-      multiplo:['1']
-      
+      multiplo:['1'],
+      urlML: ['', null]
     });
 
   }
@@ -207,7 +207,8 @@ export class ProductoComponent implements OnInit {
       stock_minimo: row.stock_minimo,
       descripcion: row.descripcion,
       unit: row.unidad_bulto,
-      multiplo: row.multiplo
+      multiplo: row.multiplo,
+      urlML: ''
     });
     this.btnvisibility = false;  
     this.btnvisibilityIn = true;  
@@ -705,6 +706,9 @@ export class ProductoComponent implements OnInit {
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
     formData.append('multiplo',this.editForm.get('multiplo').value);
+    formData.append('urlML',this.editForm.get('urlML').value);
+
+
     Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{ 
 
@@ -727,6 +731,9 @@ export class ProductoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
+
+    this.getProductos();
+
   }
   validateStringCaract(caractNum){
     if(!caractNum){
@@ -811,6 +818,7 @@ export class ProductoComponent implements OnInit {
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
     formData.append('multiplo',this.editForm.get('multiplo').value);
+    formData.append('urlML',this.editForm.get('urlML').value);
 
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{  
@@ -836,6 +844,8 @@ export class ProductoComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
+    this.getProductos();
+
   }
   
   isKeyExists(obj,key){
@@ -845,6 +855,7 @@ export class ProductoComponent implements OnInit {
         return true;
     }
   }
+
   newProduct(modalEditProducto){
     this.textAddOrEdit = false;
     this.fotos = [];
@@ -865,6 +876,7 @@ export class ProductoComponent implements OnInit {
 
 
   }
+
   onActiveClient(row){    
     Swal.fire({
       title: 'Seguro de habilitar el producto?',
@@ -885,6 +897,7 @@ export class ProductoComponent implements OnInit {
         }
     })
   }
+
   available(row){
     Swal.showLoading();          
 
