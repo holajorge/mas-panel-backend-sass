@@ -200,6 +200,9 @@ export class SidebarAdminComponent implements OnInit {
     // console.log(this.flag);
     // await this.itemsMenu();
     // this.menuItems = ROUTES.filter(menuItem => menuItem);
+    if(localStorage.getItem('permisos') == null){
+      localStorage.setItem('permisos', "todos");
+    }
     this.permisos = localStorage.getItem('permisos').split(",");
     this.router.events.subscribe(event => {
       this.isCollapsed = true;
