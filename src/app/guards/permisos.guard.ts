@@ -18,10 +18,9 @@ export class PermisosGuard implements CanActivate {
       
       let url = typeof next.url[0]=="undefined"?"":next.url[0].path;
       //let currentUrl = route.url.map(segment => segment.path).join('/');
-      console.log(url);
+     
       return this.loginService.tienePermisos(url).pipe(
         tap( permisos => {
-          console.log(permisos);
           if(!permisos){
             this.router.navigateByUrl('/admin/tareas');
           }

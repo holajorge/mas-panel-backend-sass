@@ -70,9 +70,8 @@ export class PedidosComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
-
-
   }
+  
   dataExcelClientes(row){
     window.open(ConfigService.API_ENDPOINT()+"Backend/downloadPedidoVendedor?pedido="+row.id, "_blank");
   }
