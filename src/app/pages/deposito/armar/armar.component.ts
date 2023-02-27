@@ -400,12 +400,11 @@ export class ArmarComponent implements OnInit {
 
     this.pedidosService.updateEstadoPedido(row).then( (res:any) =>{
       if(res.resultado == true){
-        Swal.fire('Listo!','Estado modificado con éxito!', 'success');
         this.getPedidos();
        }else{
         this.models[row.id] = estado;
         row["estado"] = estado;
-        Swal.fire('Error!','El estado no fue modificado, intente nuevamente', 'error');
+        
        }
     }).catch(err=>{
       console.log(err);

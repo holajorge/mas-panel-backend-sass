@@ -302,6 +302,7 @@ export class ArmadosComponent implements OnInit {
     this.pedidosService.getDetallepedidoFaltantes(this.empresa).then( (res:any) =>{
       this.detalleRow = res.detalles;
       this.tempRowDet = res.detalles;
+      console.log(this.tempRowDet);
       this.loadingIndicator = true;
       Swal.close();
     }).catch(err=>{
@@ -317,7 +318,6 @@ export class ArmadosComponent implements OnInit {
     this.detalleId = row.numeroInterno;
 
     this.getDetallePedido();
-
     this.notificationModal = this.modalService.show(
       modalEditVendedor,
       this.notification

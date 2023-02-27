@@ -78,7 +78,8 @@
                                         <div class="d-flex justify-content-between">
                                             <h4 class="card-title"><strong>ID: </strong>{{producto.numeroInterno}}</h4>
                                             <div class="mr--2">
-                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalEditVendedor,producto)'>Armar Pedido <span class="fas fa-clipboard m-1"></span></a>
+                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalEditVendedor,producto)'>Armar<span class="fas fa-clipboard m-1"></span></a>
+                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalDetalle,producto)'>Detalle <span class="fas fa-info m-1"></span></a>
                                             </div>
                                         </div>
                                         <div class="media h-100 d-flex flex-column">
@@ -99,8 +100,12 @@
 
                                                 <mat-menu #menu="matMenu">
                                                     <button mat-menu-item  (click)='onSelectItem(modalEditVendedor,producto)'>
-                                                        <span class="fas fa-clipboard m-1"></span> Armar Pedido
+                                                        <span class="fas fa-clipboard m-1"></span> Armar
                                                     </button>
+                                                    <button mat-menu-item  (click)='onSelectItem(modalDetalle,producto)'>
+                                                        <span class="fas fa-info m-1"></span> Detalle
+                                                    </button>
+                                                    
                                                 </mat-menu>
                                             </div>
                                         </div>
@@ -252,6 +257,142 @@
             
             
         </div>
+    </ng-template>
+    <ng-template #modalDetalle >
+        <div class=" modal-header">    
+            <h5 class="modal-title" >{{ 'pedidos.tabladetalle.titulotabla' | translate}}</h5>
+            <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+                <span aria-hidden="true"> × </span>
+            </button>
+        </div>
+        <div class=" modal-body  pt-0">
+            
+            <div class="dataTables_wrapper py-4">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <h1>Pedido #{{ detalleId }}</h1>
+                    </div>
+                </div>    
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 mb-3" *ngIf="detalleSucursal != '' ">
+                        <h3> Pedido a sucursal: {{ detalleSucursal }}</h3>
+                    </div>
+                </div>    
+                <h5 class="">Lista de Archivos</h5>
+                <ngx-datatable [messages]="{emptyMessage: 'El cliente aún no adjuntó ningún archivo al pedido!'}"
+                    class="bootstrap selection-cell" 
+                    [columnMode]="'force'" [headerHeight]="50" 
+                    [footerHeight]="50" [rowHeight]="'auto'" 
+                    [limit]="fileEntries != -1 ? fileEntries : undefined"
+                    [scrollbarH]="true"
+                    [rows]="files" >
+                    <ngx-datatable-column name="archivo" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Archivo</span>
+                        </ng-template>
+                        <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template headerClass="w100">
+                            <span class="w100">
+                                <a [href]="row.archivo | bannersImg:bucket:2">
+                                    {{row.archivo}}</a>
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="fecha" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>Fecha</span>
+                        </ng-template>
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{ value | fehaLarga }}
+                        </ng-template>
+                    </ngx-datatable-column>
+                  
+                </ngx-datatable>
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                        <label class="form-control-label"> {{ 'pedidos.tabla.mostrar' | translate}}
+                        <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm" (change)="entriesChangeDet($event)">
+                            <option value="10" [selected]="entries == 10">10</option>
+                            <option value="25" [selected]="entries == 25">25</option>
+                            <option value="50" [selected]="entries == 50">50</option>
+                            <option value="-1" [selected]="entries == -1">All</option>
+                        </select>
+                        {{ 'pedidos.tabla.entradas' | translate}}
+                        </label>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                    <div id="datatable_filter" class="dataTables_filter">
+                        <label class="form-control-label">
+                            <input type="text" class="form-control form-control-sm" placeholder="{{ 'pedidos.tabla.buscar' | translate}}" 
+                            aria-controls="datatable" (keyup)="filterTableDet($event)"/></label>
+                    </div>
+                    </div>
+                </div>
+        
+                <ngx-datatable [messages]="{emptyMessage: 'No se han encontrado resultados!'}"
+                    class="bootstrap selection-cell fullscreen"
+                    [columnMode]="'force'" [headerHeight]="50" 
+                    [footerHeight]="50" [rowHeight]="'auto'" 
+                    [limit]="entriesDet != -1 ? entriesDet : undefined"
+                    [scrollbarH]="true"
+                    [rows]="detalleRow" (activate)="onActivateDet($event)">
+                    <ngx-datatable-column name="titulo" [width]="250">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.titulo' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="codigo" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.codigo' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!-- <ngx-datatable-column prop="precio_real">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.precion_real' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column> -->
+                    <ngx-datatable-column prop="precio" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.precio' | translate}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="cantidad" [width]="200">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabladetalle.cantidad' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <input type="number" [(ngModel)]="row.cantidad"  class="form-control form-control-sm" value="{{row.cantidad}}">   
+                        </ng-template>
+                    </ngx-datatable-column>
+                   
+                    <ngx-datatable-column name="Acción" *ngIf="pedidoRecibido">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span>{{ 'pedidos.tabla.acciones' | translate}}</span>
+                        </ng-template>
+                        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                            <span>
+                                <button class="btn btn-sm btn-success" (click)='modificarProductoPedido(row)' >Actualizar </button>
+                              </span>
+                            <span>
+                              <button class="btn btn-sm btn-danger mt-1" (click)='eliminarProductoPedido(row)'>Eliminar </button>
+                            </span>
+                            
+                          </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+                </div>
+
+        </div>
+        <div class=" modal-footer">
+          <!-- <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="onUpdate()">Actualizar</button>  -->
+          <!-- <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button> -->
+        </div>
+    
     </ng-template>
 
     
