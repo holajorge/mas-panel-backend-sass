@@ -293,7 +293,25 @@
                         {{  'vendedores.newForm.email' | translate}} es obrigatório
                     </div>  
                 </div>
-            </div>   
+            </div>
+            <div class="form-row">
+                <div class="form-group col col-md-6">
+                    <label class="form-control-label" for="usuario">Usuario</label>
+                    <input type="text" formControlName="usuario" placeholder="Usuario" name="nombre" class="form-control" id="nombre">
+                    <div class="alert  alert-danger" *ngIf="newFormVendedor.get('usuario').hasError('required') && newFormVendedor.get('usuario').touched">  
+                        {{  'vendedores.newForm.nombre' | translate}}  es obrigatório
+                    </div>  
+                </div>      
+                <div class="form-group col col-md-6">
+                    <label class="form-control-label" for="clave">Clave </label>
+                    <input type="text" formControlName="clave" placeholder="Clave" 
+                        name="clave" class="form-control" id="clave">
+                    <div class="alert  alert-danger" *ngIf="newFormVendedor.get('clave').hasError('required') && newFormVendedor.get('clave').touched">  
+                        {{  'vendedores.newForm.nroVendedor' | translate}}  es obrigatório
+                    </div>  
+                </div>
+            </div>
+               
               
       </form>
     </div>
@@ -379,6 +397,7 @@
                             <span class="d-block" ><strong>Nro Cliente:</strong> {{producto.nrocliente}}</span>
                             <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
                             <span class="d-block" *ngIf="producto.vendedor_id!=0" ><strong>Nro vendedor: </strong>{{producto.vendedor_id}}</span>
+                            <span class="d-block"><strong>Comentario: </strong>{{producto.comentario}}</span>
                             <span class="d-block"><strong>Total:</strong>{{producto.total}}</span>
                             
                         </div>
@@ -389,6 +408,8 @@
                             <span class="d-block" ><strong>Fecha:</strong> {{producto.fecha}}</span>
                             <span class="d-block" ><strong>Nro Cliente:</strong> {{producto.nrocliente}}</span>
                             <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
+                            <span class="d-block" *ngIf="producto.vendedor_id!=0" ><strong>Nro vendedor: </strong>{{producto.vendedor_id}}</span>
+                            <span class="d-block"><strong>Comentario: </strong>{{producto.comentario}}</span>
                             <span class="d-block"><strong>Total:</strong> {{producto.total}}</span>
                             
                         </div>
@@ -397,4 +418,7 @@
             </div>
         </div> 
     </div>
+    <div class=" modal-footer">
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
+      </div>
 </ng-template>

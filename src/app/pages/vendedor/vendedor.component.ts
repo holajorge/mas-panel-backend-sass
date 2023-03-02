@@ -62,7 +62,7 @@ export class VendedorComponent implements OnInit {
   };
   modalPedidos = {
     keyboard: true,
-    class: "modal-dialog2",
+    class: "modal-dialog-centered modal-xl static", 
   };
   empresa:any = {id:'',vendedor:''}; 
   clientes:any;
@@ -105,6 +105,10 @@ export class VendedorComponent implements OnInit {
       nrovendedor: ['',Validators.required],
       empresa_id: [''],
       telefono: ['', Validators.required],
+      usuario: ['', Validators.required],
+      clave: ['', Validators.required],
+      
+
     });
   }
   getVendedor(){
