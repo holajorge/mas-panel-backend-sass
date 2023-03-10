@@ -245,4 +245,66 @@ export class PedidosService {
       );
   }
 
+  armarPedido(pedido, empresaId){
+    let datos
+    datos = {id:empresaId, pedido:pedido};
+
+    return this._http.post(ConfigService.API_ENDPOINT()+ "Backend/armarPedido",datos,this.headers )
+      .pipe(
+        map( (res:any) => {      
+          let {flag} = res;        
+          return flag;
+        }),
+        catchError( error => error)
+      );
+  }
+
+  getProductosFaltantes(idEmpresa){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getProductosFaltantes",idEmpresa,options).toPromise().then((res) =>{      
+      return { success: true, productos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+  getPedidosClienteEstado(idEmpresa,estado){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    let datos = {id:idEmpresa["id"], estado:estado};
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidosClienteEstado",datos,options).toPromise().then((res) =>{      
+      return { success: true, pedidos:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  getCaracteristica(idEmpresa, numero){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    let datos = {id:idEmpresa["id"]};
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getCategoria"+numero,datos,options).toPromise().then((res) =>{      
+      return { success: true, caracteristica1:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
+
+  getDetallepedidoFaltantes(empresa){
+    let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+    let options = { headers: headers };
+    
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getDetallepedidoFaltantes",empresa,options).toPromise().then((res) =>{      
+      return { success: true, detalles:res};
+    })
+    .catch( (err) =>{
+      return { success: false, msj:'Ocurrió un error en al traer los datos'};
+    });
+  }
 }

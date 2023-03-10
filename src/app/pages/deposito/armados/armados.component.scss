@@ -1,0 +1,40 @@
+.my-modal > div{
+  height: 100%;
+}
+
+.modal .modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+.modal .modal-body {
+  overflow-y: auto;
+}
+
+ng-select select-dropdown > div {
+  z-index: 2;
+}
+
+.my-modal{
+  position: fixed;
+  margin: auto;
+  width: 430px;
+  height: 100%;
+  right: 0px;
+  background-color: aqua;
+}
+
+
+
+.modal-dialog2 {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+
+@media (max-width: 420px) {
+  .my-modal{
+    width: 100%;
+  }
+}

@@ -164,7 +164,9 @@ export class ProductoComponent implements OnInit {
       foto: [null],
       unit:['',null],
       multiplo:['1'],
-      urlML: ['', null]
+      urlML: ['', null],
+      ubicacion:['',null]
+      
     });
 
   }
@@ -709,6 +711,7 @@ export class ProductoComponent implements OnInit {
     formData.append('urlML',this.editForm.get('urlML').value);
 
 
+    formData.append('ubicacion',this.editForm.get('ubicacion').value);
     Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{ 
 
@@ -820,6 +823,8 @@ export class ProductoComponent implements OnInit {
     formData.append('multiplo',this.editForm.get('multiplo').value);
     formData.append('urlML',this.editForm.get('urlML').value);
 
+    formData.append('ubicacion',this.editForm.get('ubicacion').value);
+    
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{  
       
