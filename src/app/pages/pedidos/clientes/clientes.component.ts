@@ -199,7 +199,7 @@ export class ClientesComponent implements OnInit {
                             );
     }
 
-    console.log(this.temp);
+   // console.log(this.temp);
 
 
   }
@@ -268,7 +268,7 @@ export class ClientesComponent implements OnInit {
     }
     
     let producto1 = this.tempRow;
-    console.log(producto1);  
+    //console.log(producto1);  
     for (const filtro in filtros) {
       if(filtros[filtro][0]){
         producto1 = producto1.filter( filtros[filtro][1])   
@@ -359,7 +359,7 @@ export class ClientesComponent implements OnInit {
     return (this.flagEliminarPrroducto == 'Recibido') ? true : false;
   }
   onSelectItem(modalEditVendedor,row) {
-    console.log(row);
+   // console.log(row);
 
     this.empresa.pedido = row.id;
     Swal.showLoading();
@@ -564,6 +564,16 @@ export class ClientesComponent implements OnInit {
 
     });
 
+  }
+
+  esTexto(txt){
+
+    if(isNaN(txt)){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
 }

@@ -350,7 +350,8 @@
                             <span>{{ 'pedidos.tabladetalle.cantidad' | translate}}</span>
                         </ng-template>
                         <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                            <input type="number" [(ngModel)]="row.cantidad"  class="form-control form-control-sm" value="{{row.cantidad}}">   
+                            <input  *ngIf="!esTexto(row.cantidad)" type="number" [(ngModel)]="row.cantidad"  class="form-control form-control-sm" value="{{row.cantidad}}">   
+                            <div *ngIf="esTexto(row.cantidad)" [innerHTML]="row.cantidad"  ></div>   
                         </ng-template>
                     </ngx-datatable-column>
                    
