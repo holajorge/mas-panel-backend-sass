@@ -165,7 +165,11 @@ export class ProductoComponent implements OnInit {
       unit:['',null],
       multiplo:['1'],
       urlML: ['', null],
-      ubicacion:['',null]
+      ubicacion:['',null],
+      peso:['',null],
+      largo:['',null],
+      alto:['',null],
+      ancho:['',null],
       
     });
 
@@ -210,7 +214,12 @@ export class ProductoComponent implements OnInit {
       descripcion: row.descripcion,
       unit: row.unidad_bulto,
       multiplo: row.multiplo,
-      urlML: ''
+      urlML: '',
+      ubicacion:row.ubicacion,
+      peso:row.peso,
+      alto:row.alto,
+      largo:row.largo,
+      ancho:row.ancho,
     });
     this.btnvisibility = false;  
     this.btnvisibilityIn = true;  
@@ -712,6 +721,10 @@ export class ProductoComponent implements OnInit {
 
 
     formData.append('ubicacion',this.editForm.get('ubicacion').value);
+    formData.append('peso',this.editForm.get('peso').value);
+    formData.append('largo',this.editForm.get('largo').value);
+    formData.append('alto',this.editForm.get('alto').value);
+    formData.append('ancho',this.editForm.get('ancho').value);
     Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{ 
 
@@ -824,7 +837,11 @@ export class ProductoComponent implements OnInit {
     formData.append('urlML',this.editForm.get('urlML').value);
 
     formData.append('ubicacion',this.editForm.get('ubicacion').value);
-    
+    formData.append('peso',this.editForm.get('peso').value);
+    formData.append('largo',this.editForm.get('largo').value);
+    formData.append('alto',this.editForm.get('alto').value);
+    formData.append('ancho',this.editForm.get('ancho').value);
+
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{  
       
