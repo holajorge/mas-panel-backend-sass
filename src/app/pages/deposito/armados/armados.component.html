@@ -84,12 +84,12 @@
                                             <span class="d-block"><strong>Nombre: </strong>{{producto.cliente}}</span>
                                             <span class="d-block"><strong>Total:</strong> {{ configuraciones["moneda"] }} {{producto.total}}</span>
                                             <span class="d-block"><strong>Estado:</strong> {{ producto.estado}}</span>
-                                            <div *ngIf="producto.faltantes==2" class="mt-1 ml-auto">
+                                            <div *ngIf="producto.faltantes==2" class="d-block mt-1 ml-auto">
                                                <a href="javascript:void(0)">
                                                     <span role="button" (click)='getFaltantes(modalEditVendedor,producto)' class="badge badge-pill badge-warning">Faltantes</span>
                                                 </a> 
                                             </div>
-                                            <div *ngIf="producto.faltantes==1" class="mt-1 ml-auto">
+                                            <div *ngIf="producto.faltantes==1" class="d-block mt-1 ml-auto">
                                                 <span class="badge badge-pill badge-success">Completado</span>
                                             </div>
                                         </div>
@@ -118,6 +118,14 @@
                                                 <strong>Estado:</strong>
                                                 <ng-select [(ngModel)]="models[producto.id]" [items]="lista_estados" appendTo="body" (change)="change_state(producto)" class="auto-grow"></ng-select>
                                             </span>
+                                            <div *ngIf="producto.faltantes==2" class="d-block mt-1 ml-auto">
+                                                <a href="javascript:void(0)">
+                                                     <span role="button" (click)='getFaltantes(modalEditVendedor,producto)' class="badge badge-pill badge-warning">Faltantes</span>
+                                                 </a> 
+                                             </div>
+                                             <div *ngIf="producto.faltantes==1" class="d-block mt-1 ml-auto">
+                                                 <span class="badge badge-pill badge-success">Completado</span>
+                                             </div>
                                         </div>
                                     </div>
                                 </div>

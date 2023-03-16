@@ -229,7 +229,7 @@ export class ArmarComponent implements OnInit {
     }
     
     let producto1 = this.tempRow;
-    console.log(producto1);  
+    //console.log(producto1);  
     for (const filtro in filtros) {
       if(filtros[filtro][0]){
         producto1 = producto1.filter( filtros[filtro][1])   
@@ -283,10 +283,12 @@ export class ArmarComponent implements OnInit {
     }    
   }
 
-  onSelectItem(modalEditVendedor,row) {
-    console.log(row);
+  onSelectItem(modalEditVendedor,row, modificar) {
+   // console.log(row);
     
-    this.change_state(row);
+    if(modificar){
+     this.change_state(row);
+    }
     this.empresa.pedido = row.id;
     Swal.showLoading();
 
@@ -359,7 +361,7 @@ export class ArmarComponent implements OnInit {
       Swal.fire('Error!','Hay productos que no estan marcados como armados ni faltantes', 'error');
     }else{
       this.pedidosService.armarPedido(this.detalleRow,this.empresa.id).subscribe( (res:any) =>{ 
-        console.log(res);
+       // console.log(res);
         if(res){
           Swal.fire('Listo!','Pedido armado con éxito!', 'success')
           this.notificationModal.hide();

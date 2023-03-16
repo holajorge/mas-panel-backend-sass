@@ -78,8 +78,8 @@
                                         <div class="d-flex justify-content-between">
                                             <h4 class="card-title"><strong>ID: </strong>{{producto.numeroInterno}}</h4>
                                             <div class="mr--2">
-                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalEditVendedor,producto)'>Armar<span class="fas fa-clipboard m-1"></span></a>
-                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalDetalle,producto)'>Detalle <span class="fas fa-info m-1"></span></a>
+                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalEditVendedor,producto,true)'>Armar<span class="fas fa-clipboard m-1"></span></a>
+                                                <a href="javascript:void(0)" class="mr-3 text-info" (click)='onSelectItem(modalDetalle,producto,false)'>Detalle <span class="fas fa-info m-1"></span></a>
                                             </div>
                                         </div>
                                         <div class="media h-100 d-flex flex-column">
@@ -99,10 +99,10 @@
                                                 </button>
 
                                                 <mat-menu #menu="matMenu">
-                                                    <button mat-menu-item  (click)='onSelectItem(modalEditVendedor,producto)'>
+                                                    <button mat-menu-item  (click)='onSelectItem(modalEditVendedor,producto,true)'>
                                                         <span class="fas fa-clipboard m-1"></span> Armar
                                                     </button>
-                                                    <button mat-menu-item  (click)='onSelectItem(modalDetalle,producto)'>
+                                                    <button mat-menu-item  (click)='onSelectItem(modalDetalle,producto,false)'>
                                                         <span class="fas fa-info m-1"></span> Detalle
                                                     </button>
                                                     
