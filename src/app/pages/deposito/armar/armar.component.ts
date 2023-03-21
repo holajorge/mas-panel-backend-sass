@@ -59,6 +59,7 @@ export class ArmarComponent implements OnInit {
   isDisabled = true;
   pageSize = 10;
   collectionSize:number = this.tempRow.length;
+  btnFin = true;
 
   configuraciones:any;
 
@@ -303,6 +304,7 @@ export class ArmarComponent implements OnInit {
   }
 
   getDetallePedido(){
+    this.btnFin = true;
     this.detalleRow = [];
     
     this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{
@@ -348,33 +350,39 @@ export class ArmarComponent implements OnInit {
   }
   
   guardarArmado(){
-    var flag = true;
-    this.detalleRow.forEach(element => {
-      if(element.estado!="1" && element.estado!="2"){
-        flag = false;
-      }
-      delete element.ubicacion;
-      element.fecha = new Date();
-      element.usuario_id = localStorage.getItem('usuario');
-    });
-    if(!flag){
-      Swal.fire('Error!','Hay productos que no estan marcados como armados ni faltantes', 'error');
-    }else{
-      this.pedidosService.armarPedido(this.detalleRow,this.empresa.id).subscribe( (res:any) =>{ 
-       // console.log(res);
-        if(res){
-          Swal.fire('Listo!','Pedido armado con éxito!', 'success')
-          this.notificationModal.hide();
-          this.getPedidos();
-         }else{
-          Swal.fire('Error!','El pedido no fue armado, intente nuevamente', 'error')
-         }
-      },(err)=>{
-        Swal.close();
-        console.log(err);
-        Swal.fire('Error al armar el pedido, intente de nuevo!', 'error');
+    if(this.btnFin){
+        this.btnFin = false;
+        var flag = true;
+        this.detalleRow.forEach(element => {
+        if(element.estado!="1" && element.estado!="2"){
+          flag = false;
+        }
+        delete element.ubicacion;
+        element.fecha = new Date();
+        element.usuario_id = localStorage.getItem('usuario');
       });
+      if(!flag){
+        this.btnFin = true;
+        Swal.fire('Error!','Hay productos que no estan marcados como armados ni faltantes', 'error');
+      }else{
+        this.pedidosService.armarPedido(this.detalleRow,this.empresa.id).subscribe( (res:any) =>{ 
+          if(res){
+            Swal.fire('Listo!','Pedido armado con éxito!', 'success')
+            this.notificationModal.hide();
+            this.getPedidos();
+            this.btnFin = true;
+          }else{
+            Swal.fire('Error!','El pedido no fue armado, intente nuevamente', 'error')
+          }
+        },(err)=>{
+          Swal.close();
+          console.log(err);
+          this.btnFin = true;
+          Swal.fire('Error al armar el pedido, intente de nuevo!', 'error');
+        });
+      }
     }
+    
   }
 
   filters2() {
