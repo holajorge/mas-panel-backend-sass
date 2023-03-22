@@ -69,6 +69,8 @@ import { ActualizarDolarComponent } from './precios/actualizar-dolar/actualizar-
 import { ArmarComponent } from './deposito/armar/armar.component';
 import { FaltantesComponent } from './deposito/faltantes/faltantes.component';
 import { ArmadosComponent } from './deposito/armados/armados.component';
+import { PagosComponent } from './pagos/pagos.component'
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -123,7 +125,8 @@ imports: [
     ActualizarDolarComponent,
     ArmarComponent,
     FaltantesComponent,
-    ArmadosComponent
+    ArmadosComponent,
+    PagosComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,

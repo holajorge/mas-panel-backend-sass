@@ -52,6 +52,7 @@ import { ActualizarDolarComponent } from './precios/actualizar-dolar/actualizar-
 import { ArmarComponent } from './deposito/armar/armar.component';
 import { FaltantesComponent } from './deposito/faltantes/faltantes.component';
 import { ArmadosComponent } from './deposito/armados/armados.component';
+import { PagosComponent } from './pagos/pagos.component'
 
 const routes:Routes = [
     {
@@ -118,7 +119,11 @@ const routes:Routes = [
             {path: 'admin/dashboard', component: DashboardComponent,canActivate: [PermisosGuard]},
 
             // usuarios
-            {path: 'usuarios', component: UsuariosComponent,canActivate: [PermisosGuard]}
+            {path: 'usuarios', component: UsuariosComponent,canActivate: [PermisosGuard]},
+            {path: 'admin/dashboard', component: DashboardComponent},
+
+            //métodos de pagos
+            {path:'payments', component: PagosComponent},
             
         ]
     },

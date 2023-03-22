@@ -1,0 +1,135 @@
+<div class=" header pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2  d-inline-block mb-0 mr-1">Métodos de pago</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class=" container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-6 d-flex align-items-center">
+                        <h3 class="mb-0">Medios de pago configurados</h3>
+                    </div>
+                </div>
+                <div class="card-body pt-4 p-3">
+                    <ul class="list-group">
+                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg" *ngFor="let payment of lista_configurados">
+                            <div class="d-flex flex-column custom-grown">
+                                <h3 class="mb-3" *ngIf="!payment.active">{{payment.nombre}} <span class="text-danger font-weight-700 ml-2">DESACTIVADO</span></h3>
+                                <h3 class="mb-3" *ngIf="payment.active">{{payment.nombre}} <span class="text-success font-weight-700 ml-2">ACTIVADO</span></h3>
+                                <img class="mb-2 img-gateway" src="{{payment.logo}}"/>
+                            </div>
+                            <div class="d-flex flex-column custom-grown-small text-end flex-center">
+                                <button *ngIf="!payment.active" class="btn btn-success btn-sm px-3 mb-0 text-end" (click)="activar(payment)"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>&nbsp; Activar</button>
+                                <button *ngIf="payment.active" class="btn btn-danger btn-sm px-3 mb-0 text-end" (click)="desactivar(payment)"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>&nbsp; Desactivar</button>
+                                <a class="btn btn-link text-danger text-gradient px-3 mb-0 text-end" href="javascript:;"(click)="eliminar(payment)"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>&nbsp; Eliminar</a>
+                                <a *ngIf="payment.nombre == 'WebPay'" class="btn btn-link text-dark px-3 mb-0 mr-2 text-end" href="javascript:;" (click)='configurar(modalEditWebPay, payment, true)'><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>&nbsp; Editar</a>
+                                <a *ngIf="payment.nombre == 'MercadoPago'" class="btn btn-link text-dark px-3 mb-0 mr-2 text-end" href="javascript:;" (click)='configurar(modalEditMercadoPago, payment, true)'><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>&nbsp; Editar</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-6 d-flex align-items-center">
+                        <h3 class="mb-0">Medios de pago sin configurar</h3>
+                    </div>
+                </div>
+                <div class="card-body pt-4 p-3">
+                    <ul class="list-group">
+                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg" *ngFor="let payment of lista_no_configurados">
+                            <div class="d-flex flex-column custom-grown">
+                                <h3 class="mb-3">{{payment.nombre}}</h3>
+                                <img class="mb-2 img-gateway" src="{{payment.logo}}"/>
+                            </div>
+                            <div class="ms-auto custom-grown-small text-end flex-center">
+                                <!--<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</a>-->
+                                <a *ngIf="payment.nombre == 'WebPay'" class="btn btn-link text-dark px-3 mb-0" href="javascript:;" (click)='configurar(modalEditWebPay, payment)'><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Configurar</a>
+                                <!--<a *ngIf="payment.nombre == 'MercadoPago'" class="btn btn-link text-dark px-3 mb-0" href="javascript:;" (click)='configurar(modalEditMercadoPago, payment)'><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Configurar</a>-->
+                                <a *ngIf="payment.nombre == 'MercadoPago'" class="btn btn-link text-dark px-3 mb-0" href="javascript:;" (click)='configurar(modalEditMercadoPago, payment)'><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Configurar</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<ng-template #modalEditWebPay >
+    <div class="modal-header">
+        <h5 *ngIf="!flagEdit" class="modal-title" >Configurar {{payment_selected.nombre}}</h5>
+        <h5 *ngIf="flagEdit" class="modal-title" >Editar {{payment_selected.nombre}}</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body pt-0">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <div class="from-group">
+                    <label class="form-control-label">Código Ecommerce</label>
+                    <input type="text" placeholder="Código Ecommerce" class="form-control form-control-sm" [(ngModel)]="configuration.webpay.ecommerceCode">
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="from-group">
+                    <label class="form-control-label">Secret Api Key</label>
+                    <input type="text" placeholder="Secret Api Key" class="form-control form-control-sm" [(ngModel)]="configuration.webpay.secretApiKey">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" modal-footer">
+        <button class="btn btn-success" (click)="saveConfigGateway(); notificationModal.hide()">Guardar</button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #modalEditMercadoPago >
+    <div class="modal-header">
+        <h5 *ngIf="!flagEdit" class="modal-title" >Configurar {{payment_selected.nombre}}</h5>
+        <h5 *ngIf="flagEdit" class="modal-title" >Editar {{payment_selected.nombre}}</h5>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body pt-0">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <div class="from-group">
+                    <label class="form-control-label">Public key</label>
+                    <input type="text" placeholder="Public key" class="form-control form-control-sm" [(ngModel)]="configuration.mercadopago.publicKey">
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="from-group">
+                    <label class="form-control-label">Access Token</label>
+                    <input type="text" placeholder="Access Token" class="form-control form-control-sm" [(ngModel)]="configuration.mercadopago.accessToken">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" modal-footer">
+        <button class="btn btn-success" (click)="saveConfigGateway(); notificationModal.hide()">Guardar</button>
+        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>Cancelar</button>
+    </div>
+</ng-template>
