@@ -37,7 +37,7 @@
                         </div>
                         <div class="row mr-auto justify-content-end">
                             <div class="col-12 d-flex flex-row flex-wrap justify-content-end">
-                                <div *ngFor="let Permiso of listaFiltros"class="ml-2">
+                                <div *ngFor="let Permiso of     "class="ml-2">
                                     <div class="chip">
                                         {{Permiso}}
                                         <span class="closebtn" (click)="eliminarFiltro(Permiso)">&times;</span>
@@ -61,12 +61,12 @@
                                             <mat-icon>more_vert</mat-icon>
                                         </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item >
+                                            <button mat-menu-item (click)='onSelectItem(modalAdd,usuario)' >
                                                 <span class="fas fa-pen-alt m-1"></span>
                                                 <span>Editar</span>
                                             </button>
 
-                                            <button  mat-menu-item >
+                                            <button  mat-menu-item (click)='deleteUsuario(usuario.email)'>
                                                 <span class="fas fa-eye-slash  m-1"></span>
                                                 <span>Eliminar</span>
                                             </button>
@@ -79,8 +79,8 @@
                                     <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
                                         <h4 class="d-block"><strong>Nombre:</strong> {{usuario.nombre}} </h4>
                                         <h4 class="d-block"><strong>Apellido:</strong> {{usuario.apellido}} </h4>
-                                        <h4 class="d-block"><strong>Email </strong>{{usuario.email}}</h4>
-                                        <h4 class="d-block"><strong>Permisos </strong>{{usuario.permisos}}</h4>
+                                        <h4 class="d-block"><strong>Email: </strong>{{usuario.email}}</h4>
+                                        <h4 class="d-block"><strong>Permisos: </strong>{{usuario.permisos}}</h4>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-2 ml-auto">
@@ -140,7 +140,7 @@
                     <label class="form-control-label" for="permisos">Permisos</label>
                     <div class="form-check row d-flex">
                         <div class="col-md-12 d-flex flex-wrap">
-                            <div *ngFor="let modulo of listaModulos" class="col-3" >
+                            <div *ngFor="let modulo of listaModulos" class="col-6 col-md-3" >
                                 <input class="form-check-input" formControlName="{{modulo.path}}"  type="checkbox"  (change)="onCheckChange($event)" value="{{modulo.path}}"  id="{{modulo.nombre}}">
                                 <label class="form-check-label" for="{{modulo.nombre}}">
                                 {{modulo.nombre}}
