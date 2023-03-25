@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {VendedorService } from '../../service/vendedor/vendedor.service';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';//importar para formular envio de todos los parametros
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import Swal from "sweetalert2";
-import { Router } from '@angular/router'; //para redireccionar las vistas
-import * as XLSX from 'xlsx'; 
+import { Router } from '@angular/router'; //para redireccionar las vistas 
+import {PedidosService } from '../../service/pedidos/pedidos.service';
 import {TranslateService} from '@ngx-translate/core';
 import { ValidationService } from '../../service/validation/validation.service';
 import { DescuentoCateService } from 'src/app/service/descuentoCate/descuento-cate.service';
@@ -19,7 +19,8 @@ export enum SelectionType {
 @Component({
   selector: 'app-vendedor',
   templateUrl: './vendedor.component.html',
-  styleUrls: ['./vendedor.component.scss']
+  styleUrls: ['./vendedor.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class VendedorComponent implements OnInit {
   addForm: FormGroup;
@@ -34,6 +35,14 @@ export class VendedorComponent implements OnInit {
   temRow:any = [];
   activeRow: any;
   activeRowCliente: any;
+
+  pageSize = 10;
+  page = 1;
+  collectionSize:number = 0;
+  dataFilter:any= [];
+
+  //PEDIDOS
+  tempPedidos = [];
 
   // RESTROS LOG VAR
   entrieslog: number = 10;
@@ -51,11 +60,16 @@ export class VendedorComponent implements OnInit {
     keyboard: true,
     class: "modal-dialog-centered modal-xl static", 
   };
+  modalPedidos = {
+    keyboard: true,
+    class: "modal-dialog-centered modal-xl static", 
+  };
   empresa:any = {id:'',vendedor:''}; 
   clientes:any;
   mobileToDisplay:any=0;
   constructor(
     private router: Router,
+    private pedidosService: PedidosService,
     private vendedorService: VendedorService,
     private modalService: BsModalService,
     private formBuilder: FormBuilder, 
@@ -91,6 +105,10 @@ export class VendedorComponent implements OnInit {
       nrovendedor: ['',Validators.required],
       empresa_id: [''],
       telefono: ['', Validators.required],
+      usuario: ['', Validators.required],
+      clave: ['', Validators.required],
+      
+
     });
   }
   getVendedor(){
@@ -99,7 +117,7 @@ export class VendedorComponent implements OnInit {
       this.temp = res.vendedores;
       this.tempRow = res.vendedores;
       this.loadingIndicator = false;
-      // console.log(this.temp);
+      this.collectionSize = this.temp.length;
     }).catch(err=>{
       console.log(err);
     });
@@ -161,7 +179,7 @@ export class VendedorComponent implements OnInit {
   }
   onUpdate(){
 
-    let flag = String(this.addForm.get('telefono').value).toLowerCase().match(/[+]{1}[0-9]{2}[0-9]{1}[0-9]{2}[0-9]{8}$/);
+    let flag = String(this.addForm.get('telefono').value).toLowerCase().match(/^\+[1-9]\d{1,14}$/);
 
     if(!flag){
       Swal.fire('Error', 'Error es necesario agregar correctamente el numero de telefo ejemplo: +5492223334444','error');
@@ -235,10 +253,11 @@ export class VendedorComponent implements OnInit {
     this.newFormVendedor.patchValue({empresa_id: this.empresa.id});
     this.notificationModal = this.modalService.show(modalAdd,this.notification);
   }
+  
   onCreateVendedor(){
         
 
-    let flag = String(this.newFormVendedor.get('telefono').value).toLowerCase().match(/[+]{1}[0-9]{2}[0-9]{1}[0-9]{2}[0-9]{8}$/)//regex.test(telefono);
+    let flag = String(this.newFormVendedor.get('telefono').value).toLowerCase().match(/^\+[1-9]\d{1,14}$/)//regex.test(telefono);
     
     if(!flag){
       Swal.fire('Error', 'Error es necesario agregar correctamente el numero de telefono ejemplo: +5492223334444','error');
@@ -388,4 +407,31 @@ export class VendedorComponent implements OnInit {
       })
   }
 
+  refreshDatos() {
+    if(this.temp.length > 0){
+      this.temp = this.temp;
+      this.temp = this.temp.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize,
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }else{
+
+      this.temp = this.tempRow.map(  (product, i) => ({id:i+1,...product})
+                            ).slice(
+                              (this.page - 1) * this.pageSize,
+                              (this.page - 1) * this.pageSize + this.pageSize
+                            );
+    }
+  }
+
+  getPedidos(mostrar, vendedor){ 
+    this.pedidosService.getPedidos(this.empresa,vendedor.vendedor).then( (res:any) =>{
+      this.tempPedidos = res.pedidos;
+    }).catch(err=>{
+      console.log(err);
+    });
+
+    this.notificationModal = this.modalService.show(mostrar,this.modalPedidos);
+  }
 }

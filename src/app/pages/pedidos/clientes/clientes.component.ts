@@ -44,6 +44,7 @@ export class ClientesComponent implements OnInit {
   dataExcel: any = [];
   nroPedido:string = "";
   nroCliente:string = "";
+  nroVendedor:string = "";
   dateStar:any;
   dateEnd:any;
   lista_estados: any = [];
@@ -223,6 +224,7 @@ export class ClientesComponent implements OnInit {
     
     const npedido = this.nroPedido;
     const ncliente = this.nroCliente;
+    const nvendedor = this.nroVendedor;
     const star = this.dateStar;
     const end = this.dateEnd;
     const estado = this.estadoSelect;
@@ -252,6 +254,17 @@ export class ClientesComponent implements OnInit {
         if(nroC.includes(ncliente.toLocaleLowerCase()) ){
           return true;
         }
+      }],
+      nvendedor: [nvendedor, d => {
+        if(d['vendedor_id']){
+          let nroV = d['vendedor_id'].toLowerCase();
+          if(nroV.includes(nvendedor.toLocaleLowerCase()) ){
+            return true;
+          }
+        }else{
+          return false;
+        }
+        
       }],
       star: [star, d => {
         if(d['fechafiltro'] >= star){

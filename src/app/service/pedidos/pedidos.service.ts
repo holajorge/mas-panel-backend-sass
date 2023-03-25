@@ -17,10 +17,12 @@ export class PedidosService {
     let options = { headers: headers };
     return options;
   }
-  getPedidos(idEmpresa){
+  getPedidos(idEmpresa, vendedor = null){
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
-    
+    if(vendedor){
+      idEmpresa["vendedor"] = vendedor;
+    }
     return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getPedidos",idEmpresa,options).toPromise().then((res) =>{      
       return { success: true, pedidos:res};
     })
