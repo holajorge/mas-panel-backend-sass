@@ -52,7 +52,6 @@ export class UsuariosComponent implements OnInit {
       empresa_id:  this.empresa.id,
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      email: ['', Validators.required],
       clave: ['', Validators.required],
       permisos:new FormArray([]),
       
@@ -82,9 +81,7 @@ export class UsuariosComponent implements OnInit {
 
   addUsuario(modalEdit){
     this.editForm.get('empresa_id').setValue(this.empresa.id);
-    
     Swal.showLoading();
-    
     this.usuarioService.crearUsuario(this.editForm.value).subscribe(data => {  
       if(data == true){
         Swal.fire('','Datos del nuevo usuario creado con éxito!', 'success');
@@ -108,7 +105,6 @@ export class UsuariosComponent implements OnInit {
       empresa_id:  this.empresa.id,
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      email: ['', Validators.required],
       clave: ['', Validators.required],
       permisos:new FormArray([]),
       
@@ -216,7 +212,6 @@ export class UsuariosComponent implements OnInit {
     this.flagAdd = false;
     this.editForm.patchValue({nombre:usuario.nombre});
     this.editForm.patchValue({apellido:usuario.apellido});
-    this.editForm.patchValue({email:usuario.email});
     this.editForm.patchValue({clave:usuario.clave});
     
     const formArray: FormArray = this.editForm.get('permisos') as FormArray;
@@ -240,7 +235,6 @@ export class UsuariosComponent implements OnInit {
     formData.append('empresa_id',this.empresa.id);
     formData.append('nombre',this.editForm.get('nombre').value);
     formData.append('apellido',this.editForm.get('apellido').value);
-    formData.append('email',this.editForm.get('email').value);
     formData.append('clave',this.editForm.get('clave').value);
     formData.append('permisos',this.editForm.get('permisos').value);
     formData.append('id',this.tempId);
