@@ -8,6 +8,7 @@ import {PedidosService } from '../../service/pedidos/pedidos.service';
 import {TranslateService} from '@ngx-translate/core';
 import { ValidationService } from '../../service/validation/validation.service';
 import { DescuentoCateService } from 'src/app/service/descuentoCate/descuento-cate.service';
+import { timingSafeEqual } from 'crypto';
 
 export enum SelectionType {
   single = "single",
@@ -35,11 +36,11 @@ export class VendedorComponent implements OnInit {
   temRow:any = [];
   activeRow: any;
   activeRowCliente: any;
-
   pageSize = 10;
   page = 1;
   collectionSize:number = 0;
   dataFilter:any= [];
+  usuario = "";
 
   //PEDIDOS
   tempPedidos = [];
@@ -104,11 +105,10 @@ export class VendedorComponent implements OnInit {
       email: ['', [Validators.required, ValidationService.emailValidator]],      
       nrovendedor: ['',Validators.required],
       empresa_id: [''],
+      id: [''],
+      usuario: [''],
       telefono: ['', Validators.required],
-      usuario: ['', Validators.required],
       clave: ['', Validators.required],
-      
-
     });
   }
   getVendedor(){
@@ -156,6 +156,7 @@ export class VendedorComponent implements OnInit {
     
   }
   onSelectItem(modalEditVendedor,row) {
+    this.usuario = row.usuario;
     this.notificationModal = this.modalService.show(
       modalEditVendedor,
       this.notification
@@ -166,31 +167,30 @@ export class VendedorComponent implements OnInit {
     }else{
       hola = {baja:0,lista:0};
     }
-    this.addForm.patchValue({
-      id:row.id, 
+    this.newFormVendedor.patchValue({
       nombre:row.nombre, 
       email:row.email, 
       telefono:row.telefono, 
-      nrovendedor: row.vendedor
-      // lista: hola['lista'], archivo:hola['baja']
+      nrovendedor: row.vendedor,
+      clave: row.clave,
     });
     this.btnvisibility = false;  
 
   }
   onUpdate(){
-
-    let flag = String(this.addForm.get('telefono').value).toLowerCase().match(/^\+[1-9]\d{1,14}$/);
-
+    this.newFormVendedor.patchValue({empresa_id: this.empresa.id});
+    this.newFormVendedor.patchValue({usuario: this.usuario});
+    let flag = String(this.newFormVendedor.get('telefono').value).toLowerCase().match(/^\+[1-9]\d{1,14}$/);
     if(!flag){
       Swal.fire('Error', 'Error es necesario agregar correctamente el numero de telefo ejemplo: +5492223334444','error');
       return false;
     }
     Swal.showLoading();
-    this.vendedorService.updateVendedor(this.addForm.value).subscribe(data => {  
+    this.vendedorService.updateVendedor(this.newFormVendedor.value).subscribe(data => {  
       if(data == true){
         Swal.fire('','Datos del vendedor actualizado con éxito!', 'success')
         // this.addForm.reset();    
-        this.addForm.patchValue({empresa_id: '',nombre:'', email:'', nrovendedor:'', telefono:''});        
+        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'', nrovendedor:'', telefono:'',clave:''});        
 
         this.notificationModal.hide();
         this.getVendedor();
@@ -250,13 +250,12 @@ export class VendedorComponent implements OnInit {
     this.entrieslog = $event.target.value;
   }
   addVendedor(modalAdd){
+    this.btnvisibility = true;
     this.newFormVendedor.patchValue({empresa_id: this.empresa.id});
     this.notificationModal = this.modalService.show(modalAdd,this.notification);
   }
   
   onCreateVendedor(){
-        
-
     let flag = String(this.newFormVendedor.get('telefono').value).toLowerCase().match(/^\+[1-9]\d{1,14}$/)//regex.test(telefono);
     
     if(!flag){
@@ -269,7 +268,7 @@ export class VendedorComponent implements OnInit {
       if(data == true){
         Swal.fire('','Datos del nuevo vendedor creado con éxito!', 'success');
 
-        this.newFormVendedor.reset();//patchValue({nombre:null, email:null, nrovendedor:null,telefono:null});        
+        this.newFormVendedor.patchValue({nombre:null, email:null, nrovendedor:null,telefono:null,clave:null,usuario:null});        
         
 
         this.getVendedor();
