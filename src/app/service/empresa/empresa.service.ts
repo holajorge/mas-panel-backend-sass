@@ -112,7 +112,7 @@ export class EmpresaService {
   getEstados(data){
     
     return new Promise( (resolve) => {
-      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/getEstados", data, this.header).subscribe(
+      this._http.post(ConfigService.API_ENDPOINT()+"Backend/getEstados", data, this.header).subscribe(
         (resp:any) => {
           const {datos} = resp;
           resolve(datos);
@@ -124,7 +124,7 @@ export class EmpresaService {
 
   newEstados(data){
     return new Promise( (resolve) => {
-      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/newEstados", data, this.header).subscribe(
+      this._http.post(ConfigService.API_ENDPOINT()+"Backend/newEstados", data, this.header).subscribe(
         (resp:any) => {
           const {flag} = resp;
           resolve(flag);
@@ -135,7 +135,7 @@ export class EmpresaService {
 
   editEstados(data){
     return new Promise( (resolve) => {
-      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/editEstado", data, this.header).subscribe(
+      this._http.post(ConfigService.API_ENDPOINT()+"Backend/editEstado", data, this.header).subscribe(
         (resp:any) => {          
           const {flag} = resp;
           resolve(flag);
@@ -146,7 +146,7 @@ export class EmpresaService {
 
   deleteEstado(data){
     return new Promise( (resolve) => {
-      this._http.post(ConfigService.API_ENDPOINT()+"SuperAdmin/deleteEstado", data, this.header).subscribe(
+      this._http.post(ConfigService.API_ENDPOINT()+"Backend/deleteEstado", data, this.header).subscribe(
         (resp:any) => {          
           
           resolve(resp);
