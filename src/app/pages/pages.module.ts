@@ -70,6 +70,7 @@ import { ArmarComponent } from './deposito/armar/armar.component';
 import { FaltantesComponent } from './deposito/faltantes/faltantes.component';
 import { ArmadosComponent } from './deposito/armados/armados.component';
 import { PagosComponent } from './pagos/pagos.component'
+import { EstadosPedidosComponent } from './estados-pedidos/estados-pedidos.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -126,7 +127,8 @@ imports: [
     ArmarComponent,
     FaltantesComponent,
     ArmadosComponent,
-    PagosComponent
+    PagosComponent,
+    EstadosPedidosComponent
   ],
   imports: [
     DpDatePickerModule,MatMenuModule,MatButtonModule,MatIconModule,

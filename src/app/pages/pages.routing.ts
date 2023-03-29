@@ -53,6 +53,7 @@ import { ArmarComponent } from './deposito/armar/armar.component';
 import { FaltantesComponent } from './deposito/faltantes/faltantes.component';
 import { ArmadosComponent } from './deposito/armados/armados.component';
 import { PagosComponent } from './pagos/pagos.component'
+import { EstadosPedidosComponent } from './estados-pedidos/estados-pedidos.component';
 
 const routes:Routes = [
     {
@@ -70,6 +71,7 @@ const routes:Routes = [
             {path: 'configuraciones/empresa', component: ConfiguracionesComponent, canActivate: [PermisosGuard]},
             {path: 'configuraciones/dominios', component: DominioComponent,canActivate: [PermisosGuard]},
             {path: 'configuraciones/general', component: GeneralComponent,canActivate: [PermisosGuard]},
+            {path: 'configuraciones/estados', component: EstadosPedidosComponent},
 
             {path:'pedidos/vendedores', component: PedidosComponent, canActivate: [PermisosGuard]},
             {path:'pedidos/clientes', component: ClientesComponent, canActivate: [PermisosGuard]},

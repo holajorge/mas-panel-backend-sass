@@ -58,7 +58,7 @@ export class VendedorComponent implements OnInit {
   btnvisibility: boolean = true;  
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-xl static", 
+    class: "modal-dialog-centered modal-sm static", 
   };
   modalPedidos = {
     keyboard: true,
