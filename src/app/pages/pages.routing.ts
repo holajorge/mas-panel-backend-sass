@@ -54,6 +54,7 @@ import { FaltantesComponent } from './deposito/faltantes/faltantes.component';
 import { ArmadosComponent } from './deposito/armados/armados.component';
 import { PagosComponent } from './pagos/pagos.component'
 import { EstadosPedidosComponent } from './estados-pedidos/estados-pedidos.component';
+import { HistorialProductosImportacionComponent } from './producto/historial-productos-importacion/historial-productos-importacion.component';
 
 const routes:Routes = [
     {
@@ -99,6 +100,7 @@ const routes:Routes = [
             {path: 'producto/importarproducto',  component: ImportarproductoComponent,canActivate: [PermisosGuard]},
             {path: 'producto/importarfotos',  component: ImportarFotosComponent,canActivate: [PermisosGuard]},
             {path: 'producto/galeriafotos',  component: GaleriaFotosComponent,canActivate: [PermisosGuard]},
+            {path: 'producto/historico',  component: HistorialProductosImportacionComponent,canActivate: [PermisosGuard]},
             //precios
             {path: 'precios/lista-precios',  component: ListaPComponent,canActivate: [PermisosGuard]},
             {path: 'precios/importar-precios',  component: ImportarPreciosComponent,canActivate: [PermisosGuard]},

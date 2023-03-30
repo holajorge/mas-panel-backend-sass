@@ -144,6 +144,7 @@ export const ROUTES: RouteInfo[] = [
       { path: "permisos", title: "Permisos de clientes", type: "link" },
       { path: "importar-permisos", title: "Importar permisos de clientes", type: "link" },
       { path: "galeriafotos", title: "Galería de Fotos", type: "link" },
+      { path: "historico", title: "Historico de productos", type: "link" },
     ]
   },
   {
