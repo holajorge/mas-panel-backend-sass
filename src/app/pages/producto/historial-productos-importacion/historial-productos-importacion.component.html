@@ -1,0 +1,81 @@
+<div class=" header  pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-4 col-7">
+            <h6 class=" h2  d-inline-block mb-0 mr-1">Historial de productos importados</h6>
+          </div>
+          <div class=" col-lg-8 col-5 text-right">
+              
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class=" container-fluid mt--6">
+    <div class=" row">
+        <div class=" col">
+            <div class=" card">
+               
+                <div class="dataTables_wrapper py-4 listado-boxes">
+                   
+                    <ng-container *ngFor="let producto of listaHistorial ">
+                        <div class="col-12 py-3 item-box">
+                            <div class="row">
+                                
+                                
+                                <div class="col-12 desktop-hidden">
+                                    <!-- opciones mobile -->
+                                    <h2><strong>Archivo:</strong> {{producto.name}}  
+                                        <div class="posicion-opciones-mobile d-block d-md-none mr-3">
+                                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                                <mat-icon>get_app</mat-icon>
+                                            </button>
+                                            <mat-menu #menu="matMenu">                                        
+                                                <button  mat-menu-item >
+                                                    <span class="fas fa-download  m-1"></span>
+                                                    <span>Descargar</span>
+                                                </button>
+                                            </mat-menu>
+                                        </div>
+                                    </h2>
+                                    <!-- fin opciones mobile -->                                     
+                                </div>
+                                
+                                
+                                <div class="col-8 col-md-6    mobile-hidden">
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-between align-self-between">
+                                        <h4 class="d-block" *ngIf="producto.name"><strong>Archivo:</strong> {{producto.name}} </h4>                                        
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-2 mobile-hidden">                                    
+                                    <!-- opciones desktop -->
+                                    <div class="d-none d-md-block ">
+                                        <a [href]="producto.url" class="d-block text-info h5 font-weight-light" 
+                                            title="descargar"> descargar
+                                            <span class="fas fa-download "></span>
+                                        </a>
+                                        
+                                        <div class="d-none"></div>
+                                    </div>
+                                    <!-- opciones desktop -->
+                                </div>
+                            
+                                                               
+                            </div>
+                            
+                        </div> 
+                    </ng-container>
+                    <div class="table-responsive">
+                        <ngb-pagination [(page)]="page" [maxSize]="7" [rotate]="true"  (pageChange)="refreshDatos()"
+                     [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

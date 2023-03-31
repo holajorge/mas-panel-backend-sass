@@ -1,0 +1,42 @@
+
+@media screen and (max-width: 800px) {
+    .desktop-hidden {
+      display: initial;
+    }
+    .mobile-hidden {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    .desktop-hidden {
+      display: none;
+    }
+    .mobile-hidden {
+      display: initial;
+    }
+  }
+  
+  :host ::ng-deep .ngx-datatable .datatable-body .datatable-scroll {
+    display: inherit;
+  }
+  .caracteristicas div div button{
+      margin-left: 3px;
+  }
+  .form-control-sm{
+    height: calc( 1em + 1.25em + 5px) !important;
+  }
+  
+  .foto-listado{
+    max-width: 7rem !important; 
+    height: auto;
+    float:left;
+  }
+  
+  .posicion-opciones-mobile{
+    float:right;
+    width:10px;
+  }
+  
+  .listado-boxes .item-box:nth-child(odd) {
+    background-color: #f9f9f9;
+  }

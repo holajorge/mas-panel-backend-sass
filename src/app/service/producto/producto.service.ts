@@ -14,6 +14,7 @@ const EXCEL_EXTENSION = '.xlsx';
 export class ProductoService {
 
   constructor(private _http:HttpClient) { }
+
   get headers(){
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     return  { headers: headers };
@@ -29,6 +30,21 @@ export class ProductoService {
     .catch( (err) =>{
       return { success: false, msj:'Ocurrió un error en al traer los datos'};
     });
+  }
+  getHistorial(empresa){
+    let empresaData = {token: empresa};
+
+    return new Promise( (resolve) => {
+      this._http.post(ConfigService.API_ENDPOINT()+"Backend/getHistorialProductosImportados", empresaData, this.headers).subscribe(
+        (resp:any) => {
+          console.log(resp, 'respose');
+          
+          const {data} = resp;
+          resolve(data);
+        }
+      );
+    });
+
   }
   deleteFotoProducto(foto){
     
