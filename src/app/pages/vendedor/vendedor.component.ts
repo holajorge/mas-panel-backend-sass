@@ -275,11 +275,16 @@ export class VendedorComponent implements OnInit {
 
         this.notificationModal.hide();
        }else{
-        Swal.fire('Error, intnente de nuevo', 'error')
+        if(data="email cliente"){
+          Swal.fire('Error, el vendedor no puede tener el email de un cliente', 'error')
+        }else{
+          Swal.fire('Error, intente de nuevo', 'error')
+        }
+        
        }
     },  
     error => {  
-      Swal.fire('Error, intnente de nuevo', 'error')
+      Swal.fire('Error, intente de nuevo', 'error')
         console.log(error);  
     });  
 

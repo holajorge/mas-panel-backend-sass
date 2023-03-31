@@ -304,64 +304,6 @@
 
 </ng-template>
 
-
-<ng-template #modalEditVendedor >
-    <div class=" modal-header">    
-        <h5 class="modal-title" > {{ 'vendedores.updateForm.titulo' | translate}}</h5>
-        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
-            <span aria-hidden="true"> × </span>
-        </button>
-    </div>
-    <div class=" modal-body  pt-0">
-        <!-- <form #addForm="ngForm" novalidate> -->
-        <form [formGroup]="addForm" novalidate >
-            <div class="form-row">
-                <div class="form-group col  col-md-6">
-                    <label class="form-control-label" for="nombre">{{ 'vendedores.updateForm.nombre' | translate}}</label>
-                    <input type="text" formControlName="nombre" placeholder="{{ 'vendedores.updateForm.nombre' | translate}}" name="nombre" class="form-control" id="nombre">
-                    <div class="alert  alert-danger" *ngIf="addForm.get('nombre').hasError('required') && addForm.get('nombre').touched">  
-                        {{ 'vendedores.updateForm.nombre' | translate}} é obrigatório
-                    </div>  
-                </div>
-                <div class="form-group col col-md-6">
-                    <label class="form-control-label" for="nroVendedor">{{  'vendedores.newForm.nroVendedor' | translate}}  </label>
-                    <input type="text" formControlName="nrovendedor" placeholder="{{ 'vendedores.newForm.nroVendedor' | translate}}" 
-                        name="nroVendedor" class="form-control" id="nroVendedor">
-                    <div class="alert  alert-danger" *ngIf="addForm.get('nrovendedor').hasError('required') && addForm.get('nrovendedor').touched">  
-                        {{  'vendedores.newForm.nroVendedor' | translate}}  es obrigatório
-                    </div>  
-                </div>     
-                <div class="form-group col">
-                    <label class="form-control-label" for="telefono">{{  'vendedores.newForm.telefono' | translate}}</label>
-                    <input type="tel" formControlName="telefono"  
-                     placeholder="+549-222-333-4444" 
-                     name="telefono" class="form-control" id="telefono">
-                    <!-- <input type="tel" formControlName="telefono" placeholder="{{ 'vendedores.newForm.telefono' | translate}}" name="telefono" class="form-control" id="telefono"> -->
-                    <div class="alert  alert-danger" *ngIf="addForm.get('telefono').hasError('required') && addForm.get('telefono').touched">  
-                        {{  'vendedores.newForm.telefono' | translate}} es obrigatório
-                    </div>  
-                </div>
-                
-            </div>
-            <div class="form-row">    
-                <div class="form-group col">
-                    <label class="form-control-label" for="email">{{ 'vendedores.updateForm.email' | translate}}</label>
-                    <input type="text" formControlName="email" placeholder="{{ 'vendedores.updateForm.email' | translate}}" name="email" class="form-control" id="email">
-                    <div class="alert alert-danger" *ngIf="addForm.get('email').hasError('required') && addForm.get('email').touched">  
-                        {{ 'vendedores.updateForm.email' | translate}} é obrigatório
-                    </div>  
-                </div>   
-                
-            </div>           
-      </form>
-    </div>
-    <div class=" modal-footer">
-      <button class="btn btn-success" [disabled]='addForm.invalid' *ngIf="!btnvisibility" (click)="onUpdate()">{{ 'vendedores.updateForm.actaulizar' | translate}}</button> 
-      <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'vendedores.updateForm.cancelar' | translate}}</button>
-    </div>
-
-</ng-template>
-
 <ng-template #pedidos>
     <div class="modal-header">
         <h3 class="modal-title" >Lista de pedidos</h3>
