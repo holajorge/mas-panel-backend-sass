@@ -44,7 +44,7 @@ export class FaltantesComponent implements OnInit {
   dataExcel: any = [];
   nroPedido:string = "";
   nroCliente:string = "";
-  dateStar:any;
+  dateStart:any;
   dateEnd:any;
   lista_estados: any = [];
   lista_estadosFiltros: any = [];
@@ -188,7 +188,7 @@ export class FaltantesComponent implements OnInit {
     var today = new Date();
     this.dateEnd = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
     today.setDate(today.getDate()-op);
-    this.dateStar = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
+    this.dateStart = today.getFullYear()+"-"+this.formatN(today.getMonth()+1)+"-"+this.formatN(today.getDate());
     this.filters();this.notificationModal.hide();
   }
 
@@ -198,7 +198,7 @@ export class FaltantesComponent implements OnInit {
     const caracteristica1 = this.caracteristica1Select;
     const caracteristica2 = this.caracteristica2Select;
     const caracteristica3 = this.caracteristica3Select;
-    const star = this.dateStar;
+    const star = this.dateStart;
     const end = this.dateEnd;
     const filtros = {
       caracteristica1: [caracteristica1, d => d['caracteristica1'].includes(caracteristica1)],
@@ -246,7 +246,7 @@ export class FaltantesComponent implements OnInit {
   eliminar(){
     this.nroPedido = "";
     this.nroCliente = "";
-    this.dateStar = null;
+    this.dateStart = null;
     this.dateEnd = null;
     this.temp = this.tempRow;
     this.dataFilter = [];
@@ -327,8 +327,11 @@ export class FaltantesComponent implements OnInit {
   }
 
   exportarPedidos(){
-    window.open(ConfigService.API_ENDPOINT()+"Backend/exportarPedidos?nroPedido="+this.nroPedido+"&nroCliente="+this.nroCliente+
-    "&dateStar="+this.dateStar+"&dateEnd="+this.dateEnd+"&estadoSelect="+this.estadoSelect+"&provinciaSelect="+this.provinciaSelect+"&token="+this.empresa.id, "_blank");  
+    const endpoint = `${ConfigService.API_ENDPOINT()}Backend/exportarProductosFaltantes?
+    nroPedido=${this.nroPedido}&dateStart=${this.dateStart}&dateEnd=${this.dateEnd}
+    &token=${this.empresa.id}&caracteristica1=${this.caracteristica1}
+    &caracteristica2=${this.caracteristica2}&caracteristica3=${this.caracteristica3}`;
+    window.open(endpoint, '_blank');
   }
 
   mostrarMasFiltros(modalFiltros){
