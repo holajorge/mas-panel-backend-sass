@@ -70,6 +70,8 @@ export class ClientesComponent implements OnInit {
   flagEliminarPrroducto:string = '';
   configuraciones:any;
 
+  listaEstados:[] = []; 
+
   constructor(private pedidosService: PedidosService,
     public translate: TranslateService,
     private modalService: BsModalService,
@@ -394,9 +396,13 @@ export class ClientesComponent implements OnInit {
 
     this.pedidosService.getDetalles(this.empresa).then( (res:any) =>{
 
-      this.detalleSucursal = res.detalles.sucursal;
-      this.detalleRow = res.detalles.detalle;
-      this.tempRowDet = res.detalles.detalle;
+      console.log(res, 'aaaaaa'); 
+
+      this.detalleSucursal = res.detalles.sucursal || [];
+      this.detalleRow = res.detalles.detalle || [];
+      this.tempRowDet = res.detalles.detalle || [];
+      this.listaEstados = res.estados || [];
+
       this.loadingIndicator = true;
 
       this.detalleRow.forEach((row) => {
