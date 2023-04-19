@@ -91,6 +91,7 @@
                                             <span class="d-block"><strong>{{caracteristica1}}: </strong>{{producto.caracteristica1}}</span>
                                             <span class="d-block"><strong>{{caracteristica2}}: </strong>{{producto.caracteristica2}}</span>
                                             <span class="d-block"><strong>{{caracteristica3}}: </strong>{{producto.caracteristica3}}</span>
+                                            <span class="d-block"><strong>Proveedor: </strong>{{producto.numero_proveedor}}</span>
                                             <span class="d-block"><strong>Cantidad: </strong>{{producto.cantidad_pedida-producto.cantidad_enviada}}</span>
                                             <span class="d-block"><strong>Pedido #: </strong>{{producto.numero_interno}}</span>
                                             <span class="d-block"><strong>Fecha: </strong> {{producto.fecha |date:'dd/MM/yyyy'}}</span>
@@ -111,56 +112,63 @@
     </div>
 </div>
 
-    <ng-template #modalFiltro >
-        <div class=" modal-header">    
-            <h3 class="modal-title" >Filtrar pedidos</h3>
-            <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide();">
-                <span aria-hidden="true"> × </span>
-            </button>
+<ng-template #modalFiltro >
+    <div class=" modal-header">    
+        <h3 class="modal-title" >Filtrar pedidos</h3>
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide();">
+            <span aria-hidden="true"> × </span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <label for="" class="form-control-label mt-2">Rango de fechas</label>
+        <div class="row ml-1 d-flex justify-content-between">
+            <div class=" p-0 d-flex justify-content-center">
+                <button class="btn btn-sm btn-primary" (click)="dates(0)">Hoy</button>
+            </div>
+            <div class=" p-0 d-flex justify-content-center">
+                <button class="btn btn-sm btn-primary" (click)="dates(7)">Ultimos 7 días</button>
+            </div>
+            <div class=" p-0 d-flex justify-content-center">
+                <button class="btn btn-sm btn-primary" (click)="dates(30)">Últimos 30 días</button>
+            </div>
+            <div class=" p-0 d-flex justify-content-center">
+                <button class="btn btn-sm btn-primary" (click)="personalizado=personalizado==true?false:true">Personalizado</button>
+            </div>
         </div>
-        <div class="modal-body">
-            
-            <label for="" class="form-control-label">Rango de fechas</label>
-            <div class="row ml-1 d-flex justify-content-between">
-                <div class=" p-0 d-flex justify-content-center">
-                    <button class="btn btn-sm btn-primary" (click)="dates(0)">Hoy</button>
-                </div>
-                <div class=" p-0 d-flex justify-content-center">
-                    <button class="btn btn-sm btn-primary" (click)="dates(7)">Ultimos 7 días</button>
-                </div>
-                <div class=" p-0 d-flex justify-content-center">
-                    <button class="btn btn-sm btn-primary" (click)="dates(30)">Últimos 30 días</button>
-                </div>
-                <div class=" p-0 d-flex justify-content-center">
-                    <button class="btn btn-sm btn-primary" (click)="personalizado=personalizado==true?false:true">Personalizado</button>
+        <div class="row mt-3" *ngIf="personalizado">
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="" class="form-control-label">Fecha Inicio</label>
+                    <input type="date" class="form-control form-control-sm" [(ngModel)]="dateStar"   >
                 </div>
             </div>
-            <div class="row mt-3" *ngIf="personalizado">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label for="" class="form-control-label">Fecha Inicio</label>
-                        <input type="date" class="form-control form-control-sm" [(ngModel)]="dateStar"   >
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label for="" class="form-control-label">Fecha Fin</label>
-                        <input type="date" class="form-control form-control-sm" [(ngModel)]="dateEnd"  >
-                    </div>
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="" class="form-control-label">Fecha Fin</label>
+                    <input type="date" class="form-control form-control-sm" [(ngModel)]="dateEnd"  >
                 </div>
             </div>
-            <div class="row mt-3 d-flex justify-content-end">
-                <div class="col-4 mr-0 d-flex justify-content-end p-0">
-                    <button class="btn btn-sm btn-secondary active" (click)="eliminar();notificationModal.hide();">Borrar filtros</button>
-                </div>
-                <div class="col-3">
-                    <button class="btn btn-sm btn-primary" (click)="filters();notificationModal.hide();">Filtrar</button>
-                </div>
-            </div>
-            
-            
         </div>
-    </ng-template>
+        <div class="row ml-1 mt-3">
+            <div class="from-group w-100">
+                <label class="form-control-label">Número Proveedor</label>
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="nroProveedor"
+                    placeholder="Número Proveedor" aria-controls="datatable" 
+                    (keyup)="filters()"/>
+            </div>
+        </div>
+        <div class="row mt-3 d-flex justify-content-end">
+            <div class="col-4 mr-0 d-flex justify-content-end p-0">
+                <button class="btn btn-sm btn-secondary active" (click)="eliminar();notificationModal.hide();">Borrar filtros</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-sm btn-primary" (click)="filters();notificationModal.hide();">Filtrar</button>
+            </div>
+        </div>
+        
+        
+    </div>
+</ng-template>
 
     
     

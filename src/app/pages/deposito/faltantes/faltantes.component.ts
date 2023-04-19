@@ -44,11 +44,12 @@ export class FaltantesComponent implements OnInit {
   dataExcel: any = [];
   nroPedido:string = "";
   nroCliente:string = "";
+  nroProveedor:string = "";
   dateStart:any;
   dateEnd:any;
   lista_estados: any = [];
   lista_estadosFiltros: any = [];
-  listaCaracteristica1: any = [];
+  listaCaracteristica1: any = []; 
   listaCaracteristica2: any = [];
   listaCaracteristica3: any = [];
   caracteristica1Select = "";
@@ -195,6 +196,7 @@ export class FaltantesComponent implements OnInit {
   filters(){
     
     const npedido = this.nroPedido;
+    const nproveedor = this.nroProveedor;
     const caracteristica1 = this.caracteristica1Select;
     const caracteristica2 = this.caracteristica2Select;
     const caracteristica3 = this.caracteristica3Select;
@@ -207,6 +209,13 @@ export class FaltantesComponent implements OnInit {
       id: [npedido, d => {
         let nroI = d['numero_interno'].toLowerCase();
         if(nroI.includes(npedido.toLocaleLowerCase()) ){
+          return true;
+        } 
+      }],
+      codigo_proveedor: [nproveedor, d => {
+        let nroP = d['codigo_proveedor'];
+        nroP = nroP!=null?nroP.toLowerCase():"";
+        if(nroP.includes(nproveedor.toLocaleLowerCase()) ){
           return true;
         } 
       }],
