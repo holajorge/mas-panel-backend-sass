@@ -37,7 +37,7 @@
                                     (keyup)="filters()"/>
                             </div>
                         </div>
-                        <div class="col-md-2" >
+                        <div class="col-md-2" *ngIf="textCaract1" >
                             <div class="from-group">
                                 <label class="form-control-label" for="">{{caracteristica1}}:</label>
                                 <ng-select  (change)="filters()" [(ngModel)]="caracteristica1Select" 
@@ -45,7 +45,7 @@
                                 </ng-select>
                             </div>
                         </div>
-                        <div class="col-md-2" >
+                        <div class="col-md-2" *ngIf="textCaract2" >
                             <div class="from-group">
                                 <label class="form-control-label" for="">{{caracteristica2}}:</label>
                                 <ng-select  (change)="filters()" [(ngModel)]="caracteristica2Select" 
@@ -53,7 +53,7 @@
                                 </ng-select>
                             </div>
                         </div>
-                        <div class="col-md-2" >
+                        <div class="col-md-2" *ngIf="textCaract3" >
                             <div class="from-group">
                                 <label class="form-control-label" for="">{{caracteristica3}}:</label>
                                 <ng-select  (change)="filters()" [(ngModel)]="caracteristica3Select" 
@@ -88,9 +88,9 @@
                                         </div>
                                         <div class="media h-100 d-flex flex-column">
                                             <span class="d-block" ><strong>Titulo: </strong>{{producto.titulo}}</span>
-                                            <span class="d-block"><strong>{{caracteristica1}}: </strong>{{producto.caracteristica1}}</span>
-                                            <span class="d-block"><strong>{{caracteristica2}}: </strong>{{producto.caracteristica2}}</span>
-                                            <span class="d-block"><strong>{{caracteristica3}}: </strong>{{producto.caracteristica3}}</span>
+                                            <span *ngIf="textCaract1" class="d-block"><strong>{{caracteristica1}}: </strong>{{producto.caracteristica1}}</span>
+                                            <span *ngIf="textCaract2" class="d-block"><strong>{{caracteristica2}}: </strong>{{producto.caracteristica2}}</span>
+                                            <span *ngIf="textCaract3" class="d-block"><strong>{{caracteristica3}}: </strong>{{producto.caracteristica3}}</span>
                                             <span class="d-block"><strong>Proveedor: </strong>{{producto.nombre_proveedor}} ({{producto.numero_proveedor}})</span>
                                             <span class="d-block"><strong>Cantidad: </strong>{{producto.cantidad_pedida-producto.cantidad_enviada}}</span>
                                             <span class="d-block"><strong>Pedido #: </strong>{{producto.numero_interno}}</span>
