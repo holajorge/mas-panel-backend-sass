@@ -170,6 +170,8 @@ export class ProductoComponent implements OnInit {
       largo:['',null],
       alto:['',null],
       ancho:['',null],
+      nombre_proveedor:['',null],
+      codigo_proveedor:['',null],
       
     });
 
@@ -220,6 +222,8 @@ export class ProductoComponent implements OnInit {
       alto:row.alto,
       largo:row.largo,
       ancho:row.ancho,
+      nombre_proveedor:row.nombre_proveedor,
+      codigo_proveedor:row.codigo_proveedor,
     });
     this.btnvisibility = false;  
     this.btnvisibilityIn = true;  
@@ -725,6 +729,8 @@ export class ProductoComponent implements OnInit {
     formData.append('largo',this.editForm.get('largo').value);
     formData.append('alto',this.editForm.get('alto').value);
     formData.append('ancho',this.editForm.get('ancho').value);
+    formData.append('nombre_proveedor',this.editForm.get('nombre_proveedor').value);
+    formData.append('codigo_proveedor',this.editForm.get('codigo_proveedor').value);
     Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{ 
 
@@ -841,6 +847,8 @@ export class ProductoComponent implements OnInit {
     formData.append('largo',this.editForm.get('largo').value);
     formData.append('alto',this.editForm.get('alto').value);
     formData.append('ancho',this.editForm.get('ancho').value);
+    formData.append('nombre_proveedor',this.editForm.get('nombre_proveedor').value);
+    formData.append('codigo_proveedor',this.editForm.get('codigo_proveedor').value);
 
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{  

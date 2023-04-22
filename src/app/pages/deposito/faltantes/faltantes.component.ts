@@ -69,6 +69,9 @@ export class FaltantesComponent implements OnInit {
   caracteristica1 = '';
   caracteristica2 = '';
   caracteristica3 = '';
+  textCaract1 = false;
+  textCaract2 = false;
+  textCaract3 = false;
   dataFilter:any= [];
   page = 1;
   isDisabled = true;
@@ -95,7 +98,7 @@ export class FaltantesComponent implements OnInit {
     this.getCaracteristica2();
     this.getCaracteristica3();
     this.getProductosFaltantes();
-    
+    this.mostrarCaracteristicas();
 
     
 
@@ -421,5 +424,11 @@ export class FaltantesComponent implements OnInit {
       Swal.close();
       console.log(err);
     });
+  }
+
+  mostrarCaracteristicas(){
+    this.textCaract1 = (this.configuraciones.caracteristica1 && this.configuraciones.caracteristica1.value && this.configuraciones.caracteristica1.value != "") ? this.configuraciones.caracteristica1.value : false;
+    this.textCaract2 = (this.configuraciones.caracteristica2 && this.configuraciones.caracteristica2.value && this.configuraciones.caracteristica2.value != "") ? this.configuraciones.caracteristica2.value : false;
+    this.textCaract3 = (this.configuraciones.caracteristica3 && this.configuraciones.caracteristica3.value && this.configuraciones.caracteristica3.value != "") ? this.configuraciones.caracteristica3.value : false;
   }
 }
