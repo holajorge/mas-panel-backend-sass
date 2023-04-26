@@ -838,7 +838,7 @@ export class ClienteComponent implements OnInit {
     this.clienteService.getTokenLogin(this.empresa.id,cliente["nrocliente"]).then( (res:any) =>{    
       Swal.close();
       if(res.flag){
-        navigator.clipboard.writeText("https://"+this.dominio+"/#/login?token="+res.flag["usuario"]+"&"+res.flag["clave"])
+        navigator.clipboard.writeText("https://"+this.dominio+"/#/login?token="+res.flag["usuario"])
         .then(() => {
           Swal.fire('Token copiado exitosamente!',res.msg, 'success');
         })
