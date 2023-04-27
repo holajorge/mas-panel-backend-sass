@@ -106,6 +106,8 @@
                                         <span class="fas fa-user-slash m-1"></span> Deshabilitar </button>
                                     <button mat-menu-item *ngIf="producto.activo == 0" (click)='onActiveClient(producto)' >
                                         <span class="fas fa-user-tie m-1"></span> Habilitar </button>
+                                    <button mat-menu-item (click)='getTokenLogin(producto)'>
+                                            <span class="fas fa-link m-1"></span> Link de Autologin </button>
 
                                 </mat-menu>
                             </div>
@@ -152,6 +154,10 @@
                                                 <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light" *ngIf="producto.activo == 0"
                                                     (click)='onActiveClient(producto)' title="Habilitar">Habilitar
                                                     <span class="fas fa-user-tie"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="d-block text-info h5 font-weight-light"
+                                                    (click)='getTokenLogin(producto)' title="Deshabilitar">Link de Autologin
+                                                    <span class="fas fa-link"></span>
                                                 </a>
                                                 <div class="d-none"></div>
                                             </div>

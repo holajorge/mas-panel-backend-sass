@@ -49,6 +49,8 @@ export class ClienteComponent implements OnInit {
   mailCliente:any = '';
   activoCliente:boolean = false;
 
+  dominio:any = '';
+
   //sucursales
   dataSucursal:any = [];
   tempDataSucursal:any = [];
@@ -81,7 +83,8 @@ export class ClienteComponent implements OnInit {
     public translate: TranslateService,
     private modalService: BsModalService,
     public preciosService:PreciosService,
-    private formBuilder: FormBuilder, public onboardingService:WalkthroughService
+    private formBuilder: FormBuilder, public onboardingService:WalkthroughService,
+    private configService: ConfigService
   ) {
       this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');
@@ -120,7 +123,8 @@ export class ClienteComponent implements OnInit {
       id:['']
     });
 
-    this.getDistinctListPrice()
+    this.getDistinctListPrice();
+    this.getConfig();
 
   }
   validarNroCliente(tipo){
@@ -817,5 +821,35 @@ export class ClienteComponent implements OnInit {
 
       }
     );
+  }
+
+  getConfig(){
+    this.configService.getConfigEmpresa(this.empresa).then( (res:any) =>{    
+      if(res.response.body['configuraciones'] != ""){
+        this.dominio = JSON.parse(res.response.body['configuraciones']).dominio;
+      }
+      
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  getTokenLogin(cliente){
+    this.clienteService.getTokenLogin(this.empresa.id,cliente["nrocliente"]).then( (res:any) =>{    
+      Swal.close();
+      if(res.flag){
+        navigator.clipboard.writeText("https://"+this.dominio+"/#/login?token="+res.flag["usuario"])
+        .then(() => {
+          Swal.fire('Token copiado exitosamente!',res.msg, 'success');
+        })
+        .catch((error) => {
+          Swal.fire('Error, intente de nuevo!', 'error')
+        });
+      }else{
+        Swal.fire('Error, intente de nuevo!', 'error')
+      }
+    }).catch(err=>{
+      console.log(err);
+    });
   }
 }
