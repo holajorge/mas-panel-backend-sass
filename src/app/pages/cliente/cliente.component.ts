@@ -840,7 +840,7 @@ export class ClienteComponent implements OnInit {
       if(res.flag){
         navigator.clipboard.writeText("https://"+this.dominio+"/#/login?token="+res.flag["usuario"])
         .then(() => {
-          Swal.fire('Token copiado exitosamente!',res.msg, 'success');
+          Swal.fire('Token copiado exitosamente!',"https://"+this.dominio+"/#/login?token="+res.flag["usuario"], 'success');
         })
         .catch((error) => {
           Swal.fire('Error, intente de nuevo!', 'error')
