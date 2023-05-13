@@ -59,7 +59,7 @@ export class VendedorComponent implements OnInit {
   btnvisibility: boolean = true;  
   notification = {
     keyboard: true,
-    class: "modal-dialog-centered modal-sm static", 
+    class: "modal-dialog-centered modal-xl static", 
   };
   modalPedidos = {
     keyboard: true,
@@ -109,6 +109,7 @@ export class VendedorComponent implements OnInit {
       usuario: [''],
       telefono: ['', Validators.required],
       clave: ['', Validators.required],
+      gerencia: [''],
     });
   }
   getVendedor(){
@@ -173,6 +174,7 @@ export class VendedorComponent implements OnInit {
       telefono:row.telefono, 
       nrovendedor: row.vendedor,
       clave: row.clave,
+      gerencia: row.gerencia,
     });
     this.btnvisibility = false;  
 
@@ -190,7 +192,7 @@ export class VendedorComponent implements OnInit {
       if(data == true){
         Swal.fire('','Datos del vendedor actualizado con éxito!', 'success')
         // this.addForm.reset();    
-        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'', nrovendedor:'', telefono:'',clave:''});        
+        this.newFormVendedor.patchValue({empresa_id: '',nombre:'', email:'', nrovendedor:'', telefono:'',clave:'',gerencia:''});        
 
         this.notificationModal.hide();
         this.getVendedor();
@@ -268,7 +270,7 @@ export class VendedorComponent implements OnInit {
       if(data == true){
         Swal.fire('','Datos del nuevo vendedor creado con éxito!', 'success');
 
-        this.newFormVendedor.patchValue({nombre:null, email:null, nrovendedor:null,telefono:null,clave:null,usuario:null});        
+        this.newFormVendedor.patchValue({nombre:null, email:null, nrovendedor:null,telefono:null,clave:null,usuario:null, gerencia:null});        
         
 
         this.getVendedor();
@@ -290,17 +292,20 @@ export class VendedorComponent implements OnInit {
 
   }
   asociarCliente(modalAsociar, row){
-
     this.clientes = [];
     Swal.showLoading();
-    this.empresa.vendedor = row.id;
+    this.empresa.vendedor = row.vendedor;
     this.notificationModal = this.modalService.show(modalAsociar,this.notification);
     this.getCliente();
   }
   getCliente(){
     this.descuentoCateService.getClienteAsociado(this.empresa).then( (res:any) =>{    
       Swal.close();
+      res.response['clientes'].forEach(element => {
+        element.cliente = element.nombre + " ( "+element.nrocliente+" )";
+      });
       this.clientes = res.response['clientes'];
+      
       this.tempRowCliente = res.response['clientes'];
      
     }).catch(err=>{
@@ -316,15 +321,8 @@ export class VendedorComponent implements OnInit {
     const val = event.target.value.toLowerCase();
     
     if(val !== ''){
-      // filter our data
       let temRow = this.clientes.filter(function (d) {
-        for (var key in d) {
-          let hola = (d[key] != null) ? d[key].toLowerCase() : '';
-          if ( hola.indexOf(val) !== -1) {
-            return true;
-          }
-        }
-        return false;
+        return d["cliente"].toLowerCase().includes(val);
       });
       this.clientes = temRow;
     }else{
@@ -374,7 +372,6 @@ export class VendedorComponent implements OnInit {
       })
   }
   asociar(row){
-
     let datos = {
       empresa_id: this.empresa.id,
       vendedor:this.empresa.vendedor,

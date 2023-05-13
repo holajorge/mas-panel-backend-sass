@@ -137,21 +137,16 @@
                 [limit]="entriesCliente != -1 ? entries : undefined" [rows]="clientes"  [scrollbarH]="true"
                 (activate)="onActivateCliente($event)">
 
-                <ngx-datatable-column name="nombre" [width]="200">
+                <ngx-datatable-column name="cliente" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'vendedores.asociar.nombre' | translate}}</span>
+                        <span> cliente</span>
                     </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="nrocliente" [width]="100">
+                <ngx-datatable-column name="vendedor" [width]="200">
                     <ng-template let-column="column" ngx-datatable-header-template>
-                        <span>{{ 'vendedores.asociar.nrocliente' | translate}}</span>
+                        <span>{{ 'vendedores.asociar.vendedor' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
-                    <ngx-datatable-column name="vendedor" [width]="200">
-                        <ng-template let-column="column" ngx-datatable-header-template>
-                            <span>{{ 'vendedores.asociar.vendedor' | translate}}</span>
-                        </ng-template>
-                    </ngx-datatable-column>
                 <ngx-datatable-column name="Acción" [width]="250">
                     <ng-template let-column="column" ngx-datatable-header-template>
                         <span>{{ 'vendedores.tabla.acciones' | translate}}</span>
@@ -252,14 +247,14 @@
         <form [formGroup]="newFormVendedor" novalidate >
             
             <div class="form-row">
-                <div class="form-group col col-md-6">
+                <div class="form-group col col-md-4">
                     <label class="form-control-label" for="nombre">{{  'vendedores.newForm.nombre' | translate}}  </label>
                     <input type="text" formControlName="nombre" placeholder="{{ 'vendedores.newForm.nombre' | translate}}" name="nombre" class="form-control" id="nombre">
                     <div class="alert  alert-danger" *ngIf="newFormVendedor.get('nombre').hasError('required') && newFormVendedor.get('nombre').touched">  
                         {{  'vendedores.newForm.nombre' | translate}}  es obrigatório
                     </div>  
                 </div>      
-                <div class="form-group col col-md-6">
+                <div class="form-group col col-md-4">
                     <label class="form-control-label" for="nroVendedor">{{  'vendedores.newForm.nroVendedor' | translate}}  </label>
                     <input type="text" formControlName="nrovendedor" placeholder="{{ 'vendedores.newForm.nroVendedor' | translate}}" 
                         name="nroVendedor" class="form-control" id="nroVendedor">
@@ -267,7 +262,7 @@
                         {{  'vendedores.newForm.nroVendedor' | translate}}  es obrigatório
                     </div>  
                 </div>                           
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label class="form-control-label" for="telefono">{{  'vendedores.newForm.telefono' | translate}}</label>
                     <input type="text" formControlName="telefono" 
                         placeholder="+5492223334444" 
@@ -276,7 +271,7 @@
                         {{  'vendedores.newForm.telefono' | translate}} es obrigatório
                     </div>  
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-4">
                     <label class="form-control-label" for="email">{{ 'vendedores.newForm.email' | translate}}</label>
                     <input type="text" formControlName="email" placeholder="{{ 'vendedores.newForm.email' | translate}}" name="email" class="form-control" id="email">
                     <div class="alert alert-danger" *ngIf="newFormVendedor.get('email').hasError('required') && newFormVendedor.get('email').touched">  
@@ -290,7 +285,15 @@
                     <div class="alert  alert-danger" *ngIf="newFormVendedor.get('clave').hasError('required') && newFormVendedor.get('clave').touched">  
                         {{  'vendedores.newForm.nroVendedor' | translate}}  es obrigatório
                     </div>  
-                </div>                        
+                </div>
+                <div class="form-group col col-md-3 ml-4 mt-4">
+                    <div>
+                        <input class="form-check-input" type="checkbox" formControlName="gerencia">
+                        <label class="form-check-label" for="gerencia">
+                            Puede ver todos los clientes
+                        </label>
+                    </div>
+                </div>
             </div>
       </form>
     </div>
