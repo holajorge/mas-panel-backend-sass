@@ -32,12 +32,12 @@
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3">
-                                <button class="btn btn-sm btn-primary" (click)="addFiltro()">Agregar</button>
+                                <button class="btn btn-sm btn-primary" (click)="addFiltro()">Buscar</button>
                             </div>
                         </div>
                         <div class="row mr-auto justify-content-end">
                             <div class="col-12 d-flex flex-row flex-wrap justify-content-end">
-                                <div *ngFor="let Permiso of     "class="ml-2">
+                                <div *ngFor="let Permiso of listaFiltros"class="ml-2">
                                     <div class="chip">
                                         {{Permiso}}
                                         <span class="closebtn" (click)="eliminarFiltro(Permiso)">&times;</span>

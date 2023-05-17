@@ -9,6 +9,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { ConfigService } from 'src/app/service/config/config.service';
 import { WalkthroughService } from '../../service/walkthrough/walkthrough.service';
 import { PreciosService } from 'src/app/service/precios/precios.service';
+import { VendedorService } from 'src/app/service/vendedor/vendedor.service';
 
 @Component({
   selector: 'app-cliente',
@@ -41,6 +42,8 @@ export class ClienteComponent implements OnInit {
   activeRowDet: any;
   cliente_id:any = {id:''};
   price_lists:any = [];
+  vendedores:any = [];
+  lista_vendedores:any = [];
 
   cont: any = 0;
   //filter
@@ -84,7 +87,8 @@ export class ClienteComponent implements OnInit {
     private modalService: BsModalService,
     public preciosService:PreciosService,
     private formBuilder: FormBuilder, public onboardingService:WalkthroughService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private vendedorService: VendedorService,
   ) {
       this.translate.use('es');
       this.empresa.id = localStorage.getItem('usuario');
@@ -112,7 +116,9 @@ export class ClienteComponent implements OnInit {
       nroclientLast:[''] ,
       send:[''],
       pago: [''],
-      info_general: ['']
+      info_general: [''],
+      activo:[''],
+      vendedor_id:[''],
     });
     this.editFormSucursal = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -124,6 +130,7 @@ export class ClienteComponent implements OnInit {
     });
 
     this.getDistinctListPrice();
+    this.getVendedores();
     this.getConfig();
 
   }
@@ -367,6 +374,8 @@ export class ClienteComponent implements OnInit {
       localidad:row.localidad,
       direccion:row.direccion,
       info_general: row.info_general,
+      vendedor_id:row.vendedor_id,
+      activo:row.activo==1,
       lista: row.lista,
       nroclientLast: row.nrocliente,
       pago: row.forma_pago
@@ -400,7 +409,7 @@ export class ClienteComponent implements OnInit {
     this.flagPago = false;
     this.ver_agregar_pago = false;
 
-  }
+  } 
   updateCliente(){
     Swal.showLoading();
     this.clienteService.postCliente(this.editForm.value).then( (res:any) =>{
@@ -426,7 +435,6 @@ export class ClienteComponent implements OnInit {
 
     this.editForm.controls['empresa_id'].setValue(this.empresa);
     Swal.showLoading();
-
     this.clienteService.postInsertCliente(this.editForm.value).subscribe( 
       (res) =>{
         if(res.flag == true){
@@ -851,5 +859,17 @@ export class ClienteComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+  }
+
+  getVendedores(){
+    this.vendedorService.getVendedores(this.empresa).then( (res:any) =>{
+      this.vendedores =res.vendedores ;
+      res.vendedores.forEach(element => {
+        this.lista_vendedores.push(element.nombre+" ("+element.vendedor+")");
+      });
+    }).catch(err=>{
+      console.log(err);
+    });
+    
   }
 }

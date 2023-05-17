@@ -337,191 +337,321 @@
 </ng-template>
 
 
-
 <ng-template #modalEdit >
-    <div class="modal-header">    
-        <h5 *ngIf="!flagNew" class="modal-title" >{{ 'cliente.formClient.edit' | translate}}</h5>
-        <h5 *ngIf="flagNew" class="modal-title" >{{ 'cliente.formClient.new' | translate}}</h5>
-        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
-            <span aria-hidden="true"> × </span>
-        </button>
-    </div>    
-    <div class="modal-body pt-0">
-        <form [formGroup]="editForm" novalidate>
-            <div class="row">                
-                <div class="col-md-4">                    
-                    <div class="form-group">
-                        <label for="nrocliente" class="form-control-label">{{ 'cliente.tabla.nrocliente' | translate}}:</label>
-                        <input type="text" formControlName="nrocliente" placeholder="Nro cliente" 
-                             name="nrocliente" class="form-control" id="nrocliente">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('nrocliente').hasError('required') && editForm.get('nrocliente').touched">
-                            {{ 'cliente.tabla.nrocliente' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nombre" class="form-control-label">{{ 'cliente.tabla.nombre' | translate}}:</label>
-                        <input type="text" formControlName="nombre" placeholder="Nombre" name="nombre" class="form-control" id="nombre">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('nombre').hasError('required') && editForm.get('nombre').touched">
-                            {{ 'cliente.tabla.nombre' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="usuario">{{ 'cliente.tabla.usuario' | translate}}:</label>
-                        <input type="text" formControlName="usuario" 
-                            
-                            placeholder="Usuario" name="usuario" class="form-control" id="usuario">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('usuario').hasError('required') && editForm.get('usuario').touched">
-                            {{ 'cliente.tabla.usuario' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>                
-                
-            </div>
-            <div class="row">            
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="clave">{{ 'cliente.tabla.clave' | translate}}:</label>
-                        <input type="text" formControlName="clave" placeholder="Clave" name="clave" class="form-control" id="clave">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('clave').hasError('required') && editForm.get('clave').touched">
-                            {{ 'cliente.tabla.clave' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>  
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="email">{{ 'cliente.tabla.email' | translate}}:</label>
-                        <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
-                        <!-- <div class="alert  alert-danger" *ngIf="editForm.get('email').hasError('required') && editForm.get('email').touched">
-                            {{ 'cliente.tabla.email' | translate}} es requerido
-                        </div>   -->
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="descuento_general">{{ 'cliente.tabla.decuento' | translate}}:</label>
-                        <input type="text" formControlName="descuento_general" placeholder="{{ 'cliente.tabla.decuento' | translate}}" name="descuento_general" class="form-control" id="descuento_general">
-                       
-                    </div>
-                </div>
-            </div>    
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="cuit">{{ 'cliente.tabla.cuit' | translate}}:</label>
-                        <input type="text" formControlName="cuit" placeholder="{{ 'cliente.tabla.cuit' | translate}}" name="cuit" class="form-control" id="cuit">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('cuit').hasError('required') && editForm.get('cuit').touched">
-                            {{ 'cliente.tabla.cuit' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="telefono">{{ 'cliente.tabla.telefono' | translate}}:</label>
-                        <input type="text" formControlName="telefono" placeholder="{{ 'cliente.tabla.telefono' | translate}}" name="telefono" class="form-control" id="telefono">
-                        <div class="alert  alert-danger" *ngIf="editForm.get('telefono').hasError('required') && editForm.get('telefono').touched">
-                            {{ 'cliente.tabla.telefono' | translate}} es requerido
-                        </div>  
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="encargado_compras">{{ 'cliente.tabla.encargado' | translate}}:</label>
-                        <input type="text" formControlName="encargado_compras" placeholder="{{ 'cliente.tabla.encargado' | translate}}" name="encargado_compras" class="form-control" id="encargado_compras">                        
-                    </div>
-                </div>                
-            </div> 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="encargado_pagos">{{ 'cliente.tabla.pagos' | translate}}:</label>
-                        <input type="text" formControlName="encargado_pagos" placeholder="{{ 'cliente.tabla.pagos' | translate}}" name="encargado_pagos" class="form-control" id="encargado_pagos">                        
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="provincia">{{ 'cliente.tabla.provincia' | translate}}:</label>
-                        <input type="text" formControlName="provincia" placeholder="{{ 'cliente.tabla.provincia' | translate}}" name="provincia" class="form-control" id="provincia">
-                       
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-control-label" for="localidad">{{ 'cliente.tabla.localidad' | translate}}:</label>
-                        <input type="text" formControlName="localidad" placeholder="{{ 'cliente.tabla.localidad' | translate}}" name="localidad" class="form-control" id="localidad">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 col-xs-12">
-                    <div class="form-group">
-                        <label class="form-control-label" for="direccion">{{ 'cliente.tabla.direccion' | translate}}:</label>
-                        <input type="text" formControlName="direccion" placeholder="{{ 'cliente.tabla.direccion' | translate}}" name="direccion" class="form-control" id="direccion">
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-6">
-                    <label class="form-control-label" for="lista">{{ 'cliente.tabla.price_list' | translate}}:</label>
-                  <ng-select
-                          formControlName="lista"
-                          [items]="price_lists"
-                          [placeholder]="'Seleccione una lista de precios'"
-                          [multiple]="false" name="lista" id="lista">
-                  </ng-select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 col-xs-12">
-                    <div class="form-group">
-                        <label class="form-control-label" for="info_general">{{ 'cliente.tabla.general_info' | translate}}:</label>
-                        <input type="text" formControlName="info_general" placeholder="{{ 'cliente.tabla.general_info' | translate}}" name="info_general" class="form-control" id="info_general">
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="flagSendEmail" class="row">
-                <div class="col-md-4 col-xs-12 mt-2">
-                    <div class="form-group">
-                        <label class="form-control-label d-inline-block label-chek-invitacion" for="send">Enviar invitacion:</label>
-                        <input type="checkbox" formControlName="send" name="send" class="form-control d-inline-block  check-invitacion" id="send">
-                    </div>
-                </div>
-                
-            </div>
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="form-group">
-                        <label class="form-control-label" for="caracteristica1">Forma de pago:</label> 
-                        
-                        <ng-select *ngIf="!flagPago" formControlName="pago"
-                            [items]="arrayPagos" 
-                            bindLabel="nombre">
-                        </ng-select>
-                        <input *ngIf="flagPago"  type="text" formControlName="pago" placeholder="Forma de pago" class="form-control" id="pago">
-                        <button *ngIf="!ver_agregar_pago" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewPago()"> 
-                            <span class="fas fa-plus"></span> Agregar nueva
-                        </button>
-                        
-                        <button *ngIf="ver_agregar_pago" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewPago()"> 
-                            <span class="fas fa-times"></span> Cancelar
-                        </button>
+    <form [formGroup]="editForm" novalidate >
+        <div class="modal-header">    
+            <h5 *ngIf="!flagNew" class="modal-title" >{{ 'cliente.formClient.edit' | translate}}</h5>
+            <h5 *ngIf="flagNew" class="modal-title" >{{ 'cliente.formClient.new' | translate}}</h5>
+            <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="notificationModal.hide()">
+                <span aria-hidden="true"> × </span>
+            </button>
+        </div>
+        <div class="modal-body pt-0">
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Datos de Contacto</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5">                    
+                                    <div class="form-group">
+                                        <label for="nrocliente" class="form-control-label">{{ 'cliente.tabla.nrocliente' | translate}}:</label>
+                                        <input type="text" formControlName="nrocliente" placeholder="Nro cliente" 
+                                             name="nrocliente" class="form-control" id="nrocliente">
+                                        <div class="alert  alert-danger" *ngIf="editForm.get('nrocliente').hasError('required') && editForm.get('nrocliente').touched">
+                                            {{ 'cliente.tabla.nrocliente' | translate}} es requerido
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label for="nombre" class="form-control-label">{{ 'cliente.tabla.nombre' | translate}}:</label>
+                                        <input type="text" formControlName="nombre" placeholder="Nombre" name="nombre" class="form-control" id="nombre">
+                                        <div class="alert  alert-danger" *ngIf="editForm.get('nombre').hasError('required') && editForm.get('nombre').touched">
+                                            {{ 'cliente.tabla.nombre' | translate}} es requerido
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="email">{{ 'cliente.tabla.email' | translate}}:</label>
+                                        <input type="text" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="telefono">{{ 'cliente.tabla.telefono' | translate}}:</label>
+                                        <input type="text" formControlName="telefono" placeholder="{{ 'cliente.tabla.telefono' | translate}}" name="telefono" class="form-control" id="telefono">
+                                        <div class="alert  alert-danger" *ngIf="editForm.get('telefono').hasError('required') && editForm.get('telefono').touched">
+                                            {{ 'cliente.tabla.telefono' | translate}} es requerido
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="cuit">{{ 'cliente.tabla.cuit' | translate}}:</label>
+                                        <input type="text" formControlName="cuit" placeholder="{{ 'cliente.tabla.cuit' | translate}}" name="cuit" class="form-control" id="cuit">
+                                        <div class="alert  alert-danger" *ngIf="editForm.get('cuit').hasError('required') && editForm.get('cuit').touched">
+                                            {{ 'cliente.tabla.cuit' | translate}} es requerido
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Ubicación</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="provincia">{{ 'cliente.tabla.provincia' | translate}}:</label>
+                                        <input type="text" formControlName="provincia" placeholder="{{ 'cliente.tabla.provincia' | translate}}" name="provincia" class="form-control" id="provincia">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="localidad">{{ 'cliente.tabla.localidad' | translate}}:</label>
+                                        <input type="text" formControlName="localidad" placeholder="{{ 'cliente.tabla.localidad' | translate}}" name="localidad" class="form-control" id="localidad">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="direccion">{{ 'cliente.tabla.direccion' | translate}}:</label>
+                                        <input type="text" formControlName="direccion" placeholder="{{ 'cliente.tabla.direccion' | translate}}" name="direccion" class="form-control" id="direccion">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Forma de Pago</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="caracteristica1">Forma de pago:</label> 
+                                        
+                                        <ng-select *ngIf="!flagPago" formControlName="pago"
+                                            [items]="arrayPagos" 
+                                            bindLabel="nombre">
+                                        </ng-select>
+                                        <input *ngIf="flagPago"  type="text" formControlName="pago" placeholder="Forma de pago" class="form-control" id="pago">
+                                        <button *ngIf="!ver_agregar_pago" class="btn btn-sm btn-info mt-3" type="button" (click)="addNewPago()"> 
+                                            <span class="fas fa-plus"></span> Agregar nueva
+                                        </button>
+                                        
+                                        <button *ngIf="ver_agregar_pago" class="btn btn-sm btn-warning mt-3" type="button" (click)="addNewPago()"> 
+                                            <span class="fas fa-times"></span> Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        </form>
-    </div>
-    <div class=" modal-footer">
-        <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateCliente()">{{ 'cliente.tabla.actualizar' | translate}}</button>
-        <button *ngIf="onboardingService.on && !btnvisibilityIn" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertNewClient(); onboardingService.submit('completeData')" [bdcWalkTriggerFor]="completeData">{{ 'cliente.formClient.guardar' | translate}}</button>
-        <button *ngIf="!onboardingService.on && !btnvisibilityIn" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertNewClient()">{{ 'cliente.formClient.guardar' | translate}}</button>
-        <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
-    </div>
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Otros Datos</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="encargado_compras">{{ 'cliente.tabla.encargado' | translate}}:</label>
+                                        <input type="text" formControlName="encargado_compras" placeholder="{{ 'cliente.tabla.encargado' | translate}}" name="encargado_compras" class="form-control" id="encargado_compras">                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="encargado_pagos">{{ 'cliente.tabla.pagos' | translate}}:</label>
+                                        <input type="text" formControlName="encargado_pagos" placeholder="{{ 'cliente.tabla.pagos' | translate}}" name="encargado_pagos" class="form-control" id="encargado_pagos">                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="info_general">{{ 'cliente.tabla.general_info' | translate}}:</label>
+                                        <input type="text" formControlName="info_general" placeholder="{{ 'cliente.tabla.general_info' | translate}}" name="info_general" class="form-control" id="info_general">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Datos de Acceso</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="usuario">{{ 'cliente.tabla.usuario' | translate}}:</label>
+                                        <input type="text" formControlName="usuario" 
+                                            
+                                            placeholder="Usuario" name="usuario" class="form-control" id="usuario">
+                                        <div class="alert  alert-danger" *ngIf="editForm.get('usuario').hasError('required') && editForm.get('usuario').touched">
+                                            {{ 'cliente.tabla.usuario' | translate}} es requerido
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="clave">{{ 'cliente.tabla.clave' | translate}}:</label>
+                                        <input type="text" formControlName="clave" placeholder="Clave" name="clave" class="form-control" id="clave">
+                                        <div class="alert  alert-danger" *ngIf="editForm.get('clave').hasError('required') && editForm.get('clave').touched">
+                                            {{ 'cliente.tabla.clave' | translate}} es requerido
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Descuento</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="descuento_general">{{ 'cliente.tabla.decuento' | translate}}:</label>
+                                        <input type="text" formControlName="descuento_general" placeholder="{{ 'cliente.tabla.decuento' | translate}}" name="descuento_general" class="form-control" id="descuento_general">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Lista de Precios</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label class="form-control-label" for="lista">{{ 'cliente.tabla.price_list' | translate}}:</label>
+                                    <ng-select
+                                            formControlName="lista"
+                                            [items]="price_lists"
+                                            [placeholder]="'Seleccione una lista de precios'"
+                                            [multiple]="false" name="lista" id="lista">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Vendedor</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="lista">Vendedor:</label>
+                                    <ng-select
+                                            formControlName="vendedor_id"
+                                            [items]="lista_vendedores"
+                                            [placeholder]="'Seleccione el vendedor'"
+                                            [multiple]="false" name="vendedor_id" id="vendedor_id">
+                                    </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Enviar Invitación</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label d-inline-block label-chek-invitacion" for="send">Enviar invitacion:</label>
+                                        <input type="checkbox" formControlName="send" name="send" class="form-control d-inline-block  check-invitacion" id="send">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper bg-white">
+                <div class="card-wrapper bg-white">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label d-inline-block label-chek-invitacion" for="activo">Habilitado:</label>
+                                        <input type="checkbox" formControlName="activo" name="activo" class="form-control d-inline-block  check-invitacion" id="activo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class=" modal-footer">
+            <button class="btn btn-success" [disabled]='editForm.invalid' *ngIf="!btnvisibility" (click)="updateCliente()">{{ 'cliente.tabla.actualizar' | translate}}</button>
+            <button *ngIf="onboardingService.on && !btnvisibilityIn" [enabled]="onboardingService.on" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertNewClient(); onboardingService.submit('completeData')" [bdcWalkTriggerFor]="completeData">{{ 'cliente.formClient.guardar' | translate}}</button>
+            <button *ngIf="!onboardingService.on && !btnvisibilityIn" class="btn btn-success" [disabled]='editForm.invalid' (click)="insertNewClient()">{{ 'cliente.formClient.guardar' | translate}}</button>
+            <button class="btn bg-danger ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{ 'cliente.formClient.cancelar' | translate}}</button>
+        </div>
+    </form>
 </ng-template>
 
 <ng-template #modalSucursal >
