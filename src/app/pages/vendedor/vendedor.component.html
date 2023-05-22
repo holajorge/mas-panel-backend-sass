@@ -300,7 +300,6 @@
     <div class=" modal-footer">
         <button class="btn btn-success"  *ngIf="!btnvisibility" (click)="onUpdate()">Actualizar</button> 
         <button class="btn btn-success" [disabled]='newFormVendedor.invalid'  *ngIf="btnvisibility" (click)="onCreateVendedor()">{{ 'vendedores.newForm.guardar' | translate}}</button> 
-        <button class="btn bg-zeene ml-auto text-white" data-dismiss="modal" type="button" (click)="notificationModal.hide()"> <i class="fa fa-times-circle" ></i>{{  'vendedores.newForm.cancelar' | translate}}</button>
     </div>
 
 </ng-template>

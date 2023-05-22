@@ -174,7 +174,7 @@ export class VendedorComponent implements OnInit {
       telefono:row.telefono, 
       nrovendedor: row.vendedor,
       clave: row.clave,
-      gerencia: row.gerencia,
+      gerencia: row.gerencia==0?false:row.gerencia,
     });
     this.btnvisibility = false;  
 
@@ -357,7 +357,7 @@ export class VendedorComponent implements OnInit {
             
             if(res.response){
               Swal.fire('Listo!','Desasociado correctamente con éxito!', 'success')
-              this.notificationModal.hide();
+              this.getCliente();
             }else{
               Swal.fire('Error, intente nuevamente', 'error')
             }
