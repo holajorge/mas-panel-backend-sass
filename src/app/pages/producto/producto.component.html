@@ -252,98 +252,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="precio">{{ 'producto.formEdit.precio' | translate }}  ( * requerido ):</label>
-                                <input type="number" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
-                                <div class="alert  alert-danger" *ngIf="editForm.get('precio').hasError('required') && editForm.get('precio').touched">  
-                                    {{ 'producto.formEdit.precio' | translate }} es obrigatório
-                                </div>  
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="precio_oferta">{{ 'producto.formEdit.precioOferta' | translate }}:</label>
-                                <input type="text" formControlName="precio_oferta" placeholder="precio oferta" name="precio_oferta" class="form-control" id="precio_oferta">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="cantidad_minima">{{ 'producto.formEdit.cantidadMin' | translate }}:</label>
-                                <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="stock">{{ 'producto.formEdit.stock' | translate }}:</label>
-                                <input type="text" formControlName="stock" placeholder="stock" name="stock" class="form-control" id="stock">
-                                
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="stock_minimo">{{ 'producto.formEdit.stockMin' | translate }}:</label>
-                                <input type="text" formControlName="stock_minimo" placeholder="stock minimo" name="stock_minimo" class="form-control" id="stock_minimo">
-                            </div>
-                        </div> 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="multiplo">{{ 'producto.formEdit.multiplo' | translate }}:</label>
-                                <input type="text" formControlName="multiplo" placeholder="Múltiplo" name="multiplo" class="form-control" id="multiplo">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="ubicacion">Ubicación:</label>
-                                <input type="text" formControlName="ubicacion" placeholder="Ubicación" name="ubicacion" class="form-control" id="ubicacion">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="peso">Peso:</label>
-                                <input type="text" formControlName="peso" placeholder="Peso" name="peso" class="form-control" id="peso">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="alto">Alto:</label>
-                                <input type="text" formControlName="alto" placeholder="Alto" name="alto" class="form-control" id="alto">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="largo">Largo:</label>
-                                <input type="text" formControlName="largo" placeholder="Largo" name="largo" class="form-control" id="largo">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="ancho">Ancho:</label>
-                                <input type="text" formControlName="ancho" placeholder="Ancho" name="ancho" class="form-control" id="ancho">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="nombre_proveedor">Nombre Proveedor:</label>
-                                <input type="text" formControlName="nombre_proveedor" placeholder="Nombre del Proveedor" name="nombre_proveedor" class="form-control" id="nombre_proveedor">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="codigo_proveedor">Codigo Proveedor:</label>
-                                <input type="text" formControlName="codigo_proveedor" placeholder="Codigo del Proveedor" name="codigo_proveedor" class="form-control" id="codigo_proveedor">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         
                         <div class="col-md-12">
                             <div class="form-group">
@@ -357,7 +265,139 @@
                 </div>
             </div>
         </div>
-        
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Peso y Medidas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="peso">Peso:</label>
+                                <input type="text" formControlName="peso" placeholder="Peso" name="peso" class="form-control" id="peso">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="alto">Alto:</label>
+                                <input type="text" formControlName="alto" placeholder="Alto" name="alto" class="form-control" id="alto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="largo">Largo:</label>
+                                <input type="text" formControlName="largo" placeholder="Largo" name="largo" class="form-control" id="largo">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="ancho">Ancho:</label>
+                                <input type="text" formControlName="ancho" placeholder="Ancho" name="ancho" class="form-control" id="ancho">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Proveedores</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="nombre_proveedor">Nombre Proveedor:</label>
+                                <input type="text" formControlName="nombre_proveedor" placeholder="Nombre del Proveedor" name="nombre_proveedor" class="form-control" id="nombre_proveedor">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="codigo_proveedor">Codigo Proveedor:</label>
+                                <input type="text" formControlName="codigo_proveedor" placeholder="Codigo del Proveedor" name="codigo_proveedor" class="form-control" id="codigo_proveedor">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Precios</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="precio">{{ 'producto.formEdit.precio' | translate }}  ( * requerido ):</label>
+                                <input type="number" formControlName="precio" placeholder="precio" name="precio" class="form-control" id="precio">
+                                <div class="alert  alert-danger" *ngIf="editForm.get('precio').hasError('required') && editForm.get('precio').touched">  
+                                    {{ 'producto.formEdit.precio' | translate }} es obrigatório
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="precio_oferta">{{ 'producto.formEdit.precioOferta' | translate }}:</label>
+                                <input type="text" formControlName="precio_oferta" placeholder="precio oferta" name="precio_oferta" class="form-control" id="precio_oferta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Stock</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="stock">{{ 'producto.formEdit.stock' | translate }}:</label>
+                                <input type="text" formControlName="stock" placeholder="stock" name="stock" class="form-control" id="stock">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="stock_minimo">{{ 'producto.formEdit.stockMin' | translate }}:</label>
+                                <input type="text" formControlName="stock_minimo" placeholder="stock minimo" name="stock_minimo" class="form-control" id="stock_minimo">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-wrapper bg-white">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Forma de Pedir</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="cantidad_minima">{{ 'producto.formEdit.cantidadMin' | translate }}:</label>
+                                <input type="text" formControlName="cantidad_minima" placeholder="cantidad minima" name="cantidad_minima" class="form-control" id="cantidad_minima">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="multiplo">{{ 'producto.formEdit.multiplo' | translate }}:</label>
+                                <input type="text" formControlName="multiplo" placeholder="Múltiplo" name="multiplo" class="form-control" id="multiplo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card-wrapper bg-white">
             <div class="card">
                 <div class="card-header">
