@@ -343,8 +343,6 @@ export class ArmarComponent implements OnInit {
   cambiarEstado(row,estado){
     if(estado==2){
       row.cantidad = 0;
-    }else{
-      row.cantidad = row.cantidad_pedida;
     }
     row.estado = estado;
   }
