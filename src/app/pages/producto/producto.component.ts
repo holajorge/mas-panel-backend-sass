@@ -704,7 +704,7 @@ export class ProductoComponent implements OnInit {
     formData.append('caracteristica3',ca3);
     formData.append('caracteristica4',ca4);
     formData.append('codigo_producto',this.editForm.get('codigo_producto').value);
-    formData.append('descripcion',this.editForm.get('descripcion').value);
+    formData.append('descripcion',this.editForm.get('descripcion').value??'');
     formData.append('destacado',this.editForm.get('destacado').value);
     formData.append('unit',this.editForm.get('unit').value);
     formData.append('status',this.editForm.get('status').value);
@@ -724,13 +724,13 @@ export class ProductoComponent implements OnInit {
     formData.append('urlML',this.editForm.get('urlML').value);
 
 
-    formData.append('ubicacion',this.editForm.get('ubicacion').value);
-    formData.append('peso',this.editForm.get('peso').value);
-    formData.append('largo',this.editForm.get('largo').value);
-    formData.append('alto',this.editForm.get('alto').value);
-    formData.append('ancho',this.editForm.get('ancho').value);
-    formData.append('nombre_proveedor',this.editForm.get('nombre_proveedor').value);
-    formData.append('codigo_proveedor',this.editForm.get('codigo_proveedor').value);
+    formData.append('ubicacion',this.editForm.get('ubicacion').value??'');
+    formData.append('peso',this.editForm.get('peso').value??'');
+    formData.append('largo',this.editForm.get('largo').value??'');
+    formData.append('alto',this.editForm.get('alto').value??'');
+    formData.append('ancho',this.editForm.get('ancho').value??'');
+    formData.append('nombre_proveedor',this.editForm.get('nombre_proveedor').value??'');
+    formData.append('codigo_proveedor',this.editForm.get('codigo_proveedor').value??'');
     Swal.showLoading();
     this.productoService.updateProducto(formData).then( (res:any) =>{ 
 
@@ -823,7 +823,7 @@ export class ProductoComponent implements OnInit {
     formData.append('caracteristica3',ca3);
     formData.append('caracteristica4',ca4);
     formData.append('codigo_producto',this.editForm.get('codigo_producto').value);
-    formData.append('descripcion',this.editForm.get('descripcion').value);
+    formData.append('descripcion',this.editForm.get('descripcion').value??'');
     formData.append('destacado',this.editForm.get('destacado').value);
     formData.append('empresa_id',this.editForm.get('empresa_id').value);
     formData.append('fecha_sync',this.editForm.get('fecha_sync').value);
@@ -842,13 +842,13 @@ export class ProductoComponent implements OnInit {
     formData.append('multiplo',this.editForm.get('multiplo').value);
     formData.append('urlML',this.editForm.get('urlML').value);
 
-    formData.append('ubicacion',this.editForm.get('ubicacion').value);
-    formData.append('peso',this.editForm.get('peso').value);
-    formData.append('largo',this.editForm.get('largo').value);
-    formData.append('alto',this.editForm.get('alto').value);
-    formData.append('ancho',this.editForm.get('ancho').value);
-    formData.append('nombre_proveedor',this.editForm.get('nombre_proveedor').value);
-    formData.append('codigo_proveedor',this.editForm.get('codigo_proveedor').value);
+    formData.append('ubicacion',this.editForm.get('ubicacion').value??'');
+    formData.append('peso',this.editForm.get('peso').value??'');
+    formData.append('largo',this.editForm.get('largo').value??'');
+    formData.append('alto',this.editForm.get('alto').value??'');
+    formData.append('ancho',this.editForm.get('ancho').value??'');
+    formData.append('nombre_proveedor',this.editForm.get('nombre_proveedor').value??'');
+    formData.append('codigo_proveedor',this.editForm.get('codigo_proveedor').value??'');
 
     Swal.showLoading();
     this.productoService.createProducto(formData).then( (res:any) =>{  
