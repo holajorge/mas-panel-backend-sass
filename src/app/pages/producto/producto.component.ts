@@ -698,7 +698,7 @@ export class ProductoComponent implements OnInit {
     ca3 = this.validateStringCaract(caract3);
     ca4 = this.validateStringCaract(caract4);
     
-    formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
+    formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value??'');
     formData.append('caracteristica1',ca1);
     formData.append('caracteristica2',ca2);
     formData.append('caracteristica3',ca3);
@@ -706,21 +706,21 @@ export class ProductoComponent implements OnInit {
     formData.append('codigo_producto',this.editForm.get('codigo_producto').value);
     formData.append('descripcion',this.editForm.get('descripcion').value??'');
     formData.append('destacado',this.editForm.get('destacado').value);
-    formData.append('unit',this.editForm.get('unit').value);
+    formData.append('unit',this.editForm.get('unit').value??'');
     formData.append('status',this.editForm.get('status').value);
     formData.append('empresa_id',this.editForm.get('empresa_id').value);
     formData.append('fecha_sync',this.editForm.get('fecha_sync').value);
     formData.append('id',this.editForm.get('id').value);
     // formData.append('logoo',this.editForm.get('logoo').value);
     formData.append('precio',this.editForm.get('precio').value);
-    formData.append('precio_oferta',this.editForm.get('precio_oferta').value);
+    formData.append('precio_oferta',this.editForm.get('precio_oferta').value??'');
     formData.append('solapa1',this.editForm.get('solapa1').value);
     formData.append('solapa2',this.editForm.get('solapa2').value);
-    formData.append('stock',this.editForm.get('stock').value);
-    formData.append('stock_minimo',this.editForm.get('stock_minimo').value);
+    formData.append('stock',this.editForm.get('stock').value??'');
+    formData.append('stock_minimo',this.editForm.get('stock_minimo').value??'');
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
-    formData.append('multiplo',this.editForm.get('multiplo').value);
+    formData.append('multiplo',this.editForm.get('multiplo').value??'');
     formData.append('urlML',this.editForm.get('urlML').value);
 
 
@@ -817,7 +817,7 @@ export class ProductoComponent implements OnInit {
     ca3 = this.validateStringCaract(caract3);
     ca4 = this.validateStringCaract(caract4);
    
-    formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value);
+    formData.append('cantidad_minima',this.editForm.get('cantidad_minima').value??'');
     formData.append('caracteristica1',ca1);
     formData.append('caracteristica2',ca2);
     formData.append('caracteristica3',ca3);
@@ -829,17 +829,17 @@ export class ProductoComponent implements OnInit {
     formData.append('fecha_sync',this.editForm.get('fecha_sync').value);
     // formData.append('id',this.editForm.get('id').value);
     // formData.append('logoo',this.editForm.get('logoo').value);
-    formData.append('unit',this.editForm.get('unit').value);
+    formData.append('unit',this.editForm.get('unit').value??'');
     formData.append('status',status);
-    formData.append('precio',this.editForm.get('precio').value);
-    formData.append('precio_oferta',this.editForm.get('precio_oferta').value);
+    formData.append('precio',this.editForm.get('precio').value??'');
+    formData.append('precio_oferta',this.editForm.get('precio_oferta').value??'');
     formData.append('solapa1',this.editForm.get('solapa1').value);
     formData.append('solapa2',this.editForm.get('solapa2').value);
-    formData.append('stock',this.editForm.get('stock').value);
-    formData.append('stock_minimo',this.editForm.get('stock_minimo').value);
+    formData.append('stock',this.editForm.get('stock').value??'');
+    formData.append('stock_minimo',this.editForm.get('stock_minimo').value??'');
     formData.append('sync',this.editForm.get('sync').value);
     formData.append('titulo',this.editForm.get('titulo').value);
-    formData.append('multiplo',this.editForm.get('multiplo').value);
+    formData.append('multiplo',this.editForm.get('multiplo').value??'');
     formData.append('urlML',this.editForm.get('urlML').value);
 
     formData.append('ubicacion',this.editForm.get('ubicacion').value??'');
