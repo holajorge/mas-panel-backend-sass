@@ -133,7 +133,7 @@ export class UsuariosComponent implements OnInit {
   getUsuarios(){
     Swal.showLoading();
     let data = {id:this.empresa};
-    this.usuarioService.getUsuarios().then( (res:any) =>{       
+    this.usuarioService.getUsuarios(data).then( (res:any) =>{       
         Swal.close();
         this.listaUsuarios = res.data.usuarios;
         this.temp = this.listaUsuarios;

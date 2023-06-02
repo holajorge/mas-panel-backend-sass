@@ -33,11 +33,11 @@ export class UsuariosService {
     return this._http.post(ConfigService.API_ENDPOINT()+'/Backend/crearUsuario', usuario, {headers: header});
   }
 
-  getUsuarios(){
+  getUsuarios(data){
     let headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
     let options = { headers: headers };
 
-    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getUsuarios",options).toPromise().then((res) =>{
+    return this._http.post(ConfigService.API_ENDPOINT()+"Backend/getUsuarios",data, options).toPromise().then((res) =>{
       return { success: true, data:res};
     })
     .catch( (err) =>{
