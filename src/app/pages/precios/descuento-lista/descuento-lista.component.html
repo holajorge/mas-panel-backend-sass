@@ -112,7 +112,13 @@
                                         <span class="d-block"><strong>Código de producto:</strong> {{desc.codigo_producto}}</span>
                                         <span class="d-block" *ngIf="desc.nrocliente != '0'"><strong>Nro Cliente:</strong> {{desc.nrocliente}}</span>
                                         <span class="d-block" *ngIf="desc.nrocliente == '0'"><strong>Nro Cliente:</strong> TODOS</span>
-                                        <span class="d-block"><strong>Descuento:</strong> {{desc.porcentaje}}</span>
+                                        <span class="d-block"><strong>Descuento:</strong>
+                                             <!-- {{desc.rangos|json}} -->
+                                             <div *ngFor="let rango of desc.rangos">
+                                                Desde <strong>{{rango.mayor}}</strong> hasta <strong>{{rango.menor}}</strong> tiene un descuento de <strong>{{rango.descuento}}%</strong>
+                                             </div>
+                                            
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-3">
