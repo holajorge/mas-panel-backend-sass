@@ -133,8 +133,21 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-8 text-right mb-3"></div>
                     </div>
-                    <ng-container *ngFor="let banner of temp ">
-                        <div class="col-12 py-3 card item-box">
+                    <div class="dataTables_wrapper py-4 "  *ngIf="temp.length==0">  
+                        <div class="row">
+                            <div class="col-2" ></div>
+                            <div class="col-8" >
+                                <div class="text-center cabecera">
+                                    <h1 > Aquí aparecerán tus banners</h1>
+                                    <img src="assets/img/2808165.jpg" width="100%">  
+                                </div>     
+                            </div>
+                        </div>        
+                    </div>
+
+
+                    <ng-container  *ngFor="let banner of temp" >
+                        <div class="col-12 py-3 card item-box" *ngIf="!temp.length==0">
                             <div class="row d-flex flex-md-row">
                                 <div class="col-12 "><h2 class="card-title text-right">
                                 <!-- opciones mobile -->
@@ -193,7 +206,7 @@
                             </div>
                         </div> 
                     </ng-container>
-                    <div class="table-responsive">
+                    <div  class="table-responsive" *ngIf="temp.length!=0">
                         <ngb-pagination [(page)]="page" [maxSize]="7" [rotate]="true"  (pageChange)="refreshDatos()"
                         [pageSize]="pageSize" [collectionSize]="collectionSize"></ngb-pagination>
                     </div>
